@@ -14,7 +14,7 @@ public class City {
     private String cityName;
     private int population;
     private String cityType;
-//    private CompanyDir companyDir;
+    private CompanyDirectory companyDir;
 //    private CommunityDir communityDir;
 
     public String getCityType() {
@@ -25,7 +25,14 @@ public class City {
         this.cityType = cityType;
     }
     
-    
+   
+    public CompanyDirectory getCompanyDir() {
+        return companyDir;
+    }
+
+    public void setCompanyDir(CompanyDirectory companyDir) {
+        this.companyDir = companyDir;
+    }
 
 //    public CompanyDir getCompanyDir() {
 //        return companyDir;
@@ -34,14 +41,7 @@ public class City {
 //    public void setCompanyDir(CompanyDir companyDir) {
 //        this.companyDir = companyDir;
 //    }
-//
-//    public CommunityDir getCommunityDir() {
-//        return communityDir;
-//    }
-//
-//    public void setCommunityDir(CommunityDir communityDir) {
-//        this.communityDir = communityDir;
-//    }
+
 //
 //    public int getCityID() {
 //        return cityID;

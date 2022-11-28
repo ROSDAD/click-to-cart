@@ -3,9 +3,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package model;
-
 import java.util.ArrayList;
 import java.util.List;
+
+
+/**
+ *
+ * @author hrish
+ */  
+
 
 /**
  * Class to hold the directory of communities.

@@ -11,18 +11,10 @@ package model;
  */
 public class Promotion {
     
-    private int promotionID;
     private String promotionName;
     private int promotionType; //Flat off = 0 ; % off = 1
     private float discountValue;
 
-    public int getPromotionID() {
-        return promotionID;
-    }
-
-    public void setPromotionID(int promotionID) {
-        this.promotionID = promotionID;
-    }
 
     public String getPromotionName() {
         return promotionName;

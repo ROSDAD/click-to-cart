@@ -11,11 +11,18 @@ package model;
  */
 public class Inventory {
     
-    private int inventoryID;
     private String inventoryCategory;
+    private String inventoryType; //critical, general    
     private InventoryProductDir inventoryProductDir;
 
+    public String getInventoryType() {
+        return inventoryType;
+    }
 
+    public void setInventoryType(String inventoryType) {
+        this.inventoryType = inventoryType;
+    }
+    
     public void setInventoryCategory(String inventoryCategory) {
         this.inventoryCategory = inventoryCategory;
     }
@@ -28,13 +35,13 @@ public class Inventory {
         this.inventoryProductDir = inventoryProductDir;
     }
 
-    public int getInventoryID() {
-        return inventoryID;
-    }
-
-    public void setInventoryID(int inventoryID) {
-        this.inventoryID = inventoryID;
-    }
+//    public int getInventoryID() {
+//        return inventoryID;
+//    }
+//
+//    public void setInventoryID(int inventoryID) {
+//        this.inventoryID = inventoryID;
+//    }
 
     public String getinventoryCategory() {
         return inventoryCategory;

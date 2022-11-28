@@ -23,21 +23,21 @@ public class InventoryMgt {
         return inventoryMgt;
     }
 
-    public void setCityDir(ArrayList<Inventory> inventoryMgt) {
+    public void setInventoryMgt(ArrayList<Inventory> inventoryMgt) {
         this.inventoryMgt = inventoryMgt;
     }
     
-    public Inventory addNewCity() {
+    public Inventory addNewInventory() {
         Inventory h = new Inventory();
         inventoryMgt.add(h);
         return h;
     }
     
-    public void deleteCity(Inventory c) {
+    public void deleteInventory(Inventory c) {
         inventoryMgt.remove(c);
     }
     
-    public void updateCity(Inventory c, Inventory u) {
+    public void updateInventory(Inventory c, Inventory u) {
         
         for(int i=0;i<inventoryMgt.size();i++) {
             

@@ -3,7 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package ui;
-
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+import model.*;
 /**
  *
  * @author rosha
@@ -27,7 +29,7 @@ public class ItemListPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        itemListTable = new javax.swing.JTable();
         quantityTxt = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         pNameLabel = new javax.swing.JLabel();
@@ -35,7 +37,7 @@ public class ItemListPanel extends javax.swing.JPanel {
         itemSeacrhBox = new javax.swing.JTextField();
         searchBtn = new javax.swing.JButton();
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        itemListTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -43,18 +45,18 @@ public class ItemListPanel extends javax.swing.JPanel {
                 {null, null, null, null}
             },
             new String [] {
-                "pid", "Name", "Price", "Available"
+                "Pid", "Name", "Price", "Available"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, true, true
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(itemListTable);
 
         jButton1.setText("View");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -98,8 +100,8 @@ public class ItemListPanel extends javax.swing.JPanel {
                                 .addComponent(searchBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(pNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(101, 101, 101)
+                                    .addComponent(pNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(86, 86, 86)
                                     .addComponent(quantityTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 695, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(122, 122, 122))))
@@ -136,13 +138,47 @@ public class ItemListPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable itemListTable;
     private javax.swing.JTextField itemSeacrhBox;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel pNameLabel;
     private javax.swing.JTextField quantityTxt;
     private javax.swing.JButton searchBtn;
     // End of variables declaration//GEN-END:variables
+    private void displayItemList() {
+        DefaultTableModel model = (DefaultTableModel) itemListTable.getModel();
+        model.setRowCount(0);
+        ArrayList<RootModel> mainM = history.getHistory();
+               
+              
+        for (int i =0;i<mainM.get(j).getHospitalArray().size();i++){
+          if(mainM.get(j).getHospitalArray().get(i).getHospitalName() != null){
+            Object[] row = new Object[3];
+            row[0] = mainM;
+
+            row[0] = mainM.get(j).getHospitalArray().get(i).getHospitalName();
+            row[1] = mainM.get(j).getHospitalArray().get(i).getHospitalAddress();
+            row[2] = mainM.get(j).getHospitalArray().get(i).getHospitalContact();
+            
+//            row[2] = MainM.getEmployeeID();
+//            row[3] = MainM.getAge();
+//            row[4] = emp.getGender();
+//            row[5] = emp.getStart_date();
+//            row[6] = emp.getLevel();
+//            row[7] = emp.getTeam_Info();
+//            row[8] = emp.getPosition_title();
+//            row[9] = emp.getCell_phone_number();
+//            row[10] = emp.getEmail_address();
+//            row[11] = emp.getPhoto();
+
+            model.addRow(row);
+           
+            }
+        }
+        
+
+    }
+
 }

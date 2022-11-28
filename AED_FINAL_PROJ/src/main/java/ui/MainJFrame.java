@@ -7,6 +7,12 @@ package ui;
 
 import javax.swing.JFrame;
 import java.sql.*; 
+import model.City;
+import model.CityDir;
+import model.Company;
+import model.CompanyDirectory;
+import model.Inventory;
+import model.InventoryMgt;
 
 /**
  *
@@ -16,15 +22,38 @@ public class MainJFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form MainJFrame
+     * 
      */
+    
+    private CityDir cityDir;
+    private CompanyDirectory companyDir;
+    private InventoryMgt inventoryManagement;
+    
     public MainJFrame() {
-        initComponents();
+        initComponents();                
         
-        setExtendedState(JFrame.MAXIMIZED_BOTH);    
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
         
+        cityDir = new CityDir();
+        inventoryManagement = new InventoryMgt();
+        companyDir = new CompanyDirectory();
         
+        Inventory inv = inventoryManagement.addNewInventory();
+        inv.setInventoryCategory("Default");
+        inv.setInventoryType("Critical");
         
+        Company company = companyDir.addNewCompany();
+        company.setCompanyName("Costco");
+        company.setCompanyType("Type 1");
+        company.setInventoryManagement(inventoryManagement);
         
+        //Default City
+        City city = cityDir.addNewCity();
+        
+        city.setCityName("Boston");
+        city.setCityType("Urban");
+        city.setPopulation(25000);
+        city.setCompanyDir(companyDir);
     }
 
     /**
@@ -36,7 +65,7 @@ public class MainJFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jSplitPane1 = new javax.swing.JSplitPane();
+        splitPane = new javax.swing.JSplitPane();
         controlPanel = new javax.swing.JPanel();
         btnLogin = new javax.swing.JButton();
         btnCustomerRegister = new javax.swing.JButton();
@@ -44,7 +73,8 @@ public class MainJFrame extends javax.swing.JFrame {
         lblTitle = new javax.swing.JLabel();
         lblDetails = new javax.swing.JLabel();
         lblDetails2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        cityAdminTest = new javax.swing.JButton();
+        invAdminTest = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1290, 750));
@@ -88,7 +118,7 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addContainerGap(449, Short.MAX_VALUE))
         );
 
-        jSplitPane1.setLeftComponent(controlPanel);
+        splitPane.setLeftComponent(controlPanel);
 
         workArea.setBackground(new java.awt.Color(255, 255, 255));
         workArea.setMinimumSize(new java.awt.Dimension(200, 200));
@@ -103,10 +133,17 @@ public class MainJFrame extends javax.swing.JFrame {
         lblDetails2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lblDetails2.setText("NU ID: 002707307");
 
-        jButton1.setText("Customer Login");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        cityAdminTest.setText("City Admin Test");
+        cityAdminTest.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                cityAdminTestActionPerformed(evt);
+            }
+        });
+
+        invAdminTest.setText("Inv Admin Test");
+        invAdminTest.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                invAdminTestActionPerformed(evt);
             }
         });
 
@@ -123,8 +160,10 @@ public class MainJFrame extends javax.swing.JFrame {
                             .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblDetails2)))
                     .addGroup(workAreaLayout.createSequentialGroup()
-                        .addGap(112, 112, 112)
-                        .addComponent(jButton1)))
+                        .addGap(121, 121, 121)
+                        .addGroup(workAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(invAdminTest)
+                            .addComponent(cityAdminTest))))
                 .addContainerGap(628, Short.MAX_VALUE))
         );
         workAreaLayout.setVerticalGroup(
@@ -136,22 +175,24 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addComponent(lblDetails)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblDetails2)
-                .addGap(173, 173, 173)
-                .addComponent(jButton1)
-                .addContainerGap(312, Short.MAX_VALUE))
+                .addGap(147, 147, 147)
+                .addComponent(cityAdminTest)
+                .addGap(18, 18, 18)
+                .addComponent(invAdminTest)
+                .addContainerGap(298, Short.MAX_VALUE))
         );
 
-        jSplitPane1.setRightComponent(workArea);
+        splitPane.setRightComponent(workArea);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSplitPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1213, Short.MAX_VALUE)
+            .addComponent(splitPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1213, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSplitPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 672, Short.MAX_VALUE)
+            .addComponent(splitPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 672, Short.MAX_VALUE)
         );
 
         pack();
@@ -171,10 +212,23 @@ public class MainJFrame extends javax.swing.JFrame {
 //        splitPane.setRightComponent(p);
     }//GEN-LAST:event_btnCustomerRegisterActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-                // TODO add your handling code here:
-                
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void cityAdminTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cityAdminTestActionPerformed
+        // TODO add your handling code here:
+        
+        CityAdminPanel c = new CityAdminPanel(cityDir,splitPane);
+        splitPane.setRightComponent(c);        
+    }//GEN-LAST:event_cityAdminTestActionPerformed
+
+    private void invAdminTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_invAdminTestActionPerformed
+        // TODO add your handling code here:
+        
+        String cityName = new String("Boston");
+        String companyName = new String("Costco");
+        
+        InventoryAdminPanel i = new InventoryAdminPanel(cityName, companyName, cityDir,splitPane);
+        splitPane.setRightComponent(i);        
+        
+    }//GEN-LAST:event_invAdminTestActionPerformed
 
     /**
      * @param args the command line arguments
@@ -237,12 +291,13 @@ public class MainJFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCustomerRegister;
     private javax.swing.JButton btnLogin;
+    private javax.swing.JButton cityAdminTest;
     private javax.swing.JPanel controlPanel;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JSplitPane jSplitPane1;
+    private javax.swing.JButton invAdminTest;
     private javax.swing.JLabel lblDetails;
     private javax.swing.JLabel lblDetails2;
     private javax.swing.JLabel lblTitle;
+    private javax.swing.JSplitPane splitPane;
     private javax.swing.JPanel workArea;
     // End of variables declaration//GEN-END:variables
 }

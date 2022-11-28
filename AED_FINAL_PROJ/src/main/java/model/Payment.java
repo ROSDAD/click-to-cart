@@ -11,17 +11,8 @@ package model;
  */
 public class Payment {
     
-    private int paymentID;
     private String paymentType;
     private float paymentLimit; //Cannot exceed this limit when using a particular type
-
-    public int getPaymentID() {
-        return paymentID;
-    }
-
-    public void setPaymentID(int paymentID) {
-        this.paymentID = paymentID;
-    }
 
     public String getPaymentType() {
         return paymentType;

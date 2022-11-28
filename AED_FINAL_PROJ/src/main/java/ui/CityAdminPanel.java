@@ -5,6 +5,7 @@
  */
 package ui;
 
+import java.util.ArrayList;
 import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
 import javax.swing.JSplitPane;
@@ -16,7 +17,7 @@ import model.CityDir;
  *
  * @author hrish
  */
-public class CityAdmin extends javax.swing.JPanel {
+public class CityAdminPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form CityAdmin
@@ -29,8 +30,11 @@ public class CityAdmin extends javax.swing.JPanel {
     private String cityType;
     
     
-    public CityAdmin() {
+    public CityAdminPanel(CityDir cityDir, JSplitPane splitPane) {
         initComponents();
+        
+        this.cityDir = cityDir;
+        this.splitPane = splitPane;
         
         ButtonGroup g1 = new ButtonGroup();
         
@@ -216,6 +220,7 @@ public class CityAdmin extends javax.swing.JPanel {
         
         cityName = txtCityName.getText();
         population = Integer.parseInt(txtPopulation.getText());
+
         
         if(!cityName.matches("[a-zA-Z]+")) {
             JOptionPane.showMessageDialog(this, "Name should have only alphabets.");
@@ -230,24 +235,107 @@ public class CityAdmin extends javax.swing.JPanel {
         //Radio buttons
 
         if(radioUrban.isSelected() == true) {
-            cityType = "Urban Community";
+            cityType = "Urban";
         }
         else if(radioRural.isSelected() == true){
-            cityType = "Rural Community";
+            cityType = "Rural";
         }
         else {
             JOptionPane.showMessageDialog(this, "Please select a city type.");
         }
         
         
+        City c = cityDir.addNewCity();
+        
+        c.setCityName(cityName);
+        c.setPopulation(population);
+        c.setCityType(cityType);
+        
+        JOptionPane.showMessageDialog(this, "City created!");
+        
+        populateCitiesTable();
+        
     }//GEN-LAST:event_btnCreateCityActionPerformed
 
     private void updateCityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateCityActionPerformed
         // TODO add your handling code here:
+        
+        cityName = txtCityName.getText();
+        population = Integer.parseInt(txtPopulation.getText());
+        
+        if(!cityName.matches("[a-zA-Z]+")) {
+            JOptionPane.showMessageDialog(this, "Name should have only alphabets.");
+            return;
+        }
+        
+        if(cityName.length() == 0) {
+            JOptionPane.showMessageDialog(this, "All fields are mandatory.");
+            return;
+        }
+        
+        //Radio buttons
+
+        if(radioUrban.isSelected() == true) {
+            cityType = "Urban";
+        }
+        else if(radioRural.isSelected() == true){
+            cityType = "Rural";
+        }
+        else {
+            JOptionPane.showMessageDialog(this, "Please select a city type.");
+        }
+        
+        int selectedRowIndex = tblCities.getSelectedRow();
+
+        if (selectedRowIndex < 0 ) {
+
+            JOptionPane.showMessageDialog(this, "Please select a city.");
+            return;
+        }
+        
+        DefaultTableModel model = (DefaultTableModel) tblCities.getModel();
+        String selectedCity = (String) model.getValueAt(selectedRowIndex, 0);
+        
+        ArrayList<City> cDir = cityDir.getCityDir();
+        
+        for(City c: cDir) {
+            if(c.getCityName().equalsIgnoreCase(selectedCity)) {                
+                c.setCityName(cityName);
+                c.setCityType(cityType);
+                c.setPopulation(population);                                        
+            }
+        }
+        
+        JOptionPane.showMessageDialog(this, "City updated!");
+        
+        populateCitiesTable();                
     }//GEN-LAST:event_updateCityActionPerformed
 
     private void btnDeleteCityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteCityActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:        
+        int selectedRowIndexCity = tblCities.getSelectedRow();
+
+        if (selectedRowIndexCity < 0 ) {
+
+            JOptionPane.showMessageDialog(this, "Please select a city.");
+            return;
+        }
+
+        DefaultTableModel model;
+        model = (DefaultTableModel) tblCities.getModel();
+        String cityName = (String) model.getValueAt(selectedRowIndexCity, 0);
+
+        ArrayList<City> cDir = cityDir.getCityDir();
+
+        for(City c: cDir) {
+            if(c.getCityName().equalsIgnoreCase(cityName)) {
+                
+                cityDir.deleteCity(c);
+                populateCitiesTable();
+                JOptionPane.showMessageDialog(this, "City Deleted!");
+                break;
+            }
+        }
     }//GEN-LAST:event_btnDeleteCityActionPerformed
 
 

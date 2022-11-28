@@ -11,18 +11,10 @@ package model;
  */
 public class InventoryProduct {
     
-    private String productID;
     private String productName;
     private float price;
     private int inventoryQty;
 
-    public String getProductID() {
-        return productID;
-    }
-
-    public void setProductID(String productID) {
-        this.productID = productID;
-    }
 
     public String getProductName() {
         return productName;
@@ -47,8 +39,4 @@ public class InventoryProduct {
     public void setInventoryQty(int inventoryQty) {
         this.inventoryQty = inventoryQty;
     }
-    
-    
-            
-    
 }

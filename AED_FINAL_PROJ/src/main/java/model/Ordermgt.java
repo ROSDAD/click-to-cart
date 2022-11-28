@@ -9,5 +9,16 @@ package model;
  * @author rosha
  */
 public class Ordermgt {
+    private Orders orders;
+    private Cart cart;
+    
+    
+    public Orders getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Orders orders) {
+        this.orders = orders;
+    }
     
 }

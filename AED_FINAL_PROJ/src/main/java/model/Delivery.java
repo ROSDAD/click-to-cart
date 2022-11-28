@@ -10,8 +10,7 @@ package model;
  * @author hrish
  */
 public class Delivery {
-    
-    private int deliveryID;
+       
     private int orderStatus; // 0:OrderPlaced; 1:Processing; 2:OutForDelivery; 3:Delivered; 4:Cancelled
     
     

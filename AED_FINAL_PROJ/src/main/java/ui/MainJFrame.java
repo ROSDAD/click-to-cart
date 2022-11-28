@@ -6,38 +6,54 @@
 package ui;
 
 import javax.swing.JFrame;
-import model.Community;
+import java.sql.*; 
+import model.City;
+import model.CityDir;
+import model.Company;
 import model.CompanyDirectory;
-import model.CustomerDirectory;
-import model.UserAuthentication;
-import model.UserAuthenticationDirectory;
+import model.Inventory;
+import model.InventoryMgt;
 
 /**
  *
  * @author hrish
  */
 public class MainJFrame extends javax.swing.JFrame {
-    
-    private CustomerDirectory customerDirectory;
-    private CompanyDirectory companyDirectory;
-    private UserAuthenticationDirectory userauthenticationdirectory;
-    private Community community;
 
     /**
      * Creates new form MainJFrame
+     * 
      */
+    
+    private CityDir cityDir;
+    private CompanyDirectory companyDir;
+    private InventoryMgt inventoryManagement;
+    
     public MainJFrame() {
-        initComponents();
-        setExtendedState(JFrame.MAXIMIZED_BOTH);    
-        customerDirectory = new CustomerDirectory();
-        companyDirectory = new CompanyDirectory();
-        userauthenticationdirectory = new UserAuthenticationDirectory();
-        community = new Community();
-        //System admin creds
-        UserAuthentication userauthentication = userauthenticationdirectory.addNewUserAuthentication();
-        userauthentication.setUserName("admin");
-        userauthentication.setPassword("admin123");
-        userauthentication.setUserType("SystemAdmin");
+        initComponents();                
+        
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        
+        cityDir = new CityDir();
+        inventoryManagement = new InventoryMgt();
+        companyDir = new CompanyDirectory();
+        
+        Inventory inv = inventoryManagement.addNewInventory();
+        inv.setInventoryCategory("Default");
+        inv.setInventoryType("Critical");
+        
+        Company company = companyDir.addNewCompany();
+        company.setCompanyName("Costco");
+        company.setCompanyType("Type 1");
+        company.setInventoryManagement(inventoryManagement);
+        
+        //Default City
+        City city = cityDir.addNewCity();
+        
+        city.setCityName("Boston");
+        city.setCityType("Urban");
+        city.setPopulation(25000);
+        city.setCompanyDirectory(companyDir);
     }
 
     /**
@@ -49,7 +65,7 @@ public class MainJFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jSplitPane1 = new javax.swing.JSplitPane();
+        splitPane = new javax.swing.JSplitPane();
         controlPanel = new javax.swing.JPanel();
         btnLogin = new javax.swing.JButton();
         btnCustomerRegister = new javax.swing.JButton();
@@ -57,6 +73,8 @@ public class MainJFrame extends javax.swing.JFrame {
         lblTitle = new javax.swing.JLabel();
         lblDetails = new javax.swing.JLabel();
         lblDetails2 = new javax.swing.JLabel();
+        cityAdminTest = new javax.swing.JButton();
+        invAdminTest = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1290, 750));
@@ -88,19 +106,19 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addGroup(controlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnCustomerRegister, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addContainerGap(9, Short.MAX_VALUE))
         );
         controlPanelLayout.setVerticalGroup(
             controlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(controlPanelLayout.createSequentialGroup()
                 .addGap(102, 102, 102)
                 .addComponent(btnLogin)
-                .addGap(136, 136, 136)
+                .addGap(61, 61, 61)
                 .addComponent(btnCustomerRegister)
-                .addContainerGap(390, Short.MAX_VALUE))
+                .addContainerGap(449, Short.MAX_VALUE))
         );
 
-        jSplitPane1.setLeftComponent(controlPanel);
+        splitPane.setLeftComponent(controlPanel);
 
         workArea.setBackground(new java.awt.Color(255, 255, 255));
         workArea.setMinimumSize(new java.awt.Dimension(200, 200));
@@ -115,17 +133,38 @@ public class MainJFrame extends javax.swing.JFrame {
         lblDetails2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lblDetails2.setText("NU ID: 002707307");
 
+        cityAdminTest.setText("City Admin Test");
+        cityAdminTest.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cityAdminTestActionPerformed(evt);
+            }
+        });
+
+        invAdminTest.setText("Inv Admin Test");
+        invAdminTest.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                invAdminTestActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout workAreaLayout = new javax.swing.GroupLayout(workArea);
         workArea.setLayout(workAreaLayout);
         workAreaLayout.setHorizontalGroup(
             workAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(workAreaLayout.createSequentialGroup()
-                .addGap(42, 42, 42)
                 .addGroup(workAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblDetails)
-                    .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblDetails2))
-                .addContainerGap(626, Short.MAX_VALUE))
+                    .addGroup(workAreaLayout.createSequentialGroup()
+                        .addGap(42, 42, 42)
+                        .addGroup(workAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblDetails)
+                            .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblDetails2)))
+                    .addGroup(workAreaLayout.createSequentialGroup()
+                        .addGap(121, 121, 121)
+                        .addGroup(workAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(invAdminTest)
+                            .addComponent(cityAdminTest))))
+                .addContainerGap(628, Short.MAX_VALUE))
         );
         workAreaLayout.setVerticalGroup(
             workAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -136,20 +175,24 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addComponent(lblDetails)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblDetails2)
-                .addContainerGap(505, Short.MAX_VALUE))
+                .addGap(147, 147, 147)
+                .addComponent(cityAdminTest)
+                .addGap(18, 18, 18)
+                .addComponent(invAdminTest)
+                .addContainerGap(298, Short.MAX_VALUE))
         );
 
-        jSplitPane1.setRightComponent(workArea);
+        splitPane.setRightComponent(workArea);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSplitPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1213, Short.MAX_VALUE)
+            .addComponent(splitPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1213, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSplitPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 672, Short.MAX_VALUE)
+            .addComponent(splitPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 672, Short.MAX_VALUE)
         );
 
         pack();
@@ -157,20 +200,61 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
-         LoginJPanel loginpanel = new LoginJPanel(community,customerDirectory,companyDirectory, userauthenticationdirectory, jSplitPane1);
-         jSplitPane1.setRightComponent(loginpanel);
+
+//            LoginPanel l = new LoginPanel(splitPane);
+//            splitPane.setRightComponent(l);
+        
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void btnCustomerRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerRegisterActionPerformed
         // TODO add your handling code here:
-        CustomerRegistrationJPanel mainCustomerJPanel = new CustomerRegistrationJPanel(community,customerDirectory,companyDirectory, userauthenticationdirectory, jSplitPane1);
-        jSplitPane1.setRightComponent(mainCustomerJPanel);
+//        PatientRegPanel p = new PatientRegPanel(cityDir, communityDir, hospitalDir , houseDir, userAuthDir);
+//        splitPane.setRightComponent(p);
     }//GEN-LAST:event_btnCustomerRegisterActionPerformed
+
+    private void cityAdminTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cityAdminTestActionPerformed
+        // TODO add your handling code here:
+        
+        CityAdminPanel c = new CityAdminPanel(cityDir,splitPane);
+        splitPane.setRightComponent(c);        
+    }//GEN-LAST:event_cityAdminTestActionPerformed
+
+    private void invAdminTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_invAdminTestActionPerformed
+        // TODO add your handling code here:
+        
+        String cityName = new String("Boston");
+        String companyName = new String("Costco");
+        
+        InventoryAdminPanel i = new InventoryAdminPanel(cityName, companyName, cityDir,splitPane);
+        splitPane.setRightComponent(i);        
+        
+    }//GEN-LAST:event_invAdminTestActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+
+
+
+        try{  
+        
+            System.out.println("Test 1");
+
+            Class.forName("com.mysql.jdbc.Driver");  
+            Connection con=DriverManager.getConnection(  
+            "jdbc:mysql://localhost:3306/aed_project","root","root");
+            //here sonoo is database name, root is username and password  
+            Statement stmt=con.createStatement();  
+            ResultSet rs=stmt.executeQuery("select * from Inventory_Product");  
+            while(rs.next())  
+            System.out.println(rs.getInt(1)+"  "+rs.getString(2)+"  "+rs.getString(3));
+            con.close();  
+        }
+        
+        catch(Exception e){ 
+            System.out.println(e);
+        } 
         
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -207,11 +291,13 @@ public class MainJFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCustomerRegister;
     private javax.swing.JButton btnLogin;
+    private javax.swing.JButton cityAdminTest;
     private javax.swing.JPanel controlPanel;
-    private javax.swing.JSplitPane jSplitPane1;
+    private javax.swing.JButton invAdminTest;
     private javax.swing.JLabel lblDetails;
     private javax.swing.JLabel lblDetails2;
     private javax.swing.JLabel lblTitle;
+    private javax.swing.JSplitPane splitPane;
     private javax.swing.JPanel workArea;
     // End of variables declaration//GEN-END:variables
 }

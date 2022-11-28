@@ -20,5 +20,13 @@ public class Ordermgt {
     public void setOrders(Orders orders) {
         this.orders = orders;
     }
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
+    }
     
 }

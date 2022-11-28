@@ -44,6 +44,7 @@ public class MainJFrame extends javax.swing.JFrame {
         lblTitle = new javax.swing.JLabel();
         lblDetails = new javax.swing.JLabel();
         lblDetails2 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1290, 750));
@@ -102,17 +103,29 @@ public class MainJFrame extends javax.swing.JFrame {
         lblDetails2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lblDetails2.setText("NU ID: 002707307");
 
+        jButton1.setText("Customer Login");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout workAreaLayout = new javax.swing.GroupLayout(workArea);
         workArea.setLayout(workAreaLayout);
         workAreaLayout.setHorizontalGroup(
             workAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(workAreaLayout.createSequentialGroup()
-                .addGap(42, 42, 42)
                 .addGroup(workAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblDetails)
-                    .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblDetails2))
-                .addContainerGap(626, Short.MAX_VALUE))
+                    .addGroup(workAreaLayout.createSequentialGroup()
+                        .addGap(42, 42, 42)
+                        .addGroup(workAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblDetails)
+                            .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblDetails2)))
+                    .addGroup(workAreaLayout.createSequentialGroup()
+                        .addGap(112, 112, 112)
+                        .addComponent(jButton1)))
+                .addContainerGap(628, Short.MAX_VALUE))
         );
         workAreaLayout.setVerticalGroup(
             workAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -123,7 +136,9 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addComponent(lblDetails)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblDetails2)
-                .addContainerGap(505, Short.MAX_VALUE))
+                .addGap(173, 173, 173)
+                .addComponent(jButton1)
+                .addContainerGap(312, Short.MAX_VALUE))
         );
 
         jSplitPane1.setRightComponent(workArea);
@@ -155,6 +170,11 @@ public class MainJFrame extends javax.swing.JFrame {
 //        PatientRegPanel p = new PatientRegPanel(cityDir, communityDir, hospitalDir , houseDir, userAuthDir);
 //        splitPane.setRightComponent(p);
     }//GEN-LAST:event_btnCustomerRegisterActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+                // TODO add your handling code here:
+                
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -218,6 +238,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnCustomerRegister;
     private javax.swing.JButton btnLogin;
     private javax.swing.JPanel controlPanel;
+    private javax.swing.JButton jButton1;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JLabel lblDetails;
     private javax.swing.JLabel lblDetails2;

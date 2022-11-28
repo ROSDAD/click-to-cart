@@ -9,9 +9,26 @@ package model;
  * @author rosha
  */
 public class Cart {
-    private String cityName;
-    private int population;
-    private String cityType;
+    
+    private Orderedprod cartProd;
+    private String totalPrice;
+    
 //    private CompanyDir companyDir;
 //    private CommunityDir communityDir;
+
+    public Orderedprod getCartProd() {
+        return cartProd;
+    }
+
+    public void setCartProd(Orderedprod cartProd) {
+        this.cartProd = cartProd;
+    }
+
+    public String getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(String totalPrice) {
+        this.totalPrice = totalPrice;
+    }
 }

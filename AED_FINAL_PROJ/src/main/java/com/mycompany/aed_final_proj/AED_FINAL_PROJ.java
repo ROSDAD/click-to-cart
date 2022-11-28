@@ -5,6 +5,8 @@
 
 package com.mycompany.aed_final_proj;
 
+import ui.*;
+
 /**
  *
  * @author rosha
@@ -12,6 +14,7 @@ package com.mycompany.aed_final_proj;
 public class AED_FINAL_PROJ {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        MainJFrame mainJFrame = new MainJFrame();
+        mainJFrame.setVisible(true);
     }
 }

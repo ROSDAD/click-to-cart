@@ -6,25 +6,38 @@
 package ui;
 
 import javax.swing.JFrame;
-import java.sql.*; 
+import model.Community;
+import model.CompanyDirectory;
+import model.CustomerDirectory;
+import model.UserAuthentication;
+import model.UserAuthenticationDirectory;
 
 /**
  *
  * @author hrish
  */
 public class MainJFrame extends javax.swing.JFrame {
+    
+    private CustomerDirectory customerDirectory;
+    private CompanyDirectory companyDirectory;
+    private UserAuthenticationDirectory userauthenticationdirectory;
+    private Community community;
 
     /**
      * Creates new form MainJFrame
      */
     public MainJFrame() {
         initComponents();
-        
         setExtendedState(JFrame.MAXIMIZED_BOTH);    
-        
-        
-        
-        
+        customerDirectory = new CustomerDirectory();
+        companyDirectory = new CompanyDirectory();
+        userauthenticationdirectory = new UserAuthenticationDirectory();
+        community = new Community();
+        //System admin creds
+        UserAuthentication userauthentication = userauthenticationdirectory.addNewUserAuthentication();
+        userauthentication.setUserName("admin");
+        userauthentication.setPassword("admin123");
+        userauthentication.setUserType("SystemAdmin");
     }
 
     /**
@@ -75,16 +88,16 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addGroup(controlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnCustomerRegister, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(9, Short.MAX_VALUE))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
         controlPanelLayout.setVerticalGroup(
             controlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(controlPanelLayout.createSequentialGroup()
                 .addGap(102, 102, 102)
                 .addComponent(btnLogin)
-                .addGap(61, 61, 61)
+                .addGap(136, 136, 136)
                 .addComponent(btnCustomerRegister)
-                .addContainerGap(449, Short.MAX_VALUE))
+                .addContainerGap(390, Short.MAX_VALUE))
         );
 
         jSplitPane1.setLeftComponent(controlPanel);
@@ -144,43 +157,20 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
-
-//            LoginPanel l = new LoginPanel(splitPane);
-//            splitPane.setRightComponent(l);
-        
+         LoginJPanel loginpanel = new LoginJPanel(community,customerDirectory,companyDirectory, userauthenticationdirectory, jSplitPane1);
+         jSplitPane1.setRightComponent(loginpanel);
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void btnCustomerRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerRegisterActionPerformed
         // TODO add your handling code here:
-//        PatientRegPanel p = new PatientRegPanel(cityDir, communityDir, hospitalDir , houseDir, userAuthDir);
-//        splitPane.setRightComponent(p);
+        CustomerRegistrationJPanel mainCustomerJPanel = new CustomerRegistrationJPanel(community,customerDirectory,companyDirectory, userauthenticationdirectory, jSplitPane1);
+        jSplitPane1.setRightComponent(mainCustomerJPanel);
     }//GEN-LAST:event_btnCustomerRegisterActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-
-
-
-        try{  
-        
-            System.out.println("Test 1");
-
-            Class.forName("com.mysql.jdbc.Driver");  
-            Connection con=DriverManager.getConnection(  
-            "jdbc:mysql://localhost:3306/aed_project","root","root");
-            //here sonoo is database name, root is username and password  
-            Statement stmt=con.createStatement();  
-            ResultSet rs=stmt.executeQuery("select * from Inventory_Product");  
-            while(rs.next())  
-            System.out.println(rs.getInt(1)+"  "+rs.getString(2)+"  "+rs.getString(3));
-            con.close();  
-        }
-        
-        catch(Exception e){ 
-            System.out.println(e);
-        } 
         
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

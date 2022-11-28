@@ -9,7 +9,7 @@ package model;
  *
  * @author Abhishek
  */
-public class DeliveryBoy extends Person {
+public class DeliveryBoy {
 
     private String deliveryBoyName;
     private String emergencyContactName;
@@ -20,7 +20,6 @@ public class DeliveryBoy extends Person {
     }
 
     public DeliveryBoy(String deliveryBoyName, String emergencyContactName, String qualificaton, int yearOfDeliveryExperience, String firstName, String lastName, String gender, int age, String emailAddress, String phoneNumber) {
-        super(firstName, lastName, gender, age, emailAddress, phoneNumber);
         this.deliveryBoyName = deliveryBoyName;
         this.emergencyContactName = emergencyContactName;
         this.qualificaton = qualificaton;

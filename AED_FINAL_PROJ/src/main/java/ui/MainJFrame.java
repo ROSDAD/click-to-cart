@@ -6,15 +6,21 @@
 package ui;
 
 import javax.swing.JFrame;
-import java.sql.*; 
+import java.sql.*;
+import javax.swing.JSplitPane;
 import model.City;
 import model.CityDir;
+import model.Community;
 import model.Company;
 import model.CompanyDirectory;
+import model.CustomerDirectory;
+import model.DeliveryBoyDirectory;
 import model.Inventory;
 import model.InventoryMgt;
 import model.InventoryProduct;
 import model.InventoryProductDir;
+import model.Ordermgt;
+import model.UserAuthenticationDirectory;
 
 /**
  *
@@ -22,24 +28,31 @@ import model.InventoryProductDir;
  */
 public class MainJFrame extends javax.swing.JFrame {
 
-    /**
-     * Creates new form MainJFrame
-     * 
-     */
-    
-    private CityDir cityDir;
+    private Community community;
+    private CustomerDirectory customerDirectory;
+    private UserAuthenticationDirectory userauthenticationdirectory;
+    private CityDir cityDirectory;
     private CompanyDirectory companyDir;
     private InventoryMgt inventoryManagement;
     private InventoryProductDir invProdDir;
+    private DeliveryBoyDirectory deliveryBoyDirectory;
+    private Ordermgt orderManagement;
     
     public MainJFrame() {
-        initComponents();                
-        
+        initComponents();
+
         setExtendedState(JFrame.MAXIMIZED_BOTH);
-        
-        cityDir = new CityDir();
-        inventoryManagement = new InventoryMgt();
+
+        community = new Community();
+        customerDirectory = new CustomerDirectory();
+        userauthenticationdirectory = new UserAuthenticationDirectory();
+        cityDirectory = new CityDir();
         companyDir = new CompanyDirectory();
+        inventoryManagement = new InventoryMgt();
+        deliveryBoyDirectory = new DeliveryBoyDirectory();
+        orderManagement = new Ordermgt();
+
+
         invProdDir = new InventoryProductDir();
         
         InventoryProduct invProd = invProdDir.addNewInventoryProduct();
@@ -56,14 +69,14 @@ public class MainJFrame extends javax.swing.JFrame {
         company.setCompanyName("Costco");
         company.setCompanyType("Type 1");
         company.setInventoryManagement(inventoryManagement);
-        
+
         //Default City
-        City city = cityDir.addNewCity();
-        
+        City city = cityDirectory.addNewCity();
+
         city.setCityName("Boston");
         city.setCityType("Urban");
         city.setPopulation(25000);
-        city.setCompanyDir(companyDir);
+        city.setCompanyDirectory(companyDir);
     }
 
     /**
@@ -79,6 +92,7 @@ public class MainJFrame extends javax.swing.JFrame {
         controlPanel = new javax.swing.JPanel();
         btnLogin = new javax.swing.JButton();
         btnCustomerRegister = new javax.swing.JButton();
+        deliveryBoyRegistrationJButton = new javax.swing.JButton();
         workArea = new javax.swing.JPanel();
         lblTitle = new javax.swing.JLabel();
         lblDetails = new javax.swing.JLabel();
@@ -107,6 +121,13 @@ public class MainJFrame extends javax.swing.JFrame {
             }
         });
 
+        deliveryBoyRegistrationJButton.setText("Delivery Boy Register");
+        deliveryBoyRegistrationJButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deliveryBoyRegistrationJButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout controlPanelLayout = new javax.swing.GroupLayout(controlPanel);
         controlPanel.setLayout(controlPanelLayout);
         controlPanelLayout.setHorizontalGroup(
@@ -115,8 +136,9 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addGap(28, 28, 28)
                 .addGroup(controlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnCustomerRegister, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(9, Short.MAX_VALUE))
+                    .addComponent(btnLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(deliveryBoyRegistrationJButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
         controlPanelLayout.setVerticalGroup(
             controlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -125,7 +147,9 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addComponent(btnLogin)
                 .addGap(61, 61, 61)
                 .addComponent(btnCustomerRegister)
-                .addContainerGap(449, Short.MAX_VALUE))
+                .addGap(58, 58, 58)
+                .addComponent(deliveryBoyRegistrationJButton)
+                .addContainerGap(385, Short.MAX_VALUE))
         );
 
         splitPane.setLeftComponent(controlPanel);
@@ -210,62 +234,63 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
+        LoginJPanel loginJPanel = new LoginJPanel(orderManagement,community, customerDirectory, companyDir, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
+        splitPane.setRightComponent(loginJPanel);
 
-//            LoginPanel l = new LoginPanel(splitPane);
-//            splitPane.setRightComponent(l);
-        
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void btnCustomerRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerRegisterActionPerformed
         // TODO add your handling code here:
-//        PatientRegPanel p = new PatientRegPanel(cityDir, communityDir, hospitalDir , houseDir, userAuthDir);
-//        splitPane.setRightComponent(p);
+        CustomerRegistrationJPanel customerRegistrationJPanel = new CustomerRegistrationJPanel(orderManagement,community, customerDirectory, companyDir, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
+        splitPane.setRightComponent(customerRegistrationJPanel);
     }//GEN-LAST:event_btnCustomerRegisterActionPerformed
 
     private void cityAdminTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cityAdminTestActionPerformed
         // TODO add your handling code here:
-        
-        CityAdminPanel c = new CityAdminPanel(cityDir,splitPane);
-        splitPane.setRightComponent(c);        
+        CityAdminPanel c = new CityAdminPanel(cityDirectory, splitPane);
+        splitPane.setRightComponent(c);
     }//GEN-LAST:event_cityAdminTestActionPerformed
 
     private void invAdminTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_invAdminTestActionPerformed
         // TODO add your handling code here:
-        
+
         String cityName = new String("Boston");
         String companyName = new String("Costco");
-        
-        InventoryAdminPanel i = new InventoryAdminPanel(cityName, companyName, cityDir,splitPane);
-        splitPane.setRightComponent(i);        
-        
+
+        InventoryAdminPanel i = new InventoryAdminPanel(cityName, companyName, cityDirectory, splitPane);
+        splitPane.setRightComponent(i);
+
     }//GEN-LAST:event_invAdminTestActionPerformed
+
+    private void deliveryBoyRegistrationJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deliveryBoyRegistrationJButtonActionPerformed
+        // TODO add your handling code here:
+        DeliveryAdminPanel deliveryBoyRegistrationJPanel = new DeliveryAdminPanel(community, customerDirectory, companyDir, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
+        splitPane.setRightComponent(deliveryBoyRegistrationJPanel);
+    }//GEN-LAST:event_deliveryBoyRegistrationJButtonActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
 
+        try {
 
-
-        try{  
-        
             System.out.println("Test 1");
 
-            Class.forName("com.mysql.jdbc.Driver");  
-            Connection con=DriverManager.getConnection(  
-            "jdbc:mysql://localhost:3306/aed_project","root","root");
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/aed_project", "root", "root");
             //here sonoo is database name, root is username and password  
-            Statement stmt=con.createStatement();  
-            ResultSet rs=stmt.executeQuery("select * from Inventory_Product");  
-            while(rs.next())  
-            System.out.println(rs.getInt(1)+"  "+rs.getString(2)+"  "+rs.getString(3));
-            con.close();  
-        }
-        
-        catch(Exception e){ 
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery("select * from Inventory_Product");
+            while (rs.next()) {
+                System.out.println(rs.getInt(1) + "  " + rs.getString(2) + "  " + rs.getString(3));
+            }
+            con.close();
+        } catch (Exception e) {
             System.out.println(e);
-        } 
-        
+        }
+
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -303,6 +328,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnLogin;
     private javax.swing.JButton cityAdminTest;
     private javax.swing.JPanel controlPanel;
+    private javax.swing.JButton deliveryBoyRegistrationJButton;
     private javax.swing.JButton invAdminTest;
     private javax.swing.JLabel lblDetails;
     private javax.swing.JLabel lblDetails2;

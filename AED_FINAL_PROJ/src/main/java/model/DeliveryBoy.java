@@ -9,22 +9,24 @@ package model;
  *
  * @author Abhishek
  */
-public class DeliveryBoy extends Person {
+public class DeliveryBoy {
 
     private String deliveryBoyName;
     private long emergencyContactNumber;
     private String qualificaton;
     private int yearOfDeliveryExperience;
+    private boolean availability;
 
     public DeliveryBoy() {
     }
 
     public DeliveryBoy(String deliveryBoyName, long emergencyContactNumber, String qualificaton, int yearOfDeliveryExperience, String firstName, String lastName, String gender, int age, String emailAddress, String phoneNumber) {
-        super(firstName, lastName, gender, age, emailAddress, phoneNumber);
+    
         this.deliveryBoyName = deliveryBoyName;
         this.emergencyContactNumber = emergencyContactNumber;
         this.qualificaton = qualificaton;
         this.yearOfDeliveryExperience = yearOfDeliveryExperience;
+        this.availability = availability;
     }
 
     public String getDeliveryBoyName() {
@@ -59,4 +61,11 @@ public class DeliveryBoy extends Person {
         this.yearOfDeliveryExperience = yearOfDeliveryExperience;
     }
 
+    public boolean isAvailability() {
+        return availability;
+    }
+
+    public void setAvailability(boolean availability) {
+        this.availability = availability;
+    }
 }

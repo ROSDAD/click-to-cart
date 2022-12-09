@@ -4,21 +4,33 @@
  */
 package model;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author rosha
  */
 public class Ordermgt {
-    private Orders orders;
+    private ArrayList<Orders> orders;
     private Cart cart;
     
     
-    public Orders getOrders() {
+    public ArrayList<Orders> getOrders() {
         return orders;
     }
 
-    public void setOrders(Orders orders) {
-        this.orders = orders;
+    public Orders addNewOrder() {
+        Orders ord = new Orders();
+        orders.add(ord);
+        return ord;
+    }
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
     }
     
 }

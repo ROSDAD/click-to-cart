@@ -5,12 +5,16 @@
  */
 package model;
 
+import java.util.UUID;
+
 /**
  *
  * @author hrish
  */
 public class InventoryProduct {
-    
+
+   
+    private String pid;
     private String productName;
     private float price;
     private int inventoryQty;
@@ -23,7 +27,13 @@ public class InventoryProduct {
     public void setProductName(String productName) {
         this.productName = productName;
     }
+    public String getPid() {
+        return pid;
+    }
 
+    public void setPid(String pid) {
+        this.pid = pid;
+    }
     public float getPrice() {
         return price;
     }

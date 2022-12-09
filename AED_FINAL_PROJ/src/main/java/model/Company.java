@@ -13,10 +13,9 @@ public class Company {
 
     private String companyName;
     private String companyType;
-    private CommunityDirectory communityDirectory;
     private InventoryMgt inventoryManagement;
 
-    public Company(String companyName, String companyType, CommunityDirectory communityDirectory, InventoryMgt inventoryManagement) {
+    public Company(String companyName, String companyType, InventoryMgt inventoryManagement) {
         this.companyName = companyName;
         this.companyType = companyType;
         this.inventoryManagement = inventoryManagement;
@@ -40,15 +39,7 @@ public class Company {
     public void setCompanyType(String companyType) {
         this.companyType = companyType;
     }
-
-    public CommunityDirectory getCommunityDirectory() {
-        return communityDirectory;
-    }
-
-    public void setCommunityDirectory(CommunityDirectory communityDirectory) {
-        this.communityDirectory = communityDirectory;
-    }
-
+    
     public InventoryMgt getInventoryManagement() {
         return inventoryManagement;
     }

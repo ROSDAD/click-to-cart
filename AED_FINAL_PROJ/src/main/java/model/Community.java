@@ -14,13 +14,14 @@ public class Community {
     private String communityName;
     private String majorityReligion;
     private String communityType;
-    private PersonDirectory personDiretory;
+    private CustomerDirectory customerDirectory;
+    private DeliveryBoyDirectory deliveryBoyDirectory;
 
-    public Community(String communityName, String majorityReligion, String communityType, PersonDirectory personDiretory) {
+    public Community(String communityName, String majorityReligion, String communityType, CustomerDirectory personDiretory,DeliveryBoyDirectory deliveryBoyDirectory) {
         this.communityName = communityName;
         this.majorityReligion = majorityReligion;
         this.communityType = communityType;
-        this.personDiretory = personDiretory;
+        this.deliveryBoyDirectory = deliveryBoyDirectory;
     }
 
     public Community() {
@@ -50,12 +51,21 @@ public class Community {
         this.communityType = communityType;
     }
 
-    public PersonDirectory getPersonDiretory() {
-        return personDiretory;
+    public CustomerDirectory getCustomerDirectory() {
+        return customerDirectory;
     }
 
-    public void setPersonDiretory(PersonDirectory personDiretory) {
-        this.personDiretory = personDiretory;
+    public void setCustomerDirectory(CustomerDirectory customerDirectory) {
+        this.customerDirectory = customerDirectory;
     }
+
+    public DeliveryBoyDirectory getDeliveryBoyDirectory() {
+        return deliveryBoyDirectory;
+    }
+
+    public void setDeliveryBoyDirectory(DeliveryBoyDirectory deliveryBoyDirectory) {
+        this.deliveryBoyDirectory = deliveryBoyDirectory;
+    }
+
 
 }

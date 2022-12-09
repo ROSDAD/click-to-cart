@@ -4,14 +4,36 @@
  */
 package model;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author rosha
  */
 public class Cart {
-    private String cityName;
-    private int population;
-    private String cityType;
+    
+    private ArrayList<Orderedprod> cartProd;
+    private String totalPrice;
+    
+    
 //    private CompanyDir companyDir;
 //    private CommunityDir communityDir;
+
+    public Orderedprod addNewCartProd() {
+        Orderedprod ord = new Orderedprod();
+        cartProd.add(ord);
+        return ord;
+    }
+
+    public ArrayList<Orderedprod> getCartProd() {
+        return cartProd;
+    }
+
+    public String getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(String totalPrice) {
+        this.totalPrice = totalPrice;
+    }
 }

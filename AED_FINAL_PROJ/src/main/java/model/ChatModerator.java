@@ -9,7 +9,7 @@ package model;
  *
  * @author Abhishek
  */
-public class ChatModerator extends Person {
+public class ChatModerator  {
 
     private String chatModeratorName;
     private String emergencyContactName;
@@ -19,8 +19,7 @@ public class ChatModerator extends Person {
     public ChatModerator() {
     }
 
-    public ChatModerator(String chatModeratorName, String emergencyContactName, String qualificaton, int moderatorExperience, String firstName, String lastName, String gender, int age, String emailAddress, String phoneNumber) {
-        super(firstName, lastName, gender, age, emailAddress, phoneNumber);
+    public ChatModerator(String chatModeratorName, String emergencyContactName, String qualificaton, int moderatorExperience) {
         this.chatModeratorName = chatModeratorName;
         this.emergencyContactName = emergencyContactName;
         this.qualificaton = qualificaton;

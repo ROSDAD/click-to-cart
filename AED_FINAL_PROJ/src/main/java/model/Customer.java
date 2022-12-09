@@ -9,26 +9,31 @@ package model;
  *
  * @author Abhishek
  */
-public class Customer extends Person {
+public class Customer {
 
     private String customerName;
-    private String customerId;
-    private String customerNearestLandmark;
+    private String customerClosestLandmark;
     private String customerAddress;
     private String userName;
-    private String password;
-
+    private Cart cart;
     public Customer() {
     }
 
-    public Customer(String customerName, String customerId, String customerAddress, String customerNearestLandmark, String userName, String password, String firstName, String lastName, String gender, int age, String emailAddress, String phoneNumber) {
-        super(firstName, lastName, gender, age, emailAddress, phoneNumber);
-        this.customerId = customerId;
+    public Customer(String customerName, String customerAddress, String customerClosestLandmark, String userName,Cart cart) {
         this.customerName = customerName;
-        this.customerNearestLandmark = customerNearestLandmark;
+        this.customerClosestLandmark = customerClosestLandmark;
         this.customerAddress = customerAddress;
         this.userName = userName;
-        this.password = password;
+        this.cart = cart;
+         
+    }
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
     }
 
     public String getCustomerName() {
@@ -39,20 +44,12 @@ public class Customer extends Person {
         this.customerName = customerName;
     }
 
-    public String getCustomerId() {
-        return customerId;
+    public String getCustomerClosestLandmark() {
+        return customerClosestLandmark;
     }
 
-    public void setCustomerId(String customerId) {
-        this.customerId = customerId;
-    }
-
-    public String getCustomerNearestLandmark() {
-        return customerNearestLandmark;
-    }
-
-    public void setCustomerNearestLandmark(String customerNearestLandmark) {
-        this.customerNearestLandmark = customerNearestLandmark;
+    public void setCustomerClosestLandmark(String customerClosestLandmark) {
+        this.customerClosestLandmark = customerClosestLandmark;
     }
 
     public String getCustomerAddress() {
@@ -70,13 +67,4 @@ public class Customer extends Person {
     public void setUserName(String userName) {
         this.userName = userName;
     }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
 }

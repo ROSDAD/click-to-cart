@@ -43,8 +43,8 @@ public class DeliveryBoyDirectory {
      *
      * @param index
      */
-    public void deleteDeliveryBoy(int index) {
-        deliveryBoyList.remove(index);
+    public void deleteDeliveryBoy(DeliveryBoy c) {
+        deliveryBoyList.remove(c);
     }
     
     public void updateDeliveryBoy(DeliveryBoy c, DeliveryBoy u) {

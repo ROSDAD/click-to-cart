@@ -13,10 +13,9 @@ public class Company {
 
     private String companyName;
     private String companyType;
-    private CommunityDirectory communityDirectory;
     private InventoryMgt inventoryManagement;
 
-    public Company(String companyName, String companyType, CommunityDirectory communityDirectory, InventoryMgt inventoryManagement) {
+    public Company(String companyName, String companyType, InventoryMgt inventoryManagement) {
         this.companyName = companyName;
         this.companyType = companyType;
         this.inventoryManagement = inventoryManagement;

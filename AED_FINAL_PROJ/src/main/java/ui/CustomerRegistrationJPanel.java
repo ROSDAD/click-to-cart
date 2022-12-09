@@ -15,7 +15,7 @@ import model.UserAuthenticationDirectory;
 
 /**
  *
- * @author 91961
+ * @author Abhishek
  */
 public class CustomerRegistrationJPanel extends javax.swing.JPanel {
 

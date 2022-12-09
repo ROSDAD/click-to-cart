@@ -26,6 +26,10 @@ public class CartPanel extends javax.swing.JPanel {
      */
     public CartPanel() {
         initComponents();
+            Customer cust = new Customer();
+            ArrayList<Orderedprod> ordProd = cust.getCart().getCartProd();
+            
+            
         displayItemList();
     }
 
@@ -136,21 +140,22 @@ public class CartPanel extends javax.swing.JPanel {
 
     private void orderBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderBtnActionPerformed
                 // TODO add your handling code here:
-        
-        Customer cust = new Customer();
-        ArrayList<Orderedprod> ordProd = cust.getCart().getCartProd();
-        Ordermgt ordmgt = new Ordermgt();
-        Orders ord = ordmgt.addNewOrder();
-        int finalPrice = 0;
-        for(int i = 0; i<ordProd.size();i++){
-            Orderedprod newProd = ord.addNewOrderedProds();
-            newProd.setProdId(ordProd.get(i).getProdid());
-            newProd.setProdcount(ordProd.get(i).getprodcount());
-            newProd.setProdTotalprice(ordProd.get(i).getProdTotalprice());
-            finalPrice = finalPrice+ordProd.get(i).getProdTotalprice();
-            
+        if(){
+            Customer cust = new Customer(); //need to be changed
+            ArrayList<Orderedprod> ordProd = cust.getCart().getCartProd();
+            Ordermgt ordmgt = new Ordermgt();
+            Orders ord = ordmgt.addNewOrder();
+            int finalPrice = 0;
+            for(int i = 0; i<ordProd.size();i++){
+                Orderedprod newProd = ord.addNewOrderedProds();
+                newProd.setProdId(ordProd.get(i).getProdid());
+                newProd.setProdcount(ordProd.get(i).getprodcount());
+                newProd.setProdTotalprice(ordProd.get(i).getProdTotalprice());
+                finalPrice = finalPrice+ordProd.get(i).getProdTotalprice();
+
+            }
+            ord.setFinalPrice(finalPrice);
         }
-        ord.setFinalPrice(finalPrice);
     }//GEN-LAST:event_orderBtnActionPerformed
 
     private void removeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeBtnActionPerformed
@@ -193,7 +198,7 @@ private void displayItemList() {
         
          
         
-        
+        int finalPrice = 0;
         String pName = "";
         for (int i =0;i<ordProd.size();i++){
           if(ordProd.get(i) != null){
@@ -206,19 +211,21 @@ private void displayItemList() {
                 }
 
             }
+            
             Object[] row = new Object[4];
             row[0] = ordProd.get(i).getProdid();
 
             row[1] = pName;
             row[2] = ordProd.get(i).getprodcount();
             row[3] = ordProd.get(i).getProdTotalprice();
-            
+            finalPrice = finalPrice+ordProd.get(i).getProdTotalprice();
             model.addRow(row);
            
             
           }
         }
-        
+
+        totalPrice.setText("$"+finalPrice);
 
     }
 

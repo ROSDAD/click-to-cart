@@ -4,24 +4,29 @@
  */
 package model;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author rosha
  */
 public class Cart {
     
-    private Orderedprod cartProd;
+    private ArrayList<Orderedprod> cartProd;
     private String totalPrice;
+    
     
 //    private CompanyDir companyDir;
 //    private CommunityDir communityDir;
 
-    public Orderedprod getCartProd() {
-        return cartProd;
+    public Orderedprod addNewCartProd() {
+        Orderedprod ord = new Orderedprod();
+        cartProd.add(ord);
+        return ord;
     }
 
-    public void setCartProd(Orderedprod cartProd) {
-        this.cartProd = cartProd;
+    public ArrayList<Orderedprod> getCartProd() {
+        return cartProd;
     }
 
     public String getTotalPrice() {

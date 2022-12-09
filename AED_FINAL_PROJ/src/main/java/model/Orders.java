@@ -13,6 +13,7 @@ import java.util.UUID;
  */
 public class Orders {
 //     = UUID.randomUUID().toString();
+
     private String orderId;
     private List<Orderedprod> orderedProds;
     private int finalPrice;
@@ -68,5 +69,17 @@ public class Orders {
         this.orderStatus = orderStatus;
     }
 
-   
+    public Orderedprod addNewOrderedProds() {
+        Orderedprod ordProd = new Orderedprod();
+
+        orderedProds.add(ordProd);
+        return ordProd;
+
+    }
+
+    public List<Orderedprod> getOrderedprods() {
+
+        return orderedProds;
+    }
+
 }

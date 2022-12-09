@@ -60,7 +60,7 @@ public class DeliveryBoyRegistrationJPanel extends javax.swing.JPanel {
 
         nameTextField = new javax.swing.JTextField();
         save = new javax.swing.JButton();
-        contactNameTextField = new javax.swing.JTextField();
+        emergencyContactNumberTextField = new javax.swing.JTextField();
         qualificationTextField = new javax.swing.JTextField();
         usernameTextField = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
@@ -90,10 +90,10 @@ public class DeliveryBoyRegistrationJPanel extends javax.swing.JPanel {
             }
         });
 
-        contactNameTextField.setText("Emergency contact name");
-        contactNameTextField.addActionListener(new java.awt.event.ActionListener() {
+        emergencyContactNumberTextField.setText("Emergency contact number");
+        emergencyContactNumberTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                contactNameTextFieldActionPerformed(evt);
+                emergencyContactNumberTextFieldActionPerformed(evt);
             }
         });
 
@@ -103,7 +103,7 @@ public class DeliveryBoyRegistrationJPanel extends javax.swing.JPanel {
 
         jLabel1.setText("Name");
 
-        jLabel2.setText("Emergency Contact Name");
+        jLabel2.setText("Emergency Contact Number");
 
         jLabel3.setText("Qualification");
 
@@ -150,7 +150,7 @@ public class DeliveryBoyRegistrationJPanel extends javax.swing.JPanel {
                             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(557, 557, 557)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(contactNameTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
+                            .addComponent(emergencyContactNumberTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
                             .addComponent(qualificationTextField)
                             .addComponent(nameTextField, javax.swing.GroupLayout.Alignment.LEADING)))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
@@ -186,7 +186,7 @@ public class DeliveryBoyRegistrationJPanel extends javax.swing.JPanel {
                     .addComponent(jLabel1))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(contactNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(emergencyContactNumberTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -228,8 +228,8 @@ public class DeliveryBoyRegistrationJPanel extends javax.swing.JPanel {
             return;
         }
 
-        if (contactNameTextField.getText().length() == 0) {
-            JOptionPane.showMessageDialog(this, "Mandatory emergency contact name field is empty");
+        if (emergencyContactNumberTextField.getText().length() == 0) {
+            JOptionPane.showMessageDialog(this, "Mandatory emergency contact number field is empty");
             return;
         }
 
@@ -260,7 +260,7 @@ public class DeliveryBoyRegistrationJPanel extends javax.swing.JPanel {
 
         DeliveryBoy deliveryBoy = deliveryBoyDirectory.addNewDeliveryBoy();
         deliveryBoy.setDeliveryBoyName(nameTextField.getText());
-        deliveryBoy.setEmergencyContactName(contactNameTextField.getText());
+        deliveryBoy.setEmergencyContactNumber(emergencyContactNumberTextField.getText());
         deliveryBoy.setQualificaton(qualificationTextField.getText());
         deliveryBoy.setYearOfDeliveryExperience(Integer.parseInt(yearsOfDeliveryExperienceTextField1.getText()));
         if (availablejRadioButton1.isSelected() == true) {
@@ -282,7 +282,7 @@ public class DeliveryBoyRegistrationJPanel extends javax.swing.JPanel {
 
     private void setDefault() {
         nameTextField.setText("");
-        contactNameTextField.setText("");
+        emergencyContactNumberTextField.setText("");
         qualificationTextField.setText("");
         yearsOfDeliveryExperienceTextField1.setText("");
         availablejRadioButton1.setEnabled(false);
@@ -297,16 +297,16 @@ public class DeliveryBoyRegistrationJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_passwordTextFieldActionPerformed
 
-    private void contactNameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contactNameTextFieldActionPerformed
+    private void emergencyContactNumberTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emergencyContactNumberTextFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_contactNameTextFieldActionPerformed
+    }//GEN-LAST:event_emergencyContactNumberTextFieldActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JRadioButton availablejRadioButton1;
     private javax.swing.JRadioButton busyjRadioButton2;
-    private javax.swing.JTextField contactNameTextField;
     private javax.swing.JLabel createLabel1;
+    private javax.swing.JTextField emergencyContactNumberTextField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

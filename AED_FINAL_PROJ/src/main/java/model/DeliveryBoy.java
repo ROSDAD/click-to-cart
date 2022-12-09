@@ -12,7 +12,7 @@ package model;
 public class DeliveryBoy {
 
     private String deliveryBoyName;
-    private String emergencyContactName;
+    private String emergencyContactNumber;
     private String qualificaton;
     private int yearOfDeliveryExperience;
     private boolean availability;
@@ -20,9 +20,9 @@ public class DeliveryBoy {
     public DeliveryBoy() {
     }
 
-    public DeliveryBoy(String deliveryBoyName, String emergencyContactName, String qualificaton, int yearOfDeliveryExperience, boolean availability) {
+    public DeliveryBoy(String deliveryBoyName, String emergencyContactNumber, String qualificaton, int yearOfDeliveryExperience, boolean availability) {
         this.deliveryBoyName = deliveryBoyName;
-        this.emergencyContactName = emergencyContactName;
+        this.emergencyContactNumber = emergencyContactNumber;
         this.qualificaton = qualificaton;
         this.yearOfDeliveryExperience = yearOfDeliveryExperience;
         this.availability = availability;
@@ -36,12 +36,12 @@ public class DeliveryBoy {
         this.deliveryBoyName = deliveryBoyName;
     }
 
-    public String getEmergencyContactName() {
-        return emergencyContactName;
+    public String getEmergencyContactNumber() {
+        return emergencyContactNumber;
     }
 
-    public void setEmergencyContactName(String emergencyContactName) {
-        this.emergencyContactName = emergencyContactName;
+    public void setEmergencyContactNumber(String emergencyContactNumber) {
+        this.emergencyContactNumber = emergencyContactNumber;
     }
 
     public String getQualificaton() {

@@ -76,10 +76,4 @@ public class Orders {
         return ordProd;
 
     }
-
-    public List<Orderedprod> getOrderedprods() {
-
-        return orderedProds;
-    }
-
 }

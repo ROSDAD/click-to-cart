@@ -31,7 +31,7 @@
                       </Group>
                       <EmptySpace min="-2" pref="557" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="contactNameTextField" alignment="1" pref="236" max="32767" attributes="0"/>
+                          <Component id="emergencyContactNumberTextField" alignment="1" pref="236" max="32767" attributes="0"/>
                           <Component id="qualificationTextField" alignment="1" max="32767" attributes="0"/>
                           <Component id="nameTextField" alignment="0" max="32767" attributes="0"/>
                       </Group>
@@ -78,7 +78,7 @@
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="contactNameTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="emergencyContactNumberTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -131,12 +131,12 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="saveActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="contactNameTextField">
+    <Component class="javax.swing.JTextField" name="emergencyContactNumberTextField">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Emergency contact name"/>
+        <Property name="text" type="java.lang.String" value="Emergency contact number"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="contactNameTextFieldActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="emergencyContactNumberTextFieldActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="qualificationTextField">
@@ -156,7 +156,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Emergency Contact Name"/>
+        <Property name="text" type="java.lang.String" value="Emergency Contact Number"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">

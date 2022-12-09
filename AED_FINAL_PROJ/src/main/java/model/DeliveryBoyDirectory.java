@@ -32,7 +32,7 @@ public class DeliveryBoyDirectory {
      *
      * @return {@link DeliveryBoy}
      */
-    public DeliveryBoy addNewPerson() {
+    public DeliveryBoy addNewDeliveryBoy() {
         DeliveryBoy newDeliveryBoy = new DeliveryBoy();
         deliveryBoyList.add(newDeliveryBoy);
         return newDeliveryBoy;

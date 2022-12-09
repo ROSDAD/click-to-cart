@@ -9,6 +9,8 @@ import javax.swing.JOptionPane;
 import model.Community;
 import model.CompanyDirectory;
 import model.CustomerDirectory;
+import model.DeliveryBoyDirectory;
+import model.Ordermgt;
 import model.UserAuthentication;
 import model.UserAuthenticationDirectory;
 
@@ -23,6 +25,8 @@ public class LoginJPanel extends javax.swing.JPanel {
     private CustomerDirectory customerDirectory;
     private CompanyDirectory companyDirectory;
     private UserAuthenticationDirectory userauthenticationdirectory;
+    private DeliveryBoyDirectory deliveryBoyDirectory;
+    private Ordermgt orderManagement;
 
     /**
      * Creates new form LoginJPanel
@@ -31,13 +35,15 @@ public class LoginJPanel extends javax.swing.JPanel {
         initComponents();
     }
 
-    public LoginJPanel(Community community,CustomerDirectory customerDirectory, CompanyDirectory companyDirectory, UserAuthenticationDirectory userauthenticationdirectory, JSplitPane splitPane) {
+    public LoginJPanel(Ordermgt orderManagement, Community community, CustomerDirectory customerDirectory, CompanyDirectory companyDirectory, UserAuthenticationDirectory userauthenticationdirectory, JSplitPane splitPane, DeliveryBoyDirectory deliveryBoyDirectory) {
         initComponents();
         this.community = community;
         this.customerDirectory = customerDirectory;
         this.companyDirectory = companyDirectory;
         this.userauthenticationdirectory = userauthenticationdirectory;
         this.splitPane = splitPane;
+        this.deliveryBoyDirectory = deliveryBoyDirectory;
+        this.orderManagement = orderManagement;
     }
 
     /**
@@ -217,8 +223,12 @@ public class LoginJPanel extends javax.swing.JPanel {
 
         if (flag && usertype.equalsIgnoreCase("Customer")) {
             JOptionPane.showMessageDialog(this, "Login is successfully done for customer");
-            MainCustomerJPanel mainCustomerJPanel = new MainCustomerJPanel(community,customerDirectory,  companyDirectory,  userauthenticationdirectory,  splitPane);
+            MainCustomerJPanel mainCustomerJPanel = new MainCustomerJPanel(orderManagement, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
             splitPane.setRightComponent(mainCustomerJPanel);
+        } else if (flag && usertype.equalsIgnoreCase("DeliveryBoy")) {
+            JOptionPane.showMessageDialog(this, "Login is successfully done for Delivery Boy");
+            MainDeliveryBoyJPanel mainDeliveryBoyJPanel = new MainDeliveryBoyJPanel(community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
+            splitPane.setRightComponent(mainDeliveryBoyJPanel);
         }
     }//GEN-LAST:event_loginButton1ActionPerformed
 

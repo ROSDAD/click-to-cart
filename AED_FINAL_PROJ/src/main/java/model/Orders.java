@@ -4,6 +4,7 @@
  */
 package model;
 
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -13,10 +14,35 @@ import java.util.UUID;
 public class Orders {
 //     = UUID.randomUUID().toString();
     private String orderId;
-    private Orderedprod orderedProds;
+    private List<Orderedprod> orderedProds;
     private int finalPrice;
     private String address;
     private String paymentType;
+    private String orderStatus;
+
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
+    }
+
+    public List<Orderedprod> getOrderedProds() {
+        return orderedProds;
+    }
+
+    public void setOrderedProds(List<Orderedprod> orderedProds) {
+        this.orderedProds = orderedProds;
+    }
+
+    public int getFinalPrice() {
+        return finalPrice;
+    }
+
+    public void setFinalPrice(int finalPrice) {
+        this.finalPrice = finalPrice;
+    }
 
     public String getAddress() {
         return address;
@@ -33,29 +59,14 @@ public class Orders {
     public void setPaymentType(String paymentType) {
         this.paymentType = paymentType;
     }
-    
-    
-    public void setOrderid(String orderId){
-        this.orderId = orderId;
-    }
-    
-    public String getOrderid(){
-        return orderId;
+
+    public String getOrderStatus() {
+        return orderStatus;
     }
 
-    public int getFinalPrice() {
-        return finalPrice;
+    public void setOrderStatus(String orderStatus) {
+        this.orderStatus = orderStatus;
     }
 
-    public void setFinalPrice(int finalPrice) {
-        this.finalPrice = finalPrice;
-    }
-    
-    public void setOrderprods(Orderedprod orderedProds){
-        this.orderedProds = orderedProds;
-    }
-    public Orderedprod getOrderedprods(){
-        return orderedProds;
-    }
-    
+   
 }

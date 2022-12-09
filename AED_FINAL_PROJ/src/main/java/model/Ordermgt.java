@@ -4,20 +4,21 @@
  */
 package model;
 
+import java.util.List;
+
 /**
  *
  * @author rosha
  */
 public class Ordermgt {
-    private Orders orders;
+    private List<Orders> orders;
     private Cart cart;
-    
-    
-    public Orders getOrders() {
+
+    public List<Orders> getOrders() {
         return orders;
     }
 
-    public void setOrders(Orders orders) {
+    public void setOrders(List<Orders> orders) {
         this.orders = orders;
     }
 

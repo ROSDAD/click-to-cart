@@ -4,10 +4,19 @@
  */
 package ui;
 
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.JSplitPane;
+import javax.swing.table.DefaultTableModel;
+import model.City;
 import model.Community;
 import model.CompanyDirectory;
 import model.CustomerDirectory;
+import model.DeliveryBoyDirectory;
+import model.Orderedprod;
+import model.Ordermgt;
+import model.Orders;
 import model.UserAuthenticationDirectory;
 
 /**
@@ -21,6 +30,8 @@ public class MainCustomerJPanel extends javax.swing.JPanel {
     private CompanyDirectory companyDirectory;
     private Community community;
     private UserAuthenticationDirectory userauthenticationdirectory;
+    private DeliveryBoyDirectory deliveryBoyDirectory;
+    private Ordermgt orderManagement;
 
     /**
      * Creates new form MainCustomerJPanel
@@ -29,13 +40,15 @@ public class MainCustomerJPanel extends javax.swing.JPanel {
         initComponents();
     }
 
-    public MainCustomerJPanel(Community community,CustomerDirectory customerDirectory, CompanyDirectory companyDirectory, UserAuthenticationDirectory userauthenticationdirectory, JSplitPane splitPane) {
+    public MainCustomerJPanel(Ordermgt orderManagement, Community community, CustomerDirectory customerDirectory, CompanyDirectory companyDirectory, UserAuthenticationDirectory userauthenticationdirectory, JSplitPane splitPane, DeliveryBoyDirectory deliveryBoyDirectory) {
         initComponents();
         this.community = community;
         this.splitPane = splitPane;
         this.customerDirectory = customerDirectory;
         this.companyDirectory = companyDirectory;
         this.userauthenticationdirectory = userauthenticationdirectory;
+        this.deliveryBoyDirectory = deliveryBoyDirectory;
+        this.orderManagement = orderManagement;
     }
 
     /**
@@ -49,25 +62,66 @@ public class MainCustomerJPanel extends javax.swing.JPanel {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        ordersjButton = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
+        orderedProductsjButton = new javax.swing.JButton();
 
+        jTable1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Order ID", "Final Price", "Address", "Payment Type", "Order Status"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
-        jButton1.setText("View Orders");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        ordersjButton.setText("View Orders");
+        ordersjButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                ordersjButtonActionPerformed(evt);
+            }
+        });
+
+        jTable2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Product ID", "Product count", "Product Total Price"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(jTable2);
+
+        orderedProductsjButton.setText("View Ordered Products");
+        orderedProductsjButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                orderedProductsjButtonActionPerformed(evt);
             }
         });
 
@@ -76,34 +130,84 @@ public class MainCustomerJPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(290, 290, 290)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(493, 493, 493)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(396, Short.MAX_VALUE))
+                .addGap(23, 23, 23)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(199, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(153, 153, 153)
+                .addComponent(ordersjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(orderedProductsjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(315, 315, 315))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(43, 43, 43))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ordersjButton)
+                    .addComponent(orderedProductsjButton))
+                .addContainerGap(164, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void ordersjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ordersjButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+       for (Orders order : orderManagement.getOrders()) {
+       }
+    }//GEN-LAST:event_ordersjButtonActionPerformed
 
+    private void orderedProductsjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderedProductsjButtonActionPerformed
+        // TODO add your handling code here:
+
+        int selectedRowIndex = jTable1.getSelectedRow();
+        if (selectedRowIndex < 0) {
+            JOptionPane.showMessageDialog(this, "Please select a row to select order to view the products");
+            return;
+        }
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        String orderID = model.getValueAt(selectedRowIndex, 0).toString();
+
+        // For inserting the doctor to the doctor directory of the hospital.
+        for (Orders order : orderManagement.getOrders()) {
+            if (order.getOrderId().equalsIgnoreCase(orderID)) {
+                if (order.getOrderedProds().isEmpty()) {
+                    List<Orderedprod> orderList = new ArrayList<>();
+                    populateOrderedProducts(orderList);
+                } else {
+                    populateOrderedProducts(order.getOrderedProds());
+                }
+            }
+        }
+    }//GEN-LAST:event_orderedProductsjButtonActionPerformed
+
+    /**
+     * Populate the table rows from the arrayList.
+     */
+    private void populateOrderedProducts(List<Orderedprod> OrderedprodList) {
+        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+        model.setRowCount(0);
+        for (Orderedprod orderedprod : OrderedprodList) {
+            Object[] row = new Object[3];
+            row[0] = orderedprod.getProdid();
+            row[1] = orderedprod.getprodcount();
+            row[2] = orderedprod.getProdTotalprice();
+            model.addRow(row);
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
+    private javax.swing.JButton orderedProductsjButton;
+    private javax.swing.JButton ordersjButton;
     // End of variables declaration//GEN-END:variables
 }

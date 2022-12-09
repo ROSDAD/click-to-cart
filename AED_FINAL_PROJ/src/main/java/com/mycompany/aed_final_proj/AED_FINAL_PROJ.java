@@ -5,6 +5,7 @@
 
 package com.mycompany.aed_final_proj;
 
+import special.Smtp;
 import ui.*;
 
 /**

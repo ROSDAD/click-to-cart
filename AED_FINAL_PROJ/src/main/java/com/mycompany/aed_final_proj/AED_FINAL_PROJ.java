@@ -5,7 +5,7 @@
 
 package com.mycompany.aed_final_proj;
 
-import ui.MainJFrame;
+import ui.*;
 
 /**
  *
@@ -14,8 +14,7 @@ import ui.MainJFrame;
 public class AED_FINAL_PROJ {
 
     public static void main(String[] args) {
-        MainJFrame mj = new MainJFrame();
-        
-        mj.setVisible(true);
+        MainJFrame mainJFrame = new MainJFrame();
+        mainJFrame.setVisible(true);
     }
 }

@@ -59,7 +59,7 @@ public class InventoryAdminPanel extends javax.swing.JPanel {
         for(City c: cDir) {
             if(c.getCityName().equalsIgnoreCase(cityName)) {
                 
-                companyDir = c.getCompanyDir();
+                companyDir = c.getCompanyDirectory();
                 
                 List<Company> compDir = companyDir.getCompanyDirectoryList();
                 
@@ -326,7 +326,7 @@ public class InventoryAdminPanel extends javax.swing.JPanel {
         for(City c: cDir) {
             if(c.getCityName().equalsIgnoreCase(cityName)) {
                 
-                companyDir = c.getCompanyDir();
+                companyDir = c.getCompanyDirectory();
                 
                 List<Company> compDir = companyDir.getCompanyDirectoryList();
                 
@@ -381,7 +381,7 @@ public class InventoryAdminPanel extends javax.swing.JPanel {
         for(City c: cDir) {
             if(c.getCityName().equalsIgnoreCase(cityName)) {
                 
-                companyDir = c.getCompanyDir();
+                companyDir = c.getCompanyDirectory();
                 
                 List<Company> compDir = companyDir.getCompanyDirectoryList();
                 
@@ -435,7 +435,7 @@ public class InventoryAdminPanel extends javax.swing.JPanel {
         for(City c: cDir) {
             if(c.getCityName().equalsIgnoreCase(cityName)) {
                 
-                companyDir = c.getCompanyDir();
+                companyDir = c.getCompanyDirectory();
                 
                 List<Company> compDir = companyDir.getCompanyDirectoryList();
                 

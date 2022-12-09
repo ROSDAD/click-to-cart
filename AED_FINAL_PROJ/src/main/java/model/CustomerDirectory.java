@@ -28,11 +28,11 @@ public class CustomerDirectory {
     }
 
     /**
-     * Method to add an hospital to the hospital list.
+     * Method to add an customer to the customer list.
      *
      * @return {@link Customer}
      */
-    public Customer addNewPerson() {
+    public Customer addNewCustomer() {
         Customer newCustomer = new Customer();
         customerList.add(newCustomer);
         return newCustomer;

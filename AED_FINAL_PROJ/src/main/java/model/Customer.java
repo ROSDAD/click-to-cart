@@ -15,15 +15,25 @@ public class Customer {
     private String customerClosestLandmark;
     private String customerAddress;
     private String userName;
-
+    private Cart cart;
     public Customer() {
     }
 
-    public Customer(String customerName, String customerAddress, String customerClosestLandmark, String userName) {
+    public Customer(String customerName, String customerAddress, String customerClosestLandmark, String userName,Cart cart) {
         this.customerName = customerName;
         this.customerClosestLandmark = customerClosestLandmark;
         this.customerAddress = customerAddress;
         this.userName = userName;
+        this.cart = cart;
+         
+    }
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
     }
 
     public String getCustomerName() {

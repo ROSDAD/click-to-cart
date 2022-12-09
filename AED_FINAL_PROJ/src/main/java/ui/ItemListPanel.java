@@ -150,6 +150,7 @@ public class ItemListPanel extends javax.swing.JPanel {
             return;
         }
         DefaultTableModel model = (DefaultTableModel) itemListTable.getModel();
+        prodIdLbl.setText((model.getValueAt(selectedRowIndex, 0)).toString());
         pNameLabel.setText((model.getValueAt(selectedRowIndex, 1)).toString());
         quantityTxt.setText("0");
         
@@ -162,7 +163,14 @@ public class ItemListPanel extends javax.swing.JPanel {
         Company comp = new Company();
         int prodQuantity = comp.getInventoryManagement().getInventoryMgt().get(0).getInventoryProductDir().getInventoryProductDir().get(itemListTable.getSelectedRow()).getInventoryQty();
         if(quantity<=prodQuantity){
-            
+            DefaultTableModel model = (DefaultTableModel) itemListTable.getModel();
+            int selectedRowIndex = itemListTable.getSelectedRow();
+            Customer cust = new Customer();
+            Orderedprod ordProd = cust.getCart().addNewCartProd();
+            ordProd.setProdId((model.getValueAt(selectedRowIndex, 0)).toString());
+            int price = quantity*Integer.parseInt((model.getValueAt(selectedRowIndex, 2)).toString());
+            ordProd.setProdTotalprice(price);
+            ordProd.setProdcount(quantity);
         }else{
             JOptionPane.showMessageDialog(this, "Quantity cannot be more than available quantiy");
         }
@@ -190,6 +198,7 @@ public class ItemListPanel extends javax.swing.JPanel {
               
         for (int i =0;i<mainM.size();i++){
           if(mainM.get(i) != null){
+              
             Object[] row = new Object[4];
             row[0] = mainM.get(i).getPid();
 
@@ -201,7 +210,8 @@ public class ItemListPanel extends javax.swing.JPanel {
 
             model.addRow(row);
            
-            }
+            
+          }
         }
         
 

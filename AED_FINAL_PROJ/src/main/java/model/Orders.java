@@ -4,6 +4,7 @@
  */
 package model;
 
+import java.util.ArrayList;
 import java.util.UUID;
 
 /**
@@ -13,7 +14,7 @@ import java.util.UUID;
 public class Orders {
 //     = UUID.randomUUID().toString();
     private String orderId;
-    private Orderedprod orderedProds;
+    private ArrayList<Orderedprod> orderedProds;
     private int finalPrice;
     private String address;
     private String paymentType;
@@ -51,10 +52,15 @@ public class Orders {
         this.finalPrice = finalPrice;
     }
     
-    public void setOrderprods(Orderedprod orderedProds){
-        this.orderedProds = orderedProds;
+    public Orderedprod addNewOrderedProds(){
+        Orderedprod ordProd = new Orderedprod();
+       
+        orderedProds.add(ordProd);
+        return ordProd;
+
     }
-    public Orderedprod getOrderedprods(){
+    public ArrayList<Orderedprod> getOrderedprods(){
+        
         return orderedProds;
     }
     

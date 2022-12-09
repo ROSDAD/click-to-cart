@@ -12,17 +12,17 @@ package model;
 public class DeliveryBoy extends Person {
 
     private String deliveryBoyName;
-    private String emergencyContactName;
+    private long emergencyContactNumber;
     private String qualificaton;
     private int yearOfDeliveryExperience;
 
     public DeliveryBoy() {
     }
 
-    public DeliveryBoy(String deliveryBoyName, String emergencyContactName, String qualificaton, int yearOfDeliveryExperience, String firstName, String lastName, String gender, int age, String emailAddress, String phoneNumber) {
+    public DeliveryBoy(String deliveryBoyName, long emergencyContactNumber, String qualificaton, int yearOfDeliveryExperience, String firstName, String lastName, String gender, int age, String emailAddress, String phoneNumber) {
         super(firstName, lastName, gender, age, emailAddress, phoneNumber);
         this.deliveryBoyName = deliveryBoyName;
-        this.emergencyContactName = emergencyContactName;
+        this.emergencyContactNumber = emergencyContactNumber;
         this.qualificaton = qualificaton;
         this.yearOfDeliveryExperience = yearOfDeliveryExperience;
     }
@@ -35,12 +35,12 @@ public class DeliveryBoy extends Person {
         this.deliveryBoyName = deliveryBoyName;
     }
 
-    public String getEmergencyContactName() {
-        return emergencyContactName;
+    public long getEmergencyContactNumber() {
+        return emergencyContactNumber;
     }
 
-    public void setEmergencyContactName(String emergencyContactName) {
-        this.emergencyContactName = emergencyContactName;
+    public void setEmergencyContactNumber(long emergencyContactNumber) {
+        this.emergencyContactNumber = emergencyContactNumber;
     }
 
     public String getQualificaton() {

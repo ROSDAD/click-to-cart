@@ -13,6 +13,8 @@ import model.Company;
 import model.CompanyDirectory;
 import model.Inventory;
 import model.InventoryMgt;
+import model.InventoryProduct;
+import model.InventoryProductDir;
 
 /**
  *
@@ -28,6 +30,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private CityDir cityDir;
     private CompanyDirectory companyDir;
     private InventoryMgt inventoryManagement;
+    private InventoryProductDir invProdDir;
     
     public MainJFrame() {
         initComponents();                
@@ -37,10 +40,17 @@ public class MainJFrame extends javax.swing.JFrame {
         cityDir = new CityDir();
         inventoryManagement = new InventoryMgt();
         companyDir = new CompanyDirectory();
+        invProdDir = new InventoryProductDir();
+        
+        InventoryProduct invProd = invProdDir.addNewInventoryProduct();
+        invProd.setProductName("TV");
+        invProd.setPrice(500);
+        invProd.setInventoryQty(24);
         
         Inventory inv = inventoryManagement.addNewInventory();
         inv.setInventoryCategory("Default");
         inv.setInventoryType("Critical");
+        inv.setInventoryProductDir(invProdDir);
         
         Company company = companyDir.addNewCompany();
         company.setCompanyName("Costco");

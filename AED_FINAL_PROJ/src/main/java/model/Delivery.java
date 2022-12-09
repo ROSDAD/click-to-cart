@@ -10,9 +10,23 @@ package model;
  * @author hrish
  */
 public class Delivery {
-       
-    private int orderStatus; // 0:OrderPlaced; 1:Processing; 2:OutForDelivery; 3:Delivered; 4:Cancelled
     
-    
-    
+    private String deliveryBoyName;
+    private String orderStatus; // OrderPlaced; OutForDelivery; Delivered; Cancelled
+
+    public String getDeliveryBoyName() {
+        return deliveryBoyName;
+    }
+
+    public void setDeliveryBoyName(String deliveryBoyName) {
+        this.deliveryBoyName = deliveryBoyName;
+    }
+
+    public String getOrderStatus() {
+        return orderStatus;
+    }
+
+    public void setOrderStatus(String orderStatus) {
+        this.orderStatus = orderStatus;
+    }    
 }

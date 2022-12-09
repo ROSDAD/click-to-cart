@@ -38,9 +38,14 @@ public class ModifyInvProductsPanel extends javax.swing.JPanel {
     }
 
     ModifyInvProductsPanel(String cityName, String companyName, CityDir cityDir, JSplitPane splitPane, InventoryProductDir invProdDir) {
+        
+        initComponents();
+        
         this.invProdDir = invProdDir;
         this.splitPane = splitPane; 
         this.cityDir = cityDir;
+        
+        populateProductTable();
     }
     
     private void populateProductTable() {
@@ -107,6 +112,7 @@ public class ModifyInvProductsPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        tblProducts.setPreferredSize(new java.awt.Dimension(904, 638));
         jScrollPane1.setViewportView(tblProducts);
 
         btnCreateProduct.setText("Create Product");
@@ -220,7 +226,7 @@ public class ModifyInvProductsPanel extends javax.swing.JPanel {
         i.setPrice(price);
         i.setProductName(productName);
 
-        JOptionPane.showMessageDialog(this, "Inventory created!");
+        JOptionPane.showMessageDialog(this, "Product created!");
 
         populateProductTable();
     }//GEN-LAST:event_btnCreateProductActionPerformed
@@ -285,13 +291,19 @@ public class ModifyInvProductsPanel extends javax.swing.JPanel {
         String productName = (String) model.getValueAt(selectedRowIndex, 0);
 
         ArrayList<InventoryProduct> invDir = invProdDir.getInventoryProductDir();
-
         
         
-        invMgt.deleteInventory(i);
-        populateInventoriesTable();
-        JOptionPane.showMessageDialog(this, "Inventory Deleted!");
-        break;
+        for(InventoryProduct i: invDir) {
+            
+            if(i.getProductName().equalsIgnoreCase(productName)) {
+                
+                invProdDir.deleteInventoryProduct(i);
+                
+                populateProductTable();
+                JOptionPane.showMessageDialog(this, "Product Deleted!");            
+                break;
+            }
+        }
         
     }//GEN-LAST:event_btnDeleteProductActionPerformed
 

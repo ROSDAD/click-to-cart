@@ -458,7 +458,7 @@ public class InventoryAdminPanel extends javax.swing.JPanel {
         
                                         ModifyInvProductsPanel m = new ModifyInvProductsPanel(cityName, companyName, cityDir, splitPane, i.getInventoryProductDir());
                                         splitPane.setRightComponent(m);   
-                                        break;
+                                        //break;
                                     }
                                 }       
                             }                            

@@ -5,7 +5,9 @@
 package ui;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 import model.*;
 /**
  *
@@ -18,6 +20,15 @@ public class ItemListPanel extends javax.swing.JPanel {
      */
     public ItemListPanel() {
         initComponents();
+        filterComboBox.removeAllItems();
+         Company comp = new Company(); // need to be changed
+        ArrayList<Inventory> dirModel = comp.getInventoryManagement().getInventoryMgt();
+           
+        for(int i = 0; i<dirModel.size();i++){
+            filterComboBox.addItem(dirModel.get(i).getInventoryCategory());
+                   
+        }  
+        
         displayItemList();
     }
 
@@ -82,6 +93,11 @@ public class ItemListPanel extends javax.swing.JPanel {
         });
 
         searchBtn.setText("Search");
+        searchBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchBtnActionPerformed(evt);
+            }
+        });
 
         filterComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -176,6 +192,14 @@ public class ItemListPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_addToCartActionPerformed
 
+    private void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtnActionPerformed
+        // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel) itemListTable.getModel();
+        TableRowSorter<DefaultTableModel> trs = new TableRowSorter<>(model);
+        itemListTable.setRowSorter(trs);
+        trs.setRowFilter(RowFilter.regexFilter(itemSeacrhBox.getText()));
+    }//GEN-LAST:event_searchBtnActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addToCart;
@@ -192,10 +216,20 @@ public class ItemListPanel extends javax.swing.JPanel {
     private void displayItemList() {
         DefaultTableModel model = (DefaultTableModel) itemListTable.getModel();
         model.setRowCount(0);
-        Company comp = new Company();
-        ArrayList<InventoryProduct> mainM = comp.getInventoryManagement().getInventoryMgt().get(0).getInventoryProductDir().getInventoryProductDir();
-               
-              
+        Company comp = new Company(); //need to be changed
+        
+        ArrayList<Inventory> dirModel = comp.getInventoryManagement().getInventoryMgt();
+        
+        
+        int j = 0;   
+        for(int i = 0; i<dirModel.size();i++){
+            if(dirModel.get(i).getInventoryCategory().equals(filterComboBox.getSelectedItem().toString())){
+                j = i;
+                break;
+            }
+                   
+        }  
+        ArrayList<InventoryProduct> mainM = comp.getInventoryManagement().getInventoryMgt().get(j).getInventoryProductDir().getInventoryProductDir();
         for (int i =0;i<mainM.size();i++){
           if(mainM.get(i) != null){
               

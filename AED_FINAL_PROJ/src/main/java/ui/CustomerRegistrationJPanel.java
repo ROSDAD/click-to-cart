@@ -6,6 +6,7 @@ package ui;
 
 import javax.swing.JOptionPane;
 import javax.swing.JSplitPane;
+import model.Cart;
 import model.Community;
 import model.CompanyDirectory;
 import model.Customer;
@@ -209,7 +210,8 @@ public class CustomerRegistrationJPanel extends javax.swing.JPanel {
         customer.setCustomerClosestLandmark(nearestLandMarkTextField.getText());
         customer.setCustomerAddress(addressTextField.getText());
         customer.setCustomerName(nameTextField.getText());
-        
+        Cart cart = new Cart();
+        customer.setCart(cart);
         community.setCustomerDirectory(customerDirectory);
         UserAuthentication userauthentication = userauthenticationdirectory.addNewUserAuthentication();
         userauthentication.setUserName(usernameTextField.getText());

@@ -51,6 +51,7 @@ public class ItemListPanel extends javax.swing.JPanel {
         searchBtn = new javax.swing.JButton();
         filterComboBox = new javax.swing.JComboBox<>();
         prodIdLbl = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         itemListTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -104,12 +105,15 @@ public class ItemListPanel extends javax.swing.JPanel {
         prodIdLbl.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         prodIdLbl.setText("Product ID");
 
+        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButton1.setText("CART");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(122, Short.MAX_VALUE)
+                .addContainerGap(125, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(addToCart)
@@ -133,13 +137,16 @@ public class ItemListPanel extends javax.swing.JPanel {
                                     .addGap(86, 86, 86)
                                     .addComponent(quantityTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 695, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(122, 122, 122))))
+                        .addGap(41, 41, 41)
+                        .addComponent(jButton1)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
                     .addComponent(itemSeacrhBox, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
                     .addComponent(searchBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(filterComboBox))
@@ -160,7 +167,7 @@ public class ItemListPanel extends javax.swing.JPanel {
 
     private void viewDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewDetailsActionPerformed
         // TODO add your handling code here:
-                int selectedRowIndex = itemListTable.getSelectedRow();
+        int selectedRowIndex = itemListTable.getSelectedRow();
         if (selectedRowIndex<0) {
             JOptionPane.showMessageDialog(this, "Select a row to delete.");
             return;
@@ -206,6 +213,7 @@ public class ItemListPanel extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> filterComboBox;
     private javax.swing.JTable itemListTable;
     private javax.swing.JTextField itemSeacrhBox;
+    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel pNameLabel;
     private javax.swing.JLabel prodIdLbl;
@@ -240,8 +248,6 @@ public class ItemListPanel extends javax.swing.JPanel {
             row[2] = mainM.get(i).getPrice();
             row[3] = mainM.get(i).getInventoryQty();
             
-
-
             model.addRow(row);
            
             

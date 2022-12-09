@@ -11,6 +11,8 @@ import model.Community;
 import model.CompanyDirectory;
 import model.Customer;
 import model.CustomerDirectory;
+import model.DeliveryBoyDirectory;
+import model.Ordermgt;
 import model.UserAuthentication;
 import model.UserAuthenticationDirectory;
 
@@ -25,6 +27,8 @@ public class CustomerRegistrationJPanel extends javax.swing.JPanel {
     private CompanyDirectory companyDirectory;
     private Community community;
     private UserAuthenticationDirectory userauthenticationdirectory;
+    private DeliveryBoyDirectory deliveryBoyDirectory;
+    private Ordermgt orderManagement;
 
     /**
      * Creates new form MainCustomerJPanel
@@ -33,13 +37,15 @@ public class CustomerRegistrationJPanel extends javax.swing.JPanel {
         initComponents();
     }
 
-    public CustomerRegistrationJPanel(Community community,CustomerDirectory customerDirectory, CompanyDirectory companyDirectory, UserAuthenticationDirectory userauthenticationdirectory, JSplitPane splitPane) {
+    public CustomerRegistrationJPanel(Ordermgt orderManagement,Community community, CustomerDirectory customerDirectory, CompanyDirectory companyDirectory, UserAuthenticationDirectory userauthenticationdirectory, JSplitPane splitPane, DeliveryBoyDirectory deliveryBoyDirectory) {
         initComponents();
         this.community = community;
         this.splitPane = splitPane;
         this.customerDirectory = customerDirectory;
         this.companyDirectory = companyDirectory;
         this.userauthenticationdirectory = userauthenticationdirectory;
+        this.deliveryBoyDirectory = deliveryBoyDirectory;
+        this.orderManagement = orderManagement;
     }
 
     /**
@@ -203,8 +209,7 @@ public class CustomerRegistrationJPanel extends javax.swing.JPanel {
                 return;
             }
         }
-        
-        
+
         Customer customer = customerDirectory.addNewCustomer();
         customer.setUserName(usernameTextField.getText());
         customer.setCustomerClosestLandmark(nearestLandMarkTextField.getText());

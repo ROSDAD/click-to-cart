@@ -36,6 +36,21 @@
             <artifactId>openmap</artifactId>
             <version>1.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.maps</groupId>
+            <artifactId>jxmaps</artifactId>
+            <version>1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.maps</groupId>
+            <artifactId>jxmaps-win</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jxmapviewer</groupId>
+            <artifactId>jxmapviewer2</artifactId>
+            <version>2.5</version>
+        </dependency>
     </dependencies>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

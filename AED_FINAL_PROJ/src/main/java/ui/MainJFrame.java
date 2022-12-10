@@ -262,6 +262,8 @@ public class MainJFrame extends javax.swing.JFrame {
         String cityName = new String("Boston");
         String companyName = new String("Costco");
 
+        MapTest2 t = new MapTest2();
+        splitPane.setRightComponent(t);
 //        InventoryAdminPanel i = new InventoryAdminPanel(cityName, companyName, cityDirectory, splitPane);
 //        splitPane.setRightComponent(i);
 

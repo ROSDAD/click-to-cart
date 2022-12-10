@@ -85,7 +85,6 @@ public class DeliveryAdminModifyPanel extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         radioHighSchool = new javax.swing.JRadioButton();
         radioUniversity = new javax.swing.JRadioButton();
-        btnAssignOrders = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         txtEmergencyContact = new javax.swing.JTextField();
 
@@ -144,13 +143,6 @@ public class DeliveryAdminModifyPanel extends javax.swing.JPanel {
 
         radioUniversity.setText("University");
 
-        btnAssignOrders.setText("Assign Orders");
-        btnAssignOrders.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAssignOrdersActionPerformed(evt);
-            }
-        });
-
         jLabel6.setText("Emergency Contact:");
 
         txtEmergencyContact.addActionListener(new java.awt.event.ActionListener() {
@@ -190,10 +182,6 @@ public class DeliveryAdminModifyPanel extends javax.swing.JPanel {
                             .addGap(62, 62, 62)
                             .addComponent(txtEmergencyContact, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(144, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnAssignOrders, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(70, 70, 70))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -221,9 +209,7 @@ public class DeliveryAdminModifyPanel extends javax.swing.JPanel {
                     .addComponent(txtEmergencyContact, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(updateDeliveryBoy)
-                .addGap(24, 24, 24)
-                .addComponent(btnAssignOrders)
-                .addGap(23, 23, 23))
+                .addGap(69, 69, 69))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -340,15 +326,8 @@ public class DeliveryAdminModifyPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtEmergencyContactActionPerformed
 
-    private void btnAssignOrdersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssignOrdersActionPerformed
-        // TODO add your handling code here:
-        
-        
-    }//GEN-LAST:event_btnAssignOrdersActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAssignOrders;
     private javax.swing.JButton btnDeleteDeliveryBoy;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

@@ -4,6 +4,8 @@
  */
 package model;
 
+import java.util.List;
+
 /**
  * Model class to get the delivery Boy information.
  *
@@ -16,19 +18,21 @@ public class DeliveryBoy {
     private String qualificaton;
     private int yearOfDeliveryExperience;
     private boolean availability;
+    private List<Orders> orderList;
 
     public DeliveryBoy() {
     }
 
-    public DeliveryBoy(String deliveryBoyName, long emergencyContactNumber, String qualificaton, int yearOfDeliveryExperience, String firstName, String lastName, String gender, int age, String emailAddress, String phoneNumber) {
+    public DeliveryBoy(String deliveryBoyName, long emergencyContactNumber, String qualificaton, int yearOfDeliveryExperience, String firstName, String lastName, String gender, int age, String emailAddress, String phoneNumber, boolean availability, List<Orders> orderList) {
     
         this.deliveryBoyName = deliveryBoyName;
         this.emergencyContactNumber = emergencyContactNumber;
         this.qualificaton = qualificaton;
         this.yearOfDeliveryExperience = yearOfDeliveryExperience;
         this.availability = availability;
+        this.orderList = orderList;
     }
-
+    
     public String getDeliveryBoyName() {
         return deliveryBoyName;
     }
@@ -67,5 +71,13 @@ public class DeliveryBoy {
 
     public void setAvailability(boolean availability) {
         this.availability = availability;
+    }
+    
+    public List<Orders> getOrderList() {
+        return orderList;
+    }
+
+    public void setOrderList(List<Orders> orderList) {
+        this.orderList = orderList;
     }
 }

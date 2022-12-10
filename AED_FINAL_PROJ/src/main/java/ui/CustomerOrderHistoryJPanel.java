@@ -225,7 +225,7 @@ public class CustomerOrderHistoryJPanel extends javax.swing.JPanel {
             row[0] = orders.getOrderId();
             row[1] = orders.getFinalPrice();
             row[2] = orders.getAddress();
-            row[3] = orders.getPaymentType();
+            row[3] = orders.getPaymentType().getPaymentType();
             row[4] = orders.getOrderStatus();
             row[5] = orders.isOrderAdminApproval();
             model.addRow(row);

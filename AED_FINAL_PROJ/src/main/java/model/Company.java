@@ -15,12 +15,16 @@ public class Company {
     private String companyType;
     private long companyEmployeeCount;
     private InventoryMgt inventoryManagement;
+    private DeliveryMgt deliveryManagement;
+    private Ordermgt orderManagement;
 
-    public Company(String companyName, String companyType, long companyEmployeeCount,InventoryMgt inventoryManagement) {
+    public Company(String companyName, String companyType, long companyEmployeeCount, InventoryMgt inventoryManagement, DeliveryMgt deliveryManagement, Ordermgt orderManagement) {
         this.companyName = companyName;
         this.companyType = companyType;
         this.companyEmployeeCount = companyEmployeeCount;
         this.inventoryManagement = inventoryManagement;
+        this.deliveryManagement = deliveryManagement;
+        this.orderManagement = orderManagement;
     }
 
     public Company() {
@@ -41,7 +45,7 @@ public class Company {
     public void setCompanyType(String companyType) {
         this.companyType = companyType;
     }
-    
+
     public InventoryMgt getInventoryManagement() {
         return inventoryManagement;
     }
@@ -57,4 +61,21 @@ public class Company {
     public void setCompanyEmployeeCount(long companyEmployeeCount) {
         this.companyEmployeeCount = companyEmployeeCount;
     }
+
+    public DeliveryMgt getDeliveryManagement() {
+        return deliveryManagement;
+    }
+
+    public void setDeliveryManagement(DeliveryMgt deliveryManagement) {
+        this.deliveryManagement = deliveryManagement;
+    }
+
+    public Ordermgt getOrderManagement() {
+        return orderManagement;
+    }
+
+    public void setOrderManagement(Ordermgt orderManagement) {
+        this.orderManagement = orderManagement;
+    }
+
 }

@@ -268,6 +268,9 @@ public class PaymentDetails extends javax.swing.JPanel {
 
     private void proceedBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_proceedBtnActionPerformed
         // TODO add your handling code here:
+        Company comp = new Company(); //need to be changed
+        ArrayList<Inventory> dirModel = comp.getInventoryManagement().getInventoryMgt();
+        
         int selectedRowIndex = paymentTable.getSelectedRow();
         if (selectedRowIndex<0) {
             JOptionPane.showMessageDialog(this, "Select a Card to Proceed!");
@@ -284,19 +287,32 @@ public class PaymentDetails extends javax.swing.JPanel {
            ord.setCustomerId(cust.getUserName());
            double finalPrice = 0;
            for(int i = 0; i<ordProd.size();i++){
-               Orderedprod newProd = ord.addNewOrderedProds();
-               
-               newProd.setProdId(ordProd.get(i).getProdid());
-               newProd.setProdcount(ordProd.get(i).getprodcount());
-               newProd.setProdTotalprice(ordProd.get(i).getProdTotalprice());
-               finalPrice = finalPrice+ordProd.get(i).getProdTotalprice();
+               for(int k = 0; k<dirModel.size();k++){
+                ArrayList<InventoryProduct> mainM = comp.getInventoryManagement().getInventoryMgt().get(k).getInventoryProductDir().getInventoryProductDir();
+                for(int j = 0; j<mainM.size();j++){
+                    if(ordProd.get(i).getProdid().equals(mainM.get(j).getPid())){
+                        if(ordProd.get(i).getprodcount() <= mainM.get(j).getInventoryQty()){
+                            
+                            Orderedprod newProd = ord.addNewOrderedProds();
 
+                            newProd.setProdId(ordProd.get(i).getProdid());
+                            newProd.setProdcount(ordProd.get(i).getprodcount());
+                            newProd.setProdTotalprice(ordProd.get(i).getProdTotalprice());
+                            finalPrice = finalPrice+ordProd.get(i).getProdTotalprice();
+                            ord.setFinalPrice(finalPrice);
+                            ord.setPaymentType(payDir.get(selectedRowIndex));
+                            mainM.get(j).setInventoryQty(mainM.get(j).getInventoryQty()-ordProd.get(i).getprodcount());
+                   }else{
+                            JOptionPane.showMessageDialog(this, "Not Enough Quantity left In Inventory!");
+                            return;
+                        }
+                    }
+                }
+                }
            }
-           ord.setFinalPrice(finalPrice);
-           ord.setPaymentType(payDir.get(selectedRowIndex));
-           String Subject = "Order Confirmation!";
-           String data = "Thank you for Choosing InstaCart! Your total bill is $"+finalPrice;
-           Smtp smtp = new Smtp(cust.getUserName(),Subject,data);
+        String Subject = "Order Confirmation!";
+        String data = "Thank you for Choosing InstaCart! Your total bill is $"+finalPrice;
+        Smtp smtp = new Smtp(cust.getUserName(),Subject,data);
 //redirect OrderCnf Panel
     }//GEN-LAST:event_proceedBtnActionPerformed
 

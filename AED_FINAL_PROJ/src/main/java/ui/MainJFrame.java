@@ -38,6 +38,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private DeliveryBoyDirectory deliveryBoyDirectory;
     private Ordermgt orderManagement;
     private City city;
+    private Company company;
     
     public MainJFrame() {
         initComponents();
@@ -66,7 +67,7 @@ public class MainJFrame extends javax.swing.JFrame {
         inv.setInventoryType("Critical");
         inv.setInventoryProductDir(invProdDir);
         
-        Company company = companyDir.addNewCompany();
+        company = companyDir.addNewCompany();
         company.setCompanyName("Costco");
         company.setCompanyType("Type 1");
         company.setInventoryManagement(inventoryManagement);
@@ -250,8 +251,8 @@ public class MainJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
 //        CityAdminPanel c = new CityAdminPanel(cityDirectory, splitPane);
 //        splitPane.setRightComponent(c);
-        DeliveryAdminPanel c = new DeliveryAdminPanel(community, customerDirectory, city.getCompanyDirectory(), userauthenticationdirectory, splitPane, deliveryBoyDirectory);
-        splitPane.setRightComponent(c);
+        //DeliveryAdminPanel c = new DeliveryAdminPanel(company, community, customerDirectory, city.getCompanyDirectory(), userauthenticationdirectory, splitPane, deliveryBoyDirectory);
+        //splitPane.setRightComponent(c);
     }//GEN-LAST:event_cityAdminTestActionPerformed
 
     private void invAdminTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_invAdminTestActionPerformed
@@ -267,7 +268,10 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void deliveryBoyRegistrationJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deliveryBoyRegistrationJButtonActionPerformed
         // TODO add your handling code here:
-        DeliveryAdminPanel deliveryBoyRegistrationJPanel = new DeliveryAdminPanel(community, customerDirectory, companyDir, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
+        String cityName = new String("Boston");
+        String companyName = new String("Costco");
+        
+        DeliveryAdminPanel deliveryBoyRegistrationJPanel = new DeliveryAdminPanel(cityDirectory, cityName, companyName,  company, community, customerDirectory, companyDir, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
         splitPane.setRightComponent(deliveryBoyRegistrationJPanel);
     }//GEN-LAST:event_deliveryBoyRegistrationJButtonActionPerformed
 

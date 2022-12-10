@@ -5,6 +5,7 @@
 package ui;
 
 import java.util.ArrayList;
+import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.City;
@@ -34,6 +35,11 @@ public class DeliveryAdminModifyPanel extends javax.swing.JPanel {
         
         this.community = community;
         this.deliveryBoyDirectory = deliveryBoyDirectory;
+        
+        ButtonGroup buttonGroup = new ButtonGroup();
+        
+        buttonGroup.add(radioHighSchool);
+        buttonGroup.add(radioUniversity);
         
         populateDeliveryBoyTable();
     }
@@ -139,6 +145,11 @@ public class DeliveryAdminModifyPanel extends javax.swing.JPanel {
         radioUniversity.setText("University");
 
         btnAssignOrders.setText("Assign Orders");
+        btnAssignOrders.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAssignOrdersActionPerformed(evt);
+            }
+        });
 
         jLabel6.setText("Emergency Contact:");
 
@@ -285,6 +296,12 @@ public class DeliveryAdminModifyPanel extends javax.swing.JPanel {
         }
 
         JOptionPane.showMessageDialog(this, "Delivery Boy updated!");
+        
+        txtName.setText("");
+        txtEmergencyContact.setText("");
+        txtExperience.setText("");
+        radioHighSchool.setEnabled(false);
+        radioUniversity.setEnabled(false);       
 
         populateDeliveryBoyTable();
     }//GEN-LAST:event_updateDeliveryBoyActionPerformed
@@ -322,6 +339,12 @@ public class DeliveryAdminModifyPanel extends javax.swing.JPanel {
     private void txtEmergencyContactActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmergencyContactActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtEmergencyContactActionPerformed
+
+    private void btnAssignOrdersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssignOrdersActionPerformed
+        // TODO add your handling code here:
+        
+        
+    }//GEN-LAST:event_btnAssignOrdersActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

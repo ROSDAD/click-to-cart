@@ -26,8 +26,8 @@ public class Company {
 //        this.inventoryManagement = inventoryManagement;
 //    }
 
-//    public Company() {
-//    }
+    public Company() {
+    }
 
     public Ordermgt getOrderMgt() {
         return orderMgt;

@@ -44,6 +44,8 @@ public class MainJFrame extends javax.swing.JFrame {
         initComponents();
 
         setExtendedState(JFrame.MAXIMIZED_BOTH);
+        
+        
 
         community = new Community();
         customerDirectory = new CustomerDirectory();
@@ -53,7 +55,6 @@ public class MainJFrame extends javax.swing.JFrame {
         inventoryManagement = new InventoryMgt();
         deliveryBoyDirectory = new DeliveryBoyDirectory();
         orderManagement = new Ordermgt();
-
 
         invProdDir = new InventoryProductDir();
         
@@ -261,8 +262,8 @@ public class MainJFrame extends javax.swing.JFrame {
         String cityName = new String("Boston");
         String companyName = new String("Costco");
 
-        InventoryAdminPanel i = new InventoryAdminPanel(cityName, companyName, cityDirectory, splitPane);
-        splitPane.setRightComponent(i);
+//        InventoryAdminPanel i = new InventoryAdminPanel(cityName, companyName, cityDirectory, splitPane);
+//        splitPane.setRightComponent(i);
 
     }//GEN-LAST:event_invAdminTestActionPerformed
 
@@ -281,8 +282,6 @@ public class MainJFrame extends javax.swing.JFrame {
     public static void main(String args[]) {
 
         try {
-
-            System.out.println("Test 1");
 
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection(

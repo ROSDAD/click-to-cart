@@ -193,12 +193,13 @@ public class ItemListPanel extends javax.swing.JPanel {
         if(quantity<=prodQuantity){
             DefaultTableModel model = (DefaultTableModel) itemListTable.getModel();
             int selectedRowIndex = itemListTable.getSelectedRow();
-            Customer cust = new Customer();
-            Orderedprod ordProd = cust.getCart().addNewCartProd();
-            ordProd.setProdId((model.getValueAt(selectedRowIndex, 0)).toString());
-            double price = quantity*Integer.parseInt((model.getValueAt(selectedRowIndex, 2)).toString());
-            ordProd.setProdTotalprice(price);
-            ordProd.setProdcount(quantity);
+            //Testing
+            //Customer cust = new Customer();
+            //Orderedprod ordProd = cust.getCart().addNewCartProd();
+//            ordProd.setProdId((model.getValueAt(selectedRowIndex, 0)).toString());
+//            double price = quantity*Integer.parseInt((model.getValueAt(selectedRowIndex, 2)).toString());
+//            ordProd.setProdTotalprice(price);
+//            ordProd.setProdcount(quantity);
         }else{
             JOptionPane.showMessageDialog(this, "Not Enough Quantity left In Inventory!");
         }

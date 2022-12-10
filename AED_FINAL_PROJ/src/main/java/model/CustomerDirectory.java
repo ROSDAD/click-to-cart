@@ -43,7 +43,7 @@ public class CustomerDirectory {
      *
      * @param index
      */
-    public void deletePerson(int index) {
+    public void deleteCustomer(int index) {
         customerList.remove(index);
     }
 

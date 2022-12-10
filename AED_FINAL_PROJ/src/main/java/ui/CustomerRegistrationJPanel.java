@@ -33,9 +33,6 @@ public class CustomerRegistrationJPanel extends javax.swing.JPanel {
     /**
      * Creates new form MainCustomerJPanel
      */
-    public CustomerRegistrationJPanel() {
-        initComponents();
-    }
 
     public CustomerRegistrationJPanel(Ordermgt orderManagement,Community community, CustomerDirectory customerDirectory, CompanyDirectory companyDirectory, UserAuthenticationDirectory userauthenticationdirectory, JSplitPane splitPane, DeliveryBoyDirectory deliveryBoyDirectory) {
         initComponents();

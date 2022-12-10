@@ -20,18 +20,18 @@ public class Customer {
     private Cart cart;
     private PaymentDir paymentDir;
     private List<Orders> orders;
-    public Customer() {
-    }
+ 
+    
+    
 
-    public Customer(String customerName, String customerAddress, String customerClosestLandmark, String userName,Cart cart,PaymentDir paymentDir) {
-        this.customerName = customerName;
-        this.customerClosestLandmark = customerClosestLandmark;
-        this.customerAddress = customerAddress;
-        this.userName = userName;
-        this.cart = cart;
-        this.paymentDir = paymentDir;
-         
-    }
+//    public Customer(String customerName, String customerAddress, String customerClosestLandmark, String userName,Cart cart,PaymentDir paymentDir) {
+//        this.customerName = customerName;
+//        this.customerClosestLandmark = customerClosestLandmark;
+//        this.customerAddress = customerAddress;
+//        this.userName = userName;
+//        this.cart = cart;
+//        this.paymentDir = paymentDir;
+//    }
 
     public PaymentDir getPaymentDir() {
         return paymentDir;

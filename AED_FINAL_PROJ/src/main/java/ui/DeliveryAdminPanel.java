@@ -92,8 +92,8 @@ public class DeliveryAdminPanel extends javax.swing.JPanel {
         btnSave = new javax.swing.JButton();
         radioHighSchool = new javax.swing.JRadioButton();
         radioUniversity = new javax.swing.JRadioButton();
-        btnAssignOrders = new javax.swing.JButton();
         btnModify = new javax.swing.JButton();
+        btnAssignOrders = new javax.swing.JButton();
 
         jLabel1.setText("Name:");
 
@@ -118,17 +118,17 @@ public class DeliveryAdminPanel extends javax.swing.JPanel {
 
         radioUniversity.setText("University");
 
-        btnAssignOrders.setText("Assign Orders");
-        btnAssignOrders.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAssignOrdersActionPerformed(evt);
-            }
-        });
-
         btnModify.setText("Modify Delivery Boys");
         btnModify.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnModifyActionPerformed(evt);
+            }
+        });
+
+        btnAssignOrders.setText("Assign Orders");
+        btnAssignOrders.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAssignOrdersActionPerformed(evt);
             }
         });
 
@@ -175,9 +175,9 @@ public class DeliveryAdminPanel extends javax.swing.JPanel {
                         .addGap(775, 775, 775))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(btnAssignOrders, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(36, 36, 36)
-                        .addComponent(btnModify)
-                        .addGap(193, 193, 193))))
+                        .addGap(18, 18, 18)
+                        .addComponent(btnModify, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(143, 143, 143))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -213,8 +213,8 @@ public class DeliveryAdminPanel extends javax.swing.JPanel {
                 .addComponent(btnSave)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 128, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAssignOrders)
-                    .addComponent(btnModify))
+                    .addComponent(btnModify)
+                    .addComponent(btnAssignOrders))
                 .addGap(53, 53, 53))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -268,12 +268,12 @@ public class DeliveryAdminPanel extends javax.swing.JPanel {
         }
 
         DeliveryBoy deliveryBoy = deliveryBoyDirectory.addNewDeliveryBoy();
-        deliveryBoy.setAvailability(true); // Setting availability to true by default
         deliveryBoy.setDeliveryBoyName(txtName.getText());
         deliveryBoy.setEmergencyContactNumber(Integer.parseInt(txtEmergency.getText()));
         deliveryBoy.setQualificaton(qualif);
         deliveryBoy.setYearOfDeliveryExperience(Integer.parseInt(txtExperience.getText()));
-        
+        deliveryBoy.setAvailability(true); // Setting availability to true by default
+
         community.setDeliveryBoyDirectory(deliveryBoyDirectory);
 
         UserAuthentication userauthentication = userauthenticationdirectory.addNewUserAuthentication();
@@ -283,18 +283,18 @@ public class DeliveryAdminPanel extends javax.swing.JPanel {
 
         setDefault();
         JOptionPane.showMessageDialog(this, "Delivery Boy has been created");
-        if (txtEmergency.getText().length() == 0) {
-            JOptionPane.showMessageDialog(this, "Mandatory emergency contact number field is empty");
+    }                                       
 
     private void btnModifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModifyActionPerformed
         // TODO add your handling code here:
+        
         DeliveryAdminModifyPanel m = new DeliveryAdminModifyPanel(community,deliveryBoyDirectory);
         splitPane.setRightComponent(m);
     }//GEN-LAST:event_btnModifyActionPerformed
 
     private void btnAssignOrdersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssignOrdersActionPerformed
         // TODO add your handling code here:
-        DeliveryAdminAssignPanel d = new DeliveryAdminAssignPanel(cityDir, cityName, companyName, company, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
+            DeliveryAdminAssignPanel d = new DeliveryAdminAssignPanel(cityDir, cityName, companyName, company, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
     }//GEN-LAST:event_btnAssignOrdersActionPerformed
 
 

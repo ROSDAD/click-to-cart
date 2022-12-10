@@ -32,8 +32,6 @@ public class Customer {
         this.orders = orders;
     }
 
-
-
     public Cart getCart() {
         return cart;
     }

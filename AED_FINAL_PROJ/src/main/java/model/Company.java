@@ -13,11 +13,13 @@ public class Company {
 
     private String companyName;
     private String companyType;
+    private long companyEmployeeCount;
     private InventoryMgt inventoryManagement;
 
-    public Company(String companyName, String companyType, InventoryMgt inventoryManagement) {
+    public Company(String companyName, String companyType, long companyEmployeeCount,InventoryMgt inventoryManagement) {
         this.companyName = companyName;
         this.companyType = companyType;
+        this.companyEmployeeCount = companyEmployeeCount;
         this.inventoryManagement = inventoryManagement;
     }
 
@@ -48,6 +50,11 @@ public class Company {
         this.inventoryManagement = inventoryManagement;
     }
 
+    public long getCompanyEmployeeCount() {
+        return companyEmployeeCount;
+    }
 
-
+    public void setCompanyEmployeeCount(long companyEmployeeCount) {
+        this.companyEmployeeCount = companyEmployeeCount;
+    }
 }

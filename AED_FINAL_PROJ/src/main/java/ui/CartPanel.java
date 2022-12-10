@@ -5,8 +5,11 @@
 package ui;
 
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.JSplitPane;
 import javax.swing.table.DefaultTableModel;
+import model.Cart;
 import model.Company;
 import model.Customer;
 import model.Inventory;
@@ -14,6 +17,8 @@ import model.InventoryProduct;
 import model.Orderedprod;
 import model.Ordermgt;
 import model.Orders;
+import model.Payment;
+import model.PaymentDir;
 
 /**
  *
@@ -21,11 +26,20 @@ import model.Orders;
  */
 public class CartPanel extends javax.swing.JPanel {
 
+    private Customer cust;
+    private Company comp;
+    private JSplitPane splitPane;
+
     /**
      * Creates new form CartPanel
      */
-    public CartPanel() {
+    public CartPanel(Customer cust, Company comp, JSplitPane splitPane) {
         initComponents();
+        this.cust = cust;
+        this.comp = comp;
+        this.splitPane = splitPane;
+        ArrayList<Orderedprod> ordProd = cust.getCart().getCartProd();
+
         displayItemList();
     }
 
@@ -76,7 +90,6 @@ public class CartPanel extends javax.swing.JPanel {
 
         totalPrice.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         totalPrice.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        totalPrice.setText("$12");
 
         orderBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         orderBtn.setText("ORDER");
@@ -135,37 +148,24 @@ public class CartPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void orderBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderBtnActionPerformed
-                // TODO add your handling code here:
-        
-        Customer cust = new Customer();
-        ArrayList<Orderedprod> ordProd = cust.getCart().getCartProd();
-        Ordermgt ordmgt = new Ordermgt();
-        Orders ord = ordmgt.addNewOrder();
-        int finalPrice = 0;
-        for(int i = 0; i<ordProd.size();i++){
-            Orderedprod newProd = ord.addNewOrderedProds();
-            newProd.setProdId(ordProd.get(i).getProdid());
-            newProd.setProdcount(ordProd.get(i).getprodcount());
-            newProd.setProdTotalprice(ordProd.get(i).getProdTotalprice());
-            finalPrice = finalPrice+ordProd.get(i).getProdTotalprice();
-            
-        }
-        ord.setFinalPrice(finalPrice);
+        // TODO add your handling code here:
+//        redirect to Payment Details
+        PaymentDetails paymentDetails = new PaymentDetails(cust, comp, splitPane);
+        splitPane.setRightComponent(paymentDetails);
     }//GEN-LAST:event_orderBtnActionPerformed
 
     private void removeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeBtnActionPerformed
-        // TODO add your handling code here:
-        Customer cust = new Customer();
-        ArrayList<Orderedprod> ordProd = cust.getCart().getCartProd();
+
+        Cart ordProd = cust.getCart();
         int selectedRowIndex = cartTable.getSelectedRow();
-        if (selectedRowIndex<0) {
+        if (selectedRowIndex < 0) {
             JOptionPane.showMessageDialog(this, "Select a Product to Remove.");
             return;
         }
-        Orderedprod orderObj = ordProd.get(selectedRowIndex);
-        
-        ordProd.remove(orderObj);
-            
+        Orderedprod orderObj = ordProd.getCartProd().get(selectedRowIndex);
+        ordProd.deleteCartProd(orderObj);
+//        ordProd.remove(orderObj);
+
         displayItemList();
     }//GEN-LAST:event_removeBtnActionPerformed
 
@@ -182,43 +182,36 @@ public class CartPanel extends javax.swing.JPanel {
 private void displayItemList() {
         DefaultTableModel model = (DefaultTableModel) cartTable.getModel();
         model.setRowCount(0);
-        Customer cust = new Customer(); //need to be changed
-        
-        ArrayList<Orderedprod> ordProd = cust.getCart().getCartProd();
-        
-        Company comp = new Company(); //need to be changed
-        
-        ArrayList<Inventory> dirModel = comp.getInventoryManagement().getInventoryMgt();
-        
-        
-         
-        
-        
+        List<Orderedprod> ordProd = cust.getCart().getCartProd();
+        List<Inventory> dirModel = comp.getInventoryManagement().getInventoryMgt();
+
+        double finalPrice = 0;
         String pName = "";
-        for (int i =0;i<ordProd.size();i++){
-          if(ordProd.get(i) != null){
-            for(int k = 0; k<dirModel.size();k++){
-            ArrayList<InventoryProduct> mainM = comp.getInventoryManagement().getInventoryMgt().get(k).getInventoryProductDir().getInventoryProductDir();
-            for(int j = 0; j<mainM.size();j++){
-                if(ordProd.get(i).getProdid().equals(mainM.get(j).getPid())){
-                    pName = mainM.get(j).getProductName();
+        for (int i = 0; i < ordProd.size(); i++) {
+            if (ordProd.get(i) != null) {
+                for (int k = 0; k < dirModel.size(); k++) {
+                    ArrayList<InventoryProduct> mainM = comp.getInventoryManagement().getInventoryMgt().get(k).getInventoryProductDir().getInventoryProductDir();
+                    for (int j = 0; j < mainM.size(); j++) {
+                        if (ordProd.get(i).getProdid().equals(mainM.get(j).getPid())) {
+                            pName = mainM.get(j).getProductName();
+                        }
+                    }
+
                 }
-                }
+
+                Object[] row = new Object[4];
+                row[0] = ordProd.get(i).getProdid();
+
+                row[1] = pName;
+                row[2] = ordProd.get(i).getprodcount();
+                row[3] = ordProd.get(i).getProdTotalprice();
+                finalPrice = finalPrice + ordProd.get(i).getProdTotalprice();
+                model.addRow(row);
 
             }
-            Object[] row = new Object[4];
-            row[0] = ordProd.get(i).getProdid();
-
-            row[1] = pName;
-            row[2] = ordProd.get(i).getprodcount();
-            row[3] = ordProd.get(i).getProdTotalprice();
-            
-            model.addRow(row);
-           
-            
-          }
         }
-        
+
+        totalPrice.setText("$" + finalPrice);
 
     }
 

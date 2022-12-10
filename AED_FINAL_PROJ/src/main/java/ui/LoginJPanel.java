@@ -17,7 +17,7 @@ import model.UserAuthenticationDirectory;
 
 /**
  *
- * @author 91961
+ * @author Abhishek
  */
 public class LoginJPanel extends javax.swing.JPanel {
 
@@ -34,7 +34,7 @@ public class LoginJPanel extends javax.swing.JPanel {
      * Creates new form LoginJPanel
      */
     public LoginJPanel() {
-        initComponents();
+//        initComponents();
     }
 
     public LoginJPanel(CityDir cityDirectory, Ordermgt orderManagement, Community community, CustomerDirectory customerDirectory, CompanyDirectory companyDirectory, UserAuthenticationDirectory userauthenticationdirectory, JSplitPane splitPane, DeliveryBoyDirectory deliveryBoyDirectory) {
@@ -81,10 +81,6 @@ public class LoginJPanel extends javax.swing.JPanel {
         usernameJLabel1.setText("Username");
 
         passwordLabel2.setText("Password");
-
-        usernameTextField1.setText("Username");
-
-        passwordTextField2.setText("Password");
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -267,7 +263,7 @@ public class LoginJPanel extends javax.swing.JPanel {
 
         if (flag && usertype.equalsIgnoreCase("Customer")) {
             JOptionPane.showMessageDialog(this, "Login is successfully done for customer");
-            MainCustomerJPanel mainCustomerJPanel = new MainCustomerJPanel(usernameTextField1.getText(), orderManagement, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
+            MainCustomerJPanel mainCustomerJPanel = new MainCustomerJPanel(cityDirectory,usernameTextField1.getText(), orderManagement, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
             splitPane.setRightComponent(mainCustomerJPanel);
         } else if (flag && usertype.equalsIgnoreCase("DeliveryBoy")) {
             JOptionPane.showMessageDialog(this, "Login is successfully done for Delivery Boy");
@@ -279,17 +275,18 @@ public class LoginJPanel extends javax.swing.JPanel {
             splitPane.setRightComponent(mainCompanyAdminPanel);
         } else if (flag && usertype.equalsIgnoreCase("OrderAdmin")) {
             JOptionPane.showMessageDialog(this, "Login is successfully done for Order Admin");
-            MainOrderAdminJPanel mainOrderAdminJPanel = new MainOrderAdminJPanel(cityDirectory, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
-            splitPane.setRightComponent(mainOrderAdminJPanel);
-        } else if (flag && usertype.equalsIgnoreCase("DeliveryAdmin")) {
-            JOptionPane.showMessageDialog(this, "Login is successfully done for Delivery Admin");
-            MainOrderAdminJPanel mainOrderAdminJPanel = new MainOrderAdminJPanel(cityDirectory, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
-            splitPane.setRightComponent(mainOrderAdminJPanel);
-        } else if (flag && usertype.equalsIgnoreCase("InventoryAdmin")) {
-            JOptionPane.showMessageDialog(this, "Login is successfully done for Inventory Admin");
-            MainOrderAdminJPanel mainOrderAdminJPanel = new MainOrderAdminJPanel(cityDirectory, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
+            MainOrderAdminJPanel mainOrderAdminJPanel = new MainOrderAdminJPanel(orderManagement,cityDirectory, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
             splitPane.setRightComponent(mainOrderAdminJPanel);
         }
+//        } else if (flag && usertype.equalsIgnoreCase("DeliveryAdmin")) {
+//            JOptionPane.showMessageDialog(this, "Login is successfully done for Delivery Admin");
+//            MainOrderAdminJPanel mainOrderAdminJPanel = new MainOrderAdminJPanel(cityDirectory, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
+//            splitPane.setRightComponent(mainOrderAdminJPanel);
+//        } else if (flag && usertype.equalsIgnoreCase("InventoryAdmin")) {
+//            JOptionPane.showMessageDialog(this, "Login is successfully done for Inventory Admin");
+//            MainOrderAdminJPanel inventoryAdminJPanel = new MainOrderAdminJPanel(cityDirectory, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
+//            splitPane.setRightComponent(inventoryAdminJPanel);
+//        }
     }//GEN-LAST:event_loginButton1ActionPerformed
 
     private void customerRadioButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customerRadioButton5ActionPerformed

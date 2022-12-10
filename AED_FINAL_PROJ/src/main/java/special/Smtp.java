@@ -28,11 +28,11 @@ public class Smtp {
     private static final String EMAIL_SUBJECT = "CONFIRMATION MAIL";
     private static final String EMAIL_TEXT = "Thank You for choosing Insta Cart!";
     
-    public Smtp(){
-        System.out.println("IN here");
-        sendMail();
+    public Smtp(String Email, String Subject, String Data){
+       
+        sendMail(Email,Subject,Data);
     }
-    public void sendMail(){
+    public void sendMail(String Email,String Subject, String Data){
         Properties prop = System.getProperties();
         prop.put("mail.smtp.host", SMTP_SERVER);//optional, defined in SMTPTransport
         prop.put("mail.smtp.starttls.enable", "true");
@@ -49,17 +49,17 @@ public class Smtp {
 
 			// to 
             msg.setRecipients(Message.RecipientType.TO,
-                    InternetAddress.parse(EMAIL_TO, false));
+                    InternetAddress.parse(Email, false));
 
 			// cc
             msg.setRecipients(Message.RecipientType.CC,
                     InternetAddress.parse(EMAIL_TO_CC, false));
 
 			// subject
-            msg.setSubject(EMAIL_SUBJECT);
+            msg.setSubject(Subject);
 			
 			// content 
-            msg.setText(EMAIL_TEXT);
+            msg.setText(Data);
 			
             msg.setSentDate(new Date());
 
@@ -71,7 +71,7 @@ public class Smtp {
                 
                 // send
                 t.sendMessage(msg, msg.getAllRecipients());
-                System.out.println("sent");
+                
                 System.out.println("Response: " + t.getLastServerResponse());
             }
 

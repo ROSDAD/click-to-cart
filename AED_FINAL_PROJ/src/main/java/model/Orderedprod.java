@@ -11,7 +11,7 @@ package model;
 public class Orderedprod {
     private String prodId;
     private int prodCount;
-    private int prodTotalprice;
+    private double prodTotalprice;
     
     public void setProdId(String prodId){
         this.prodId = prodId;
@@ -28,11 +28,11 @@ public class Orderedprod {
         return prodCount;
     }
     
-    public int getProdTotalprice() {
+    public double getProdTotalprice() {
         return prodTotalprice;
     }
 
-    public void setProdTotalprice(int prodTotalprice) {
+    public void setProdTotalprice(double prodTotalprice) {
         this.prodTotalprice = prodTotalprice;
     }
 }

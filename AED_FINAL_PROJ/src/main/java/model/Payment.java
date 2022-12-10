@@ -13,12 +13,12 @@ public class Payment {
     
     private String paymentType;
     private String userName;
-    private int cardHolderName;
-    private int cardNumber;
+    private String cardHolderName;
+    private long cardNumber;
     private int cardExpiryMonth;
     private int cardExpiryYear;
     private int cardCVV;
-           
+        
 
     public String getPaymentType() {
         return paymentType;
@@ -36,19 +36,19 @@ public class Payment {
         this.userName = userName;
     }
 
-    public int getCardHolderName() {
+    public String getCardHolderName() {
         return cardHolderName;
     }
 
-    public void setCardHolderName(int cardHolderName) {
+    public void setCardHolderName(String cardHolderName) {
         this.cardHolderName = cardHolderName;
     }
 
-    public int getCardNumber() {
+    public long getCardNumber() {
         return cardNumber;
     }
 
-    public void setCardNumber(int cardNumber) {
+    public void setCardNumber(long cardNumber) {
         this.cardNumber = cardNumber;
     }
 

@@ -13,8 +13,12 @@ import java.util.ArrayList;
 public class Ordermgt {
     private ArrayList<Orders> orders;
     private Cart cart;
-    
-    
+    private PaymentDir paymentDir;
+
+    public Ordermgt() {
+        this.orders = new ArrayList<>();
+    }
+   
     public ArrayList<Orders> getOrders() {
         return orders;
     }
@@ -24,7 +28,12 @@ public class Ordermgt {
         orders.add(ord);
         return ord;
     }
-
+    public void setPaymentDir(PaymentDir paymentDir){
+        this.paymentDir = paymentDir;
+    }
+    public PaymentDir getPaymentDir(){
+        return paymentDir;
+    }
     public Cart getCart() {
         return cart;
     }

@@ -11,29 +11,36 @@ import java.util.ArrayList;
  * @author rosha
  */
 public class Cart {
-    
+
     private ArrayList<Orderedprod> cartProd;
-    private String totalPrice;
-    
-    
+    private double totalPrice;
+
+    public Cart() {
+        this.cartProd = new ArrayList<>();
+    }
+
 //    private CompanyDir companyDir;
 //    private CommunityDir communityDir;
-
     public Orderedprod addNewCartProd() {
         Orderedprod ord = new Orderedprod();
         cartProd.add(ord);
         return ord;
     }
 
+    public void deleteCartProd(Orderedprod objProd) {
+        cartProd.remove(objProd);
+    }
+
     public ArrayList<Orderedprod> getCartProd() {
         return cartProd;
     }
 
-    public String getTotalPrice() {
+    public double getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(String totalPrice) {
+    public void setTotalPrice(double totalPrice) {
         this.totalPrice = totalPrice;
     }
+
 }

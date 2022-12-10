@@ -4,17 +4,25 @@
  */
 package ui;
 
+import javax.swing.JSplitPane;
+import model.Company;
+import model.Customer;
+
 /**
  *
  * @author rosha
  */
 public class OrderCnfPanel extends javax.swing.JPanel {
 
-    /**
-     * Creates new form OrderCnfPanel
-     */
-    public OrderCnfPanel() {
+    private Customer cust;
+    private Company comp;
+    private JSplitPane splitPane;
+
+    public OrderCnfPanel(Customer cust, Company comp, JSplitPane splitPane) {
         initComponents();
+        this.cust = cust;
+        this.comp = comp;
+        this.splitPane = splitPane;
     }
 
     /**
@@ -29,13 +37,13 @@ public class OrderCnfPanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("YOUR ORDER IS CONFIRMED!");
         jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel2.setText("We have sent you an order confirmation and receipt on your email!");
+        jLabel2.setText("We have sent you an order confirmation and receipt on your Email!");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

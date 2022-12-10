@@ -17,6 +17,8 @@ import model.CustomerDirectory;
 import model.DeliveryBoyDirectory;
 import model.Inventory;
 import model.InventoryMgt;
+import model.InventoryProduct;
+import model.InventoryProductDir;
 import model.Ordermgt;
 import model.UserAuthenticationDirectory;
 
@@ -32,13 +34,10 @@ public class MainJFrame extends javax.swing.JFrame {
     private CityDir cityDirectory;
     private CompanyDirectory companyDir;
     private InventoryMgt inventoryManagement;
+    private InventoryProductDir invProdDir;
     private DeliveryBoyDirectory deliveryBoyDirectory;
     private Ordermgt orderManagement;
-
-    /**
-     * Creates new form MainJFrame
-     *
-     */
+    
     public MainJFrame() {
         initComponents();
 
@@ -49,16 +48,18 @@ public class MainJFrame extends javax.swing.JFrame {
         userauthenticationdirectory = new UserAuthenticationDirectory();
         cityDirectory = new CityDir();
         companyDir = new CompanyDirectory();
-        inventoryManagement = new InventoryMgt();
-        deliveryBoyDirectory = new DeliveryBoyDirectory();
-        orderManagement = new Ordermgt();
-
-
-
+        invProdDir = new InventoryProductDir();
+        
+        InventoryProduct invProd = invProdDir.addNewInventoryProduct();
+        invProd.setProductName("TV");
+        invProd.setPrice(500);
+        invProd.setInventoryQty(24);
+        
         Inventory inv = inventoryManagement.addNewInventory();
         inv.setInventoryCategory("Default");
         inv.setInventoryType("Critical");
-
+        inv.setInventoryProductDir(invProdDir);
+        
         Company company = companyDir.addNewCompany();
         company.setCompanyName("Costco");
         company.setCompanyType("Type 1");

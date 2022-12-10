@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class Cart {
     
     private ArrayList<Orderedprod> cartProd;
-    private String totalPrice;
+    private double totalPrice;
     
     
 //    private CompanyDir companyDir;
@@ -24,16 +24,20 @@ public class Cart {
         cartProd.add(ord);
         return ord;
     }
-
+    public void deleteCartProd(Orderedprod objProd){
+        cartProd.remove(objProd);
+    }
     public ArrayList<Orderedprod> getCartProd() {
         return cartProd;
     }
 
-    public String getTotalPrice() {
+    public double getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(String totalPrice) {
+    public void setTotalPrice(double totalPrice) {
         this.totalPrice = totalPrice;
     }
+
+
 }

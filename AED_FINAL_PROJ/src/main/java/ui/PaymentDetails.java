@@ -4,6 +4,21 @@
  */
 package ui;
 
+import java.util.ArrayList;
+import javax.swing.ButtonGroup;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.Company;
+import model.Customer;
+import model.Inventory;
+import model.InventoryProduct;
+import model.Orderedprod;
+import model.Ordermgt;
+import model.Orders;
+import model.Payment;
+import model.PaymentDir;
+import special.Smtp;
+
 /**
  *
  * @author rosha
@@ -15,6 +30,18 @@ public class PaymentDetails extends javax.swing.JPanel {
      */
     public PaymentDetails() {
         initComponents();
+        Customer cust = new Customer();//need to be changed
+
+        ArrayList<Orderedprod> ordProd = cust.getCart().getCartProd();
+        
+        double finalPrice = 0;
+        for(int i = 0; i<ordProd.size();i++){
+            finalPrice = finalPrice+ordProd.get(i).getProdTotalprice();
+        }
+        finalPriceLabel.setText("$"+finalPrice);
+        ButtonGroup buttonGroup = new ButtonGroup();
+        buttonGroup.add(debitRadioBtn);
+        buttonGroup.add(creditRadioBtn);
     }
 
     /**
@@ -26,26 +53,35 @@ public class PaymentDetails extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        debitRadioBtn = new javax.swing.JRadioButton();
+        creditRadioBtn = new javax.swing.JRadioButton();
         jLabel1 = new javax.swing.JLabel();
         cardName = new javax.swing.JTextField();
         cardMonth = new javax.swing.JTextField();
         cardYear = new javax.swing.JTextField();
         cardNumber = new javax.swing.JTextField();
         cardCvv = new javax.swing.JTextField();
-        proceedBtn = new javax.swing.JButton();
+        addNewCard = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        finalPriceLabel = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        paymentTable = new javax.swing.JTable();
+        deleteCard = new javax.swing.JButton();
+        proceedBtn = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
 
-        jRadioButton1.setText("Debit");
-        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+        debitRadioBtn.setText("Debit");
+        debitRadioBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton1ActionPerformed(evt);
+                debitRadioBtnActionPerformed(evt);
             }
         });
 
-        jRadioButton2.setText("Credit");
+        creditRadioBtn.setText("Credit");
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
         jLabel1.setText("SELECT YOUR PAYMENT METHOD");
@@ -62,74 +98,165 @@ public class PaymentDetails extends javax.swing.JPanel {
             }
         });
 
-        proceedBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        proceedBtn.setText("Proceed");
+        addNewCard.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        addNewCard.setText("ADD NEW CARD");
+        addNewCard.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addNewCardActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         jLabel2.setText("Your Order Total:");
+        jLabel2.setToolTipText("");
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel3.setText("$12");
+        finalPriceLabel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+
+        paymentTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Sr. No.", "Type", "Card Holder", "Ending With"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(paymentTable);
+
+        deleteCard.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        deleteCard.setText("DELETE");
+        deleteCard.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteCardActionPerformed(evt);
+            }
+        });
+
+        proceedBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        proceedBtn.setText("PROCEED");
+        proceedBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                proceedBtnActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setText("Month");
+
+        jLabel5.setText("Year");
+
+        jLabel6.setText("CVV");
+
+        jLabel7.setText("Card Number");
+
+        jLabel8.setText("Card Holder's Name");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(295, 295, 295)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(proceedBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cardName)
-                    .addComponent(cardNumber)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jRadioButton1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jRadioButton2))
+                .addGap(305, 305, 305)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(cardMonth, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cardYear, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cardCvv))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(294, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(finalPriceLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(90, 90, 90)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(deleteCard, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(274, 274, 274)
+                        .addComponent(proceedBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 491, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(addNewCard, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cardName)
+                        .addComponent(cardNumber)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(debitRadioBtn)
+                            .addGap(18, 18, 18)
+                            .addComponent(creditRadioBtn)))
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cardMonth, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cardYear, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cardCvv, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(32, 32, 32))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(9, 9, 9)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2))
-                .addGap(18, 18, 18)
-                .addComponent(cardName, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(cardNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(cardCvv)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(debitRadioBtn)
+                            .addComponent(creditRadioBtn)))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(cardMonth, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(cardYear, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(finalPriceLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addComponent(proceedBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(91, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cardName, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cardNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(24, 24, 24)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6))
+                        .addGap(10, 10, 10)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cardMonth, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cardYear, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cardCvv, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(deleteCard, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
+                        .addComponent(proceedBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(addNewCard, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(64, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+    private void debitRadioBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_debitRadioBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton1ActionPerformed
+    }//GEN-LAST:event_debitRadioBtnActionPerformed
 
     private void cardNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cardNumberActionPerformed
         // TODO add your handling code here:
@@ -139,18 +266,140 @@ public class PaymentDetails extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_cardCvvActionPerformed
 
+    private void proceedBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_proceedBtnActionPerformed
+        // TODO add your handling code here:
+        int selectedRowIndex = paymentTable.getSelectedRow();
+        if (selectedRowIndex<0) {
+            JOptionPane.showMessageDialog(this, "Select a Card to Proceed!");
+            return;
+        }
+        Customer cust = new Customer();//need to be changed
+        
+        ArrayList<Payment> payDir = cust.getPaymentDir().getPaymentDir();
+
+
+           ArrayList<Orderedprod> ordProd = cust.getCart().getCartProd();
+           Ordermgt ordmgt = new Ordermgt();
+           Orders ord = ordmgt.addNewOrder();
+           ord.setCustomerId(cust.getUserName());
+           double finalPrice = 0;
+           for(int i = 0; i<ordProd.size();i++){
+               Orderedprod newProd = ord.addNewOrderedProds();
+               
+               newProd.setProdId(ordProd.get(i).getProdid());
+               newProd.setProdcount(ordProd.get(i).getprodcount());
+               newProd.setProdTotalprice(ordProd.get(i).getProdTotalprice());
+               finalPrice = finalPrice+ordProd.get(i).getProdTotalprice();
+
+           }
+           ord.setFinalPrice(finalPrice);
+           ord.setPaymentType(payDir.get(selectedRowIndex));
+           String Subject = "Order Confirmation!";
+           String data = "Thank you for Choosing InstaCart! Your total bill is $"+finalPrice;
+           Smtp smtp = new Smtp(cust.getUserName(),Subject,data);
+//redirect OrderCnf Panel
+    }//GEN-LAST:event_proceedBtnActionPerformed
+
+    private void deleteCardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteCardActionPerformed
+        // TODO add your handling code here:
+        int selectedRowIndex = paymentTable.getSelectedRow();
+        if (selectedRowIndex<0) {
+            JOptionPane.showMessageDialog(this, "Select a Card to Delete!");
+            return;
+        }
+        Customer cust = new Customer();//need to be changed
+        
+        Payment payment = cust.getPaymentDir().getPaymentDir().get(selectedRowIndex);
+        cust.getPaymentDir().deletePayment(payment);
+        displayCardList();
+        JOptionPane.showMessageDialog(this, "Card Deleted Successfully!");
+    }//GEN-LAST:event_deleteCardActionPerformed
+
+    private void addNewCardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewCardActionPerformed
+        // TODO add your handling code here:
+        String radioVal = "";
+        if(debitRadioBtn.isSelected() == true) {
+            radioVal = "Debit";
+        }
+        else if(creditRadioBtn.isSelected() == true){
+            radioVal = "Credit";
+        }
+        else {
+            JOptionPane.showMessageDialog(this, "Please select a Card type.");
+        }
+        String cardHolderName = cardName.getText();
+        String cardNumberVal = cardNumber.getText();
+        String month = cardMonth.getText();
+        String year = cardYear.getText();
+        String cvv = cardCvv.getText();
+        if(cardHolderName.equals("") || cardNumberVal.equals("") || month.equals("") || year.equals("") || cvv.equals("")){
+            JOptionPane.showMessageDialog(this, "Please Fill all Fields");
+        }
+        else{
+            long cardNumberval = Long.parseLong(cardNumberVal);
+            int Month = Integer.parseInt(month);
+            int Year = Integer.parseInt(year);
+            int Cvv = Integer.parseInt(cvv);
+            Customer cust = new Customer();//need to be changed
+        
+            Payment payment = cust.getPaymentDir().addNewPayment();
+            payment.setPaymentType(radioVal);
+            payment.setCardHolderName(cardHolderName);
+            payment.setCardNumber(cardNumberval);
+            payment.setCardExpiryMonth(Month);
+            payment.setCardExpiryYear(Year);
+            payment.setCardCVV(Cvv);
+            displayCardList();
+            JOptionPane.showMessageDialog(this, "Card Added Successfully!");
+        }
+    }//GEN-LAST:event_addNewCardActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addNewCard;
     private javax.swing.JTextField cardCvv;
     private javax.swing.JTextField cardMonth;
     private javax.swing.JTextField cardName;
     private javax.swing.JTextField cardNumber;
     private javax.swing.JTextField cardYear;
+    private javax.swing.JRadioButton creditRadioBtn;
+    private javax.swing.JRadioButton debitRadioBtn;
+    private javax.swing.JButton deleteCard;
+    private javax.swing.JLabel finalPriceLabel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable paymentTable;
     private javax.swing.JButton proceedBtn;
     // End of variables declaration//GEN-END:variables
+private void displayCardList() {
+        DefaultTableModel model = (DefaultTableModel) paymentTable.getModel();
+        model.setRowCount(0);
+        Customer cust = new Customer(); //need to be changed
+        ArrayList<Payment> paymentDir = cust.getPaymentDir().getPaymentDir();
+        double finalPrice = 0;
+        String pName = "";
+        for (int i =0;i<paymentDir.size();i++){
+          if(paymentDir.get(i) != null){
+            
+            Object[] row = new Object[4];
+            row[0] = i;
+
+            row[1] = paymentDir.get(i).getPaymentType();
+            row[2] = paymentDir.get(i).getCardHolderName();
+            row[3] = "xxxxxxxxxxx"+String.valueOf(paymentDir.get(i).getCardNumber())
+                    .substring(String.valueOf(paymentDir.get(i).getCardNumber()).length() - 4);
+           
+            model.addRow(row);
+           
+            
+          }
+        }
+
+    }
 }

@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class DeliveryBoyDirectory {
 
-    private List<DeliveryBoy> deliveryBoyList;
+    private ArrayList<DeliveryBoy> deliveryBoyList;
 
     public DeliveryBoyDirectory() {
         this.deliveryBoyList = new ArrayList<>();
@@ -23,7 +23,7 @@ public class DeliveryBoyDirectory {
         return deliveryBoyList;
     }
 
-    public void setDeliveryBoyList(List<DeliveryBoy> deliveryBoyList) {
+    public void setDeliveryBoyList(ArrayList<DeliveryBoy> deliveryBoyList) {
         this.deliveryBoyList = deliveryBoyList;
     }
 
@@ -43,8 +43,18 @@ public class DeliveryBoyDirectory {
      *
      * @param index
      */
-    public void deletePerson(int index) {
+    public void deleteDeliveryBoy(int index) {
         deliveryBoyList.remove(index);
+    }
+    
+    public void updateDeliveryBoy(DeliveryBoy c, DeliveryBoy u) {
+        
+        for(int i=0;i<deliveryBoyList.size();i++) {
+            
+            if (deliveryBoyList.get(i).equals(c)) {
+                deliveryBoyList.set(i,u);
+            }
+        }
     }
 
 }

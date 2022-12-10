@@ -7,6 +7,7 @@ package ui;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import model.Cart;
 import model.Company;
 import model.Customer;
 import model.Inventory;
@@ -14,6 +15,8 @@ import model.InventoryProduct;
 import model.Orderedprod;
 import model.Ordermgt;
 import model.Orders;
+import model.Payment;
+import model.PaymentDir;
 
 /**
  *
@@ -80,7 +83,6 @@ public class CartPanel extends javax.swing.JPanel {
 
         totalPrice.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         totalPrice.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        totalPrice.setText("$12");
 
         orderBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         orderBtn.setText("ORDER");
@@ -140,36 +142,21 @@ public class CartPanel extends javax.swing.JPanel {
 
     private void orderBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderBtnActionPerformed
                 // TODO add your handling code here:
-        if(){
-            Customer cust = new Customer(); //need to be changed
-            ArrayList<Orderedprod> ordProd = cust.getCart().getCartProd();
-            Ordermgt ordmgt = new Ordermgt();
-            Orders ord = ordmgt.addNewOrder();
-            int finalPrice = 0;
-            for(int i = 0; i<ordProd.size();i++){
-                Orderedprod newProd = ord.addNewOrderedProds();
-                newProd.setProdId(ordProd.get(i).getProdid());
-                newProd.setProdcount(ordProd.get(i).getprodcount());
-                newProd.setProdTotalprice(ordProd.get(i).getProdTotalprice());
-                finalPrice = finalPrice+ordProd.get(i).getProdTotalprice();
-
-            }
-            ord.setFinalPrice(finalPrice);
-        }
+//        redirect to Payment Details
     }//GEN-LAST:event_orderBtnActionPerformed
 
     private void removeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeBtnActionPerformed
         // TODO add your handling code here:
         Customer cust = new Customer();
-        ArrayList<Orderedprod> ordProd = cust.getCart().getCartProd();
+        Cart ordProd = cust.getCart();
         int selectedRowIndex = cartTable.getSelectedRow();
         if (selectedRowIndex<0) {
             JOptionPane.showMessageDialog(this, "Select a Product to Remove.");
             return;
         }
-        Orderedprod orderObj = ordProd.get(selectedRowIndex);
-        
-        ordProd.remove(orderObj);
+        Orderedprod orderObj = ordProd.getCartProd().get(selectedRowIndex);
+        ordProd.deleteCartProd(orderObj);
+//        ordProd.remove(orderObj);
             
         displayItemList();
     }//GEN-LAST:event_removeBtnActionPerformed
@@ -198,7 +185,7 @@ private void displayItemList() {
         
          
         
-        int finalPrice = 0;
+        double finalPrice = 0;
         String pName = "";
         for (int i =0;i<ordProd.size();i++){
           if(ordProd.get(i) != null){

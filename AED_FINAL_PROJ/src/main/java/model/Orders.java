@@ -16,11 +16,19 @@ public class Orders {
 
     private String orderId;
     private List<Orderedprod> orderedProds;
-    private int finalPrice;
+    private double finalPrice;
     private String address;
-    private String paymentType;
+    private Payment payment;
     private String orderStatus;
+    private String customerId;
 
+    public String getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
+    }
     public String getOrderId() {
         return orderId;
     }
@@ -37,11 +45,11 @@ public class Orders {
         this.orderedProds = orderedProds;
     }
 
-    public int getFinalPrice() {
+    public double getFinalPrice() {
         return finalPrice;
     }
 
-    public void setFinalPrice(int finalPrice) {
+    public void setFinalPrice(double finalPrice) {
         this.finalPrice = finalPrice;
     }
 
@@ -53,12 +61,12 @@ public class Orders {
         this.address = address;
     }
 
-    public String getPaymentType() {
-        return paymentType;
+    public Payment getPaymentType() {
+        return payment;
     }
 
-    public void setPaymentType(String paymentType) {
-        this.paymentType = paymentType;
+    public void setPaymentType(Payment payment) {
+        this.payment = payment;
     }
 
     public String getOrderStatus() {

@@ -76,10 +76,6 @@ public class LoginJPanel extends javax.swing.JPanel {
 
         passwordLabel2.setText("Password");
 
-        usernameTextField1.setText("Username");
-
-        passwordTextField2.setText("Password");
-
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Admin Login");

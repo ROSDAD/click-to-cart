@@ -6,6 +6,7 @@ package ui;
 
 import javax.swing.JSplitPane;
 import javax.swing.JOptionPane;
+import model.CityDir;
 import model.Community;
 import model.CompanyDirectory;
 import model.CustomerDirectory;
@@ -21,6 +22,7 @@ import model.UserAuthenticationDirectory;
 public class LoginJPanel extends javax.swing.JPanel {
 
     private JSplitPane splitPane;
+    private CityDir cityDirectory;
     private Community community;
     private CustomerDirectory customerDirectory;
     private CompanyDirectory companyDirectory;
@@ -35,8 +37,9 @@ public class LoginJPanel extends javax.swing.JPanel {
         initComponents();
     }
 
-    public LoginJPanel(Ordermgt orderManagement, Community community, CustomerDirectory customerDirectory, CompanyDirectory companyDirectory, UserAuthenticationDirectory userauthenticationdirectory, JSplitPane splitPane, DeliveryBoyDirectory deliveryBoyDirectory) {
+    public LoginJPanel(CityDir cityDirectory, Ordermgt orderManagement, Community community, CustomerDirectory customerDirectory, CompanyDirectory companyDirectory, UserAuthenticationDirectory userauthenticationdirectory, JSplitPane splitPane, DeliveryBoyDirectory deliveryBoyDirectory) {
         initComponents();
+        this.cityDirectory = cityDirectory;
         this.community = community;
         this.customerDirectory = customerDirectory;
         this.companyDirectory = companyDirectory;
@@ -66,6 +69,9 @@ public class LoginJPanel extends javax.swing.JPanel {
         deliveryBoyRadioButton4 = new javax.swing.JRadioButton();
         customerRadioButton5 = new javax.swing.JRadioButton();
         loginButton1 = new javax.swing.JButton();
+        orderAdminRadioButton = new javax.swing.JRadioButton();
+        deliveryAdminRadioButton = new javax.swing.JRadioButton();
+        inventoryAdminRadioButton = new javax.swing.JRadioButton();
 
         createLabel1.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         createLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -109,6 +115,27 @@ public class LoginJPanel extends javax.swing.JPanel {
             }
         });
 
+        orderAdminRadioButton.setText("Order Admin");
+        orderAdminRadioButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                orderAdminRadioButtonActionPerformed(evt);
+            }
+        });
+
+        deliveryAdminRadioButton.setText("Delivery Admin");
+        deliveryAdminRadioButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deliveryAdminRadioButtonActionPerformed(evt);
+            }
+        });
+
+        inventoryAdminRadioButton.setText("Inventory Admin");
+        inventoryAdminRadioButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inventoryAdminRadioButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -131,51 +158,61 @@ public class LoginJPanel extends javax.swing.JPanel {
                                     .addComponent(passwordTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(usernameTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(156, 156, 156))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(loginButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(304, 304, 304))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(companyAdminRadioButton1)
-                                                .addComponent(jLabel1))
-                                            .addGap(206, 206, 206)
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(deliveryBoyRadioButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(customerRadioButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addGap(357, 357, 357)
-                                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGap(142, 142, 142)))))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(orderAdminRadioButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(companyAdminRadioButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(deliveryAdminRadioButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(inventoryAdminRadioButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addGap(206, 206, 206)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(deliveryBoyRadioButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(customerRadioButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(357, 357, 357)
+                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(142, 142, 142))))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(loginButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(306, 306, 306))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(createLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(usernameJLabel1)
-                    .addComponent(usernameTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(passwordLabel2)
-                    .addComponent(passwordTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(38, 38, 38)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
-                .addGap(52, 52, 52)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(companyAdminRadioButton1)
-                    .addComponent(customerRadioButton5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(deliveryBoyRadioButton4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(createLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(usernameJLabel1)
+                            .addComponent(usernameTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(passwordLabel2)
+                            .addComponent(passwordTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(38, 38, 38)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2))
+                        .addGap(52, 52, 52)
+                        .addComponent(customerRadioButton5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(deliveryBoyRadioButton4))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(companyAdminRadioButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(orderAdminRadioButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(deliveryAdminRadioButton)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(inventoryAdminRadioButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
                 .addComponent(loginButton1)
-                .addGap(28, 28, 28))
+                .addGap(15, 15, 15))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -203,6 +240,12 @@ public class LoginJPanel extends javax.swing.JPanel {
             usertype = "Customer";
         } else if (deliveryBoyRadioButton4.isSelected() == true) {
             usertype = "DeliveryBoy";
+        } else if (orderAdminRadioButton.isSelected() == true) {
+            usertype = "OrderAdmin";
+        } else if (deliveryAdminRadioButton.isSelected() == true) {
+            usertype = "DeliveryAdmin";
+        } else if (inventoryAdminRadioButton.isSelected() == true) {
+            usertype = "InventoryAdmin";
         } else {
             JOptionPane.showMessageDialog(this, "Select one of the radio buttons");
             return;
@@ -219,12 +262,28 @@ public class LoginJPanel extends javax.swing.JPanel {
 
         if (flag && usertype.equalsIgnoreCase("Customer")) {
             JOptionPane.showMessageDialog(this, "Login is successfully done for customer");
-            MainCustomerJPanel mainCustomerJPanel = new MainCustomerJPanel(orderManagement, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
+            MainCustomerJPanel mainCustomerJPanel = new MainCustomerJPanel(usernameTextField1.getText(), orderManagement, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
             splitPane.setRightComponent(mainCustomerJPanel);
         } else if (flag && usertype.equalsIgnoreCase("DeliveryBoy")) {
             JOptionPane.showMessageDialog(this, "Login is successfully done for Delivery Boy");
             MainDeliveryBoyJPanel mainDeliveryBoyJPanel = new MainDeliveryBoyJPanel(community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
             splitPane.setRightComponent(mainDeliveryBoyJPanel);
+        } else if (flag && usertype.equalsIgnoreCase("CompanyAdmin")) {
+            JOptionPane.showMessageDialog(this, "Login is successfully done for Company Admin");
+            MainCompanyAdminJPanel mainCompanyAdminPanel = new MainCompanyAdminJPanel(cityDirectory, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
+            splitPane.setRightComponent(mainCompanyAdminPanel);
+        } else if (flag && usertype.equalsIgnoreCase("OrderAdmin")) {
+            JOptionPane.showMessageDialog(this, "Login is successfully done for Order Admin");
+            MainOrderAdminJPanel mainOrderAdminJPanel = new MainOrderAdminJPanel(cityDirectory, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
+            splitPane.setRightComponent(mainOrderAdminJPanel);
+        } else if (flag && usertype.equalsIgnoreCase("DeliveryAdmin")) {
+            JOptionPane.showMessageDialog(this, "Login is successfully done for Delivery Admin");
+ //           MainOrderAdminJPanel mainOrderAdminJPanel = new MainOrderAdminJPanel(cityDirectory, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
+ //           splitPane.setRightComponent(mainOrderAdminJPanel);
+        } else if (flag && usertype.equalsIgnoreCase("InventoryAdmin")) {
+            JOptionPane.showMessageDialog(this, "Login is successfully done for Inventory Admin");
+ //           MainOrderAdminJPanel mainOrderAdminJPanel = new MainOrderAdminJPanel(cityDirectory, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
+ //           splitPane.setRightComponent(mainOrderAdminJPanel);
         }
     }//GEN-LAST:event_loginButton1ActionPerformed
 
@@ -232,15 +291,30 @@ public class LoginJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_customerRadioButton5ActionPerformed
 
+    private void orderAdminRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderAdminRadioButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_orderAdminRadioButtonActionPerformed
+
+    private void deliveryAdminRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deliveryAdminRadioButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_deliveryAdminRadioButtonActionPerformed
+
+    private void inventoryAdminRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inventoryAdminRadioButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_inventoryAdminRadioButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JRadioButton companyAdminRadioButton1;
     private javax.swing.JLabel createLabel1;
     private javax.swing.JRadioButton customerRadioButton5;
+    private javax.swing.JRadioButton deliveryAdminRadioButton;
     private javax.swing.JRadioButton deliveryBoyRadioButton4;
+    private javax.swing.JRadioButton inventoryAdminRadioButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JButton loginButton1;
+    private javax.swing.JRadioButton orderAdminRadioButton;
     private javax.swing.JLabel passwordLabel2;
     private javax.swing.JTextField passwordTextField2;
     private javax.swing.JLabel usernameJLabel1;

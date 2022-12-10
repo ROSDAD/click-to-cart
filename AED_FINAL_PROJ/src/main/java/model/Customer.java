@@ -4,6 +4,8 @@
  */
 package model;
 
+import java.util.List;
+
 /**
  * Model class to get the customer information.
  *
@@ -16,16 +18,18 @@ public class Customer {
     private String customerAddress;
     private String userName;
     private Cart cart;
+    private List<Orders> orders;
+    
     public Customer() {
     }
 
-    public Customer(String customerName, String customerAddress, String customerClosestLandmark, String userName,Cart cart) {
+    public Customer(String customerName, String customerClosestLandmark, String customerAddress, String userName, Cart cart, List<Orders> orders) {
         this.customerName = customerName;
         this.customerClosestLandmark = customerClosestLandmark;
         this.customerAddress = customerAddress;
         this.userName = userName;
         this.cart = cart;
-         
+        this.orders = orders;
     }
 
     public Cart getCart() {
@@ -66,5 +70,13 @@ public class Customer {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public List<Orders> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Orders> orders) {
+        this.orders = orders;
     }
 }

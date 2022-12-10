@@ -20,10 +20,11 @@
               <Component id="createLabel1" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
-          <Group type="102" alignment="1" attributes="0">
+          <Group type="102" attributes="0">
               <EmptySpace min="157" pref="157" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
+<<<<<<< HEAD:AED_FINAL_PROJ/src/main/java/ui/DeliveryBoyRegistrationJPanel.form
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="jLabel2" pref="165" max="32767" attributes="0"/>
                           <Component id="jLabel3" max="32767" attributes="0"/>
@@ -35,47 +36,99 @@
                           <Component id="qualificationTextField" alignment="1" max="32767" attributes="0"/>
                           <Component id="nameTextField" alignment="0" max="32767" attributes="0"/>
                       </Group>
+=======
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="btnModify" min="-2" pref="170" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="317" max="-2" attributes="0"/>
+>>>>>>> 8df13183b594b9778c964d1a94374efff59fe2bb:AED_FINAL_PROJ/src/main/java/ui/DeliveryAdminPanel.form
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jLabel4" max="32767" attributes="0"/>
-                          <Component id="jLabel5" max="32767" attributes="0"/>
-                          <Component id="jLabel6" alignment="0" pref="165" max="32767" attributes="0"/>
-                          <Component id="jLabel7" alignment="0" max="32767" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="jLabel4" max="32767" attributes="0"/>
+                              <Component id="jLabel5" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="jLabel2" pref="165" max="32767" attributes="0"/>
+                              <Component id="jLabel3" max="32767" attributes="0"/>
+                              <Component id="jLabel1" alignment="0" max="32767" attributes="0"/>
+                          </Group>
+                          <Component id="jLabel6" min="-2" pref="189" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="558" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="329" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="yearsOfDeliveryExperienceTextField1" pref="235" max="32767" attributes="0"/>
-                          <Component id="usernameTextField" alignment="0" max="32767" attributes="0"/>
-                          <Component id="passwordTextField" alignment="0" max="32767" attributes="0"/>
+                          <Component id="contactNameTextField" alignment="1" max="32767" attributes="0"/>
+                          <Component id="nameTextField" alignment="0" max="32767" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="radioHighSchool" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="radioUniversity" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="3" max="32767" attributes="0"/>
+                          </Group>
+                          <Component id="yearsOfDeliveryExperienceTextField1" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-                              <Component id="availablejRadioButton1" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="busyjRadioButton2" min="-2" pref="67" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="usernameTextField" max="32767" attributes="0"/>
+                                  <Component id="passwordTextField" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
+                      <EmptySpace min="-2" pref="263" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
           </Group>
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace max="32767" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="425" max="-2" attributes="0"/>
               <Component id="save" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="545" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <Component id="createLabel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="nameTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Component id="createLabel1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="117" max="32767" attributes="0"/>
+                      <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
+                      <Component id="save" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="75" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="110" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="nameTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="contactNameTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="radioHighSchool" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="radioUniversity" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="yearsOfDeliveryExperienceTextField1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
+                      <Component id="usernameTextField" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="passwordTextField" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                  </Group>
               </Group>
+<<<<<<< HEAD:AED_FINAL_PROJ/src/main/java/ui/DeliveryBoyRegistrationJPanel.form
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="emergencyContactNumberTextField" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -110,15 +163,16 @@
               <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
               <Component id="save" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="121" max="-2" attributes="0"/>
+=======
+              <Component id="btnModify" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+>>>>>>> 8df13183b594b9778c964d1a94374efff59fe2bb:AED_FINAL_PROJ/src/main/java/ui/DeliveryAdminPanel.form
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
     <Component class="javax.swing.JTextField" name="nameTextField">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Name"/>
-      </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nameTextFieldActionPerformed"/>
       </Events>
@@ -131,23 +185,19 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="saveActionPerformed"/>
       </Events>
     </Component>
+<<<<<<< HEAD:AED_FINAL_PROJ/src/main/java/ui/DeliveryBoyRegistrationJPanel.form
     <Component class="javax.swing.JTextField" name="emergencyContactNumberTextField">
       <Properties>
         <Property name="text" type="java.lang.String" value="Emergency contact number"/>
       </Properties>
+=======
+    <Component class="javax.swing.JTextField" name="contactNameTextField">
+>>>>>>> 8df13183b594b9778c964d1a94374efff59fe2bb:AED_FINAL_PROJ/src/main/java/ui/DeliveryAdminPanel.form
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="emergencyContactNumberTextFieldActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="qualificationTextField">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Qualification"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JTextField" name="usernameTextField">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Username"/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
@@ -189,9 +239,6 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="passwordTextField">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Password"/>
-      </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="passwordTextFieldActionPerformed"/>
       </Events>
@@ -201,25 +248,25 @@
         <Property name="text" type="java.lang.String" value="Years of Delivery Experience"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel7">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Availability"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JTextField" name="yearsOfDeliveryExperienceTextField1">
+    </Component>
+    <Component class="javax.swing.JRadioButton" name="radioHighSchool">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Years of Delivery Experience"/>
+        <Property name="text" type="java.lang.String" value="High School"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JRadioButton" name="availablejRadioButton1">
+    <Component class="javax.swing.JRadioButton" name="radioUniversity">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Available"/>
+        <Property name="text" type="java.lang.String" value="University"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JRadioButton" name="busyjRadioButton2">
+    <Component class="javax.swing.JButton" name="btnModify">
       <Properties>
-        <Property name="text" type="java.lang.String" value="busy"/>
+        <Property name="text" type="java.lang.String" value="Modify Delivery Boys"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnModifyActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

@@ -4,6 +4,8 @@
  */
 package model;
 
+import java.util.List;
+
 /**
  * Model class to get the customer information.
  *
@@ -17,6 +19,7 @@ public class Customer {
     private String userName;
     private Cart cart;
     private PaymentDir paymentDir;
+    private List<Orders> orders;
     public Customer() {
     }
 
@@ -76,5 +79,13 @@ public class Customer {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public List<Orders> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Orders> orders) {
+        this.orders = orders;
     }
 }

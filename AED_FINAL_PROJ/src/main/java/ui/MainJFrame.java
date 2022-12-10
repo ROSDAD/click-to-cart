@@ -37,6 +37,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private InventoryProductDir invProdDir;
     private DeliveryBoyDirectory deliveryBoyDirectory;
     private Ordermgt orderManagement;
+    private City city;
     
     public MainJFrame() {
         initComponents();
@@ -48,6 +49,11 @@ public class MainJFrame extends javax.swing.JFrame {
         userauthenticationdirectory = new UserAuthenticationDirectory();
         cityDirectory = new CityDir();
         companyDir = new CompanyDirectory();
+        inventoryManagement = new InventoryMgt();
+        deliveryBoyDirectory = new DeliveryBoyDirectory();
+        orderManagement = new Ordermgt();
+
+
         invProdDir = new InventoryProductDir();
         
         InventoryProduct invProd = invProdDir.addNewInventoryProduct();
@@ -66,7 +72,7 @@ public class MainJFrame extends javax.swing.JFrame {
         company.setInventoryManagement(inventoryManagement);
 
         //Default City
-        City city = cityDirectory.addNewCity();
+        city = cityDirectory.addNewCity();
 
         city.setCityName("Boston");
         city.setCityType("Urban");
@@ -162,7 +168,7 @@ public class MainJFrame extends javax.swing.JFrame {
         lblDetails2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lblDetails2.setText("NU ID: 002707307");
 
-        cityAdminTest.setText("City Admin Test");
+        cityAdminTest.setText("Delivery Admin Test");
         cityAdminTest.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cityAdminTestActionPerformed(evt);
@@ -229,7 +235,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
-        LoginJPanel loginJPanel = new LoginJPanel(orderManagement,community, customerDirectory, companyDir, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
+        LoginJPanel loginJPanel = new LoginJPanel(cityDirectory, orderManagement,community, customerDirectory, companyDir, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
         splitPane.setRightComponent(loginJPanel);
 
     }//GEN-LAST:event_btnLoginActionPerformed
@@ -242,7 +248,9 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void cityAdminTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cityAdminTestActionPerformed
         // TODO add your handling code here:
-        CityAdminPanel c = new CityAdminPanel(cityDirectory, splitPane);
+//        CityAdminPanel c = new CityAdminPanel(cityDirectory, splitPane);
+//        splitPane.setRightComponent(c);
+        DeliveryAdminPanel c = new DeliveryAdminPanel(community, customerDirectory, city.getCompanyDirectory(), userauthenticationdirectory, splitPane, deliveryBoyDirectory);
         splitPane.setRightComponent(c);
     }//GEN-LAST:event_cityAdminTestActionPerformed
 
@@ -259,7 +267,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void deliveryBoyRegistrationJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deliveryBoyRegistrationJButtonActionPerformed
         // TODO add your handling code here:
-        DeliveryBoyRegistrationJPanel deliveryBoyRegistrationJPanel = new DeliveryBoyRegistrationJPanel(community, customerDirectory, companyDir, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
+        DeliveryAdminPanel deliveryBoyRegistrationJPanel = new DeliveryAdminPanel(community, customerDirectory, companyDir, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
         splitPane.setRightComponent(deliveryBoyRegistrationJPanel);
     }//GEN-LAST:event_deliveryBoyRegistrationJButtonActionPerformed
 

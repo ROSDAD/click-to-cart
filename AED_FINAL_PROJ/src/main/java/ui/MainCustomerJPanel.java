@@ -12,6 +12,7 @@ import javax.swing.table.DefaultTableModel;
 import model.City;
 import model.Community;
 import model.CompanyDirectory;
+import model.Customer;
 import model.CustomerDirectory;
 import model.DeliveryBoyDirectory;
 import model.Orderedprod;
@@ -32,6 +33,7 @@ public class MainCustomerJPanel extends javax.swing.JPanel {
     private UserAuthenticationDirectory userauthenticationdirectory;
     private DeliveryBoyDirectory deliveryBoyDirectory;
     private Ordermgt orderManagement;
+    private String userName;
 
     /**
      * Creates new form MainCustomerJPanel
@@ -40,8 +42,9 @@ public class MainCustomerJPanel extends javax.swing.JPanel {
         initComponents();
     }
 
-    public MainCustomerJPanel(Ordermgt orderManagement, Community community, CustomerDirectory customerDirectory, CompanyDirectory companyDirectory, UserAuthenticationDirectory userauthenticationdirectory, JSplitPane splitPane, DeliveryBoyDirectory deliveryBoyDirectory) {
+    public MainCustomerJPanel(String userName, Ordermgt orderManagement, Community community, CustomerDirectory customerDirectory, CompanyDirectory companyDirectory, UserAuthenticationDirectory userauthenticationdirectory, JSplitPane splitPane, DeliveryBoyDirectory deliveryBoyDirectory) {
         initComponents();
+        this.userName = userName;
         this.community = community;
         this.splitPane = splitPane;
         this.customerDirectory = customerDirectory;
@@ -66,6 +69,7 @@ public class MainCustomerJPanel extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
         orderedProductsjButton = new javax.swing.JButton();
+        updateOrderStatusjButton = new javax.swing.JButton();
 
         jTable1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -125,42 +129,65 @@ public class MainCustomerJPanel extends javax.swing.JPanel {
             }
         });
 
+        updateOrderStatusjButton.setText("Cancel Selected Order");
+        updateOrderStatusjButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateOrderStatusjButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(23, 23, 23)
+                .addContainerGap(8, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(199, Short.MAX_VALUE))
+                .addContainerGap(208, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(153, 153, 153)
+                .addGap(73, 73, 73)
                 .addComponent(ordersjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(69, 69, 69)
+                .addComponent(updateOrderStatusjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(orderedProductsjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(315, 315, 315))
+                .addGap(306, 306, 306))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
+                .addContainerGap(79, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(42, 42, 42)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ordersjButton)
-                    .addComponent(orderedProductsjButton))
-                .addContainerGap(164, Short.MAX_VALUE))
+                    .addComponent(orderedProductsjButton)
+                    .addComponent(updateOrderStatusjButton))
+                .addGap(85, 85, 85))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void ordersjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ordersjButtonActionPerformed
         // TODO add your handling code here:
-       for (Orders order : orderManagement.getOrders()) {
-       }
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0);
+        for (Customer customer : customerDirectory.getCustomerList()) {
+            if (userName.equalsIgnoreCase(customer.getUserName())) {
+                for (Orders orders : customer.getOrders()) {
+                    Object[] row = new Object[5];
+                    row[0] = orders.getOrderId();
+                    row[1] = orders.getFinalPrice();
+                    row[2] = orders.getAddress();
+                    row[3] = orders.getPaymentType();
+                    row[4] = orders.getOrderStatus();
+                    model.addRow(row);
+                }
+            }
+        }
     }//GEN-LAST:event_ordersjButtonActionPerformed
 
     private void orderedProductsjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderedProductsjButtonActionPerformed
@@ -187,6 +214,27 @@ public class MainCustomerJPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_orderedProductsjButtonActionPerformed
 
+    private void updateOrderStatusjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateOrderStatusjButtonActionPerformed
+        // TODO add your handling code here:
+        int selectedRowIndex = jTable1.getSelectedRow();
+        if (selectedRowIndex < 0) {
+            JOptionPane.showMessageDialog(this, "Please select a row to update");
+            return;
+        }
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setValueAt("Canceled", selectedRowIndex, 4);
+
+        for (Customer customer : customerDirectory.getCustomerList()) {
+            if (userName.equalsIgnoreCase(customer.getUserName())) {
+                for (Orders orders : customer.getOrders()) {
+                    orders.setOrderStatus("Canceled");
+                }
+            }
+        }
+
+        JOptionPane.showMessageDialog(this, "Order status is Updated");
+    }//GEN-LAST:event_updateOrderStatusjButtonActionPerformed
+
     /**
      * Populate the table rows from the arrayList.
      */
@@ -209,5 +257,6 @@ public class MainCustomerJPanel extends javax.swing.JPanel {
     private javax.swing.JTable jTable2;
     private javax.swing.JButton orderedProductsjButton;
     private javax.swing.JButton ordersjButton;
+    private javax.swing.JButton updateOrderStatusjButton;
     // End of variables declaration//GEN-END:variables
 }

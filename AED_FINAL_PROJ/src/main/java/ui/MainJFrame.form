@@ -201,7 +201,7 @@
             </Component>
             <Component class="javax.swing.JButton" name="cityAdminTest">
               <Properties>
-                <Property name="text" type="java.lang.String" value="City Admin Test"/>
+                <Property name="text" type="java.lang.String" value="Delivery Admin Test"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cityAdminTestActionPerformed"/>

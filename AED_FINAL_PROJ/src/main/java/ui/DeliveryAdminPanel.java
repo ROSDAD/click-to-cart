@@ -1,28 +1,57 @@
+package ui;
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package ui;
 
+
+import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
+import javax.swing.JSplitPane;
+import model.Community;
+import model.CompanyDirectory;
+import model.Customer;
+import model.CustomerDirectory;
+import model.DeliveryBoy;
+import model.DeliveryBoyDirectory;
+import model.UserAuthentication;
+import model.UserAuthenticationDirectory;
 
 /**
  *
- * @author hrish
+ * @author Abhishek
  */
 public class DeliveryAdminPanel extends javax.swing.JPanel {
 
+    private JSplitPane splitPane;
+    private CustomerDirectory customerDirectory;
+    private CompanyDirectory companyDirectory;
+    private Community community;
+    private UserAuthenticationDirectory userauthenticationdirectory;
+    private DeliveryBoyDirectory deliveryBoyDirectory;
+    private String qualif;
+
     /**
-     * Creates new form DeliveryAdminPanel
+     * Creates new form MainCustomerJPanel
      */
-    
-    private String deliveryBoyName;
-    private long emergencyContactNumber;
-    private String qualificaton;
-    private int yearOfDeliveryExperience;
-    
     public DeliveryAdminPanel() {
         initComponents();
+    }
+
+    public DeliveryAdminPanel(Community community, CustomerDirectory customerDirectory, CompanyDirectory companyDirectory, UserAuthenticationDirectory userauthenticationdirectory, JSplitPane splitPane, DeliveryBoyDirectory deliveryBoyDirectory) {
+        initComponents();
+        
+        ButtonGroup buttonGroup = new ButtonGroup();
+        
+        buttonGroup.add(radioHighSchool);
+        buttonGroup.add(radioUniversity);
+        
+        this.community = community;
+        this.splitPane = splitPane;
+        this.customerDirectory = customerDirectory;
+        this.companyDirectory = companyDirectory;
+        this.userauthenticationdirectory = userauthenticationdirectory;
+        this.deliveryBoyDirectory = deliveryBoyDirectory;
     }
 
     /**
@@ -34,91 +63,73 @@ public class DeliveryAdminPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel4 = new javax.swing.JLabel();
-        txtExperience = new javax.swing.JTextField();
-        txtName = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblProducts = new javax.swing.JTable();
-        btnCreateDeliveryBoy = new javax.swing.JButton();
-        updateDeliveryBoy = new javax.swing.JButton();
-        btnDeleteDeliveryBoy = new javax.swing.JButton();
+        nameTextField = new javax.swing.JTextField();
+        save = new javax.swing.JButton();
+        contactNameTextField = new javax.swing.JTextField();
+        usernameTextField = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        createLabel1 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        passwordTextField = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        yearsOfDeliveryExperienceTextField1 = new javax.swing.JTextField();
         radioHighSchool = new javax.swing.JRadioButton();
         radioUniversity = new javax.swing.JRadioButton();
-        btnAssignOrders = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
-        txtEmergencyContact = new javax.swing.JTextField();
+        btnModify = new javax.swing.JButton();
 
-        jLabel4.setText("Years of Experience:");
-
-        txtExperience.addActionListener(new java.awt.event.ActionListener() {
+        nameTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtExperienceActionPerformed(evt);
+                nameTextFieldActionPerformed(evt);
             }
         });
 
-        jLabel5.setText("Delivery Boy Name:");
-
-        tblProducts.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Delivery Boy Name", "Qualification", "Years of Experience", "Emergency Contact"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tblProducts.setPreferredSize(new java.awt.Dimension(904, 638));
-        jScrollPane1.setViewportView(tblProducts);
-
-        btnCreateDeliveryBoy.setText("Create Delivery Boy");
-        btnCreateDeliveryBoy.addActionListener(new java.awt.event.ActionListener() {
+        save.setText("Save");
+        save.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCreateDeliveryBoyActionPerformed(evt);
+                saveActionPerformed(evt);
             }
         });
 
-        updateDeliveryBoy.setText("Update Delivery Boy");
-        updateDeliveryBoy.addActionListener(new java.awt.event.ActionListener() {
+        contactNameTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                updateDeliveryBoyActionPerformed(evt);
+                contactNameTextFieldActionPerformed(evt);
             }
         });
 
-        btnDeleteDeliveryBoy.setText("Delete Delivery Boy");
-        btnDeleteDeliveryBoy.addActionListener(new java.awt.event.ActionListener() {
+        jLabel1.setText("Name");
+
+        jLabel2.setText("Emergency Contact Name");
+
+        jLabel3.setText("Qualification");
+
+        jLabel4.setText("Username");
+
+        createLabel1.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        createLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        createLabel1.setText("Create Delivery Boy");
+        createLabel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 5));
+
+        jLabel5.setText("Password");
+
+        passwordTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeleteDeliveryBoyActionPerformed(evt);
+                passwordTextFieldActionPerformed(evt);
             }
         });
 
-        jLabel3.setText("Qualification:");
+        jLabel6.setText("Years of Delivery Experience");
 
         radioHighSchool.setText("High School");
 
         radioUniversity.setText("University");
 
-        btnAssignOrders.setText("Assign Orders");
-
-        jLabel6.setText("Emergency Contact:");
-
-        txtEmergencyContact.addActionListener(new java.awt.event.ActionListener() {
+        btnModify.setText("Modify Delivery Boys");
+        btnModify.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtEmergencyContactActionPerformed(evt);
+                btnModifyActionPerformed(evt);
             }
         });
 
@@ -127,199 +138,198 @@ public class DeliveryAdminPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(114, 114, 114)
+                .addComponent(createLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(157, 157, 157)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnDeleteDeliveryBoy, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 482, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel3)
-                                .addComponent(jLabel4)
-                                .addComponent(jLabel5))
-                            .addGap(62, 62, 62)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtExperience, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(radioHighSchool)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(radioUniversity))))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(btnCreateDeliveryBoy, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(updateDeliveryBoy, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel6)
-                            .addGap(62, 62, 62)
-                            .addComponent(txtEmergencyContact, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(144, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnAssignOrders, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(70, 70, 70))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnModify, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(317, 317, 317))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(329, 329, 329)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(contactNameTextField)
+                            .addComponent(nameTextField, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(radioHighSchool)
+                                .addGap(18, 18, 18)
+                                .addComponent(radioUniversity)
+                                .addGap(0, 3, Short.MAX_VALUE))
+                            .addComponent(yearsOfDeliveryExperienceTextField1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(usernameTextField)
+                                    .addComponent(passwordTextField))
+                                .addGap(2, 2, 2)))
+                        .addGap(263, 263, 263))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(425, 425, 425)
+                .addComponent(save)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(42, 42, 42)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnDeleteDeliveryBoy)
-                .addGap(31, 31, 31)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(radioHighSchool)
-                    .addComponent(radioUniversity))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(txtExperience, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(txtEmergencyContact, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCreateDeliveryBoy)
-                    .addComponent(updateDeliveryBoy))
-                .addGap(24, 24, 24)
-                .addComponent(btnAssignOrders)
-                .addGap(23, 23, 23))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(createLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 117, Short.MAX_VALUE)
+                        .addComponent(jLabel3)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel4)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel5)
+                        .addGap(66, 66, 66)
+                        .addComponent(save)
+                        .addGap(75, 75, 75))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(110, 110, 110)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(nameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(contactNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(radioHighSchool)
+                            .addComponent(radioUniversity))
+                        .addGap(18, 18, 18)
+                        .addComponent(yearsOfDeliveryExperienceTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(9, 9, 9)
+                        .addComponent(usernameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(passwordTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(btnModify)
+                .addGap(26, 26, 26))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtExperienceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtExperienceActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtExperienceActionPerformed
-
-    private void btnCreateDeliveryBoyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateDeliveryBoyActionPerformed
+    private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
         // TODO add your handling code here:
 
-        deliveryBoyName = txtName.getText();
-        yearOfDeliveryExperience = Integer.parseInt(txtExperience.getText());
-        emergencyContactNumber = Integer.parseInt(txtEmergencyContact.getText());
-
-        if(!deliveryBoyName.matches("[a-zA-Z]+")) {
-            JOptionPane.showMessageDialog(this, "Delivery Boy Name should have only alphabets.");
+        if (nameTextField.getText().length() == 0) {
+            JOptionPane.showMessageDialog(this, "Mandatory name field is empty");
             return;
         }
 
-        if(deliveryBoyName.length() == 0) {
-            JOptionPane.showMessageDialog(this, "All fields are mandatory.");
+        if (!nameTextField.getText().matches("[a-zA-Z]+")) {
+            JOptionPane.showMessageDialog(this, "Name field should only have alphabets");
             return;
         }
 
-        InventoryProduct i  = invProdDir.addNewInventoryProduct();
-
-        i.setInventoryQty(inventoryQty);
-        i.setPrice(price);
-        i.setProductName(productName);
-
-        JOptionPane.showMessageDialog(this, "Product created!");
-
-        populateProductTable();
-    }//GEN-LAST:event_btnCreateDeliveryBoyActionPerformed
-
-    private void updateDeliveryBoyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateDeliveryBoyActionPerformed
-        // TODO add your handling code here:
-
-        productName = txtName.getText();
-        price = Integer.parseInt(txtPrice.getText());
-        inventoryQty = Integer.parseInt(txtExperience.getText());
-
-        if(!productName.matches("[a-zA-Z]+")) {
-            JOptionPane.showMessageDialog(this, "Name should have only alphabets.");
+        if (contactNameTextField.getText().length() == 0) {
+            JOptionPane.showMessageDialog(this, "Mandatory emergency contact name field is empty");
             return;
         }
 
-        if(productName.length() == 0) {
-            JOptionPane.showMessageDialog(this, "All fields are mandatory.");
+        if (yearsOfDeliveryExperienceTextField1.getText().length() == 0) {
+            JOptionPane.showMessageDialog(this, "Mandatory emergency contact name field is empty");
             return;
         }
 
-        int selectedRowIndex = tblProducts.getSelectedRow();
 
-        if (selectedRowIndex < 0 ) {
+        for (int i = 0; i < userauthenticationdirectory.getUserAuthenticationList().size(); i++) {
+            UserAuthentication userauthentication = userauthenticationdirectory.getUserAuthenticationList().get(i);
 
-            JOptionPane.showMessageDialog(this, "Please select a product to update.");
-            return;
-        }
-
-        DefaultTableModel model = (DefaultTableModel) tblProducts.getModel();
-        String selectedProduct = (String) model.getValueAt(selectedRowIndex, 0);
-
-        ArrayList<InventoryProduct> invProd = invProdDir.getInventoryProductDir();
-
-        for(InventoryProduct prod: invProd) {
-
-            if(prod.getProductName().equalsIgnoreCase(selectedProduct)) {
-
-                prod.setProductName(productName);
-                prod.setPrice(price);
-                prod.setInventoryQty(inventoryQty);
+            if (userauthentication.getUserName().equalsIgnoreCase(usernameTextField.getText())
+                    && userauthentication.getUserType().equalsIgnoreCase("DeliveryBoy")) {
+                JOptionPane.showMessageDialog(this, "Delivery Boy username already exits, please login directly");
+                return;
             }
         }
+        
+        //Radio buttons
 
-        JOptionPane.showMessageDialog(this, "Product updated!");
-
-        populateProductTable();
-    }//GEN-LAST:event_updateDeliveryBoyActionPerformed
-
-    private void btnDeleteDeliveryBoyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteDeliveryBoyActionPerformed
-        // TODO add your handling code here:
-        int selectedRowIndex = tblProducts.getSelectedRow();
-
-        if (selectedRowIndex < 0 ) {
-
-            JOptionPane.showMessageDialog(this, "Please select a product.");
-            return;
+        if(radioHighSchool.isSelected() == true) {
+            qualif = "High School";
+        }
+        else if(radioUniversity.isSelected() == true){
+            qualif = "University";
+        }
+        else {
+            JOptionPane.showMessageDialog(this, "Please select a city type.");
         }
 
-        DefaultTableModel model;
-        model = (DefaultTableModel) tblProducts.getModel();
-        String productName = (String) model.getValueAt(selectedRowIndex, 0);
+        DeliveryBoy deliveryBoy = deliveryBoyDirectory.addNewDeliveryBoy();
+        deliveryBoy.setDeliveryBoyName(nameTextField.getText());
+        deliveryBoy.setEmergencyContactNumber(Integer.parseInt(contactNameTextField.getText()));
+        deliveryBoy.setQualificaton(qualif);
+        deliveryBoy.setYearOfDeliveryExperience(Integer.parseInt(yearsOfDeliveryExperienceTextField1.getText()));
+        deliveryBoy.setAvailability(true); // Setting availability to true by default
 
-        ArrayList<InventoryProduct> invDir = invProdDir.getInventoryProductDir();
+        community.setDeliveryBoyDirectory(deliveryBoyDirectory);
 
-        for(InventoryProduct i: invDir) {
+        UserAuthentication userauthentication = userauthenticationdirectory.addNewUserAuthentication();
+        userauthentication.setUserName(usernameTextField.getText());
+        userauthentication.setPassword(passwordTextField.getText());
+        userauthentication.setUserType("DeliveryBoy");
 
-            if(i.getProductName().equalsIgnoreCase(productName)) {
+        setDefault();
+        JOptionPane.showMessageDialog(this, "Delivery Boy has been created");
+    }//GEN-LAST:event_saveActionPerformed
 
-                invProdDir.deleteInventoryProduct(i);
+    private void setDefault() {
+        nameTextField.setText("");
+        contactNameTextField.setText("");
+        yearsOfDeliveryExperienceTextField1.setText("");
+        radioHighSchool.setEnabled(false);
+        radioUniversity.setEnabled(false);
+        usernameTextField.setText("");
+        passwordTextField.setText("");
+    }
 
-                populateProductTable();
-                JOptionPane.showMessageDialog(this, "Product Deleted!");
-                break;
-            }
-        }
-
-    }//GEN-LAST:event_btnDeleteDeliveryBoyActionPerformed
-
-    private void txtEmergencyContactActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmergencyContactActionPerformed
+    private void nameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameTextFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtEmergencyContactActionPerformed
+    }//GEN-LAST:event_nameTextFieldActionPerformed
+
+    private void passwordTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_passwordTextFieldActionPerformed
+
+    private void contactNameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contactNameTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_contactNameTextFieldActionPerformed
+
+    private void btnModifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModifyActionPerformed
+        // TODO add your handling code here:
+        
+        DeliveryAdminModifyPanel m = new DeliveryAdminModifyPanel(community,deliveryBoyDirectory);
+        splitPane.setRightComponent(m);
+    }//GEN-LAST:event_btnModifyActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAssignOrders;
-    private javax.swing.JButton btnCreateDeliveryBoy;
-    private javax.swing.JButton btnDeleteDeliveryBoy;
+    private javax.swing.JButton btnModify;
+    private javax.swing.JTextField contactNameTextField;
+    private javax.swing.JLabel createLabel1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField nameTextField;
+    private javax.swing.JTextField passwordTextField;
     private javax.swing.JRadioButton radioHighSchool;
     private javax.swing.JRadioButton radioUniversity;
-    private javax.swing.JTable tblProducts;
-    private javax.swing.JTextField txtEmergencyContact;
-    private javax.swing.JTextField txtExperience;
-    private javax.swing.JTextField txtName;
-    private javax.swing.JButton updateDeliveryBoy;
+    private javax.swing.JButton save;
+    private javax.swing.JTextField usernameTextField;
+    private javax.swing.JTextField yearsOfDeliveryExperienceTextField1;
     // End of variables declaration//GEN-END:variables
 }

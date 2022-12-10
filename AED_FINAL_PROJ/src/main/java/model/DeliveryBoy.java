@@ -20,7 +20,8 @@ public class DeliveryBoy {
     public DeliveryBoy() {
     }
 
-    public DeliveryBoy(String deliveryBoyName, String emergencyContactName, String qualificaton, int yearOfDeliveryExperience, boolean availability) {
+    public DeliveryBoy(String deliveryBoyName, long emergencyContactNumber, String qualificaton, int yearOfDeliveryExperience, String firstName, String lastName, String gender, int age, String emailAddress, String phoneNumber) {
+    
         this.deliveryBoyName = deliveryBoyName;
         this.emergencyContactNumber = emergencyContactNumber;
         this.qualificaton = qualificaton;

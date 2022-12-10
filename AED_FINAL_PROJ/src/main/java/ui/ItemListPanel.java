@@ -21,7 +21,7 @@ public class ItemListPanel extends javax.swing.JPanel {
     public ItemListPanel() {
         initComponents();
         filterComboBox.removeAllItems();
-         Company comp = new Company(); // need to be changed
+        Company comp = new Company(); // need to be changed
         ArrayList<Inventory> dirModel = comp.getInventoryManagement().getInventoryMgt();
            
         for(int i = 0; i<dirModel.size();i++){
@@ -29,7 +29,7 @@ public class ItemListPanel extends javax.swing.JPanel {
                    
         }  
         
-        displayItemList();
+//        displayItemList();
     }
 
     /**
@@ -101,6 +101,11 @@ public class ItemListPanel extends javax.swing.JPanel {
         });
 
         filterComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        filterComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                filterComboBoxActionPerformed(evt);
+            }
+        });
 
         prodIdLbl.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         prodIdLbl.setText("Product ID");
@@ -206,6 +211,14 @@ public class ItemListPanel extends javax.swing.JPanel {
         itemListTable.setRowSorter(trs);
         trs.setRowFilter(RowFilter.regexFilter(itemSeacrhBox.getText()));
     }//GEN-LAST:event_searchBtnActionPerformed
+
+    private void filterComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterComboBoxActionPerformed
+        // TODO add your handling code here:
+        if(filterComboBox.getSelectedIndex()!=-1){
+           displayItemList();
+            
+        }
+    }//GEN-LAST:event_filterComboBoxActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

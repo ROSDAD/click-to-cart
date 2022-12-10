@@ -191,7 +191,7 @@ public class ItemListPanel extends javax.swing.JPanel {
             Customer cust = new Customer();
             Orderedprod ordProd = cust.getCart().addNewCartProd();
             ordProd.setProdId((model.getValueAt(selectedRowIndex, 0)).toString());
-            int price = quantity*Integer.parseInt((model.getValueAt(selectedRowIndex, 2)).toString());
+            double price = quantity*Integer.parseInt((model.getValueAt(selectedRowIndex, 2)).toString());
             ordProd.setProdTotalprice(price);
             ordProd.setProdcount(quantity);
         }else{

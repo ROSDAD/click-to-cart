@@ -6,6 +6,7 @@ package ui;
 
 import javax.swing.JOptionPane;
 import javax.swing.JSplitPane;
+import javax.swing.table.DefaultTableModel;
 import model.CityDir;
 import model.Community;
 import model.CompanyDirectory;
@@ -60,12 +61,12 @@ public class DeliveryAdminRegistrationJPanel extends javax.swing.JPanel {
         deleteOrderAdminButton = new javax.swing.JButton();
         userNameTextField1 = new javax.swing.JTextField();
         updateOrderAdmin = new javax.swing.JButton();
-        viewOrderAdmin = new javax.swing.JButton();
+        viewDeliveryAdmin = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        deleteOrderAdminButton1 = new javax.swing.JButton();
-        updateOrderAdmin1 = new javax.swing.JButton();
-        saveCompanyAdminButton1 = new javax.swing.JButton();
+        deleteDeliveryAdminButton = new javax.swing.JButton();
+        updateDeliveryAdmin = new javax.swing.JButton();
+        saveDeliveryAdminButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         passwordTextField = new javax.swing.JTextField();
@@ -83,7 +84,12 @@ public class DeliveryAdminRegistrationJPanel extends javax.swing.JPanel {
 
         updateOrderAdmin.setText("Update");
 
-        viewOrderAdmin.setText("View");
+        viewDeliveryAdmin.setText("View");
+        viewDeliveryAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewDeliveryAdminActionPerformed(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -98,14 +104,24 @@ public class DeliveryAdminRegistrationJPanel extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        deleteOrderAdminButton1.setText("Delete");
-
-        updateOrderAdmin1.setText("Update");
-
-        saveCompanyAdminButton1.setText("Save");
-        saveCompanyAdminButton1.addActionListener(new java.awt.event.ActionListener() {
+        deleteDeliveryAdminButton.setText("Delete");
+        deleteDeliveryAdminButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                saveCompanyAdminButton1ActionPerformed(evt);
+                deleteDeliveryAdminButtonActionPerformed(evt);
+            }
+        });
+
+        updateDeliveryAdmin.setText("Update");
+        updateDeliveryAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateDeliveryAdminActionPerformed(evt);
+            }
+        });
+
+        saveDeliveryAdminButton1.setText("Save");
+        saveDeliveryAdminButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveDeliveryAdminButton1ActionPerformed(evt);
             }
         });
 
@@ -140,15 +156,15 @@ public class DeliveryAdminRegistrationJPanel extends javax.swing.JPanel {
                         .addComponent(userNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(68, 68, 68)
-                        .addComponent(saveCompanyAdminButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(saveDeliveryAdminButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(viewOrderAdmin)
+                        .addComponent(viewDeliveryAdmin)
                         .addGap(37, 37, 37)
-                        .addComponent(updateOrderAdmin1)
+                        .addComponent(updateDeliveryAdmin)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(deleteOrderAdminButton1))
+                        .addComponent(deleteDeliveryAdminButton))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(103, 103, 103))
         );
@@ -170,17 +186,17 @@ public class DeliveryAdminRegistrationJPanel extends javax.swing.JPanel {
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(passwordTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(46, 46, 46)
-                        .addComponent(saveCompanyAdminButton1)
+                        .addComponent(saveDeliveryAdminButton1)
                         .addGap(55, 55, 55)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(viewOrderAdmin)
-                    .addComponent(updateOrderAdmin1)
-                    .addComponent(deleteOrderAdminButton1))
+                    .addComponent(viewDeliveryAdmin)
+                    .addComponent(updateDeliveryAdmin)
+                    .addComponent(deleteDeliveryAdminButton))
                 .addContainerGap(48, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void saveCompanyAdminButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveCompanyAdminButton1ActionPerformed
+    private void saveDeliveryAdminButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveDeliveryAdminButton1ActionPerformed
         // TODO add your handling code here:
         if (userNameTextField.getText().length() == 0) {
             JOptionPane.showMessageDialog(this, "Mandatory User name field is empty");
@@ -195,8 +211,8 @@ public class DeliveryAdminRegistrationJPanel extends javax.swing.JPanel {
         for (int i = 0; i < userauthenticationdirectory.getUserAuthenticationList().size(); i++) {
             UserAuthentication userauthentication = userauthenticationdirectory.getUserAuthenticationList().get(i);
             if (userauthentication.getUserName().equalsIgnoreCase(userNameTextField.getText())
-                && userauthentication.getUserType().equalsIgnoreCase("OrderAdmin")) {
-                JOptionPane.showMessageDialog(this, "Order Admin username already exits, please login directly");
+                    && userauthentication.getUserType().equalsIgnoreCase("DeliveryAdmin")) {
+                JOptionPane.showMessageDialog(this, "Delivery Admin username already exits, please login directly");
                 return;
             }
         }
@@ -204,31 +220,99 @@ public class DeliveryAdminRegistrationJPanel extends javax.swing.JPanel {
         UserAuthentication userAuthentication = userauthenticationdirectory.addNewUserAuthentication();
         userAuthentication.setUserName(userNameTextField.getText());
         userAuthentication.setPassword(passwordTextField.getText());
-        userAuthentication.setUserType("OrderAdmin");
+        userAuthentication.setUserType("DeliveryAdmin");
 
-        JOptionPane.showMessageDialog(this, "Order Admin credentials is saved");
-    }//GEN-LAST:event_saveCompanyAdminButton1ActionPerformed
+        JOptionPane.showMessageDialog(this, "Delivery Admin credentials is saved");
+    }//GEN-LAST:event_saveDeliveryAdminButton1ActionPerformed
+
+    /**
+     * Populate the table cities rows from the arrayList.
+     */
+    private void populateDeliveryAdmin() {
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0);
+        for (UserAuthentication userAuthentication : userauthenticationdirectory.getUserAuthenticationList()) {
+            if ("DeliveryAdmin".equalsIgnoreCase(userAuthentication.getUserName())) {
+                Object[] row = new Object[1];
+                row[0] = userAuthentication.getUserName();
+                model.addRow(row);
+            }
+        }
+    }
 
     private void userNameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userNameTextFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_userNameTextFieldActionPerformed
 
+    private void viewDeliveryAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewDeliveryAdminActionPerformed
+        // TODO add your handling code here:
+        populateDeliveryAdmin();
+    }//GEN-LAST:event_viewDeliveryAdminActionPerformed
+
+    private void updateDeliveryAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateDeliveryAdminActionPerformed
+        // TODO add your handling code here:
+        int selectedRowIndex = jTable1.getSelectedRow();
+
+        if (selectedRowIndex < 0) {
+            JOptionPane.showMessageDialog(this, "Please select a row to update");
+            return;
+        }
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        String selectUsername = (String) model.getValueAt(selectedRowIndex, 0);
+
+        String newUserName = JOptionPane.showInputDialog(null, "Enter the new User name", selectUsername);
+
+        model.setValueAt(newUserName, selectedRowIndex, 0);
+
+        for (UserAuthentication userAuthentication : userauthenticationdirectory.getUserAuthenticationList()) {
+            if (userAuthentication.getUserName().equalsIgnoreCase(selectUsername)
+                    && userAuthentication.getUserType().equalsIgnoreCase("DeliveryAdmin")) {
+                userAuthentication.setUserName(newUserName);
+            }
+        }
+        JOptionPane.showMessageDialog(this, "Delivery Admin Record is Updated");
+    }//GEN-LAST:event_updateDeliveryAdminActionPerformed
+
+    private void deleteDeliveryAdminButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteDeliveryAdminButtonActionPerformed
+        // TODO add your handling code here:
+        int selectedRowIndex = jTable1.getSelectedRow();
+        if (selectedRowIndex < 0) {
+            JOptionPane.showMessageDialog(this, "Please select a row to delete");
+            return;
+        }
+
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        int rowToModel = 0;
+        rowToModel = jTable1.convertRowIndexToModel(selectedRowIndex);
+        model.removeRow(rowToModel);
+
+        String selectedUsername = model.getValueAt(selectedRowIndex, 0).toString();
+
+        for (UserAuthentication userAuthentication : userauthenticationdirectory.getUserAuthenticationList()) {
+            if (userAuthentication.getUserName().equalsIgnoreCase(selectedUsername)
+                    && userAuthentication.getUserType().equalsIgnoreCase("DeliveryAdmin")) {
+                userauthenticationdirectory.deleteUserAuthentication(selectedRowIndex);
+            }
+        }
+        JOptionPane.showMessageDialog(this, "Delivery Admin is deleted");
+    }//GEN-LAST:event_deleteDeliveryAdminButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel createLabel1;
+    private javax.swing.JButton deleteDeliveryAdminButton;
     private javax.swing.JButton deleteOrderAdminButton;
-    private javax.swing.JButton deleteOrderAdminButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField passwordTextField;
     private javax.swing.JButton saveCompanyAdminButton;
-    private javax.swing.JButton saveCompanyAdminButton1;
+    private javax.swing.JButton saveDeliveryAdminButton1;
+    private javax.swing.JButton updateDeliveryAdmin;
     private javax.swing.JButton updateOrderAdmin;
-    private javax.swing.JButton updateOrderAdmin1;
     private javax.swing.JTextField userNameTextField;
     private javax.swing.JTextField userNameTextField1;
-    private javax.swing.JButton viewOrderAdmin;
+    private javax.swing.JButton viewDeliveryAdmin;
     // End of variables declaration//GEN-END:variables
 }

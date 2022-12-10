@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -36,17 +36,17 @@
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
-                      <Component id="saveCompanyAdminButton1" min="-2" pref="118" max="-2" attributes="0"/>
+                      <Component id="saveDeliveryAdminButton1" min="-2" pref="118" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Group type="102" attributes="0">
-                      <Component id="viewOrderAdmin" min="-2" max="-2" attributes="0"/>
+                      <Component id="viewDeliveryAdmin" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-                      <Component id="updateOrderAdmin1" min="-2" max="-2" attributes="0"/>
+                      <Component id="updateDeliveryAdmin" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
-                      <Component id="deleteOrderAdminButton1" min="-2" max="-2" attributes="0"/>
+                      <Component id="deleteDeliveryAdminButton" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="jScrollPane1" min="-2" pref="302" max="-2" attributes="0"/>
               </Group>
@@ -75,14 +75,14 @@
                           <Component id="passwordTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
-                      <Component id="saveCompanyAdminButton1" min="-2" max="-2" attributes="0"/>
+                      <Component id="saveDeliveryAdminButton1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="viewOrderAdmin" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="updateOrderAdmin1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="deleteOrderAdminButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="viewDeliveryAdmin" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="updateDeliveryAdmin" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="deleteDeliveryAdminButton" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="48" max="32767" attributes="0"/>
           </Group>
@@ -124,10 +124,13 @@
         <Property name="text" type="java.lang.String" value="Update"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="viewOrderAdmin">
+    <Component class="javax.swing.JButton" name="viewDeliveryAdmin">
       <Properties>
         <Property name="text" type="java.lang.String" value="View"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="viewDeliveryAdminActionPerformed"/>
+      </Events>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
       <AuxValues>
@@ -150,22 +153,28 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="deleteOrderAdminButton1">
+    <Component class="javax.swing.JButton" name="deleteDeliveryAdminButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Delete"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deleteDeliveryAdminButtonActionPerformed"/>
+      </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="updateOrderAdmin1">
+    <Component class="javax.swing.JButton" name="updateDeliveryAdmin">
       <Properties>
         <Property name="text" type="java.lang.String" value="Update"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="updateDeliveryAdminActionPerformed"/>
+      </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="saveCompanyAdminButton1">
+    <Component class="javax.swing.JButton" name="saveDeliveryAdminButton1">
       <Properties>
         <Property name="text" type="java.lang.String" value="Save"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="saveCompanyAdminButton1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="saveDeliveryAdminButton1ActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">

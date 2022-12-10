@@ -216,18 +216,18 @@ public class MainCustomerJPanel extends javax.swing.JPanel {
 
     private void updateOrderStatusjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateOrderStatusjButtonActionPerformed
         // TODO add your handling code here:
-               int selectedRowIndex = jTable1.getSelectedRow();
+        int selectedRowIndex = jTable1.getSelectedRow();
         if (selectedRowIndex < 0) {
             JOptionPane.showMessageDialog(this, "Please select a row to update");
             return;
         }
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        model.setValueAt("Cancelled", selectedRowIndex, 4);
+        model.setValueAt("Canceled", selectedRowIndex, 4);
 
-         for (Customer customer : customerDirectory.getCustomerList()) {
+        for (Customer customer : customerDirectory.getCustomerList()) {
             if (userName.equalsIgnoreCase(customer.getUserName())) {
                 for (Orders orders : customer.getOrders()) {
-                    orders.setOrderStatus("Cancelled");
+                    orders.setOrderStatus("Canceled");
                 }
             }
         }

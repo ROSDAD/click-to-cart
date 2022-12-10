@@ -6,6 +6,8 @@ package ui;
 
 import javax.swing.JOptionPane;
 import javax.swing.JSplitPane;
+import javax.swing.table.DefaultTableModel;
+import model.City;
 import model.CityDir;
 import model.Community;
 import model.CompanyDirectory;
@@ -104,10 +106,25 @@ public class OrderAdminRegistrationJPanel extends javax.swing.JPanel {
         jScrollPane1.setViewportView(jTable1);
 
         viewOrderAdmin.setText("View");
+        viewOrderAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewOrderAdminActionPerformed(evt);
+            }
+        });
 
         updateOrderAdmin.setText("Update");
+        updateOrderAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateOrderAdminActionPerformed(evt);
+            }
+        });
 
         deleteOrderAdminButton.setText("Delete");
+        deleteOrderAdminButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteOrderAdminButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -132,15 +149,15 @@ public class OrderAdminRegistrationJPanel extends javax.swing.JPanel {
                         .addGap(44, 44, 44)
                         .addComponent(saveCompanyAdminButton, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(viewOrderAdmin)
                         .addGap(37, 37, 37)
                         .addComponent(updateOrderAdmin)
                         .addGap(40, 40, 40)
-                        .addComponent(deleteOrderAdminButton))
+                        .addComponent(deleteOrderAdminButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(39, 39, 39))
+                .addGap(160, 160, 160))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -148,8 +165,13 @@ public class OrderAdminRegistrationJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(createLabel1)
-                        .addGap(27, 27, 27)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(28, 28, 28)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(31, 31, 31)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(viewOrderAdmin)
+                            .addComponent(updateOrderAdmin)
+                            .addComponent(deleteOrderAdminButton)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(148, 148, 148)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -161,12 +183,7 @@ public class OrderAdminRegistrationJPanel extends javax.swing.JPanel {
                             .addComponent(passwordTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(47, 47, 47)
                         .addComponent(saveCompanyAdminButton)))
-                .addGap(31, 31, 31)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(viewOrderAdmin)
-                    .addComponent(updateOrderAdmin)
-                    .addComponent(deleteOrderAdminButton))
-                .addContainerGap(113, Short.MAX_VALUE))
+                .addContainerGap(112, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -176,7 +193,7 @@ public class OrderAdminRegistrationJPanel extends javax.swing.JPanel {
 
     private void saveCompanyAdminButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveCompanyAdminButtonActionPerformed
         // TODO add your handling code here:
-       if (userNameTextField.getText().length() == 0) {
+        if (userNameTextField.getText().length() == 0) {
             JOptionPane.showMessageDialog(this, "Mandatory User name field is empty");
             return;
         }
@@ -202,6 +219,74 @@ public class OrderAdminRegistrationJPanel extends javax.swing.JPanel {
 
         JOptionPane.showMessageDialog(this, "Order Admin credentials is saved");
     }//GEN-LAST:event_saveCompanyAdminButtonActionPerformed
+
+    /**
+     * Populate the table cities rows from the arrayList.
+     */
+    private void populateOrderAdmin() {
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0);
+        for (UserAuthentication userAuthentication : userauthenticationdirectory.getUserAuthenticationList()) {
+            if ("OrderAdmin".equalsIgnoreCase(userAuthentication.getUserName())) {
+                Object[] row = new Object[1];
+                row[0] = userAuthentication.getUserName();
+                model.addRow(row);
+            }
+        }
+    }
+
+    private void viewOrderAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewOrderAdminActionPerformed
+        // TODO add your handling code here:
+        populateOrderAdmin();
+    }//GEN-LAST:event_viewOrderAdminActionPerformed
+
+    private void updateOrderAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateOrderAdminActionPerformed
+        // TODO add your handling code here:
+        int selectedRowIndex = jTable1.getSelectedRow();
+
+        if (selectedRowIndex < 0) {
+            JOptionPane.showMessageDialog(this, "Please select a row to update");
+            return;
+        }
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        String selectUsername = (String) model.getValueAt(selectedRowIndex, 0);
+
+        String newUserName = JOptionPane.showInputDialog(null, "Enter the new User name", selectUsername);
+
+        model.setValueAt(newUserName, selectedRowIndex, 0);
+
+        for (UserAuthentication userAuthentication : userauthenticationdirectory.getUserAuthenticationList()) {
+            if (userAuthentication.getUserName().equalsIgnoreCase(selectUsername)
+                    && userAuthentication.getUserType().equalsIgnoreCase("OrderAdmin")) {
+                userAuthentication.setUserName(newUserName);
+            }
+        }
+        JOptionPane.showMessageDialog(this, "Order Admin Record is Updated");
+    }//GEN-LAST:event_updateOrderAdminActionPerformed
+
+    private void deleteOrderAdminButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteOrderAdminButtonActionPerformed
+        // TODO add your handling code here:
+        int selectedRowIndex = jTable1.getSelectedRow();
+        if (selectedRowIndex < 0) {
+            JOptionPane.showMessageDialog(this, "Please select a row to delete");
+            return;
+        }
+
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        int rowToModel = 0;
+        rowToModel = jTable1.convertRowIndexToModel(selectedRowIndex);
+        model.removeRow(rowToModel);
+
+        String selectedUsername = model.getValueAt(selectedRowIndex, 0).toString();
+
+        for (UserAuthentication userAuthentication : userauthenticationdirectory.getUserAuthenticationList()) {
+            if (userAuthentication.getUserName().equalsIgnoreCase(selectedUsername)
+                    && userAuthentication.getUserType().equalsIgnoreCase("OrderAdmin")) {
+                userauthenticationdirectory.deleteUserAuthentication(selectedRowIndex);
+            }
+        }
+        JOptionPane.showMessageDialog(this, "Order Admin is deleted");
+    }//GEN-LAST:event_deleteOrderAdminButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

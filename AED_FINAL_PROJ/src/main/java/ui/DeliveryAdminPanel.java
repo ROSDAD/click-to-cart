@@ -1,8 +1,9 @@
+package ui;
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package ui;
+
 
 import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
@@ -234,8 +235,6 @@ public class DeliveryAdminPanel extends javax.swing.JPanel {
             return;
         }
 
-        if (txtEmergency.getText().length() == 0) {
-            JOptionPane.showMessageDialog(this, "Mandatory emergency contact number field is empty");
             return;
         }
 
@@ -268,12 +267,12 @@ public class DeliveryAdminPanel extends javax.swing.JPanel {
         }
 
         DeliveryBoy deliveryBoy = deliveryBoyDirectory.addNewDeliveryBoy();
+        deliveryBoy.setAvailability(true); // Setting availability to true by default
         deliveryBoy.setDeliveryBoyName(txtName.getText());
         deliveryBoy.setEmergencyContactNumber(Integer.parseInt(txtEmergency.getText()));
         deliveryBoy.setQualificaton(qualif);
         deliveryBoy.setYearOfDeliveryExperience(Integer.parseInt(txtExperience.getText()));
-        deliveryBoy.setAvailability(true); // Setting availability to true by default
-
+        
         community.setDeliveryBoyDirectory(deliveryBoyDirectory);
 
         UserAuthentication userauthentication = userauthenticationdirectory.addNewUserAuthentication();
@@ -283,7 +282,8 @@ public class DeliveryAdminPanel extends javax.swing.JPanel {
 
         setDefault();
         JOptionPane.showMessageDialog(this, "Delivery Boy has been created");
-    }                                       
+        if (txtEmergency.getText().length() == 0) {
+            JOptionPane.showMessageDialog(this, "Mandatory emergency contact number field is empty");
 
     private void btnModifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModifyActionPerformed
         // TODO add your handling code here:
@@ -299,9 +299,6 @@ public class DeliveryAdminPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAssignOrders;
-    private javax.swing.JButton btnModify;
-    private javax.swing.JButton btnSave;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -318,3 +315,4 @@ public class DeliveryAdminPanel extends javax.swing.JPanel {
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
 }
+        

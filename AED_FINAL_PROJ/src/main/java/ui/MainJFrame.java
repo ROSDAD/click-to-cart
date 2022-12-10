@@ -46,6 +46,8 @@ public class MainJFrame extends javax.swing.JFrame {
         initComponents();
 
         setExtendedState(JFrame.MAXIMIZED_BOTH);
+        
+        
 
         community = new Community();
         customerDirectory = new CustomerDirectory();

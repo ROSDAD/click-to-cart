@@ -16,6 +16,26 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.48</version>
         </dependency>
+        <dependency>
+            <groupId>com.maps</groupId>
+            <artifactId>123</artifactId>
+            <version>1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.maps</groupId>
+            <artifactId>omj3d</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.maps</groupId>
+            <artifactId>omsvg</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.maps</groupId>
+            <artifactId>openmap</artifactId>
+            <version>1.0</version>
+        </dependency>
     </dependencies>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

@@ -195,7 +195,7 @@ public class ItemListPanel extends javax.swing.JPanel {
             ordProd.setProdTotalprice(price);
             ordProd.setProdcount(quantity);
         }else{
-            JOptionPane.showMessageDialog(this, "Quantity cannot be more than available quantiy");
+            JOptionPane.showMessageDialog(this, "Not Enough Quantity left In Inventory!");
         }
     }//GEN-LAST:event_addToCartActionPerformed
 

@@ -16,8 +16,8 @@ public class Company {
     private long companyEmployeeCount;
     private InventoryMgt inventoryManagement;
     private Ordermgt orderMgt;
-    private DeliveryMgt deliveryManagement;
     private Ordermgt orderManagement;
+    private DeliveryMgt deliveryManagement;
 
 //    public Company(String companyName, String companyType, long companyEmployeeCount,InventoryMgt inventoryManagement) {
 //        this.companyName = companyName;

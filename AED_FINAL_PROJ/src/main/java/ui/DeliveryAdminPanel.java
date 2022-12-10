@@ -1,9 +1,8 @@
-package ui;
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-
+package ui;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
@@ -93,8 +92,8 @@ public class DeliveryAdminPanel extends javax.swing.JPanel {
         btnSave = new javax.swing.JButton();
         radioHighSchool = new javax.swing.JRadioButton();
         radioUniversity = new javax.swing.JRadioButton();
-        btnModify = new javax.swing.JButton();
         btnAssignOrders = new javax.swing.JButton();
+        btnModify = new javax.swing.JButton();
 
         jLabel1.setText("Name:");
 
@@ -119,17 +118,17 @@ public class DeliveryAdminPanel extends javax.swing.JPanel {
 
         radioUniversity.setText("University");
 
-        btnModify.setText("Modify Delivery Boys");
-        btnModify.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnModifyActionPerformed(evt);
-            }
-        });
-
         btnAssignOrders.setText("Assign Orders");
         btnAssignOrders.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAssignOrdersActionPerformed(evt);
+            }
+        });
+
+        btnModify.setText("Modify Delivery Boys");
+        btnModify.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModifyActionPerformed(evt);
             }
         });
 
@@ -176,9 +175,9 @@ public class DeliveryAdminPanel extends javax.swing.JPanel {
                         .addGap(775, 775, 775))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(btnAssignOrders, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnModify, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(143, 143, 143))))
+                        .addGap(36, 36, 36)
+                        .addComponent(btnModify)
+                        .addGap(193, 193, 193))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -214,8 +213,8 @@ public class DeliveryAdminPanel extends javax.swing.JPanel {
                 .addComponent(btnSave)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 128, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnModify)
-                    .addComponent(btnAssignOrders))
+                    .addComponent(btnAssignOrders)
+                    .addComponent(btnModify))
                 .addGap(53, 53, 53))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -235,6 +234,8 @@ public class DeliveryAdminPanel extends javax.swing.JPanel {
             return;
         }
 
+        if (txtEmergency.getText().length() == 0) {
+            JOptionPane.showMessageDialog(this, "Mandatory emergency contact number field is empty");
             return;
         }
 
@@ -287,18 +288,20 @@ public class DeliveryAdminPanel extends javax.swing.JPanel {
 
     private void btnModifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModifyActionPerformed
         // TODO add your handling code here:
-        
         DeliveryAdminModifyPanel m = new DeliveryAdminModifyPanel(community,deliveryBoyDirectory);
         splitPane.setRightComponent(m);
     }//GEN-LAST:event_btnModifyActionPerformed
 
     private void btnAssignOrdersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssignOrdersActionPerformed
         // TODO add your handling code here:
-            DeliveryAdminAssignPanel d = new DeliveryAdminAssignPanel(cityDir, cityName, companyName, company, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
+        DeliveryAdminAssignPanel d = new DeliveryAdminAssignPanel(cityDir, cityName, companyName, company, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
     }//GEN-LAST:event_btnAssignOrdersActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAssignOrders;
+    private javax.swing.JButton btnModify;
+    private javax.swing.JButton btnSave;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -315,4 +318,3 @@ public class DeliveryAdminPanel extends javax.swing.JPanel {
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
 }
-        

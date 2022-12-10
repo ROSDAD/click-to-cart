@@ -66,9 +66,9 @@
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="btnAssignOrders" min="-2" pref="146" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="btnModify" min="-2" pref="143" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="143" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
+                      <Component id="btnModify" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="193" max="-2" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -114,8 +114,8 @@
               <Component id="btnSave" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="128" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btnModify" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnAssignOrders" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnModify" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
           </Group>
@@ -183,20 +183,20 @@
         <Property name="text" type="java.lang.String" value="University"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="btnModify">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Modify Delivery Boys"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnModifyActionPerformed"/>
-      </Events>
-    </Component>
     <Component class="javax.swing.JButton" name="btnAssignOrders">
       <Properties>
         <Property name="text" type="java.lang.String" value="Assign Orders"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAssignOrdersActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnModify">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Modify Delivery Boys"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnModifyActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

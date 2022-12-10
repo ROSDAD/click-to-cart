@@ -4,17 +4,26 @@
  */
 package ui;
 
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.JSplitPane;
+import javax.swing.table.DefaultTableModel;
+import model.City;
 import model.CityDir;
 import model.Community;
 import model.CompanyDirectory;
+import model.Customer;
 import model.CustomerDirectory;
 import model.DeliveryBoyDirectory;
+import model.Orderedprod;
+import model.Ordermgt;
+import model.Orders;
 import model.UserAuthenticationDirectory;
 
 /**
  *
- * @author 91961
+ * @author Abhishek
  */
 public class MainOrderAdminJPanel extends javax.swing.JPanel {
 
@@ -25,6 +34,7 @@ public class MainOrderAdminJPanel extends javax.swing.JPanel {
     private Community community;
     private UserAuthenticationDirectory userauthenticationdirectory;
     private DeliveryBoyDirectory deliveryBoyDirectory;
+    private Ordermgt orderManagement;
 
     /**
      * Creates new form MainOrderAdminJPanel
@@ -33,7 +43,7 @@ public class MainOrderAdminJPanel extends javax.swing.JPanel {
         initComponents();
     }
 
-    MainOrderAdminJPanel(CityDir cityDirectory, Community community, CustomerDirectory customerDirectory, CompanyDirectory companyDirectory, UserAuthenticationDirectory userauthenticationdirectory, JSplitPane splitPane, DeliveryBoyDirectory deliveryBoyDirectory) {
+    public MainOrderAdminJPanel(Ordermgt orderManagement, CityDir cityDirectory, Community community, CustomerDirectory customerDirectory, CompanyDirectory companyDirectory, UserAuthenticationDirectory userauthenticationdirectory, JSplitPane splitPane, DeliveryBoyDirectory deliveryBoyDirectory) {
         initComponents();
         this.cityDirectory = cityDirectory;
         this.community = community;
@@ -42,6 +52,21 @@ public class MainOrderAdminJPanel extends javax.swing.JPanel {
         this.companyDirectory = companyDirectory;
         this.userauthenticationdirectory = userauthenticationdirectory;
         this.deliveryBoyDirectory = deliveryBoyDirectory;
+        this.orderManagement = orderManagement;
+
+    }
+
+    /**
+     * Populate the table cities rows from the arrayList.
+     */
+    private void populateCustomers() {
+        DefaultTableModel model = (DefaultTableModel) jTable3.getModel();
+        model.setRowCount(0);
+        for (Customer customer : community.getCustomerDirectory().getCustomerList()) {
+            Object[] row = new Object[1];
+            row[0] = customer.getUserName();
+            model.addRow(row);
+        }
     }
 
     /**
@@ -53,19 +78,280 @@ public class MainOrderAdminJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        updateOrderCancellationRequestrButton = new javax.swing.JButton();
+        orderedProductsjButton = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
+        ordersjButton = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable3 = new javax.swing.JTable();
+        viewCustomersButton = new javax.swing.JButton();
+
+        jTable1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "Order ID", "Final Price", "Address", "Payment Type", "Order Status", "Order Adm Appr"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jTable1);
+
+        updateOrderCancellationRequestrButton.setText("Update order for Cancelation Request");
+        updateOrderCancellationRequestrButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateOrderCancellationRequestrButtonActionPerformed(evt);
+            }
+        });
+
+        orderedProductsjButton.setText("View Ordered Products");
+        orderedProductsjButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                orderedProductsjButtonActionPerformed(evt);
+            }
+        });
+
+        jTable2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Product ID", "Product count", "Product Total Price"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(jTable2);
+
+        ordersjButton.setText("View Orders");
+        ordersjButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ordersjButtonActionPerformed(evt);
+            }
+        });
+
+        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null},
+                {null},
+                {null},
+                {null}
+            },
+            new String [] {
+                "Customers"
+            }
+        ));
+        jScrollPane3.setViewportView(jTable3);
+
+        viewCustomersButton.setText("View Customers");
+        viewCustomersButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewCustomersButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(103, 103, 103)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(45, 45, 45)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(ordersjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(113, 113, 113)
+                                .addComponent(updateOrderCancellationRequestrButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(orderedProductsjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(104, 104, 104)))
+                .addGap(40, 40, 40))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(275, 275, 275)
+                .addComponent(viewCustomersButton)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(viewCustomersButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(36, 36, 36)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(updateOrderCancellationRequestrButton)
+                    .addComponent(ordersjButton)
+                    .addComponent(orderedProductsjButton))
+                .addGap(21, 21, 21))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void updateOrderCancellationRequestrButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateOrderCancellationRequestrButtonActionPerformed
+        // TODO add your handling code here:
+        int selectedRowIndex = jTable3.getSelectedRow();
+        if (selectedRowIndex < 0) {
+            JOptionPane.showMessageDialog(this, "Please select a customer row to update");
+            return;
+        }
+        DefaultTableModel model = (DefaultTableModel) jTable3.getModel();
+        String customerUsername = model.getValueAt(selectedRowIndex, 0).toString();
+
+        int selectedRowOrderIndex = jTable1.getSelectedRow();
+        if (selectedRowOrderIndex < 0) {
+            JOptionPane.showMessageDialog(this, "Please select a row to update");
+            return;
+        }
+        DefaultTableModel modelOrder = (DefaultTableModel) jTable1.getModel();
+        String orderStatus = modelOrder.getValueAt(selectedRowOrderIndex, 4).toString();
+
+        String approvedOrCancelled = JOptionPane.showInputDialog(null, "Approved or Rejected", orderStatus);
+
+        if (orderStatus.equalsIgnoreCase("Pending_for_Approval")) {
+            if (approvedOrCancelled.equalsIgnoreCase("Approved")) {
+                model.setValueAt("Cancelled", selectedRowOrderIndex, 4);
+                model.setValueAt("Approved", selectedRowOrderIndex, 5);
+            } else {
+                model.setValueAt("Cancellation_Request_Rejected", selectedRowOrderIndex, 4);
+                model.setValueAt("Rejected", selectedRowOrderIndex, 5);
+            }
+        }
+
+        for (Customer customer : customerDirectory.getCustomerList()) {
+            if (customerUsername.equalsIgnoreCase(customer.getUserName())) {
+                for (Orders orders : customer.getOrders()) {
+                    orders.setOrderStatus(approvedOrCancelled);
+                    if (approvedOrCancelled.equalsIgnoreCase("Approved")) {
+                        orders.setOrderStatus("Cancelled");
+                        orders.setOrderAdminApproval(true);
+                    } else {
+                        orders.setOrderStatus("Cancellation_Request_Rejected");
+                        orders.setOrderAdminApproval(false);
+                    }
+                }
+            }
+        }
+
+        JOptionPane.showMessageDialog(this, "Order admin request cancellation is completed");
+    }//GEN-LAST:event_updateOrderCancellationRequestrButtonActionPerformed
+
+    private void orderedProductsjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderedProductsjButtonActionPerformed
+        // TODO add your handling code here:
+
+        int selectedRowIndex = jTable1.getSelectedRow();
+        if (selectedRowIndex < 0) {
+            JOptionPane.showMessageDialog(this, "Please select a row to select order to view the products");
+            return;
+        }
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        String orderID = model.getValueAt(selectedRowIndex, 0).toString();
+
+        // For inserting the doctor to the doctor directory of the hospital.
+        for (Orders order : orderManagement.getOrders()) {
+            if (order.getOrderId().equalsIgnoreCase(orderID)) {
+                if (order.getOrderedProds().isEmpty()) {
+                    List<Orderedprod> orderList = new ArrayList<>();
+                    populateOrderedProducts(orderList);
+                } else {
+                    populateOrderedProducts(order.getOrderedProds());
+                }
+            }
+        }
+    }//GEN-LAST:event_orderedProductsjButtonActionPerformed
+
+    /**
+     * Populate the table rows from the arrayList.
+     */
+    private void populateOrderedProducts(List<Orderedprod> OrderedprodList) {
+        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+        model.setRowCount(0);
+        for (Orderedprod orderedprod : OrderedprodList) {
+            Object[] row = new Object[3];
+            row[0] = orderedprod.getProdid();
+            row[1] = orderedprod.getprodcount();
+            row[2] = orderedprod.getProdTotalprice();
+            model.addRow(row);
+        }
+    }
+
+
+    private void ordersjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ordersjButtonActionPerformed
+        // TODO add your handling code here:
+        int selectedRowIndex = jTable3.getSelectedRow();
+        if (selectedRowIndex < 0) {
+            JOptionPane.showMessageDialog(this, "Please select a customer row to update");
+            return;
+        }
+        DefaultTableModel model = (DefaultTableModel) jTable3.getModel();
+        String customerUsername = model.getValueAt(selectedRowIndex, 0).toString();
+        model.setRowCount(0);
+        for (Customer customer : customerDirectory.getCustomerList()) {
+            if (customerUsername.equalsIgnoreCase(customer.getUserName())) {
+                for (Orders orders : customer.getOrders()) {
+                    Object[] row = new Object[6];
+                    row[0] = orders.getOrderId();
+                    row[1] = orders.getFinalPrice();
+                    row[2] = orders.getAddress();
+                    row[3] = orders.getPaymentType();
+                    row[5] = orders.isOrderAdminApproval();
+                    model.addRow(row);
+                }
+            }
+        }
+    }//GEN-LAST:event_ordersjButtonActionPerformed
+
+    private void viewCustomersButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewCustomersButtonActionPerformed
+        // TODO add your handling code here:
+        populateCustomers();
+    }//GEN-LAST:event_viewCustomersButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
+    private javax.swing.JTable jTable3;
+    private javax.swing.JButton orderedProductsjButton;
+    private javax.swing.JButton ordersjButton;
+    private javax.swing.JButton updateOrderCancellationRequestrButton;
+    private javax.swing.JButton viewCustomersButton;
     // End of variables declaration//GEN-END:variables
 }

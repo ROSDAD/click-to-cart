@@ -4,6 +4,7 @@
  */
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -20,7 +21,14 @@ public class Orders {
     private String address;
     private Payment payment;
     private String orderStatus;
+    private boolean orderAdminApproval;
     private String customerId;
+
+    public Orders() {
+        this.orderedProds = new ArrayList<>();
+    }
+    
+    
 
     public String getCustomerId() {
         return customerId;
@@ -83,5 +91,13 @@ public class Orders {
         orderedProds.add(ordProd);
         return ordProd;
 
+    }
+
+    public boolean isOrderAdminApproval() {
+        return orderAdminApproval;
+    }
+
+    public void setOrderAdminApproval(boolean orderAdminApproval) {
+        this.orderAdminApproval = orderAdminApproval;
     }
 }

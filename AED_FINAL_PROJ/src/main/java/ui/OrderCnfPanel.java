@@ -4,17 +4,25 @@
  */
 package ui;
 
+import javax.swing.JSplitPane;
+import model.Company;
+import model.Customer;
+
 /**
  *
  * @author rosha
  */
 public class OrderCnfPanel extends javax.swing.JPanel {
 
-    /**
-     * Creates new form OrderCnfPanel
-     */
-    public OrderCnfPanel() {
+    private Customer cust;
+    private Company comp;
+    private JSplitPane splitPane;
+
+    public OrderCnfPanel(Customer cust, Company comp, JSplitPane splitPane) {
         initComponents();
+        this.cust = cust;
+        this.comp = comp;
+        this.splitPane = splitPane;
     }
 
     /**

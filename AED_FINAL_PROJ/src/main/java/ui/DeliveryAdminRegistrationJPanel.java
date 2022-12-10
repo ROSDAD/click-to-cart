@@ -17,7 +17,7 @@ import model.UserAuthenticationDirectory;
 
 /**
  *
- * @author 91961
+ * @author Abhishek
  */
 public class DeliveryAdminRegistrationJPanel extends javax.swing.JPanel {
 

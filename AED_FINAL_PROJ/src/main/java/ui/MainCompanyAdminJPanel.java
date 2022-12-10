@@ -14,7 +14,7 @@ import model.UserAuthenticationDirectory;
 
 /**
  *
- * @author 91961
+ * @author Abhishek
  */
 public class MainCompanyAdminJPanel extends javax.swing.JPanel {
 

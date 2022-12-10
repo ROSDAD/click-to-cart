@@ -18,7 +18,7 @@ public class CompanyDirectory {
     private List<Company> companyDirectoryList;
 
     public CompanyDirectory() {
-        companyDirectoryList = new ArrayList<>();
+        this.companyDirectoryList = new ArrayList<>();
     }
 
     public List<Company> getCompanyDirectoryList() {

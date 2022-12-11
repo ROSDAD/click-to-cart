@@ -19,6 +19,7 @@ import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathFactory;
+import model.Customer;
 import org.jxmapviewer.OSMTileFactoryInfo;
 import org.jxmapviewer.input.PanMouseInputListener;
 import org.jxmapviewer.input.ZoomMouseWheelListenerCenter;
@@ -33,10 +34,11 @@ import org.jxmapviewer.viewer.TileFactoryInfo;
  */ 
 public class OrderCnfPanel extends javax.swing.JPanel {
 
-    /**
-     * Creates new form OrderCnfPanel
-     */
-    public OrderCnfPanel() {
+    private Customer cust;
+    private Company comp;
+    private JSplitPane splitPane;
+
+    public OrderCnfPanel(Customer cust, Company comp, JSplitPane splitPane) {
         initComponents();
         
         init();

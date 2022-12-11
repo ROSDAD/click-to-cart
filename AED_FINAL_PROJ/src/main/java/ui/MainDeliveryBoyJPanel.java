@@ -4,16 +4,22 @@
  */
 package ui;
 
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.JSplitPane;
+import javax.swing.table.DefaultTableModel;
 import model.Community;
 import model.CompanyDirectory;
 import model.CustomerDirectory;
+import model.DeliveryBoy;
 import model.DeliveryBoyDirectory;
+import model.Orders;
 import model.UserAuthenticationDirectory;
 
 /**
  *
- * @author 91961
+ * @author Abhishek
  */
 public class MainDeliveryBoyJPanel extends javax.swing.JPanel {
 
@@ -23,6 +29,7 @@ public class MainDeliveryBoyJPanel extends javax.swing.JPanel {
     private Community community;
     private UserAuthenticationDirectory userauthenticationdirectory;
     private DeliveryBoyDirectory deliveryBoyDirectory;
+    private String deliveryBoyUserName;
 
     /**
      * Creates new form MainCustomerJPanel
@@ -31,9 +38,10 @@ public class MainDeliveryBoyJPanel extends javax.swing.JPanel {
         initComponents();
     }
 
-    public MainDeliveryBoyJPanel(Community community, CustomerDirectory customerDirectory, CompanyDirectory companyDirectory, UserAuthenticationDirectory userauthenticationdirectory, JSplitPane splitPane, DeliveryBoyDirectory deliveryBoyDirectory) {
+    public MainDeliveryBoyJPanel(Community community, String deliveryBoyUserName, CustomerDirectory customerDirectory, CompanyDirectory companyDirectory, UserAuthenticationDirectory userauthenticationdirectory, JSplitPane splitPane, DeliveryBoyDirectory deliveryBoyDirectory) {
         initComponents();
         this.community = community;
+        this.deliveryBoyUserName = deliveryBoyUserName;
         this.splitPane = splitPane;
         this.customerDirectory = customerDirectory;
         this.companyDirectory = companyDirectory;
@@ -50,27 +58,76 @@ public class MainDeliveryBoyJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        ordersDeliveredButton = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTable4 = new javax.swing.JTable();
+        ordersOutForDeliveryButton = new javax.swing.JButton();
+        updateOrderStatusButton = new javax.swing.JButton();
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        ordersDeliveredButton.setText("View Orders delivered");
+        ordersDeliveredButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ordersDeliveredButtonActionPerformed(evt);
+            }
+        });
+
+        jTable2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Order ID", "Final Price", "Address", "Payment Type", "Order Status"
             }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
 
-        jButton1.setText("View Orders");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(jTable2);
+
+        jTable4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jTable4.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Order ID", "Final Price", "Address", "Payment Type", "Order Status"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane4.setViewportView(jTable4);
+
+        ordersOutForDeliveryButton.setText("View Orders out for delivery");
+        ordersOutForDeliveryButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                ordersOutForDeliveryButtonActionPerformed(evt);
+            }
+        });
+
+        updateOrderStatusButton.setText("Update Order Status To Delivered");
+        updateOrderStatusButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateOrderStatusButtonActionPerformed(evt);
             }
         });
 
@@ -79,34 +136,132 @@ public class MainDeliveryBoyJPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(290, 290, 290)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(493, 493, 493)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(396, Short.MAX_VALUE))
+                .addGap(12, 12, 12)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 497, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 542, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(197, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(48, 48, 48)
+                .addComponent(ordersOutForDeliveryButton)
+                .addGap(46, 46, 46)
+                .addComponent(updateOrderStatusButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(ordersDeliveredButton, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(329, 329, 329))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(43, 43, 43))
+                .addGap(55, 55, 55)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(39, 39, 39)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ordersOutForDeliveryButton)
+                    .addComponent(ordersDeliveredButton)
+                    .addComponent(updateOrderStatusButton))
+                .addContainerGap(318, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void ordersDeliveredButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ordersDeliveredButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+        for (DeliveryBoy deliveryBoy : deliveryBoyDirectory.getDeliveryBoyList()) {
+            if (deliveryBoy.getDeliveryBoyName().equalsIgnoreCase(deliveryBoyUserName)) {
+                if (deliveryBoy.getOrderList() == null || deliveryBoy.getOrderList().size() == 0) {
+                    List<Orders> orderList = new ArrayList<>();
+                    populateDeliveredOrders(orderList);
+                } else {
+                    populateDeliveredOrders(deliveryBoy.getOrderList());
+                }
+            }
+        }
+    }//GEN-LAST:event_ordersDeliveredButtonActionPerformed
 
+    private void ordersOutForDeliveryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ordersOutForDeliveryButtonActionPerformed
+        // TODO add your handling code here:
+
+        for (DeliveryBoy deliveryBoy : deliveryBoyDirectory.getDeliveryBoyList()) {
+            if (deliveryBoy.getDeliveryBoyName().equalsIgnoreCase(deliveryBoyUserName)) {
+                if (deliveryBoy.getOrderList() == null || deliveryBoy.getOrderList().size() == 0) {
+                    List<Orders> orderList = new ArrayList<>();
+                    populateOutForDeliveryOrders(orderList);
+                } else {
+                    populateOutForDeliveryOrders(deliveryBoy.getOrderList());
+                }
+            }
+        }
+    }//GEN-LAST:event_ordersOutForDeliveryButtonActionPerformed
+
+    private void updateOrderStatusButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateOrderStatusButtonActionPerformed
+        // TODO add your handling code here:
+        int selectedRowIndexOrderStatus = jTable2.getSelectedRow();
+        if (selectedRowIndexOrderStatus < 0) {
+            JOptionPane.showMessageDialog(this, "Please select a row to select order");
+            return;
+        }
+        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+        String selectedOrderID = model.getValueAt(selectedRowIndexOrderStatus, 0).toString();
+        model.setValueAt("Delivered", selectedRowIndexOrderStatus, 4);
+
+        for (DeliveryBoy deliveryBoy : deliveryBoyDirectory.getDeliveryBoyList()) {
+            if (deliveryBoy.getDeliveryBoyName().equalsIgnoreCase(deliveryBoyUserName)) {
+                for (Orders orders : deliveryBoy.getOrderList()) {
+                    if (selectedOrderID.equalsIgnoreCase(orders.getOrderId())) {
+                        orders.setOrderStatus("Delivered");
+                        break;
+                    }
+                }
+            }
+            populateOutForDeliveryOrders(deliveryBoy.getOrderList());
+            populateDeliveredOrders(deliveryBoy.getOrderList());
+            break;
+        }
+
+        JOptionPane.showMessageDialog(this, "Order Status is Updated");
+    }//GEN-LAST:event_updateOrderStatusButtonActionPerformed
+
+    private void populateOutForDeliveryOrders(List<Orders> ordersList) {
+        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+        model.setRowCount(0);
+        for (Orders orders : ordersList) {
+            if (orders.getOrderStatus().equalsIgnoreCase("OutForDelivery")) {
+                Object[] row = new Object[5];
+                row[0] = orders.getOrderId();
+                row[1] = orders.getFinalPrice();
+                row[2] = orders.getAddress();
+                row[3] = orders.getPaymentType().getPaymentType();
+                row[4] = orders.getOrderStatus();
+                model.addRow(row);
+            }
+        }
+    }
+
+    private void populateDeliveredOrders(List<Orders> ordersList) {
+        DefaultTableModel model = (DefaultTableModel) jTable4.getModel();
+        model.setRowCount(0);
+        for (Orders orders : ordersList) {
+            if (orders.getOrderStatus().equalsIgnoreCase("Delivered")) {
+                Object[] row = new Object[5];
+                row[0] = orders.getOrderId();
+                row[1] = orders.getFinalPrice();
+                row[2] = orders.getAddress();
+                row[3] = orders.getPaymentType().getPaymentType();
+                row[4] = orders.getOrderStatus();
+                model.addRow(row);
+            }
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JTable jTable2;
+    private javax.swing.JTable jTable4;
+    private javax.swing.JButton ordersDeliveredButton;
+    private javax.swing.JButton ordersOutForDeliveryButton;
+    private javax.swing.JButton updateOrderStatusButton;
     // End of variables declaration//GEN-END:variables
 }

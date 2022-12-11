@@ -44,7 +44,7 @@ public class UserAuthenticationDirectory {
      *
      * @param index
      */
-    public void deleteUserAuthentication(int index) {
+    public void deleteUserAuthentication(UserAuthentication index) {
         userAuthenticationList.remove(index);
     }
 

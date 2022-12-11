@@ -6,6 +6,7 @@ package ui;
 
 import java.util.ArrayList;
 import java.util.UUID;
+import java.util.List;
 import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
 import javax.swing.JSplitPane;
@@ -348,6 +349,16 @@ public class PaymentDetails extends javax.swing.JPanel {
                     }
                 }
             }
+        }
+
+        if (cust.getOrders() == null) {
+            List<Orders> ordList = new ArrayList<>();
+            ordList.add(ord);
+            cust.setOrders(ordList);
+        } else {
+            List<Orders> ordList = cust.getOrders();
+            ordList.add(ord);
+            cust.setOrders(ordList);
         }
         String Subject = "Order Confirmation!";
         String data = "<B>Thank you for Choosing InstaCart!</B> \nYour total bill is $" + finalPrice;

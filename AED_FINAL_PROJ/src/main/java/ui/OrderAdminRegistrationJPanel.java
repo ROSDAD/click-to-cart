@@ -278,12 +278,16 @@ public class OrderAdminRegistrationJPanel extends javax.swing.JPanel {
         model.removeRow(rowToModel);
 
         String selectedUsername = model.getValueAt(selectedRowIndex, 0).toString();
-
-        for (UserAuthentication userAuthentication : userauthenticationdirectory.getUserAuthenticationList()) {
-            if (userAuthentication.getUserName().equalsIgnoreCase(selectedUsername)
-                    && userAuthentication.getUserType().equalsIgnoreCase("OrderAdmin")) {
-                userauthenticationdirectory.deleteUserAuthentication(selectedRowIndex);
+        try {
+            for (UserAuthentication userAuthentication : userauthenticationdirectory.getUserAuthenticationList()) {
+                if (userAuthentication.getUserName().equalsIgnoreCase(selectedUsername)
+                        && userAuthentication.getUserType().equalsIgnoreCase("OrderAdmin")) {
+                    userauthenticationdirectory.deleteUserAuthentication(userAuthentication);
+                    populateOrderAdmin();
+                }
             }
+        } catch (Exception exception) {
+
         }
         JOptionPane.showMessageDialog(this, "Order Admin is deleted");
     }//GEN-LAST:event_deleteOrderAdminButtonActionPerformed

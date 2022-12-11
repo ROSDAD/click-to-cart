@@ -23,6 +23,7 @@ public class Orders {
     private String orderStatus;
     private boolean orderAdminApproval;
     private String customerId;
+    private String previousOrderStatus;
 
     public Orders() {
         this.orderedProds = new ArrayList<>();
@@ -100,4 +101,14 @@ public class Orders {
     public void setOrderAdminApproval(boolean orderAdminApproval) {
         this.orderAdminApproval = orderAdminApproval;
     }
+
+    public String getPreviousOrderStatus() {
+        return previousOrderStatus;
+    }
+
+    public void setPreviousOrderStatus(String previousOrderStatus) {
+        this.previousOrderStatus = previousOrderStatus;
+    }
+    
+    
 }

@@ -26,6 +26,7 @@ public class SuperAdminPanel extends javax.swing.JPanel {
     private final CompanyDirectory companyDirectory;
     private final UserAuthenticationDirectory userauthenticationdirectory;
     private final DeliveryBoyDirectory deliveryBoyDirectory;
+    private final Ordermgt orderManagement;
     /**
      * Creates new form SuperAdminPanel
      */
@@ -38,6 +39,7 @@ public class SuperAdminPanel extends javax.swing.JPanel {
         this.companyDirectory = companyDirectory;
         this.userauthenticationdirectory = userauthenticationdirectory;
         this.deliveryBoyDirectory = deliveryBoyDirectory;
+        this.orderManagement = orderManagement;
     }
 
     /**
@@ -168,6 +170,8 @@ public class SuperAdminPanel extends javax.swing.JPanel {
 
     private void companyAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_companyAdminActionPerformed
         // TODO add your handling code here:
+        SuperCompanyAdmin supCompAdmin = new SuperCompanyAdmin(cityDirectory, orderManagement,community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
+        jSplitPane1.setRightComponent(supCompAdmin);
     }//GEN-LAST:event_companyAdminActionPerformed
 
     private void cityAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cityAdminActionPerformed

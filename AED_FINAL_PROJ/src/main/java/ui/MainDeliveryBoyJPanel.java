@@ -4,11 +4,17 @@
  */
 package ui;
 
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.JSplitPane;
+import javax.swing.table.DefaultTableModel;
 import model.Community;
 import model.CompanyDirectory;
 import model.CustomerDirectory;
+import model.DeliveryBoy;
 import model.DeliveryBoyDirectory;
+import model.Orders;
 import model.UserAuthenticationDirectory;
 
 /**
@@ -23,6 +29,7 @@ public class MainDeliveryBoyJPanel extends javax.swing.JPanel {
     private Community community;
     private UserAuthenticationDirectory userauthenticationdirectory;
     private DeliveryBoyDirectory deliveryBoyDirectory;
+    private String deliveryBoyUserName;
 
     /**
      * Creates new form MainCustomerJPanel
@@ -31,9 +38,10 @@ public class MainDeliveryBoyJPanel extends javax.swing.JPanel {
         initComponents();
     }
 
-    public MainDeliveryBoyJPanel(Community community, CustomerDirectory customerDirectory, CompanyDirectory companyDirectory, UserAuthenticationDirectory userauthenticationdirectory, JSplitPane splitPane, DeliveryBoyDirectory deliveryBoyDirectory) {
+    public MainDeliveryBoyJPanel(Community community, String deliveryBoyUserName, CustomerDirectory customerDirectory, CompanyDirectory companyDirectory, UserAuthenticationDirectory userauthenticationdirectory, JSplitPane splitPane, DeliveryBoyDirectory deliveryBoyDirectory) {
         initComponents();
         this.community = community;
+        this.deliveryBoyUserName = deliveryBoyUserName;
         this.splitPane = splitPane;
         this.customerDirectory = customerDirectory;
         this.companyDirectory = companyDirectory;
@@ -55,7 +63,8 @@ public class MainDeliveryBoyJPanel extends javax.swing.JPanel {
         jTable2 = new javax.swing.JTable();
         jScrollPane4 = new javax.swing.JScrollPane();
         jTable4 = new javax.swing.JTable();
-        ordersToBePickupButton = new javax.swing.JButton();
+        ordersOutForDeliveryButton = new javax.swing.JButton();
+        updateOrderStatusButton = new javax.swing.JButton();
 
         ordersDeliveredButton.setText("View Orders delivered");
         ordersDeliveredButton.addActionListener(new java.awt.event.ActionListener() {
@@ -67,17 +76,17 @@ public class MainDeliveryBoyJPanel extends javax.swing.JPanel {
         jTable2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Order ID", "Final Price", "Address", "Payment Type", "Order Status", "Order Adm Appr"
+                "Order ID", "Final Price", "Address", "Payment Type", "Order Status"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -89,17 +98,17 @@ public class MainDeliveryBoyJPanel extends javax.swing.JPanel {
         jTable4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jTable4.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Order ID", "Final Price", "Address", "Payment Type", "Order Status", "Order Adm Appr"
+                "Order ID", "Final Price", "Address", "Payment Type", "Order Status"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -108,10 +117,17 @@ public class MainDeliveryBoyJPanel extends javax.swing.JPanel {
         });
         jScrollPane4.setViewportView(jTable4);
 
-        ordersToBePickupButton.setText("View Orders out for delivery");
-        ordersToBePickupButton.addActionListener(new java.awt.event.ActionListener() {
+        ordersOutForDeliveryButton.setText("View Orders out for delivery");
+        ordersOutForDeliveryButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ordersToBePickupButtonActionPerformed(evt);
+                ordersOutForDeliveryButtonActionPerformed(evt);
+            }
+        });
+
+        updateOrderStatusButton.setText("Update Order Status To Delivered");
+        updateOrderStatusButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateOrderStatusButtonActionPerformed(evt);
             }
         });
 
@@ -126,8 +142,10 @@ public class MainDeliveryBoyJPanel extends javax.swing.JPanel {
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 542, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(197, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(91, 91, 91)
-                .addComponent(ordersToBePickupButton, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(48, 48, 48)
+                .addComponent(ordersOutForDeliveryButton)
+                .addGap(46, 46, 46)
+                .addComponent(updateOrderStatusButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(ordersDeliveredButton, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(329, 329, 329))
@@ -141,20 +159,101 @@ public class MainDeliveryBoyJPanel extends javax.swing.JPanel {
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(39, 39, 39)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ordersToBePickupButton)
-                    .addComponent(ordersDeliveredButton))
+                    .addComponent(ordersOutForDeliveryButton)
+                    .addComponent(ordersDeliveredButton)
+                    .addComponent(updateOrderStatusButton))
                 .addContainerGap(318, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void ordersDeliveredButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ordersDeliveredButtonActionPerformed
         // TODO add your handling code here:
+        for (DeliveryBoy deliveryBoy : deliveryBoyDirectory.getDeliveryBoyList()) {
+            if (deliveryBoy.getDeliveryBoyName().equalsIgnoreCase(deliveryBoyUserName)) {
+                if (deliveryBoy.getOrderList() == null || deliveryBoy.getOrderList().size() == 0) {
+                    List<Orders> orderList = new ArrayList<>();
+                    populateDeliveredOrders(orderList);
+                } else {
+                    populateDeliveredOrders(deliveryBoy.getOrderList());
+                }
+            }
+        }
     }//GEN-LAST:event_ordersDeliveredButtonActionPerformed
 
-    private void ordersToBePickupButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ordersToBePickupButtonActionPerformed
+    private void ordersOutForDeliveryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ordersOutForDeliveryButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_ordersToBePickupButtonActionPerformed
 
+        for (DeliveryBoy deliveryBoy : deliveryBoyDirectory.getDeliveryBoyList()) {
+            if (deliveryBoy.getDeliveryBoyName().equalsIgnoreCase(deliveryBoyUserName)) {
+                if (deliveryBoy.getOrderList() == null || deliveryBoy.getOrderList().size() == 0) {
+                    List<Orders> orderList = new ArrayList<>();
+                    populateOutForDeliveryOrders(orderList);
+                } else {
+                    populateOutForDeliveryOrders(deliveryBoy.getOrderList());
+                }
+            }
+        }
+    }//GEN-LAST:event_ordersOutForDeliveryButtonActionPerformed
+
+    private void updateOrderStatusButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateOrderStatusButtonActionPerformed
+        // TODO add your handling code here:
+        int selectedRowIndexOrderStatus = jTable2.getSelectedRow();
+        if (selectedRowIndexOrderStatus < 0) {
+            JOptionPane.showMessageDialog(this, "Please select a row to select order");
+            return;
+        }
+        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+        String selectedOrderID = model.getValueAt(selectedRowIndexOrderStatus, 0).toString();
+        model.setValueAt("Delivered", selectedRowIndexOrderStatus, 4);
+
+        for (DeliveryBoy deliveryBoy : deliveryBoyDirectory.getDeliveryBoyList()) {
+            if (deliveryBoy.getDeliveryBoyName().equalsIgnoreCase(deliveryBoyUserName)) {
+                for (Orders orders : deliveryBoy.getOrderList()) {
+                    if (selectedOrderID.equalsIgnoreCase(orders.getOrderId())) {
+                        orders.setOrderStatus("Delivered");
+                        break;
+                    }
+                }
+            }
+            populateOutForDeliveryOrders(deliveryBoy.getOrderList());
+            populateDeliveredOrders(deliveryBoy.getOrderList());
+            break;
+        }
+
+        JOptionPane.showMessageDialog(this, "Order Status is Updated");
+    }//GEN-LAST:event_updateOrderStatusButtonActionPerformed
+
+    private void populateOutForDeliveryOrders(List<Orders> ordersList) {
+        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+        model.setRowCount(0);
+        for (Orders orders : ordersList) {
+            if (orders.getOrderStatus().equalsIgnoreCase("OutForDelivery")) {
+                Object[] row = new Object[5];
+                row[0] = orders.getOrderId();
+                row[1] = orders.getFinalPrice();
+                row[2] = orders.getAddress();
+                row[3] = orders.getPaymentType().getPaymentType();
+                row[4] = orders.getOrderStatus();
+                model.addRow(row);
+            }
+        }
+    }
+
+    private void populateDeliveredOrders(List<Orders> ordersList) {
+        DefaultTableModel model = (DefaultTableModel) jTable4.getModel();
+        model.setRowCount(0);
+        for (Orders orders : ordersList) {
+            if (orders.getOrderStatus().equalsIgnoreCase("Delivered")) {
+                Object[] row = new Object[5];
+                row[0] = orders.getOrderId();
+                row[1] = orders.getFinalPrice();
+                row[2] = orders.getAddress();
+                row[3] = orders.getPaymentType().getPaymentType();
+                row[4] = orders.getOrderStatus();
+                model.addRow(row);
+            }
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane2;
@@ -162,6 +261,7 @@ public class MainDeliveryBoyJPanel extends javax.swing.JPanel {
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable4;
     private javax.swing.JButton ordersDeliveredButton;
-    private javax.swing.JButton ordersToBePickupButton;
+    private javax.swing.JButton ordersOutForDeliveryButton;
+    private javax.swing.JButton updateOrderStatusButton;
     // End of variables declaration//GEN-END:variables
 }

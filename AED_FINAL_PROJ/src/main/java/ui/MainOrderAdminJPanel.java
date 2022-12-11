@@ -62,7 +62,7 @@ public class MainOrderAdminJPanel extends javax.swing.JPanel {
     private void populateCustomers() {
         DefaultTableModel model = (DefaultTableModel) jTable3.getModel();
         model.setRowCount(0);
-        for (Customer customer : community.getCustomerDirectory().getCustomerList()) {
+        for (Customer customer : customerDirectory.getCustomerList()) {
             Object[] row = new Object[1];
             row[0] = customer.getUserName();
             model.addRow(row);
@@ -240,31 +240,38 @@ public class MainOrderAdminJPanel extends javax.swing.JPanel {
         }
         DefaultTableModel modelOrder = (DefaultTableModel) jTable1.getModel();
         String orderStatus = modelOrder.getValueAt(selectedRowOrderIndex, 4).toString();
-
+        String selectedOrderID = model.getValueAt(selectedRowIndex, 0).toString();
         String approvedOrCancelled = JOptionPane.showInputDialog(null, "Approved or Rejected", orderStatus);
 
-        if (orderStatus.equalsIgnoreCase("Pending_for_Approval")) {
-            if (approvedOrCancelled.equalsIgnoreCase("Approved")) {
-                model.setValueAt("Cancelled", selectedRowOrderIndex, 4);
-                model.setValueAt("Approved", selectedRowOrderIndex, 5);
-            } else {
-                model.setValueAt("Cancellation_Request_Rejected", selectedRowOrderIndex, 4);
-                model.setValueAt("Rejected", selectedRowOrderIndex, 5);
-            }
-        }
+        String previousOrderStatus = "";
 
         for (Customer customer : customerDirectory.getCustomerList()) {
             if (customerUsername.equalsIgnoreCase(customer.getUserName())) {
                 for (Orders orders : customer.getOrders()) {
-                    orders.setOrderStatus(approvedOrCancelled);
-                    if (approvedOrCancelled.equalsIgnoreCase("Approved")) {
-                        orders.setOrderStatus("Cancelled");
-                        orders.setOrderAdminApproval(true);
-                    } else {
-                        orders.setOrderStatus("Cancellation_Request_Rejected");
-                        orders.setOrderAdminApproval(false);
+                    if (orders.getOrderId().equalsIgnoreCase(selectedOrderID)) {
+                        if (approvedOrCancelled.equalsIgnoreCase("Approved")) {
+                            orders.setOrderStatus("Cancelled");
+                            orders.setOrderAdminApproval(true);
+                            break;
+                        } else {
+                            previousOrderStatus = orders.getPreviousOrderStatus();
+                            orders.setOrderStatus(previousOrderStatus);
+                            orders.setOrderAdminApproval(false);
+                            break;
+                        }
                     }
                 }
+            }
+        }
+
+        if (orderStatus.equalsIgnoreCase("Pending_for_Approval")) {
+            if (approvedOrCancelled.equalsIgnoreCase("Approved")) {
+                modelOrder.setValueAt("Cancelled", selectedRowOrderIndex, 4);
+                modelOrder.setValueAt(true, selectedRowOrderIndex, 5);
+
+            } else {
+                modelOrder.setValueAt(previousOrderStatus, selectedRowOrderIndex, 4);
+                modelOrder.setValueAt(false, selectedRowOrderIndex, 5);
             }
         }
 
@@ -320,7 +327,9 @@ public class MainOrderAdminJPanel extends javax.swing.JPanel {
         }
         DefaultTableModel model = (DefaultTableModel) jTable3.getModel();
         String customerUsername = model.getValueAt(selectedRowIndex, 0).toString();
-        model.setRowCount(0);
+
+        DefaultTableModel modelOrders = (DefaultTableModel) jTable1.getModel();
+        modelOrders.setRowCount(0);
         for (Customer customer : customerDirectory.getCustomerList()) {
             if (customerUsername.equalsIgnoreCase(customer.getUserName())) {
                 for (Orders orders : customer.getOrders()) {
@@ -328,9 +337,10 @@ public class MainOrderAdminJPanel extends javax.swing.JPanel {
                     row[0] = orders.getOrderId();
                     row[1] = orders.getFinalPrice();
                     row[2] = orders.getAddress();
-                    row[3] = orders.getPaymentType();
+                    row[3] = orders.getPaymentType().getPaymentType();
+                    row[4] = orders.getOrderStatus();
                     row[5] = orders.isOrderAdminApproval();
-                    model.addRow(row);
+                    modelOrders.addRow(row);
                 }
             }
         }

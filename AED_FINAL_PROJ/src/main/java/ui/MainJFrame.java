@@ -93,19 +93,14 @@ public class MainJFrame extends javax.swing.JFrame {
         city.setCompanyDirectory(companyDir);
 
         userAuthentication = userauthenticationdirectory.addNewUserAuthentication();
-        userAuthentication.setUserName("co");
-        userAuthentication.setPassword("co");
-        userAuthentication.setUserType("CompanyAdmin");
+        userAuthentication.setUserName("abc");
+        userAuthentication.setPassword("abc");
+        userAuthentication.setUserType("Customer");
 
         userAuthentication = userauthenticationdirectory.addNewUserAuthentication();
         userAuthentication.setUserName("abc1");
         userAuthentication.setPassword("abc1");
         userAuthentication.setUserType("OrderAdmin");
-
-        userAuthentication = userauthenticationdirectory.addNewUserAuthentication();
-        userAuthentication.setUserName("abc");
-        userAuthentication.setPassword("abc");
-        userAuthentication.setUserType("Customer");
 
         List<Orders> ordersList = new ArrayList<>();
         for (int i = 0; i < 2; i++) {
@@ -117,13 +112,9 @@ public class MainJFrame extends javax.swing.JFrame {
             payment.setPaymentType("Debit");
             orders.setPaymentType(payment);
             List<Orderedprod> orderedprodList = new ArrayList<>();
-
             Orderedprod orderedprod = new Orderedprod();
-            if (i == 1) {
-                orderedprod.setProdId("1");
-            } else {
-                orderedprod.setProdId("0");
-            }
+            orderedprod.setProdId("1");
+            orderedprod.setProductName("sr");
             orderedprod.setProdTotalprice(500.78);
             orderedprod.setProdcount(12);
             orderedprodList.add(orderedprod);
@@ -162,6 +153,7 @@ public class MainJFrame extends javax.swing.JFrame {
         lblDetails2 = new javax.swing.JLabel();
         cityAdminTest = new javax.swing.JButton();
         invAdminTest = new javax.swing.JButton();
+        supAdminTest = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1290, 750));
@@ -234,6 +226,13 @@ public class MainJFrame extends javax.swing.JFrame {
             }
         });
 
+        supAdminTest.setText("Super Admin Test");
+        supAdminTest.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                supAdminTestActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout workAreaLayout = new javax.swing.GroupLayout(workArea);
         workArea.setLayout(workAreaLayout);
         workAreaLayout.setHorizontalGroup(
@@ -248,9 +247,10 @@ public class MainJFrame extends javax.swing.JFrame {
                             .addComponent(lblDetails2)))
                     .addGroup(workAreaLayout.createSequentialGroup()
                         .addGap(121, 121, 121)
-                        .addGroup(workAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(invAdminTest)
-                            .addComponent(cityAdminTest))))
+                        .addGroup(workAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(supAdminTest, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(invAdminTest, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cityAdminTest, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(628, Short.MAX_VALUE))
         );
         workAreaLayout.setVerticalGroup(
@@ -266,7 +266,9 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addComponent(cityAdminTest)
                 .addGap(18, 18, 18)
                 .addComponent(invAdminTest)
-                .addContainerGap(298, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(supAdminTest)
+                .addContainerGap(258, Short.MAX_VALUE))
         );
 
         splitPane.setRightComponent(workArea);
@@ -325,6 +327,13 @@ public class MainJFrame extends javax.swing.JFrame {
         DeliveryAdminPanel deliveryBoyRegistrationJPanel = new DeliveryAdminPanel(cityDirectory, cityName, companyName, company, community, customerDirectory, companyDir, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
         splitPane.setRightComponent(deliveryBoyRegistrationJPanel);
     }//GEN-LAST:event_deliveryBoyRegistrationJButtonActionPerformed
+
+    private void supAdminTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supAdminTestActionPerformed
+        // TODO add your handling code here:
+        System.out.println(orderManagement.getOrders().size());
+        SuperAdminPanel supAdmin = new SuperAdminPanel(cityDirectory, orderManagement, community, customerDirectory, companyDir, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
+        splitPane.setRightComponent(supAdmin);
+    }//GEN-LAST:event_supAdminTestActionPerformed
 
     /**
      * @param args the command line arguments
@@ -389,6 +398,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel lblDetails2;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JSplitPane splitPane;
+    private javax.swing.JButton supAdminTest;
     private javax.swing.JPanel workArea;
     // End of variables declaration//GEN-END:variables
 }

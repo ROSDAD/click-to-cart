@@ -26,7 +26,7 @@ import special.Smtp;
  * @author rosha
  */
 public class PaymentDetails extends javax.swing.JPanel {
-
+    
     private Customer cust;
     private Company comp;
     private JSplitPane splitPane;
@@ -39,9 +39,9 @@ public class PaymentDetails extends javax.swing.JPanel {
         this.cust = cust;
         this.comp = comp;
         this.splitPane = splitPane;
-
+        
         ArrayList<Orderedprod> ordProd = cust.getCart().getCartProd();
-
+        
         double finalPrice = 0;
         for (int i = 0; i < ordProd.size(); i++) {
             finalPrice = finalPrice + ordProd.get(i).getProdTotalprice();
@@ -278,15 +278,15 @@ public class PaymentDetails extends javax.swing.JPanel {
         // TODO add your handling code here:
 
         ArrayList<Inventory> dirModel = comp.getInventoryManagement().getInventoryMgt();
-
+        
         int selectedRowIndex = paymentTable.getSelectedRow();
         if (selectedRowIndex < 0) {
             JOptionPane.showMessageDialog(this, "Select a Card to Proceed!");
             return;
         }
-
+        
         ArrayList<Payment> payDir = cust.getPaymentDirectory().getPaymentDir();
-
+        
         ArrayList<Orderedprod> ordProd = cust.getCart().getCartProd();
         Ordermgt ordmgt = new Ordermgt();
         Orders ord = ordmgt.addNewOrder();
@@ -298,10 +298,11 @@ public class PaymentDetails extends javax.swing.JPanel {
                 for (int j = 0; j < mainM.size(); j++) {
                     if (ordProd.get(i).getProdid().equals(mainM.get(j).getPid())) {
                         if (ordProd.get(i).getprodcount() <= mainM.get(j).getInventoryQty()) {
-
+                            
                             Orderedprod newProd = ord.addNewOrderedProds();
-
+                            
                             newProd.setProdId(ordProd.get(i).getProdid());
+                            newProd.setProductName(ordProd.get(i).getProductName());
                             newProd.setProdcount(ordProd.get(i).getprodcount());
                             newProd.setProdTotalprice(ordProd.get(i).getProdTotalprice());
                             finalPrice = finalPrice + ordProd.get(i).getProdTotalprice();
@@ -316,7 +317,7 @@ public class PaymentDetails extends javax.swing.JPanel {
                 }
             }
         }
-
+        
         if (cust.getOrders() == null) {
             List<Orders> ordList = new ArrayList<>();
             ordList.add(ord);
@@ -346,7 +347,7 @@ public class PaymentDetails extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Select a Card to Delete!");
             return;
         }
-
+        
         Payment payment = cust.getPaymentDirectory().getPaymentDir().get(selectedRowIndex);
         cust.getPaymentDirectory().deletePayment(payment);
         displayCardList();
@@ -376,7 +377,7 @@ public class PaymentDetails extends javax.swing.JPanel {
             int Month = Integer.parseInt(month);
             int Year = Integer.parseInt(year);
             int Cvv = Integer.parseInt(cvv);
-
+            
             Payment payment = cust.getPaymentDirectory().addNewPayment();
             payment.setPaymentType(radioVal);
             payment.setCardHolderName(cardHolderName);
@@ -415,25 +416,25 @@ public class PaymentDetails extends javax.swing.JPanel {
 private void displayCardList() {
         DefaultTableModel model = (DefaultTableModel) paymentTable.getModel();
         model.setRowCount(0);
-
+        
         ArrayList<Payment> paymentDir = cust.getPaymentDirectory().getPaymentDir();
         double finalPrice = 0;
         String pName = "";
         for (int i = 0; i < paymentDir.size(); i++) {
             if (paymentDir.get(i) != null) {
-
+                
                 Object[] row = new Object[4];
                 row[0] = i;
-
+                
                 row[1] = paymentDir.get(i).getPaymentType();
                 row[2] = paymentDir.get(i).getCardHolderName();
                 row[3] = "xxxxxxxxxxx" + String.valueOf(paymentDir.get(i).getCardNumber())
                         .substring(String.valueOf(paymentDir.get(i).getCardNumber()).length() - 4);
-
+                
                 model.addRow(row);
-
+                
             }
         }
-
+        
     }
 }

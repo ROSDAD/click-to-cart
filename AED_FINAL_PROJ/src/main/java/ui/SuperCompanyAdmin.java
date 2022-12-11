@@ -4,11 +4,14 @@
  */
 package ui;
 
+import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.JSplitPane;
 import javax.swing.table.DefaultTableModel;
 import model.City;
 import model.CityDir;
 import model.Community;
+import model.Company;
 import model.CompanyDirectory;
 import model.CustomerDirectory;
 import model.DeliveryBoyDirectory;
@@ -29,7 +32,7 @@ public class SuperCompanyAdmin extends javax.swing.JPanel {
     private final UserAuthenticationDirectory userauthenticationdirectory;
     private final DeliveryBoyDirectory deliveryBoyDirectory;
     private final Ordermgt orderManagement;
-
+    private int cityTableIndex;
     /**
      * Creates new form SuperCompanyAdmin
      */
@@ -43,6 +46,7 @@ public class SuperCompanyAdmin extends javax.swing.JPanel {
         this.userauthenticationdirectory = userauthenticationdirectory;
         this.deliveryBoyDirectory = deliveryBoyDirectory;
         this.orderManagement = orderManagement;
+        populateCitiesTable();
     }
 
     /**
@@ -60,8 +64,8 @@ public class SuperCompanyAdmin extends javax.swing.JPanel {
         companyTable = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        viewCompanyBtn = new javax.swing.JButton();
+        loginCompanyBtn = new javax.swing.JButton();
 
         cityTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -111,11 +115,21 @@ public class SuperCompanyAdmin extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel2.setText("COMPANY");
 
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton1.setText("VIEW");
+        viewCompanyBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        viewCompanyBtn.setText("VIEW");
+        viewCompanyBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewCompanyBtnActionPerformed(evt);
+            }
+        });
 
-        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton2.setText("LOGIN");
+        loginCompanyBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        loginCompanyBtn.setText("LOGIN");
+        loginCompanyBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loginCompanyBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -124,10 +138,10 @@ public class SuperCompanyAdmin extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton2)
+                    .addComponent(loginCompanyBtn)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton1)
+                            .addComponent(viewCompanyBtn)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -140,7 +154,7 @@ public class SuperCompanyAdmin extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -150,22 +164,49 @@ public class SuperCompanyAdmin extends javax.swing.JPanel {
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(viewCompanyBtn)
+                    .addComponent(loginCompanyBtn))
                 .addGap(99, 99, 99))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void viewCompanyBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewCompanyBtnActionPerformed
+        // TODO add your handling code here:
+        int selectedRowIndex = cityTable.getSelectedRow();
+        if (selectedRowIndex < 0) {
+            JOptionPane.showMessageDialog(this, "Select a city to view companies!");
+            return;
+        }
+        DefaultTableModel model = (DefaultTableModel) cityTable.getModel();
+        this.cityTableIndex = selectedRowIndex;
+        CompanyDirectory compDir = cityDirectory.getCityDir().get(selectedRowIndex).getCompanyDirectory();
+        populateCompanyTable(compDir);
+        
+    }//GEN-LAST:event_viewCompanyBtnActionPerformed
+
+    private void loginCompanyBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginCompanyBtnActionPerformed
+        // TODO add your handling code here:
+        int selectedRowIndex = companyTable.getSelectedRow();
+        if (selectedRowIndex < 0) {
+            JOptionPane.showMessageDialog(this, "Select a city to view companies!");
+            return;
+        }
+        DefaultTableModel model = (DefaultTableModel) cityTable.getModel();
+        Company compDir = cityDirectory.getCityDir().get(cityTableIndex).getCompanyDirectory().getCompanyDirectoryList().get(selectedRowIndex);
+        MainCompanyAdminJPanel compAdminPanel = new MainCompanyAdminJPanel(cityDirectory, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
+        splitPane.setRightComponent(compAdminPanel);
+    }//GEN-LAST:event_loginCompanyBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable cityTable;
     private javax.swing.JTable companyTable;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JButton loginCompanyBtn;
+    private javax.swing.JButton viewCompanyBtn;
     // End of variables declaration//GEN-END:variables
     private void populateCitiesTable() {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -188,25 +229,26 @@ public class SuperCompanyAdmin extends javax.swing.JPanel {
         }
     }
 
-    private void populateCompanyTable() {
+    private void populateCompanyTable(CompanyDirectory compDir) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         
         // House Table        
         DefaultTableModel model = (DefaultTableModel) companyTable.getModel();
         model.setRowCount(0);
+        
         int i=0;
-        if(cityDirectory.getCityDir() != null) {
-        for(City c : cityDirectory.getCityDir()) {
+        
+        for(Company c : compDir.getCompanyDirectoryList()) {
             i++;
             Object[] row = new Object[11];
             //row[0] = house;
             row[0] = i;
-            row[1] = c.getCityName();
+            row[1] = c.getCompanyName();
             
             
             model.addRow(row);
         }
-        }
+        
     }
 
 

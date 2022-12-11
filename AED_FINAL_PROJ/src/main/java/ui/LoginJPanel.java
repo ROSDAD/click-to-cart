@@ -69,6 +69,7 @@ public class LoginJPanel extends javax.swing.JPanel {
         orderAdminRadioButton = new javax.swing.JRadioButton();
         deliveryAdminRadioButton = new javax.swing.JRadioButton();
         inventoryAdminRadioButton = new javax.swing.JRadioButton();
+        jButton1 = new javax.swing.JButton();
 
         createLabel1.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         createLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -133,6 +134,8 @@ public class LoginJPanel extends javax.swing.JPanel {
             }
         });
 
+        jButton1.setText("jButton1");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -175,7 +178,9 @@ public class LoginJPanel extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(loginButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(306, 306, 306))
+                .addGap(134, 134, 134)
+                .addComponent(jButton1)
+                .addGap(97, 97, 97))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -209,7 +214,9 @@ public class LoginJPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(inventoryAdminRadioButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
-                .addComponent(loginButton1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(loginButton1)
+                    .addComponent(jButton1))
                 .addGap(15, 15, 15))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -310,6 +317,7 @@ public class LoginJPanel extends javax.swing.JPanel {
     private javax.swing.JRadioButton deliveryAdminRadioButton;
     private javax.swing.JRadioButton deliveryBoyRadioButton4;
     private javax.swing.JRadioButton inventoryAdminRadioButton;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JButton loginButton1;

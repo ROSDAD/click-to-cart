@@ -32,15 +32,19 @@ public class PaymentDetails extends javax.swing.JPanel {
     private Customer cust;
     private Company comp;
     private JSplitPane splitPane;
+    private String cityName;
+    private double distance;
 
     /**
      * Creates new form PaymentDetails
      */
-    public PaymentDetails(Customer cust, Company comp, JSplitPane splitPane) {
+    public PaymentDetails(double distance, String cityName, Customer cust, Company comp, JSplitPane splitPane) {
         initComponents();
         this.cust = cust;
         this.comp = comp;
         this.splitPane = splitPane;
+        this.cityName = cityName;
+        this.distance = distance;
 
         ArrayList<Orderedprod> ordProd = cust.getCart().getCartProd();
 
@@ -364,10 +368,11 @@ public class PaymentDetails extends javax.swing.JPanel {
         String data = "<B>Thank you for Choosing InstaCart!</B> \nYour total bill is $" + finalPrice;
         try {
             Smtp smtp = new Smtp(cust.getUserName(), Subject, data);
-            OrderCnfPanel orderCnfPanel = new OrderCnfPanel(cust, comp, splitPane);
+            OrderCnfPanel orderCnfPanel = new OrderCnfPanel(distance, cityName, cust, comp, splitPane);
             splitPane.setRightComponent(orderCnfPanel);
-        } catch (Exception exception) {
-            JOptionPane.showMessageDialog(null, exception);
+            } 
+            catch (Exception exception) {
+                JOptionPane.showMessageDialog(null, exception);
         }
 
 //redirect OrderCnf Panel

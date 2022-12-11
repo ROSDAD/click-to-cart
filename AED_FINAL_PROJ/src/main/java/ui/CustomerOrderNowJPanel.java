@@ -4,10 +4,16 @@
  */
 package ui;
 
+import com.byteowls.jopencage.JOpenCageGeocoder;
+import com.byteowls.jopencage.model.JOpenCageForwardRequest;
+import com.byteowls.jopencage.model.JOpenCageLatLng;
+import com.byteowls.jopencage.model.JOpenCageResponse;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JSplitPane;
+import javax.swing.event.MouseInputListener;
 import javax.swing.table.DefaultTableModel;
 import model.City;
 import model.CityDir;
@@ -21,6 +27,12 @@ import model.Orderedprod;
 import model.Ordermgt;
 import model.Orders;
 import model.UserAuthenticationDirectory;
+import org.jxmapviewer.OSMTileFactoryInfo;
+import org.jxmapviewer.input.PanMouseInputListener;
+import org.jxmapviewer.input.ZoomMouseWheelListenerCenter;
+import org.jxmapviewer.viewer.DefaultTileFactory;
+import org.jxmapviewer.viewer.GeoPosition;
+import org.jxmapviewer.viewer.TileFactoryInfo;
 
 /**
  *
@@ -36,6 +48,7 @@ public class CustomerOrderNowJPanel extends javax.swing.JPanel {
     private DeliveryBoyDirectory deliveryBoyDirectory;
     private Ordermgt orderManagement;
     private String userName;
+    private double dist;
     private CityDir cityDirectory;
 
     /**
@@ -44,6 +57,8 @@ public class CustomerOrderNowJPanel extends javax.swing.JPanel {
     public CustomerOrderNowJPanel() {
         initComponents();
     }
+    
+    
 
     public CustomerOrderNowJPanel(CityDir cityDirectory, String userName, Ordermgt orderManagement, Community community, CustomerDirectory customerDirectory, CompanyDirectory companyDirectory, UserAuthenticationDirectory userauthenticationdirectory, JSplitPane splitPane, DeliveryBoyDirectory deliveryBoyDirectory) {
         initComponents();
@@ -57,6 +72,78 @@ public class CustomerOrderNowJPanel extends javax.swing.JPanel {
         this.deliveryBoyDirectory = deliveryBoyDirectory;
         this.orderManagement = orderManagement;
         populateCities();
+    }
+    
+    private double rad2deg(double rad) {
+      return (rad * 180.0 / Math.PI);
+    }
+    
+    private double deg2rad(double deg) {
+      return (deg * Math.PI / 180.0);
+    }
+    
+    private double distance(double lat1, double lon1, double lat2, double lon2, char unit) {
+      double theta = lon1 - lon2;
+      double dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.cos(deg2rad(theta));
+      dist = Math.acos(dist);
+      dist = rad2deg(dist);
+      dist = dist * 60 * 1.1515;
+      if (unit == 'K') {
+        dist = dist * 1.609344;
+      } else if (unit == 'N') {
+        dist = dist * 0.8684;
+        }
+      return (dist);
+    }
+    
+    private void init(String companyName, String cityName) {
+        
+        TileFactoryInfo info = new OSMTileFactoryInfo();
+        
+        //TileFactoryInfo info = new OSMTileFactoryInfo();
+        
+        DefaultTileFactory tileFactory = new DefaultTileFactory(info);
+        jXMapViewer1.setTileFactory(tileFactory);
+        
+        //String latLongs[];
+                
+        try {        
+            
+        JOpenCageGeocoder jO = new JOpenCageGeocoder("b530cbd50cd843c485a70dff613da0aa");
+        
+        JOpenCageForwardRequest request = new JOpenCageForwardRequest(companyName.concat(", "+cityName));
+        //request.setRestrictToCountryCode("za"); // restrict results to a specific country
+        
+        JOpenCageResponse response = jO.forward(request);
+        JOpenCageLatLng firstResultLatLng = response.getFirstPosition(); // get the coordinate pair of the first result
+        System.out.println(firstResultLatLng.getLat().toString() + "," + firstResultLatLng.getLng().toString());
+        
+        
+        
+        GeoPosition geo = new GeoPosition(firstResultLatLng.getLat(),firstResultLatLng.getLng());
+        //GeoPosition geo = new GeoPosition(Double.parseDouble(latLongs[0]),Double.parseDouble(latLongs[1]));
+        
+        jXMapViewer1.setAddressLocation(geo);
+        jXMapViewer1.setZoom(2);
+        
+        MouseInputListener mm = new PanMouseInputListener(jXMapViewer1);
+        jXMapViewer1.addMouseListener(mm);
+        jXMapViewer1.addMouseMotionListener(mm);
+        jXMapViewer1.addMouseWheelListener(new ZoomMouseWheelListenerCenter(jXMapViewer1));
+        
+        DecimalFormat df = new DecimalFormat("0.00");
+        
+        dist = distance(firstResultLatLng.getLat(), firstResultLatLng.getLng(),42.3398067,-71.0891717,'M');
+        dist = Double.parseDouble(df.format((dist)));
+                
+        lblDistance.setText("Distance from default address is "+dist+" miles.");
+        
+        }
+        catch(Exception e) {
+            
+            System.out.println(e);
+            
+        }
     }
 
     /**
@@ -87,6 +174,9 @@ public class CustomerOrderNowJPanel extends javax.swing.JPanel {
         jTable2 = new javax.swing.JTable();
         orderNowjButton = new javax.swing.JButton();
         ViewCompany = new javax.swing.JButton();
+        btnViewMap = new javax.swing.JButton();
+        jXMapViewer1 = new org.jxmapviewer.JXMapViewer();
+        lblDistance = new javax.swing.JLabel();
 
         jTable1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -138,38 +228,71 @@ public class CustomerOrderNowJPanel extends javax.swing.JPanel {
             }
         });
 
+        btnViewMap.setText("View on Map");
+        btnViewMap.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewMapActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jXMapViewer1Layout = new javax.swing.GroupLayout(jXMapViewer1);
+        jXMapViewer1.setLayout(jXMapViewer1Layout);
+        jXMapViewer1Layout.setHorizontalGroup(
+            jXMapViewer1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 592, Short.MAX_VALUE)
+        );
+        jXMapViewer1Layout.setVerticalGroup(
+            jXMapViewer1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 348, Short.MAX_VALUE)
+        );
+
+        lblDistance.setText("                   ");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(ViewCompany)
+                        .addGap(39, 39, 39)
+                        .addComponent(btnViewMap))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(77, 77, 77)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(70, 70, 70)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(440, 440, 440)
-                        .addComponent(orderNowjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(131, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(ViewCompany)
-                .addGap(312, 312, 312))
+                        .addGap(53, 53, 53)
+                        .addComponent(orderNowjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblDistance)
+                            .addComponent(jXMapViewer1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(50, 50, 50))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(82, 82, 82)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
-                .addComponent(ViewCompany)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
-                .addComponent(orderNowjButton)
-                .addGap(29, 29, 29))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(41, 41, 41)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(68, 68, 68)
+                        .addComponent(jXMapViewer1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                        .addComponent(lblDistance)))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ViewCompany)
+                    .addComponent(btnViewMap)
+                    .addComponent(orderNowjButton))
+                .addGap(37, 37, 37))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -216,7 +339,7 @@ public class CustomerOrderNowJPanel extends javax.swing.JPanel {
             }
         }
         System.out.println(customerObject);
-        ItemListPanel itemListPanel = new ItemListPanel(customerObject, companyObject, splitPane);
+        ItemListPanel itemListPanel = new ItemListPanel(dist, selectedCityName, customerObject, companyObject, splitPane);
 
         splitPane.setRightComponent(itemListPanel);
 
@@ -246,13 +369,42 @@ public class CustomerOrderNowJPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_ViewCompanyActionPerformed
 
+    private void btnViewMapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewMapActionPerformed
+        // TODO add your handling code here:
+        
+        int selectedRowIndex = jTable1.getSelectedRow();
+        if (selectedRowIndex < 0) {
+            JOptionPane.showMessageDialog(this, "Please select a row to select city");
+            return;
+        }
+
+        DefaultTableModel modelCity = (DefaultTableModel) jTable1.getModel();
+        String selectedCityName = modelCity.getValueAt(selectedRowIndex, 0).toString();
+
+        //Selected City Table
+        int selectedRowIndexCompany = jTable2.getSelectedRow();
+        if (selectedRowIndexCompany < 0) {
+            JOptionPane.showMessageDialog(this, "Please select a row to select company");
+            return;
+        }
+
+        DefaultTableModel modelCompany = (DefaultTableModel) jTable2.getModel();
+        String selectedCompany = modelCompany.getValueAt(selectedRowIndexCompany, 0).toString();
+        
+        init(selectedCompany, selectedCityName);                
+        
+    }//GEN-LAST:event_btnViewMapActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ViewCompany;
+    private javax.swing.JButton btnViewMap;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
+    private org.jxmapviewer.JXMapViewer jXMapViewer1;
+    private javax.swing.JLabel lblDistance;
     private javax.swing.JButton orderNowjButton;
     // End of variables declaration//GEN-END:variables
 

@@ -48,6 +48,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private Ordermgt orderManagement;
     private City city;
     private Company company;
+    private Company company1;
     private UserAuthentication userAuthentication;
     private DeliveryBoy deliveryBoy;
     private Customer customer;
@@ -83,6 +84,11 @@ public class MainJFrame extends javax.swing.JFrame {
         company.setCompanyName("Costco");
         company.setCompanyType("Type 1");
         company.setInventoryManagement(inventoryManagement);
+        
+        company1 = companyDir.addNewCompany();
+        company1.setCompanyName("Target");
+        company1.setCompanyType("Type 2");
+        company1.setInventoryManagement(inventoryManagement);
 
         //Default City
         city = cityDirectory.addNewCity();
@@ -303,9 +309,9 @@ public class MainJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
 //        CityAdminPanel c = new CityAdminPanel(cityDirectory, splitPane);
 //        splitPane.setRightComponent(c);
-
-        MapTest2 m = new MapTest2();
-        splitPane.setRightComponent(m);
+//
+//        OrderCnfPanel m = new OrderCnfPanel(new Customer(), company, splitPane);
+//        splitPane.setRightComponent(m);
         
 //        DeliveryAdminMainPanel c = new DeliveryAdminMainPanel(cityDirectory, "Boston", "Costco", company, community, customerDirectory, city.getCompanyDirectory(), userauthenticationdirectory, splitPane, deliveryBoyDirectory);
 //        splitPane.setRightComponent(c);

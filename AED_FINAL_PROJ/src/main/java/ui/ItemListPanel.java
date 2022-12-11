@@ -21,16 +21,20 @@ public class ItemListPanel extends javax.swing.JPanel {
     private Customer cust;
     private Company comp;
     private JSplitPane splitPane;
+    private String selectedCityName;
+    private double distance;
 
     /**
      * Creates new form ItemListPanel
      */
-    public ItemListPanel(Customer cust, Company comp,JSplitPane splitPane) {
+    public ItemListPanel(Double dist, String selectedCityName, Customer cust, Company comp,JSplitPane splitPane) {
         initComponents();
         System.out.println(comp);
         this.cust = cust;
         this.comp = comp;
         this.splitPane = splitPane;
+        this.selectedCityName = selectedCityName;
+        this.distance = dist;
         filterComboBox.removeAllItems();
 //         Company comp = new Company(); // need to be changed
         ArrayList<Inventory> dirModel = comp.getInventoryManagement().getInventoryMgt();
@@ -241,7 +245,7 @@ public class ItemListPanel extends javax.swing.JPanel {
 
     private void cartButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cartButtonActionPerformed
         // TODO add your handling code here:
-        CartPanel cartPanel = new CartPanel(cust, comp,splitPane);
+        CartPanel cartPanel = new CartPanel(distance, selectedCityName, cust, comp,splitPane);
         splitPane.setRightComponent(cartPanel);
         
     }//GEN-LAST:event_cartButtonActionPerformed

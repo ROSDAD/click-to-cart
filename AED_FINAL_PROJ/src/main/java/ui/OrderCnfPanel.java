@@ -4,9 +4,21 @@
  */
 package ui;
 
+import com.byteowls.jopencage.JOpenCageGeocoder;
+import com.byteowls.jopencage.model.JOpenCageForwardRequest;
+import com.byteowls.jopencage.model.JOpenCageLatLng;
+import com.byteowls.jopencage.model.JOpenCageResponse;
+import java.text.DecimalFormat;
 import javax.swing.JSplitPane;
+import javax.swing.event.MouseInputListener;
 import model.Company;
 import model.Customer;
+import org.jxmapviewer.OSMTileFactoryInfo;
+import org.jxmapviewer.input.PanMouseInputListener;
+import org.jxmapviewer.input.ZoomMouseWheelListenerCenter;
+import org.jxmapviewer.viewer.DefaultTileFactory;
+import org.jxmapviewer.viewer.GeoPosition;
+import org.jxmapviewer.viewer.TileFactoryInfo;
 
 /**
  *
@@ -17,12 +29,94 @@ public class OrderCnfPanel extends javax.swing.JPanel {
     private Customer cust;
     private Company comp;
     private JSplitPane splitPane;
+    private String cityName;
+    private double distance;
+    private double ETA;
 
-    public OrderCnfPanel(Customer cust, Company comp, JSplitPane splitPane) {
+    public OrderCnfPanel(double distance, String cityName, Customer cust, Company comp, JSplitPane splitPane) {
         initComponents();
         this.cust = cust;
         this.comp = comp;
         this.splitPane = splitPane;
+        this.cityName = cityName;
+        this.distance = distance;
+        
+        String companyName = comp.getCompanyName();        
+        init(companyName, cityName);
+    }
+    
+    private void init(String companyName, String cityName) {
+        
+        TileFactoryInfo info = new OSMTileFactoryInfo();
+        
+        //TileFactoryInfo info = new OSMTileFactoryInfo();
+        
+        DefaultTileFactory tileFactory = new DefaultTileFactory(info);
+        jXMapViewer1.setTileFactory(tileFactory);
+        
+        //String latLongs[];
+                
+        try {        
+            
+        JOpenCageGeocoder jO = new JOpenCageGeocoder("b530cbd50cd843c485a70dff613da0aa");
+        
+        JOpenCageForwardRequest request = new JOpenCageForwardRequest(companyName.concat(", "+cityName));
+        //request.setRestrictToCountryCode("za"); // restrict results to a specific country
+        
+        JOpenCageResponse response = jO.forward(request);
+        JOpenCageLatLng firstResultLatLng = response.getFirstPosition(); // get the coordinate pair of the first result
+        System.out.println(firstResultLatLng.getLat().toString() + "," + firstResultLatLng.getLng().toString());
+        
+        
+        
+        GeoPosition geo = new GeoPosition(firstResultLatLng.getLat(),firstResultLatLng.getLng());
+        //GeoPosition geo = new GeoPosition(Double.parseDouble(latLongs[0]),Double.parseDouble(latLongs[1]));
+        
+        jXMapViewer1.setAddressLocation(geo);
+        jXMapViewer1.setZoom(2);
+        
+        MouseInputListener mm = new PanMouseInputListener(jXMapViewer1);
+        jXMapViewer1.addMouseListener(mm);
+        jXMapViewer1.addMouseMotionListener(mm);
+        jXMapViewer1.addMouseWheelListener(new ZoomMouseWheelListenerCenter(jXMapViewer1));
+        
+        
+        ETA = 60 * (distance/15.0);
+        
+        if(ETA >= 0 && ETA <= 60) {
+            DecimalFormat df = new DecimalFormat("0.0");
+            ETA = Double.parseDouble(df.format(ETA));
+        
+            lblETA.setText("ETA for your order is "+ETA+" minutes.");
+        }
+        else if(ETA > 60 && ETA <= 24*60) {
+            
+            DecimalFormat df = new DecimalFormat("0.0");            
+            ETA = ETA/60;
+            ETA = Double.parseDouble(df.format(ETA));
+        
+            lblETA.setText("ETA for your order is "+ETA+" hours.");
+        }
+        
+        else if(ETA > 24*60) {
+            
+            DecimalFormat df = new DecimalFormat("0.0");            
+            ETA = ETA/(60*24);
+            ETA = Double.parseDouble(df.format(ETA));
+        
+            lblETA.setText("ETA for your order is "+ETA+" days.");
+        }
+        
+//        DecimalFormat df = new DecimalFormat("0.0");
+//        ETA = Double.parseDouble(df.format(ETA));
+//        
+//        lblETA.setText("ETA for your order is "+ETA+" minutes.");
+        }
+        catch(Exception e) {
+            
+            System.out.println(e);
+            
+        }
     }
 
     /**
@@ -36,6 +130,8 @@ public class OrderCnfPanel extends javax.swing.JPanel {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jXMapViewer1 = new org.jxmapviewer.JXMapViewer();
+        lblETA = new javax.swing.JLabel();
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -45,16 +141,35 @@ public class OrderCnfPanel extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel2.setText("We have sent you an order confirmation and receipt on your Email!");
 
+        javax.swing.GroupLayout jXMapViewer1Layout = new javax.swing.GroupLayout(jXMapViewer1);
+        jXMapViewer1.setLayout(jXMapViewer1Layout);
+        jXMapViewer1Layout.setHorizontalGroup(
+            jXMapViewer1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 569, Short.MAX_VALUE)
+        );
+        jXMapViewer1Layout.setVerticalGroup(
+            jXMapViewer1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 324, Short.MAX_VALUE)
+        );
+
+        lblETA.setText("                ");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(166, 166, 166)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 545, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addContainerGap(200, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(166, 166, 166)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 545, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2)
+                            .addComponent(lblETA)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(155, 155, 155)
+                        .addComponent(jXMapViewer1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(187, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -63,7 +178,11 @@ public class OrderCnfPanel extends javax.swing.JPanel {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(361, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblETA)
+                .addGap(7, 7, 7)
+                .addComponent(jXMapViewer1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(8, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -71,5 +190,7 @@ public class OrderCnfPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private org.jxmapviewer.JXMapViewer jXMapViewer1;
+    private javax.swing.JLabel lblETA;
     // End of variables declaration//GEN-END:variables
 }

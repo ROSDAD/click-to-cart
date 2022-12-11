@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import javax.swing.JSplitPane;
 import model.City;
 import model.CityDir;
@@ -47,61 +48,59 @@ public class MainJFrame extends javax.swing.JFrame {
     private Ordermgt orderManagement;
     private City city;
     private Company company;
-    private final UserAuthentication userAuthentication;
-    private final DeliveryBoy deliveryBoy;
-    private final Customer customer;
-    private final UserAuthentication userAuthentication1;
-    
+    private UserAuthentication userAuthentication;
+    private DeliveryBoy deliveryBoy;
+    private Customer customer;
+
     public MainJFrame() {
         initComponents();
 
         setExtendedState(JFrame.MAXIMIZED_BOTH);
-        
-        
 
-//        community = new Community();
-//        customerDirectory = new CustomerDirectory();
-//        userauthenticationdirectory = new UserAuthenticationDirectory();
-//        cityDirectory = new CityDir();
-//        companyDir = new CompanyDirectory();
-//        inventoryManagement = new InventoryMgt();
-//        deliveryBoyDirectory = new DeliveryBoyDirectory();
-//        orderManagement = new Ordermgt();
-//
-//        invProdDir = new InventoryProductDir();
-//        
-//        InventoryProduct invProd = invProdDir.addNewInventoryProduct();
-//        invProd.setProductName("TV");
-//        invProd.setPrice(500);
-//        invProd.setInventoryQty(24);
-//        
-//        Inventory inv = inventoryManagement.addNewInventory();
-//        inv.setInventoryCategory("Default");
-//        inv.setInventoryType("Critical");
-//        inv.setInventoryProductDir(invProdDir);
-//        
-//        company = companyDir.addNewCompany();
-//        company.setCompanyName("Costco");
-//        company.setCompanyType("Type 1");
-//        company.setInventoryManagement(inventoryManagement);
-//
-//        //Default City
-//        city = cityDirectory.addNewCity();
-//
-//        city.setCityName("Boston");
-//        city.setCityType("Urban");
-//        city.setPopulation(25000);
-//        city.setCompanyDirectory(companyDir);
-//
+        community = new Community();
+        customerDirectory = new CustomerDirectory();
+        userauthenticationdirectory = new UserAuthenticationDirectory();
+        cityDirectory = new CityDir();
+        companyDir = new CompanyDirectory();
+        inventoryManagement = new InventoryMgt();
+        deliveryBoyDirectory = new DeliveryBoyDirectory();
+        orderManagement = new Ordermgt();
+
+        invProdDir = new InventoryProductDir();
+
+        InventoryProduct invProd = invProdDir.addNewInventoryProduct();
+        invProd.setProductName("TV");
+        invProd.setPid(UUID.randomUUID().toString());
+        invProd.setPrice(500);
+        invProd.setInventoryQty(24);
+
+        Inventory inv = inventoryManagement.addNewInventory();
+        inv.setInventoryCategory("Default");
+        inv.setInventoryType("Critical");
+        inv.setInventoryProductDir(invProdDir);
+
+        company = companyDir.addNewCompany();
+        company.setCompanyName("Costco");
+        company.setCompanyType("Type 1");
+        company.setInventoryManagement(inventoryManagement);
+
+        //Default City
+        city = cityDirectory.addNewCity();
+
+        city.setCityName("Boston");
+        city.setCityType("Urban");
+        city.setPopulation(25000);
+        city.setCompanyDirectory(companyDir);
+
         userAuthentication = userauthenticationdirectory.addNewUserAuthentication();
         userAuthentication.setUserName("abc");
         userAuthentication.setPassword("abc");
         userAuthentication.setUserType("Customer");
 
-        userAuthentication1 = userauthenticationdirectory.addNewUserAuthentication();
-        userAuthentication1.setUserName("abc1");
-        userAuthentication1.setPassword("abc1");
-        userAuthentication1.setUserType("OrderAdmin");
+        userAuthentication = userauthenticationdirectory.addNewUserAuthentication();
+        userAuthentication.setUserName("abc1");
+        userAuthentication.setPassword("abc1");
+        userAuthentication.setUserType("OrderAdmin");
 
         List<Orders> ordersList = new ArrayList<>();
         for (int i = 0; i < 2; i++) {
@@ -147,13 +146,13 @@ public class MainJFrame extends javax.swing.JFrame {
         controlPanel = new javax.swing.JPanel();
         btnLogin = new javax.swing.JButton();
         btnCustomerRegister = new javax.swing.JButton();
-        deliveryBoyRegistrationJButton = new javax.swing.JButton();
         workArea = new javax.swing.JPanel();
         lblTitle = new javax.swing.JLabel();
         lblDetails = new javax.swing.JLabel();
         lblDetails2 = new javax.swing.JLabel();
         cityAdminTest = new javax.swing.JButton();
         invAdminTest = new javax.swing.JButton();
+        supAdminTest = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1290, 750));
@@ -176,13 +175,6 @@ public class MainJFrame extends javax.swing.JFrame {
             }
         });
 
-        deliveryBoyRegistrationJButton.setText("Delivery Boy Register");
-        deliveryBoyRegistrationJButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deliveryBoyRegistrationJButtonActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout controlPanelLayout = new javax.swing.GroupLayout(controlPanel);
         controlPanel.setLayout(controlPanelLayout);
         controlPanelLayout.setHorizontalGroup(
@@ -191,9 +183,8 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addGap(28, 28, 28)
                 .addGroup(controlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnCustomerRegister, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(deliveryBoyRegistrationJButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(29, Short.MAX_VALUE))
+                    .addComponent(btnLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(9, Short.MAX_VALUE))
         );
         controlPanelLayout.setVerticalGroup(
             controlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -202,9 +193,7 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addComponent(btnLogin)
                 .addGap(61, 61, 61)
                 .addComponent(btnCustomerRegister)
-                .addGap(58, 58, 58)
-                .addComponent(deliveryBoyRegistrationJButton)
-                .addContainerGap(385, Short.MAX_VALUE))
+                .addContainerGap(449, Short.MAX_VALUE))
         );
 
         splitPane.setLeftComponent(controlPanel);
@@ -222,7 +211,7 @@ public class MainJFrame extends javax.swing.JFrame {
         lblDetails2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lblDetails2.setText("NU ID: 002707307");
 
-        cityAdminTest.setText("Delivery Admin Test");
+        cityAdminTest.setText("City Admin Test");
         cityAdminTest.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cityAdminTestActionPerformed(evt);
@@ -233,6 +222,13 @@ public class MainJFrame extends javax.swing.JFrame {
         invAdminTest.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 invAdminTestActionPerformed(evt);
+            }
+        });
+
+        supAdminTest.setText("Super Admin Test");
+        supAdminTest.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                supAdminTestActionPerformed(evt);
             }
         });
 
@@ -250,9 +246,10 @@ public class MainJFrame extends javax.swing.JFrame {
                             .addComponent(lblDetails2)))
                     .addGroup(workAreaLayout.createSequentialGroup()
                         .addGap(121, 121, 121)
-                        .addGroup(workAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(invAdminTest)
-                            .addComponent(cityAdminTest))))
+                        .addGroup(workAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(supAdminTest, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(invAdminTest, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cityAdminTest, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(628, Short.MAX_VALUE))
         );
         workAreaLayout.setVerticalGroup(
@@ -268,7 +265,9 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addComponent(cityAdminTest)
                 .addGap(18, 18, 18)
                 .addComponent(invAdminTest)
-                .addContainerGap(298, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(supAdminTest)
+                .addContainerGap(258, Short.MAX_VALUE))
         );
 
         splitPane.setRightComponent(workArea);
@@ -289,14 +288,14 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
-        LoginJPanel loginJPanel = new LoginJPanel(cityDirectory, orderManagement,community, customerDirectory, companyDir, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
+        LoginJPanel loginJPanel = new LoginJPanel(cityDirectory, orderManagement, community, customerDirectory, companyDir, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
         splitPane.setRightComponent(loginJPanel);
 
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void btnCustomerRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerRegisterActionPerformed
         // TODO add your handling code here:
-        CustomerRegistrationJPanel customerRegistrationJPanel = new CustomerRegistrationJPanel(orderManagement,community, customerDirectory, companyDir, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
+        CustomerRegistrationJPanel customerRegistrationJPanel = new CustomerRegistrationJPanel(orderManagement, community, customerDirectory, companyDir, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
         splitPane.setRightComponent(customerRegistrationJPanel);
     }//GEN-LAST:event_btnCustomerRegisterActionPerformed
 
@@ -304,8 +303,12 @@ public class MainJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
 //        CityAdminPanel c = new CityAdminPanel(cityDirectory, splitPane);
 //        splitPane.setRightComponent(c);
-        //DeliveryAdminPanel c = new DeliveryAdminPanel(company, community, customerDirectory, city.getCompanyDirectory(), userauthenticationdirectory, splitPane, deliveryBoyDirectory);
-        //splitPane.setRightComponent(c);
+
+        MapTest2 m = new MapTest2();
+        splitPane.setRightComponent(m);
+        
+//        DeliveryAdminMainPanel c = new DeliveryAdminMainPanel(cityDirectory, "Boston", "Costco", company, community, customerDirectory, city.getCompanyDirectory(), userauthenticationdirectory, splitPane, deliveryBoyDirectory);
+//        splitPane.setRightComponent(c);
     }//GEN-LAST:event_cityAdminTestActionPerformed
 
     private void invAdminTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_invAdminTestActionPerformed
@@ -314,14 +317,8 @@ public class MainJFrame extends javax.swing.JFrame {
         String cityName = new String("Boston");
         String companyName = new String("Costco");
 
-//        MapTest2 t = new MapTest2();
-//        splitPane.setRightComponent(t);
-        
-          OrderCnfPanel t = new OrderCnfPanel();
-          splitPane.setRightComponent(t);
-        
-//        InventoryAdminPanel i = new InventoryAdminPanel(cityName, companyName, cityDirectory, splitPane);
-//        splitPane.setRightComponent(i);
+        InventoryAdminPanel i = new InventoryAdminPanel(cityName, companyName, cityDirectory, splitPane);
+        splitPane.setRightComponent(i);
 
     }//GEN-LAST:event_invAdminTestActionPerformed
 
@@ -329,10 +326,16 @@ public class MainJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         String cityName = new String("Boston");
         String companyName = new String("Costco");
-        
-        DeliveryAdminPanel deliveryBoyRegistrationJPanel = new DeliveryAdminPanel(cityDirectory, cityName, companyName,  company, community, customerDirectory, companyDir, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
+
+        DeliveryAdminMainPanel deliveryBoyRegistrationJPanel = new DeliveryAdminMainPanel(cityDirectory, cityName, companyName, company, community, customerDirectory, companyDir, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
         splitPane.setRightComponent(deliveryBoyRegistrationJPanel);
     }//GEN-LAST:event_deliveryBoyRegistrationJButtonActionPerformed
+
+    private void supAdminTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supAdminTestActionPerformed
+        // TODO add your handling code here:
+        SuperAdminPanel supAdmin = new SuperAdminPanel(cityDirectory, orderManagement,community, customerDirectory, companyDir, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
+        splitPane.setRightComponent(supAdmin);
+    }//GEN-LAST:event_supAdminTestActionPerformed
 
     /**
      * @param args the command line arguments
@@ -392,12 +395,12 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnLogin;
     private javax.swing.JButton cityAdminTest;
     private javax.swing.JPanel controlPanel;
-    private javax.swing.JButton deliveryBoyRegistrationJButton;
     private javax.swing.JButton invAdminTest;
     private javax.swing.JLabel lblDetails;
     private javax.swing.JLabel lblDetails2;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JSplitPane splitPane;
+    private javax.swing.JButton supAdminTest;
     private javax.swing.JPanel workArea;
     // End of variables declaration//GEN-END:variables
 }

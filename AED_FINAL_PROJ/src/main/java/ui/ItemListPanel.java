@@ -241,7 +241,7 @@ public class ItemListPanel extends javax.swing.JPanel {
 
     private void cartButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cartButtonActionPerformed
         // TODO add your handling code here:
-        CartPanel cartPanel = new CartPanel(cust, comp, splitPane);
+        CartPanel cartPanel = new CartPanel(cust, comp,splitPane);
         splitPane.setRightComponent(cartPanel);
         
     }//GEN-LAST:event_cartButtonActionPerformed

@@ -4,27 +4,6 @@
  */
 package ui;
 
-import com.byteowls.jopencage.JOpenCageGeocoder;
-import com.byteowls.jopencage.model.JOpenCageForwardRequest;
-import com.byteowls.jopencage.model.JOpenCageLatLng;
-import com.byteowls.jopencage.model.JOpenCageResponse;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
-import javax.swing.event.MouseInputListener;
-import org.w3c.dom.Document;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathExpression;
-import javax.xml.xpath.XPathFactory;
-import org.jxmapviewer.OSMTileFactoryInfo;
-import org.jxmapviewer.input.PanMouseInputListener;
-import org.jxmapviewer.input.ZoomMouseWheelListenerCenter;
-import org.jxmapviewer.viewer.DefaultTileFactory;
-import org.jxmapviewer.viewer.GeoPosition;
-import org.jxmapviewer.viewer.TileFactoryInfo;
 import javax.swing.JSplitPane;
 import model.Company;
 import model.Customer;
@@ -32,64 +11,19 @@ import model.Customer;
 /**
  *
  * @author rosha
- */ 
+ */
 public class OrderCnfPanel extends javax.swing.JPanel {
 
-    /**
-     * Creates new form OrderCnfPanel
-     */
-    
     private Customer cust;
     private Company comp;
     private JSplitPane splitPane;
-    
-    public OrderCnfPanel() {
-        initComponents();
-        
-        init();
-    }
-    
+
     public OrderCnfPanel(Customer cust, Company comp, JSplitPane splitPane) {
         initComponents();
         this.cust = cust;
         this.comp = comp;
         this.splitPane = splitPane;
-        
-        init();
     }
-    
-    private void init() {
-        TileFactoryInfo info = new OSMTileFactoryInfo();
-        DefaultTileFactory tileFactory = new DefaultTileFactory(info);
-        jXMapViewer1.setTileFactory(tileFactory);
-        
-        //String latLongs[];
-                
-        try {        
-            
-        JOpenCageGeocoder jO = new JOpenCageGeocoder("b530cbd50cd843c485a70dff613da0aa");
-        
-        JOpenCageForwardRequest request = new JOpenCageForwardRequest("Northeastern University Boston");
-        //request.setRestrictToCountryCode("za"); // restrict results to a specific country
-        
-        JOpenCageResponse response = jO.forward(request);
-        JOpenCageLatLng firstResultLatLng = response.getFirstPosition(); // get the coordinate pair of the first result
-        System.out.println(firstResultLatLng.getLat().toString() + "," + firstResultLatLng.getLng().toString());
-        
-        GeoPosition geo = new GeoPosition(firstResultLatLng.getLat(),firstResultLatLng.getLng());
-        
-        jXMapViewer1.setAddressLocation(geo);
-        jXMapViewer1.setZoom(2);
-        
-        MouseInputListener mm = new PanMouseInputListener(jXMapViewer1);
-        jXMapViewer1.addMouseListener(mm);
-        jXMapViewer1.addMouseMotionListener(mm);
-        jXMapViewer1.addMouseWheelListener(new ZoomMouseWheelListenerCenter(jXMapViewer1));
-        }
-        catch(Exception e) {            
-            System.out.println(e);            
-        }
-    }   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -102,7 +36,6 @@ public class OrderCnfPanel extends javax.swing.JPanel {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jXMapViewer1 = new org.jxmapviewer.JXMapViewer();
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -112,17 +45,6 @@ public class OrderCnfPanel extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel2.setText("We have sent you an order confirmation and receipt on your Email!");
 
-        javax.swing.GroupLayout jXMapViewer1Layout = new javax.swing.GroupLayout(jXMapViewer1);
-        jXMapViewer1.setLayout(jXMapViewer1Layout);
-        jXMapViewer1Layout.setHorizontalGroup(
-            jXMapViewer1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 420, Short.MAX_VALUE)
-        );
-        jXMapViewer1Layout.setVerticalGroup(
-            jXMapViewer1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 191, Short.MAX_VALUE)
-        );
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -131,8 +53,7 @@ public class OrderCnfPanel extends javax.swing.JPanel {
                 .addGap(166, 166, 166)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 545, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
-                    .addComponent(jXMapViewer1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel2))
                 .addContainerGap(200, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -142,9 +63,7 @@ public class OrderCnfPanel extends javax.swing.JPanel {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
-                .addComponent(jXMapViewer1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(138, Short.MAX_VALUE))
+                .addContainerGap(361, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -152,6 +71,5 @@ public class OrderCnfPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private org.jxmapviewer.JXMapViewer jXMapViewer1;
     // End of variables declaration//GEN-END:variables
 }

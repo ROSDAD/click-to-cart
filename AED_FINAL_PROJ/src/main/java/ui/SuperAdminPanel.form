@@ -129,16 +129,25 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="DELIVERY ADMIN"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deliveryAdminActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="inventoryAdmin">
               <Properties>
                 <Property name="text" type="java.lang.String" value="INVENTORY ADMIN"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="inventoryAdminActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="orderAdmin">
               <Properties>
                 <Property name="text" type="java.lang.String" value="ORDER ADMIN"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="orderAdminActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="logoutBtn">
               <Properties>

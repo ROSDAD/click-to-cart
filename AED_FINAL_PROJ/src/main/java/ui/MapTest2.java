@@ -70,7 +70,11 @@ public class MapTest2 extends javax.swing.JPanel {
 //    }
 //    
     private void init() {
+        
         TileFactoryInfo info = new OSMTileFactoryInfo();
+        
+        //TileFactoryInfo info = new OSMTileFactoryInfo();
+        
         DefaultTileFactory tileFactory = new DefaultTileFactory(info);
         jXMapViewer1.setTileFactory(tileFactory);
         

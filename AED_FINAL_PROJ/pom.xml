@@ -11,56 +11,32 @@
             <artifactId>javax.mail</artifactId>
             <version>1.6.2</version>
         </dependency>
+         <dependency>
+            <groupId>com.byteowls</groupId>
+            <artifactId>jopencage</artifactId>
+            <version>1.4.0</version>
+        </dependency>
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.48</version>
         </dependency>
         <dependency>
-            <groupId>com.maps</groupId>
-            <artifactId>123</artifactId>
-            <version>1</version>
-        </dependency>
-        <dependency>
-            <groupId>com.maps</groupId>
-            <artifactId>omj3d</artifactId>
-            <version>1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.maps</groupId>
-            <artifactId>omsvg</artifactId>
-            <version>1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.maps</groupId>
-            <artifactId>openmap</artifactId>
-            <version>1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.maps</groupId>
-            <artifactId>jxmaps</artifactId>
-            <version>1</version>
-        </dependency>
-        <dependency>
-            <groupId>com.maps</groupId>
-            <artifactId>jxmaps-win</artifactId>
-            <version>1.0</version>
-        </dependency>
-        <dependency>
             <groupId>org.jxmapviewer</groupId>
             <artifactId>jxmapviewer2</artifactId>
             <version>2.5</version>
-        </dependency>
-        <dependency>
-            <groupId>com.byteowls</groupId>
-            <artifactId>jopencage</artifactId>
-            <version>1.4.0</version>
-            <type>pom.sha512</type>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>jOpenCage</groupId>
             <artifactId>1</artifactId>
             <version>1.0</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>com.maps</groupId>
+            <artifactId>jxmaps</artifactId>
+            <version>1</version>
             <type>jar</type>
         </dependency>
     </dependencies>

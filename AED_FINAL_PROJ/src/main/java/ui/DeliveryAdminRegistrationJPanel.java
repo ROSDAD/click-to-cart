@@ -17,7 +17,7 @@ import model.UserAuthenticationDirectory;
 
 /**
  *
- * @author 91961
+ * @author Abhishek
  */
 public class DeliveryAdminRegistrationJPanel extends javax.swing.JPanel {
 
@@ -288,11 +288,16 @@ public class DeliveryAdminRegistrationJPanel extends javax.swing.JPanel {
 
         String selectedUsername = model.getValueAt(selectedRowIndex, 0).toString();
 
-        for (UserAuthentication userAuthentication : userauthenticationdirectory.getUserAuthenticationList()) {
-            if (userAuthentication.getUserName().equalsIgnoreCase(selectedUsername)
-                    && userAuthentication.getUserType().equalsIgnoreCase("DeliveryAdmin")) {
-                userauthenticationdirectory.deleteUserAuthentication(selectedRowIndex);
+        try {
+            for (UserAuthentication userAuthentication : userauthenticationdirectory.getUserAuthenticationList()) {
+                if (userAuthentication.getUserName().equalsIgnoreCase(selectedUsername)
+                        && userAuthentication.getUserType().equalsIgnoreCase("DeliveryAdmin")) {
+                    userauthenticationdirectory.deleteUserAuthentication(userAuthentication);
+                    populateDeliveryAdmin();
+                }
             }
+        } catch (Exception exception) {
+
         }
         JOptionPane.showMessageDialog(this, "Delivery Admin is deleted");
     }//GEN-LAST:event_deleteDeliveryAdminButtonActionPerformed

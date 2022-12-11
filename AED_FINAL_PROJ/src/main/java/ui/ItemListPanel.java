@@ -28,7 +28,7 @@ public class ItemListPanel extends javax.swing.JPanel {
     /**
      * Creates new form ItemListPanel
      */
-    public ItemListPanel(Double dist, String selectedCityName, Customer cust, Company comp,JSplitPane splitPane) {
+    public ItemListPanel(Double dist, String selectedCityName, Customer cust, Company comp, JSplitPane splitPane) {
         initComponents();
         System.out.println(comp);
         this.cust = cust;
@@ -215,49 +215,48 @@ public class ItemListPanel extends javax.swing.JPanel {
         if (quantity <= prodQuantity) {
             DefaultTableModel model = (DefaultTableModel) itemListTable.getModel();
             int selectedRowIndex = itemListTable.getSelectedRow();
-            
+
             int flag = 0;
-            if(cust.getCart()!=null){
-              ArrayList<Orderedprod> ordProdList = cust.getCart().getCartProd();  
-            for(int w = 0;w<ordProdList.size();w++){
-                if(ordProdList.get(w).getProdid().equals((model.getValueAt(selectedRowIndex, 0)).toString())){
-                    flag = 1;
-                    if((ordProdList.get(w).getprodcount()+quantity)<=prodQuantity){
-                        ordProdList.get(w).setProdcount(ordProdList.get(w).getprodcount()+quantity);
-                        double price = Double.parseDouble(String.valueOf(quantity * Double.parseDouble((model.getValueAt(selectedRowIndex, 2)).toString())));
-                        double price2 = ordProdList.get(w).getProdTotalprice();
-                        double finalPrice = price+price2;
-                        ordProdList.get(w).setProdTotalprice(finalPrice);
-                    }
-                    else{
-                        JOptionPane.showMessageDialog(this, "Not Enough Quantity left In Inventory!");
-                        return;
+            if (cust.getCart() != null) {
+                ArrayList<Orderedprod> ordProdList = cust.getCart().getCartProd();
+                for (int w = 0; w < ordProdList.size(); w++) {
+                    if (ordProdList.get(w).getProdid().equals((model.getValueAt(selectedRowIndex, 0)).toString())) {
+                        flag = 1;
+                        if ((ordProdList.get(w).getprodcount() + quantity) <= prodQuantity) {
+                            ordProdList.get(w).setProdcount(ordProdList.get(w).getprodcount() + quantity);
+                            double price = Double.parseDouble(String.valueOf(quantity * Double.parseDouble((model.getValueAt(selectedRowIndex, 2)).toString())));
+                            double price2 = ordProdList.get(w).getProdTotalprice();
+                            double finalPrice = price + price2;
+                            ordProdList.get(w).setProdTotalprice(finalPrice);
+                        } else {
+                            JOptionPane.showMessageDialog(this, "Not Enough Quantity left In Inventory!");
+                            return;
+                        }
                     }
                 }
             }
-        }
-            if(flag == 0){
-            Orderedprod ordProd = cust.getCart().addNewCartProd();
-            ordProd.setProdId((model.getValueAt(selectedRowIndex, 0)).toString());
-            String pName = "";
-            double price = Double.parseDouble(String.valueOf(quantity * Double.parseDouble((model.getValueAt(selectedRowIndex, 2)).toString())));
-            for (int k = 0; k < comp.getInventoryManagement().getInventoryMgt().size(); k++) {
-                List<InventoryProduct> mainM = comp.getInventoryManagement().getInventoryMgt().get(k).getInventoryProductDir().getInventoryProductDir();
-                for (int j = 0; j < mainM.size(); j++) {
-                    if (ordProd.getProdid().equals(mainM.get(j).getPid())) {
-                        pName = mainM.get(j).getProductName();
+            if (flag == 0) {
+                Orderedprod ordProd = cust.getCart().addNewCartProd();
+                ordProd.setProdId((model.getValueAt(selectedRowIndex, 0)).toString());
+                String pName = "";
+                double price = Double.parseDouble(String.valueOf(quantity * Double.parseDouble((model.getValueAt(selectedRowIndex, 2)).toString())));
+                for (int k = 0; k < comp.getInventoryManagement().getInventoryMgt().size(); k++) {
+                    List<InventoryProduct> mainM = comp.getInventoryManagement().getInventoryMgt().get(k).getInventoryProductDir().getInventoryProductDir();
+                    for (int j = 0; j < mainM.size(); j++) {
+                        if (ordProd.getProdid().equals(mainM.get(j).getPid())) {
+                            pName = mainM.get(j).getProductName();
+                        }
                     }
+
                 }
 
-            }
+                ordProd.setProductName(pName);
+                ordProd.setProdTotalprice(price);
+                ordProd.setProdcount(quantity);
 
-            ordProd.setProductName(pName);
-            ordProd.setProdTotalprice(price);
-            ordProd.setProdcount(quantity);
-            
-        }
+            }
             JOptionPane.showMessageDialog(this, "Product Added To Cart!");
-            
+
         } else {
             JOptionPane.showMessageDialog(this, "Not Enough Quantity left In Inventory!");
         }
@@ -281,7 +280,7 @@ public class ItemListPanel extends javax.swing.JPanel {
 
     private void cartButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cartButtonActionPerformed
         // TODO add your handling code here:
-        CartPanel cartPanel = new CartPanel(distance, selectedCityName, cust, comp,splitPane);
+        CartPanel cartPanel = new CartPanel(distance, selectedCityName, cust, comp, splitPane);
         splitPane.setRightComponent(cartPanel);
 
     }//GEN-LAST:event_cartButtonActionPerformed

@@ -147,7 +147,7 @@ public class MainCompanyAdminJPanel extends javax.swing.JPanel {
 
     private void companyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_companyButtonActionPerformed
         // TODO add your handling code here:
-        CityAdminPanel companyEntityAdminPanel = new CityAdminPanel(cityDirectory, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
+        CityAdminPanel companyEntityAdminPanel = new CityAdminPanel(cityName, cityDirectory, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
         splitPane.setRightComponent(companyEntityAdminPanel);
     }//GEN-LAST:event_companyButtonActionPerformed
 

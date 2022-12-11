@@ -90,6 +90,11 @@ public class MainJFrame extends javax.swing.JFrame {
         company1.setCompanyType("Type 2");
         company1.setInventoryManagement(inventoryManagement);
 
+        company1 = companyDir.addNewCompany();
+        company1.setCompanyName("Target");
+        company1.setCompanyType("Type 2");
+        company1.setInventoryManagement(inventoryManagement);
+
         //Default City
         city = cityDirectory.addNewCity();
 
@@ -107,6 +112,11 @@ public class MainJFrame extends javax.swing.JFrame {
         userAuthentication.setUserName("abc1");
         userAuthentication.setPassword("abc1");
         userAuthentication.setUserType("OrderAdmin");
+
+        userAuthentication = userauthenticationdirectory.addNewUserAuthentication();
+        userAuthentication.setUserName("ab");
+        userAuthentication.setPassword("ab");
+        userAuthentication.setUserType("SuperAdmin");
 
         List<Orders> ordersList = new ArrayList<>();
         for (int i = 0; i < 2; i++) {

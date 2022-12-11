@@ -1,72 +1,81 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package ui;
 
+import org.apache.commons.lang3.StringUtils;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
 import javax.swing.JSplitPane;
 import javax.swing.table.DefaultTableModel;
 import model.City;
 import model.CityDir;
+import model.Community;
+import model.Company;
+import model.CompanyDirectory;
+import model.CustomerDirectory;
+import model.DeliveryBoyDirectory;
+import model.UserAuthenticationDirectory;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  *
- * @author hrish
+ * @author 91961
  */
 public class CityAdminPanel extends javax.swing.JPanel {
 
-    /**
-     * Creates new form CityAdmin
-     */
-    
+    private CityDir cityDirectory;
     private JSplitPane splitPane;
-    private CityDir cityDir;
-    private String cityName;
-    private int population;
-    private String cityType;
+    private CustomerDirectory customerDirectory;
+    private CompanyDirectory companyDirectory;
+    private Community community;
+    private UserAuthenticationDirectory userauthenticationdirectory;
+    private DeliveryBoyDirectory deliveryBoyDirectory;
+    private String selectedCityName;
+    private String companyName;
+    private String companyType;
+    private int empCount;
     
-    
-    public CityAdminPanel(CityDir cityDir, JSplitPane splitPane) {
+    /**
+     * Creates new form CompanyEntityAdminPanel
+     */
+    public CityAdminPanel() {
         initComponents();
-        
-        this.cityDir = cityDir;
+    }
+
+    public CityAdminPanel(String cityName, CityDir cityDirectory, Community community, CustomerDirectory customerDirectory, CompanyDirectory companyDirectory, UserAuthenticationDirectory userauthenticationdirectory, JSplitPane splitPane, DeliveryBoyDirectory deliveryBoyDirectory) {
+        initComponents();
+        this.cityDirectory = cityDirectory;
+        this.community = community;
         this.splitPane = splitPane;
+        this.customerDirectory = customerDirectory;
+        this.companyDirectory = companyDirectory;
+        this.userauthenticationdirectory = userauthenticationdirectory;
+        this.deliveryBoyDirectory = deliveryBoyDirectory;
+        this.selectedCityName = cityName;
         
         ButtonGroup g1 = new ButtonGroup();
         
-        g1.add(radioUrban);
-        g1.add(radioRural);
-        
-        populateCitiesTable();
+        g1.add(radioPrivate);
+        g1.add(radioPublic);
     }
-    
-    private void populateCitiesTable() {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        
-        // House Table        
-        DefaultTableModel model = (DefaultTableModel) tblCities.getModel();
-        model.setRowCount(0);
-        
-        if(cityDir.getCityDir() != null) {
-        for(City c : cityDir.getCityDir()) {
-            
-            Object[] row = new Object[11];
-            //row[0] = house;
-            row[0] = c.getCityName();
-            row[1] = c.getPopulation();
-            row[2] = c.getCityType();
-            
-            model.addRow(row);
-        }
-        }
-    }
-    
-    
-    
+
+    /**
+     * Populate the table cities rows from the arrayList.
+     */
+//    private void populateCities() {
+//        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+//        model.setRowCount(0);
+//        for (City city : cityDirectory.getCityDir()) {
+//            Object[] row = new Object[1];
+//            row[0] = city.getCityName();
+//            model.addRow(row);
+//        }
+//    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -77,280 +86,331 @@ public class CityAdminPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblCities = new javax.swing.JTable();
+        jTable5 = new javax.swing.JTable();
+        viewButton1 = new javax.swing.JButton();
+        updateButton2 = new javax.swing.JButton();
+        deleteButton3 = new javax.swing.JButton();
+        btnCreate = new javax.swing.JButton();
+        txtName = new javax.swing.JTextField();
+        txtCount = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        txtCityName = new javax.swing.JTextField();
-        txtPopulation = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        radioUrban = new javax.swing.JRadioButton();
-        radioRural = new javax.swing.JRadioButton();
-        btnCreateCity = new javax.swing.JButton();
-        updateCity = new javax.swing.JButton();
-        btnDeleteCity = new javax.swing.JButton();
+        radioPublic = new javax.swing.JRadioButton();
+        radioPrivate = new javax.swing.JRadioButton();
 
-        tblCities.setModel(new javax.swing.table.DefaultTableModel(
+        jTable5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jTable5.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
                 {null, null, null},
                 {null, null, null},
                 {null, null, null},
                 {null, null, null}
             },
             new String [] {
-                "City Name", "Population", "Type"
+                "Company Name", "Company Type", "Company Employee Count"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false
-            };
+        ));
+        jTable5.setShowHorizontalLines(true);
+        jTable5.setShowVerticalLines(true);
+        jScrollPane1.setViewportView(jTable5);
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(tblCities);
-
-        jLabel3.setText("City Name:");
-
-        jLabel4.setText("City Population:");
-
-        jLabel5.setText("City Type:");
-
-        radioUrban.setText("Urban");
-        radioUrban.addActionListener(new java.awt.event.ActionListener() {
+        viewButton1.setText("View");
+        viewButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radioUrbanActionPerformed(evt);
+                viewButton1ActionPerformed(evt);
             }
         });
 
-        radioRural.setText("Rural");
-
-        btnCreateCity.setText("Create City");
-        btnCreateCity.addActionListener(new java.awt.event.ActionListener() {
+        updateButton2.setText("Update");
+        updateButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCreateCityActionPerformed(evt);
+                updateButton2ActionPerformed(evt);
             }
         });
 
-        updateCity.setText("Update City");
-        updateCity.addActionListener(new java.awt.event.ActionListener() {
+        deleteButton3.setText("Delete");
+        deleteButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                updateCityActionPerformed(evt);
+                deleteButton3ActionPerformed(evt);
             }
         });
 
-        btnDeleteCity.setText("Delete City");
-        btnDeleteCity.addActionListener(new java.awt.event.ActionListener() {
+        btnCreate.setText("Create");
+        btnCreate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeleteCityActionPerformed(evt);
+                btnCreateActionPerformed(evt);
             }
         });
+
+        txtName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNameActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Company Name:");
+
+        jLabel2.setText("Company Type:");
+
+        jLabel3.setText("Employee Count:");
+
+        radioPublic.setText("Public");
+        radioPublic.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radioPublicActionPerformed(evt);
+            }
+        });
+
+        radioPrivate.setText("Private");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(346, 346, 346)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 148, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(txtCount, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
+                        .addComponent(txtName))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(radioPublic)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(radioPrivate)))
+                .addGap(563, 563, 563))
+            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5))
-                        .addGap(31, 31, 31)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtPopulation, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtCityName, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(160, 160, 160)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 599, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(144, 144, 144)
-                                .addComponent(radioUrban))
-                            .addComponent(btnCreateCity, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(updateCity, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(radioRural))))
-                .addGap(356, 356, 356))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(315, 315, 315)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnDeleteCity, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 482, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(333, Short.MAX_VALUE))
+                        .addGap(154, 154, 154)
+                        .addComponent(viewButton1)
+                        .addGap(28, 28, 28)
+                        .addComponent(updateButton2)
+                        .addGap(31, 31, 31)
+                        .addComponent(deleteButton3))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(473, 473, 473)
+                        .addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(123, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnDeleteCity)
-                .addGap(65, 65, 65)
+                .addGap(89, 89, 89)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(updateButton2)
+                    .addComponent(deleteButton3)
+                    .addComponent(viewButton1))
+                .addGap(67, 67, 67)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addGap(22, 22, 22)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(radioPublic)
+                    .addComponent(radioPrivate))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(txtCityName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(txtPopulation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(radioUrban)
-                    .addComponent(radioRural))
-                .addGap(31, 31, 31)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCreateCity)
-                    .addComponent(updateCity))
-                .addGap(68, 68, 68))
+                .addComponent(btnCreate)
+                .addGap(25, 25, 25))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void radioUrbanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioUrbanActionPerformed
+    private void viewButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewButton1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_radioUrbanActionPerformed
 
-    private void btnCreateCityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateCityActionPerformed
-        // TODO add your handling code here:
-        
-        cityName = txtCityName.getText();
-        population = Integer.parseInt(txtPopulation.getText());
-
-        
-        if(!cityName.matches("[a-zA-Z]+")) {
-            JOptionPane.showMessageDialog(this, "Name should have only alphabets.");
-            return;
-        }
-        
-        if(cityName.length() == 0) {
-            JOptionPane.showMessageDialog(this, "All fields are mandatory.");
-            return;
-        }
-        
-        //Radio buttons
-
-        if(radioUrban.isSelected() == true) {
-            cityType = "Urban";
-        }
-        else if(radioRural.isSelected() == true){
-            cityType = "Rural";
-        }
-        else {
-            JOptionPane.showMessageDialog(this, "Please select a city type.");
-        }
-        
-        
-        City c = cityDir.addNewCity();
-        
-        c.setCityName(cityName);
-        c.setPopulation(population);
-        c.setCityType(cityType);
-        
-        JOptionPane.showMessageDialog(this, "City created!");
-        
-        populateCitiesTable();
-        
-    }//GEN-LAST:event_btnCreateCityActionPerformed
-
-    private void updateCityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateCityActionPerformed
-        // TODO add your handling code here:
-        
-        cityName = txtCityName.getText();
-        population = Integer.parseInt(txtPopulation.getText());
-        
-        if(!cityName.matches("[a-zA-Z]+")) {
-            JOptionPane.showMessageDialog(this, "Name should have only alphabets.");
-            return;
-        }
-        
-        if(cityName.length() == 0) {
-            JOptionPane.showMessageDialog(this, "All fields are mandatory.");
-            return;
-        }
-        
-        //Radio buttons
-
-        if(radioUrban.isSelected() == true) {
-            cityType = "Urban";
-        }
-        else if(radioRural.isSelected() == true){
-            cityType = "Rural";
-        }
-        else {
-            JOptionPane.showMessageDialog(this, "Please select a city type.");
-        }
-        
-        int selectedRowIndex = tblCities.getSelectedRow();
-
-        if (selectedRowIndex < 0 ) {
-
-            JOptionPane.showMessageDialog(this, "Please select a city.");
-            return;
-        }
-        
-        DefaultTableModel model = (DefaultTableModel) tblCities.getModel();
-        String selectedCity = (String) model.getValueAt(selectedRowIndex, 0);
-        
-        ArrayList<City> cDir = cityDir.getCityDir();
-        
-        for(City c: cDir) {
-            if(c.getCityName().equalsIgnoreCase(selectedCity)) {                
-                c.setCityName(cityName);
-                c.setCityType(cityType);
-                c.setPopulation(population);                                        
-            }
-        }
-        
-        JOptionPane.showMessageDialog(this, "City updated!");
-        
-        populateCitiesTable();                
-    }//GEN-LAST:event_updateCityActionPerformed
-
-    private void btnDeleteCityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteCityActionPerformed
-        // TODO add your handling code here:        
-        int selectedRowIndexCity = tblCities.getSelectedRow();
-
-        if (selectedRowIndexCity < 0 ) {
-
-            JOptionPane.showMessageDialog(this, "Please select a city.");
-            return;
-        }
-
-        DefaultTableModel model;
-        model = (DefaultTableModel) tblCities.getModel();
-        String cityName = (String) model.getValueAt(selectedRowIndexCity, 0);
-
-        ArrayList<City> cDir = cityDir.getCityDir();
-
-        for(City c: cDir) {
-            if(c.getCityName().equalsIgnoreCase(cityName)) {
-                
-                cityDir.deleteCity(c);
-                populateCitiesTable();
-                JOptionPane.showMessageDialog(this, "City Deleted!");
+        for (City city : cityDirectory.getCityDir()) {
+            if (city.getCityName().equalsIgnoreCase(selectedCityName)) {
+                if (city.getCompanyDirectory() == null) {
+                    List<Company> communityList = new ArrayList<>();
+                    populateCompanies(communityList);
+                } else {
+                    populateCompanies(city.getCompanyDirectory().getCompanyDirectoryList());
+                }
                 break;
             }
         }
-    }//GEN-LAST:event_btnDeleteCityActionPerformed
+    }//GEN-LAST:event_viewButton1ActionPerformed
+
+    /**
+     * Populate the table rows from the arrayList.
+     */
+    private void populateCompanies(List<Company> companyList) {
+        DefaultTableModel model = (DefaultTableModel) jTable5.getModel();
+        model.setRowCount(0);
+        for (Company company : companyList) {
+            Object[] row = new Object[3];
+            row[0] = company.getCompanyName();
+            row[1] = company.getCompanyType();
+            row[2] = company.getCompanyEmployeeCount();
+            model.addRow(row);
+        }
+    }
+
+
+    private void updateButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButton2ActionPerformed
+        // TODO add your handling code here:
+        int selectedRowIndex = jTable5.getSelectedRow();
+
+        if (selectedRowIndex < 0) {
+            JOptionPane.showMessageDialog(this, "Please select a row to update");
+            return;
+        }
+        DefaultTableModel model = (DefaultTableModel) jTable5.getModel();
+        String selectedCompanyName = (String) model.getValueAt(selectedRowIndex, 0);
+
+        String companyName = model.getValueAt(selectedRowIndex, 0).toString();
+        String companyType = model.getValueAt(selectedRowIndex, 1).toString();
+        long companyEmployeeCount = Long.parseLong(model.getValueAt(selectedRowIndex, 2).toString());
+        String newCompanyName;
+        while (true) {
+            newCompanyName = JOptionPane.showInputDialog(null, "Enter the company name", companyName);
+            if (StringUtils.isNotEmpty(newCompanyName)) {
+                break;
+            }
+        }
+        String newCompanyType;
+        while (true) {
+            newCompanyType = JOptionPane.showInputDialog(null, "Enter the company type", companyType);
+            if (StringUtils.isNotEmpty(newCompanyType)) {
+                break;
+            }
+        }
+        String newCompanyEmployeeCount;
+        while (true) {
+            newCompanyEmployeeCount = JOptionPane.showInputDialog(null, "Enter the company employee count ", companyEmployeeCount);
+            if (StringUtils.isNotEmpty(newCompanyEmployeeCount)) {
+                break;
+            }
+        }
+
+        model.setValueAt(newCompanyName, selectedRowIndex,0);
+        model.setValueAt(newCompanyType, selectedRowIndex,1);
+        model.setValueAt(newCompanyEmployeeCount, selectedRowIndex,2);
+
+        for (City city
+                : cityDirectory.getCityDir()) {
+            if (city.getCityName().equalsIgnoreCase(selectedCityName)) {
+                for (Company company : city.getCompanyDirectory().getCompanyDirectoryList()) {
+                    if (company.getCompanyName().equalsIgnoreCase(selectedCompanyName)) {
+                        company.setCompanyName(newCompanyName);
+                        company.setCompanyType(newCompanyType);
+                        company.setCompanyType(newCompanyEmployeeCount);
+                        break;
+                    }
+                }
+            }
+        }
+
+        JOptionPane.showMessageDialog(this,
+                "Company Record is Updated");
+    }//GEN-LAST:event_updateButton2ActionPerformed
+
+    private void deleteButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButton3ActionPerformed
+        // TODO add your handling code here:
+        int selectedRowIndex = jTable5.getSelectedRow();
+        if (selectedRowIndex < 0) {
+            JOptionPane.showMessageDialog(this, "Please select a row to delete");
+            return;
+        }       
+
+        DefaultTableModel model = (DefaultTableModel) jTable5.getModel();
+        int rowToModel = 0;
+        rowToModel = jTable5.convertRowIndexToModel(selectedRowIndex);
+        model.removeRow(rowToModel);
+
+        for (City city : cityDirectory.getCityDir()) {
+            if (city.getCityName().equalsIgnoreCase(selectedCityName)) {
+                city.getCompanyDirectory().deleteCompany(selectedRowIndex);
+                populateCompanies(city.getCompanyDirectory().getCompanyDirectoryList());
+                break;
+            }
+        }
+        JOptionPane.showMessageDialog(this, "Community is deleted");
+    }//GEN-LAST:event_deleteButton3ActionPerformed
+
+    private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
+        // TODO add your handling code here:
+        
+        companyName = txtName.getText();
+        empCount = Integer.parseInt(txtCount.getText());
+
+        if(!companyName.matches("[a-zA-Z]+")) {
+            JOptionPane.showMessageDialog(this, "Name should have only alphabets.");
+            return;
+        }
+
+        if(companyName.length() == 0) {
+            JOptionPane.showMessageDialog(this, "All fields are mandatory.");
+            return;
+        }
+
+        //Radio buttons
+        String companyType = "";
+        if(radioPrivate.isSelected() == true) {
+            companyType = "Private";
+        }
+        else if(radioPublic.isSelected() == true){
+            companyType = "Public";
+        }
+        else {
+            JOptionPane.showMessageDialog(this, "Please select a company type.");
+            return;
+        }
+        
+        for (City city : cityDirectory.getCityDir()) {
+            if (city.getCityName().equalsIgnoreCase(selectedCityName)) {
+                //city.getCompanyDirectory().deleteCompany(selectedRowIndex);
+                Company c = city.getCompanyDirectory().addNewCompany();
+                
+                c.setCompanyName(companyName);
+                c.setCompanyType(companyType);
+                c.setCompanyEmployeeCount(empCount);
+                
+                populateCompanies(city.getCompanyDirectory().getCompanyDirectoryList());
+                break;
+            }
+        }
+        
+        
+    }//GEN-LAST:event_btnCreateActionPerformed
+
+    private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNameActionPerformed
+
+    private void radioPublicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioPublicActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_radioPublicActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCreateCity;
-    private javax.swing.JButton btnDeleteCity;
+    private javax.swing.JButton btnCreate;
+    private javax.swing.JButton deleteButton3;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JRadioButton radioRural;
-    private javax.swing.JRadioButton radioUrban;
-    private javax.swing.JTable tblCities;
-    private javax.swing.JTextField txtCityName;
-    private javax.swing.JTextField txtPopulation;
-    private javax.swing.JButton updateCity;
+    private javax.swing.JTable jTable5;
+    private javax.swing.JRadioButton radioPrivate;
+    private javax.swing.JRadioButton radioPublic;
+    private javax.swing.JTextField txtCount;
+    private javax.swing.JTextField txtName;
+    private javax.swing.JButton updateButton2;
+    private javax.swing.JButton viewButton1;
     // End of variables declaration//GEN-END:variables
 }

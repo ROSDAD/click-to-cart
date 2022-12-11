@@ -84,6 +84,11 @@ public class MainJFrame extends javax.swing.JFrame {
         company.setCompanyName("Costco");
         company.setCompanyType("Type 1");
         company.setInventoryManagement(inventoryManagement);
+        
+        company1 = companyDir.addNewCompany();
+        company1.setCompanyName("Target");
+        company1.setCompanyType("Type 2");
+        company1.setInventoryManagement(inventoryManagement);
 
         company1 = companyDir.addNewCompany();
         company1.setCompanyName("Target");
@@ -149,7 +154,7 @@ public class MainJFrame extends javax.swing.JFrame {
         customer = customerDirectory.addNewCustomer();
         customer.setUserName("abc");
         customer.setOrders(ordersList);
-
+        
 //        ChatServerGUI chatServerGUI = new ChatServerGUI();
 //        chatServerGUI.setVisible(true);
     }
@@ -327,7 +332,7 @@ public class MainJFrame extends javax.swing.JFrame {
 //
 //        OrderCnfPanel m = new OrderCnfPanel(new Customer(), company, splitPane);
 //        splitPane.setRightComponent(m);
-
+        
 //        DeliveryAdminMainPanel c = new DeliveryAdminMainPanel(cityDirectory, "Boston", "Costco", company, community, customerDirectory, city.getCompanyDirectory(), userauthenticationdirectory, splitPane, deliveryBoyDirectory);
 //        splitPane.setRightComponent(c);
     }//GEN-LAST:event_cityAdminTestActionPerformed

@@ -4,6 +4,7 @@
  */
 package ui;
 
+import model.UserAuthenticationDirectory;
 import javax.swing.JOptionPane;
 import javax.swing.JSplitPane;
 import javax.swing.table.DefaultTableModel;
@@ -13,7 +14,6 @@ import model.CompanyDirectory;
 import model.CustomerDirectory;
 import model.DeliveryBoyDirectory;
 import model.UserAuthentication;
-import model.UserAuthenticationDirectory;
 
 /**
  *

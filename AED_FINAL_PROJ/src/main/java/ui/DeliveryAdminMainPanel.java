@@ -4,6 +4,7 @@
  */
 package ui;
 
+import model.UserAuthenticationDirectory;
 import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
 import javax.swing.JSplitPane;
@@ -15,7 +16,6 @@ import model.CustomerDirectory;
 import model.DeliveryBoy;
 import model.DeliveryBoyDirectory;
 import model.UserAuthentication;
-import model.UserAuthenticationDirectory;
 
 /**
  *

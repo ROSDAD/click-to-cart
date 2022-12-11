@@ -4,6 +4,7 @@
  */
 package ui;
 
+import model.UserAuthenticationDirectory;
 import javax.swing.JSplitPane;
 import model.CityDir;
 import model.Community;
@@ -11,7 +12,6 @@ import model.CompanyDirectory;
 import model.CustomerDirectory;
 import model.DeliveryBoyDirectory;
 import model.Ordermgt;
-import model.UserAuthenticationDirectory;
 
 /**
  *

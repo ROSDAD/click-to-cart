@@ -5,6 +5,7 @@
  */
 package ui;
 
+import model.UserAuthenticationDirectory;
 import javax.swing.JFrame;
 import java.sql.*;
 import java.util.ArrayList;
@@ -29,7 +30,6 @@ import model.Ordermgt;
 import model.Orders;
 import model.Payment;
 import model.UserAuthentication;
-import model.UserAuthenticationDirectory;
 
 /**
  *
@@ -84,14 +84,14 @@ public class MainJFrame extends javax.swing.JFrame {
         company.setCompanyName("Costco");
         company.setCompanyType("Type 1");
         company.setInventoryManagement(inventoryManagement);
-        
+
         company1 = companyDir.addNewCompany();
-        company1.setCompanyName("Target");
-        company1.setCompanyType("Type 2");
+        company1.setCompanyName("Target1");
+        company1.setCompanyType("Type 1");
         company1.setInventoryManagement(inventoryManagement);
 
         company1 = companyDir.addNewCompany();
-        company1.setCompanyName("Target");
+        company1.setCompanyName("Target2");
         company1.setCompanyType("Type 2");
         company1.setInventoryManagement(inventoryManagement);
 
@@ -109,6 +109,11 @@ public class MainJFrame extends javax.swing.JFrame {
         userAuthentication.setUserType("Customer");
 
         userAuthentication = userauthenticationdirectory.addNewUserAuthentication();
+        userAuthentication.setUserName("de");
+        userAuthentication.setPassword("de");
+        userAuthentication.setUserType("DeliveryBoy");
+
+        userAuthentication = userauthenticationdirectory.addNewUserAuthentication();
         userAuthentication.setUserName("abc1");
         userAuthentication.setPassword("abc1");
         userAuthentication.setUserType("OrderAdmin");
@@ -124,6 +129,11 @@ public class MainJFrame extends javax.swing.JFrame {
         userAuthentication.setCityName("Boston");
         userAuthentication.setCompanyName("Costco");
         userAuthentication.setUserType("CompanyAdmin");
+
+        userAuthentication = userauthenticationdirectory.addNewUserAuthentication();
+        userAuthentication.setUserName("cu");
+        userAuthentication.setPassword("cu");
+        userAuthentication.setUserType("Customer");
 
         List<Orders> ordersList = new ArrayList<>();
         for (int i = 0; i < 2; i++) {
@@ -154,9 +164,10 @@ public class MainJFrame extends javax.swing.JFrame {
         customer = customerDirectory.addNewCustomer();
         customer.setUserName("abc");
         customer.setOrders(ordersList);
-        
-//        ChatServerGUI chatServerGUI = new ChatServerGUI();
-//        chatServerGUI.setVisible(true);
+
+        customer = customerDirectory.addNewCustomer();
+        customer.setUserName("cu");
+        customer.setOrders(null);
     }
 
     /**
@@ -175,7 +186,6 @@ public class MainJFrame extends javax.swing.JFrame {
         workArea = new javax.swing.JPanel();
         lblTitle = new javax.swing.JLabel();
         lblDetails = new javax.swing.JLabel();
-        lblDetails2 = new javax.swing.JLabel();
         cityAdminTest = new javax.swing.JButton();
         invAdminTest = new javax.swing.JButton();
         supAdminTest = new javax.swing.JButton();
@@ -232,10 +242,7 @@ public class MainJFrame extends javax.swing.JFrame {
         lblTitle.setText("AED Final Project");
 
         lblDetails.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        lblDetails.setText("Hrishikesh S. Pawar");
-
-        lblDetails2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        lblDetails2.setText("NU ID: 002707307");
+        lblDetails.setText("Hrishikesh S. Pawar, Abhishek Nair and Roshan Dadlani");
 
         cityAdminTest.setText("City Admin Test");
         cityAdminTest.addActionListener(new java.awt.event.ActionListener() {
@@ -268,15 +275,14 @@ public class MainJFrame extends javax.swing.JFrame {
                         .addGap(42, 42, 42)
                         .addGroup(workAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblDetails)
-                            .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblDetails2)))
+                            .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(workAreaLayout.createSequentialGroup()
                         .addGap(121, 121, 121)
                         .addGroup(workAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(supAdminTest, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(invAdminTest, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(cityAdminTest, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(628, Short.MAX_VALUE))
+                .addContainerGap(518, Short.MAX_VALUE))
         );
         workAreaLayout.setVerticalGroup(
             workAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -285,15 +291,13 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblDetails)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblDetails2)
-                .addGap(147, 147, 147)
+                .addGap(154, 154, 154)
                 .addComponent(cityAdminTest)
                 .addGap(18, 18, 18)
                 .addComponent(invAdminTest)
                 .addGap(18, 18, 18)
                 .addComponent(supAdminTest)
-                .addContainerGap(258, Short.MAX_VALUE))
+                .addContainerGap(279, Short.MAX_VALUE))
         );
 
         splitPane.setRightComponent(workArea);
@@ -332,7 +336,7 @@ public class MainJFrame extends javax.swing.JFrame {
 //
 //        OrderCnfPanel m = new OrderCnfPanel(new Customer(), company, splitPane);
 //        splitPane.setRightComponent(m);
-        
+
 //        DeliveryAdminMainPanel c = new DeliveryAdminMainPanel(cityDirectory, "Boston", "Costco", company, community, customerDirectory, city.getCompanyDirectory(), userauthenticationdirectory, splitPane, deliveryBoyDirectory);
 //        splitPane.setRightComponent(c);
     }//GEN-LAST:event_cityAdminTestActionPerformed
@@ -424,7 +428,6 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JPanel controlPanel;
     private javax.swing.JButton invAdminTest;
     private javax.swing.JLabel lblDetails;
-    private javax.swing.JLabel lblDetails2;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JSplitPane splitPane;
     private javax.swing.JButton supAdminTest;

@@ -6,6 +6,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
+import model.UserAuthentication;
 
 /**
  * Class to add authentication of user to the user Authentication Directory.

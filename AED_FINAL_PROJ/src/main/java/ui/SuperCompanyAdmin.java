@@ -4,6 +4,8 @@
  */
 package ui;
 
+import java.util.ArrayList;
+import model.UserAuthenticationDirectory;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JSplitPane;
@@ -16,7 +18,7 @@ import model.CompanyDirectory;
 import model.CustomerDirectory;
 import model.DeliveryBoyDirectory;
 import model.Ordermgt;
-import model.UserAuthenticationDirectory;
+import org.apache.commons.collections4.CollectionUtils;
 
 /**
  *
@@ -182,6 +184,7 @@ public class SuperCompanyAdmin extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Select a city to view companies!");
             return;
         }
+
         DefaultTableModel model = (DefaultTableModel) cityTable.getModel();
         this.cityTableIndex = selectedRowIndex;
         CompanyDirectory compDir = cityDirectory.getCityDir().get(selectedRowIndex).getCompanyDirectory();
@@ -264,9 +267,7 @@ public class SuperCompanyAdmin extends javax.swing.JPanel {
     private javax.swing.JButton viewCompanyBtn;
     // End of variables declaration//GEN-END:variables
     private void populateCitiesTable() {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 
-        // House Table        
         DefaultTableModel model = (DefaultTableModel) cityTable.getModel();
         model.setRowCount(0);
         int i = 0;
@@ -274,7 +275,6 @@ public class SuperCompanyAdmin extends javax.swing.JPanel {
             for (City c : cityDirectory.getCityDir()) {
                 i++;
                 Object[] row = new Object[11];
-                //row[0] = house;
                 row[0] = i;
                 row[1] = c.getCityName();
 
@@ -284,24 +284,25 @@ public class SuperCompanyAdmin extends javax.swing.JPanel {
     }
 
     private void populateCompanyTable(CompanyDirectory compDir) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 
-        // House Table        
-        DefaultTableModel model = (DefaultTableModel) companyTable.getModel();
-        model.setRowCount(0);
-
-        int i = 0;
-
-        for (Company c : compDir.getCompanyDirectoryList()) {
-            i++;
-            Object[] row = new Object[11];
-            //row[0] = house;
-            row[0] = i;
-            row[1] = c.getCompanyName();
-
-            model.addRow(row);
+        if (compDir == null || CollectionUtils.isEmpty(compDir.getCompanyDirectoryList())) {
+            List<Company> companyList = new ArrayList<>();
+            populateCompany1(companyList);
+        } else {
+            populateCompany1(compDir.getCompanyDirectoryList());
         }
-
     }
 
+    private void populateCompany1(List<Company> companyList) {
+        int i = 0;
+        DefaultTableModel model = (DefaultTableModel) companyTable.getModel();
+        model.setRowCount(0);
+        for (Company c : companyList) {
+            i++;
+            Object[] row = new Object[11];
+            row[0] = i;
+            row[1] = c.getCompanyName();
+            model.addRow(row);
+        }
+    }
 }

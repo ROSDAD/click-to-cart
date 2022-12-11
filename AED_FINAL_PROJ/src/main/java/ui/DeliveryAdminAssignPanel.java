@@ -4,6 +4,7 @@
  */
 package ui;
 
+import model.UserAuthenticationDirectory;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -18,7 +19,6 @@ import model.CustomerDirectory;
 import model.DeliveryBoy;
 import model.DeliveryBoyDirectory;
 import model.Orders;
-import model.UserAuthenticationDirectory;
 
 /**
  *

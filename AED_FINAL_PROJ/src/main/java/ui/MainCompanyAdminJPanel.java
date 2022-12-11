@@ -4,6 +4,7 @@
  */
 package ui;
 
+import model.UserAuthenticationDirectory;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -13,7 +14,6 @@ import model.Community;
 import model.CompanyDirectory;
 import model.CustomerDirectory;
 import model.DeliveryBoyDirectory;
-import model.UserAuthenticationDirectory;
 
 /**
  *
@@ -60,19 +60,10 @@ public class MainCompanyAdminJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        companyButton = new javax.swing.JButton();
         orderAdminButton = new javax.swing.JButton();
         deliveryAdminButton = new javax.swing.JButton();
-        createLabel4 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         inventoryAdminButton = new javax.swing.JButton();
-
-        companyButton.setText("Company");
-        companyButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                companyButtonActionPerformed(evt);
-            }
-        });
 
         orderAdminButton.setText("Order Admin");
         orderAdminButton.addActionListener(new java.awt.event.ActionListener() {
@@ -87,11 +78,6 @@ public class MainCompanyAdminJPanel extends javax.swing.JPanel {
                 deliveryAdminButtonActionPerformed(evt);
             }
         });
-
-        createLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        createLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        createLabel4.setText("Entity");
-        createLabel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -110,42 +96,34 @@ public class MainCompanyAdminJPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(92, 92, 92)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(deliveryAdminButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE)
-                    .addComponent(orderAdminButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(inventoryAdminButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(137, 137, 137)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(createLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(companyButton, javax.swing.GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE))
-                .addGap(108, 108, 108))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 923, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(212, 212, 212)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(inventoryAdminButton, javax.swing.GroupLayout.DEFAULT_SIZE, 499, Short.MAX_VALUE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(orderAdminButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(deliveryAdminButton, javax.swing.GroupLayout.DEFAULT_SIZE, 499, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(173, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(createLabel4)
-                    .addComponent(jLabel2))
-                .addGap(49, 49, 49)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(deliveryAdminButton)
-                    .addComponent(companyButton))
-                .addGap(40, 40, 40)
+                .addContainerGap(144, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addGap(51, 51, 51)
+                .addComponent(deliveryAdminButton)
+                .addGap(47, 47, 47)
                 .addComponent(orderAdminButton)
-                .addGap(34, 34, 34)
+                .addGap(46, 46, 46)
                 .addComponent(inventoryAdminButton)
-                .addGap(87, 87, 87))
+                .addGap(97, 97, 97))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void companyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_companyButtonActionPerformed
-        // TODO add your handling code here:
-        CityAdminPanel companyEntityAdminPanel = new CityAdminPanel(cityName, cityDirectory, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
-        splitPane.setRightComponent(companyEntityAdminPanel);
-    }//GEN-LAST:event_companyButtonActionPerformed
 
     private void orderAdminButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderAdminButtonActionPerformed
         // TODO add your handling code here:
@@ -167,8 +145,6 @@ public class MainCompanyAdminJPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton companyButton;
-    private javax.swing.JLabel createLabel4;
     private javax.swing.JButton deliveryAdminButton;
     private javax.swing.JButton inventoryAdminButton;
     private javax.swing.JLabel jLabel2;

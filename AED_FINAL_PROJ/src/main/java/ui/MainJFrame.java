@@ -48,6 +48,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private Ordermgt orderManagement;
     private City city;
     private Company company;
+    private Company company1;
     private UserAuthentication userAuthentication;
     private DeliveryBoy deliveryBoy;
     private Customer customer;
@@ -83,6 +84,11 @@ public class MainJFrame extends javax.swing.JFrame {
         company.setCompanyName("Costco");
         company.setCompanyType("Type 1");
         company.setInventoryManagement(inventoryManagement);
+        
+        company1 = companyDir.addNewCompany();
+        company1.setCompanyName("Target");
+        company1.setCompanyType("Type 2");
+        company1.setInventoryManagement(inventoryManagement);
 
         //Default City
         city = cityDirectory.addNewCity();
@@ -104,7 +110,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
         List<Orders> ordersList = new ArrayList<>();
         for (int i = 0; i < 2; i++) {
-            
+
             Orders orders = new Orders();
             orders.setOrderId(String.valueOf(i));
             orders.setOrderStatus("OrderPlaced");
@@ -114,6 +120,7 @@ public class MainJFrame extends javax.swing.JFrame {
             List<Orderedprod> orderedprodList = new ArrayList<>();
             Orderedprod orderedprod = new Orderedprod();
             orderedprod.setProdId("1");
+            orderedprod.setProductName("sr");
             orderedprod.setProdTotalprice(500.78);
             orderedprod.setProdcount(12);
             orderedprodList.add(orderedprod);
@@ -122,7 +129,7 @@ public class MainJFrame extends javax.swing.JFrame {
         }
 
         orderManagement.setOrders(ordersList);
-        
+
         deliveryBoy = deliveryBoyDirectory.addNewDeliveryBoy();
         deliveryBoy.setDeliveryBoyName("de");
         deliveryBoy.setOrderList(ordersList);
@@ -130,7 +137,9 @@ public class MainJFrame extends javax.swing.JFrame {
         customer = customerDirectory.addNewCustomer();
         customer.setUserName("abc");
         customer.setOrders(ordersList);
-
+        
+//        ChatServerGUI chatServerGUI = new ChatServerGUI();
+//        chatServerGUI.setVisible(true);
     }
 
     /**
@@ -303,8 +312,12 @@ public class MainJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
 //        CityAdminPanel c = new CityAdminPanel(cityDirectory, splitPane);
 //        splitPane.setRightComponent(c);
-        //DeliveryAdminPanel c = new DeliveryAdminPanel(company, community, customerDirectory, city.getCompanyDirectory(), userauthenticationdirectory, splitPane, deliveryBoyDirectory);
-        //splitPane.setRightComponent(c);
+//
+//        OrderCnfPanel m = new OrderCnfPanel(new Customer(), company, splitPane);
+//        splitPane.setRightComponent(m);
+        
+//        DeliveryAdminMainPanel c = new DeliveryAdminMainPanel(cityDirectory, "Boston", "Costco", company, community, customerDirectory, city.getCompanyDirectory(), userauthenticationdirectory, splitPane, deliveryBoyDirectory);
+//        splitPane.setRightComponent(c);
     }//GEN-LAST:event_cityAdminTestActionPerformed
 
     private void invAdminTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_invAdminTestActionPerformed
@@ -313,8 +326,8 @@ public class MainJFrame extends javax.swing.JFrame {
         String cityName = new String("Boston");
         String companyName = new String("Costco");
 
-//        InventoryAdminPanel i = new InventoryAdminPanel(cityName, companyName, cityDirectory, splitPane);
-//        splitPane.setRightComponent(i);
+        InventoryAdminPanel i = new InventoryAdminPanel(cityName, companyName, cityDirectory, splitPane);
+        splitPane.setRightComponent(i);
 
     }//GEN-LAST:event_invAdminTestActionPerformed
 
@@ -323,13 +336,14 @@ public class MainJFrame extends javax.swing.JFrame {
         String cityName = new String("Boston");
         String companyName = new String("Costco");
 
-        DeliveryAdminPanel deliveryBoyRegistrationJPanel = new DeliveryAdminPanel(cityDirectory, cityName, companyName, company, community, customerDirectory, companyDir, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
+        DeliveryAdminMainPanel deliveryBoyRegistrationJPanel = new DeliveryAdminMainPanel(cityDirectory, cityName, companyName, company, community, customerDirectory, companyDir, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
         splitPane.setRightComponent(deliveryBoyRegistrationJPanel);
     }//GEN-LAST:event_deliveryBoyRegistrationJButtonActionPerformed
 
     private void supAdminTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supAdminTestActionPerformed
         // TODO add your handling code here:
-        SuperAdminPanel supAdmin = new SuperAdminPanel(cityDirectory, orderManagement,community, customerDirectory, companyDir, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
+        System.out.println(orderManagement.getOrders().size());
+        SuperAdminPanel supAdmin = new SuperAdminPanel(cityDirectory, orderManagement, community, customerDirectory, companyDir, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
         splitPane.setRightComponent(supAdmin);
     }//GEN-LAST:event_supAdminTestActionPerformed
 

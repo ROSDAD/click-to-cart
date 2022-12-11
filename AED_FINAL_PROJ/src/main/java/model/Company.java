@@ -26,17 +26,16 @@ public class Company {
 //        this.inventoryManagement = inventoryManagement;
 //    }
 
-    public void setOrderMgt(Ordermgt orderMgt) {
-        this.orderMgt = orderMgt;
+    public Company() {
     }
-    
-    
 
     public Ordermgt getOrderMgt() {
         return orderMgt;
     }
 
-
+    public void setOrderMgt(Ordermgt orderMgt) {
+        this.orderMgt = orderMgt;
+    }
     
     
 

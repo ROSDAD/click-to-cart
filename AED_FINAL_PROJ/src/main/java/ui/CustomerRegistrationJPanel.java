@@ -20,6 +20,7 @@ import model.Payment;
 import model.PaymentDir;
 import model.UserAuthentication;
 import model.UserAuthenticationDirectory;
+import special.Smtp;
 
 /**
  *
@@ -39,7 +40,6 @@ public class CustomerRegistrationJPanel extends javax.swing.JPanel {
     /**
      * Creates new form MainCustomerJPanel
      */
-
     public CustomerRegistrationJPanel(Ordermgt orderManagement, Community community, CustomerDirectory customerDirectory, CompanyDirectory companyDirectory, UserAuthenticationDirectory userauthenticationdirectory, JSplitPane splitPane, DeliveryBoyDirectory deliveryBoyDirectory) {
         initComponents();
         this.community = community;
@@ -50,7 +50,6 @@ public class CustomerRegistrationJPanel extends javax.swing.JPanel {
         this.deliveryBoyDirectory = deliveryBoyDirectory;
         this.orderManagement = orderManagement;
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -74,7 +73,6 @@ public class CustomerRegistrationJPanel extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         passwordTextField = new javax.swing.JTextField();
 
-        nameTextField.setText("Name");
         nameTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nameTextFieldActionPerformed(evt);
@@ -87,12 +85,6 @@ public class CustomerRegistrationJPanel extends javax.swing.JPanel {
                 saveActionPerformed(evt);
             }
         });
-
-        nearestLandMarkTextField.setText("Nearest LandMark");
-
-        addressTextField.setText("Address");
-
-        usernameTextField.setText("Username");
 
         jLabel1.setText("Name");
 
@@ -109,7 +101,6 @@ public class CustomerRegistrationJPanel extends javax.swing.JPanel {
 
         jLabel5.setText("Password");
 
-        passwordTextField.setText("Password");
         passwordTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 passwordTextFieldActionPerformed(evt);
@@ -215,11 +206,11 @@ public class CustomerRegistrationJPanel extends javax.swing.JPanel {
         customer.setCustomerClosestLandmark(nearestLandMarkTextField.getText());
         customer.setCustomerAddress(addressTextField.getText());
         customer.setCustomerName(nameTextField.getText());
-        
+
         Cart cart = new Cart();
         customer.setCart(cart);
         community.setCustomerDirectory(customerDirectory);
-        
+
         PaymentDir paymentDirectory = new PaymentDir();
         customer.setPaymentDirectory(paymentDirectory);
 
@@ -228,8 +219,21 @@ public class CustomerRegistrationJPanel extends javax.swing.JPanel {
         userauthentication.setPassword(passwordTextField.getText());
         userauthentication.setUserType("Customer");
 
-        setDefault();
-        JOptionPane.showMessageDialog(this, "Customer has been created");
+        String Subject = "Thank You+" + customer.getCustomerName() + "for creating an account with Instacart clone!";
+        String data = "Hi " + customer.getCustomerName() + ",\n"
+                + "\n"
+                + "Thank you for joining with Instacart! We hope to not disappoint you in and provide our quality service!\n"
+                + "\n"
+                + "Thanks,\n"
+                + "Instartcart tech team";
+        try {
+            Smtp smtp = new Smtp(customer.getUserName(), Subject, data);
+            JOptionPane.showMessageDialog(this, "Customer has been created");
+            setDefault();
+        } catch (Exception exception) {
+            JOptionPane.showMessageDialog(null, "Please enter a valid email address");
+            return;
+        }
     }//GEN-LAST:event_saveActionPerformed
 
     private void setDefault() {

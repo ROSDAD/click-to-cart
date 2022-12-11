@@ -4,48 +4,72 @@
  */
 package ui;
 
+import java.net.*;
 import com.byteowls.jopencage.JOpenCageGeocoder;
 import com.byteowls.jopencage.model.JOpenCageForwardRequest;
 import com.byteowls.jopencage.model.JOpenCageLatLng;
 import com.byteowls.jopencage.model.JOpenCageResponse;
-import java.text.DecimalFormat;
-import javax.swing.JSplitPane;
+//import com.teamdev.jxmaps.Geocoder;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.util.Map;
 import javax.swing.event.MouseInputListener;
-import model.Company;
-import model.Customer;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpression;
+import javax.xml.xpath.XPathFactory;
 import org.jxmapviewer.OSMTileFactoryInfo;
 import org.jxmapviewer.input.PanMouseInputListener;
 import org.jxmapviewer.input.ZoomMouseWheelListenerCenter;
 import org.jxmapviewer.viewer.DefaultTileFactory;
 import org.jxmapviewer.viewer.GeoPosition;
 import org.jxmapviewer.viewer.TileFactoryInfo;
+import org.w3c.dom.Document;
+
 
 /**
  *
- * @author rosha
+ * @author hrish
  */
-public class OrderCnfPanel extends javax.swing.JPanel {
+public class MapTest2 extends javax.swing.JPanel {
 
-    private Customer cust;
-    private Company comp;
-    private JSplitPane splitPane;
-    private String cityName;
-    private double distance;
-    private double ETA;
-
-    public OrderCnfPanel(double distance, String cityName, Customer cust, Company comp, JSplitPane splitPane) {
+    /**
+     * Creates new form MapTest2
+     */
+    public MapTest2() {
         initComponents();
-        this.cust = cust;
-        this.comp = comp;
-        this.splitPane = splitPane;
-        this.cityName = cityName;
-        this.distance = distance;
         
-        String companyName = comp.getCompanyName();        
-        init(companyName, cityName);
+        try {
+            //String latLongs[] = getLatLongPositions(new String("Target Boston"));
+
+            //System.out.println("Test 3");
+            //System.out.println(latLongs[0]+", "+latLongs[1]);
+
+            init();
+        }
+        catch(Exception e) {
+        }
     }
-    
-    private void init(String companyName, String cityName) {
+//    
+//    private void init() {
+//        TileFactoryInfo info = new OSMTileFactoryInfo();
+//        DefaultTileFactory tileFactory = new DefaultTileFactory(info);
+//        jXMapViewer1.setTileFactory(tileFactory);
+//        
+//        GeoPosition geo = new GeoPosition(42.3398741,-71.0897081);
+//        jXMapViewer1.setAddressLocation(geo);
+//        jXMapViewer1.setZoom(4);
+//        
+//        MouseInputListener mm = new PanMouseInputListener(jXMapViewer1);
+//        jXMapViewer1.addMouseListener(mm);
+//        jXMapViewer1.addMouseMotionListener(mm);
+//        jXMapViewer1.addMouseWheelListener(new ZoomMouseWheelListenerCenter(jXMapViewer1));
+//    }
+//    
+    private void init() {
         
         TileFactoryInfo info = new OSMTileFactoryInfo();
         
@@ -60,17 +84,24 @@ public class OrderCnfPanel extends javax.swing.JPanel {
             
         JOpenCageGeocoder jO = new JOpenCageGeocoder("b530cbd50cd843c485a70dff613da0aa");
         
-        JOpenCageForwardRequest request = new JOpenCageForwardRequest(companyName.concat(", "+cityName));
+        JOpenCageForwardRequest request = new JOpenCageForwardRequest("Prathamesh Park");
         //request.setRestrictToCountryCode("za"); // restrict results to a specific country
         
         JOpenCageResponse response = jO.forward(request);
         JOpenCageLatLng firstResultLatLng = response.getFirstPosition(); // get the coordinate pair of the first result
         System.out.println(firstResultLatLng.getLat().toString() + "," + firstResultLatLng.getLng().toString());
         
+          
+            
+            
+        //String latLongs[] = getLatLongPositions(new String("Target Boston"));
         
+        
+        //System.out.println(latLongs[0]+", "+latLongs[1]);
         
         GeoPosition geo = new GeoPosition(firstResultLatLng.getLat(),firstResultLatLng.getLng());
         //GeoPosition geo = new GeoPosition(Double.parseDouble(latLongs[0]),Double.parseDouble(latLongs[1]));
+        
         
         jXMapViewer1.setAddressLocation(geo);
         jXMapViewer1.setZoom(2);
@@ -79,38 +110,6 @@ public class OrderCnfPanel extends javax.swing.JPanel {
         jXMapViewer1.addMouseListener(mm);
         jXMapViewer1.addMouseMotionListener(mm);
         jXMapViewer1.addMouseWheelListener(new ZoomMouseWheelListenerCenter(jXMapViewer1));
-        
-        
-        ETA = 60 * (distance/15.0);
-        
-        if(ETA >= 0 && ETA <= 60) {
-            DecimalFormat df = new DecimalFormat("0.0");
-            ETA = Double.parseDouble(df.format(ETA));
-        
-            lblETA.setText("ETA for your order is "+ETA+" minutes.");
-        }
-        else if(ETA > 60 && ETA <= 24*60) {
-            
-            DecimalFormat df = new DecimalFormat("0.0");            
-            ETA = ETA/60;
-            ETA = Double.parseDouble(df.format(ETA));
-        
-            lblETA.setText("ETA for your order is "+ETA+" hours.");
-        }
-        
-        else if(ETA > 24*60) {
-            
-            DecimalFormat df = new DecimalFormat("0.0");            
-            ETA = ETA/(60*24);
-            ETA = Double.parseDouble(df.format(ETA));
-        
-            lblETA.setText("ETA for your order is "+ETA+" days.");
-        }
-        
-//        DecimalFormat df = new DecimalFormat("0.0");
-//        ETA = Double.parseDouble(df.format(ETA));
-//        
-//        lblETA.setText("ETA for your order is "+ETA+" minutes.");
         }
         catch(Exception e) {
             
@@ -118,6 +117,49 @@ public class OrderCnfPanel extends javax.swing.JPanel {
             
         }
     }
+    
+    public static String[] getLatLongPositions(String address) throws Exception
+  {
+      
+      System.out.println("Test 4");
+    int responseCode = 0;
+    String api = "http://maps.googleapis.com/maps/api/geocode/xml?address=" + URLEncoder.encode(address, "UTF-8") + "&sensor=true";
+    URL url = new URL(api);
+    HttpURLConnection httpConnection = (HttpURLConnection)url.openConnection();
+    httpConnection.connect();
+    responseCode = httpConnection.getResponseCode();
+    
+    System.out.println("Test 5");
+    
+    if(responseCode == 200)
+    {
+      DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();;
+      Document document = builder.parse(httpConnection.getInputStream());
+      XPathFactory xPathfactory = XPathFactory.newInstance();
+      XPath xpath = xPathfactory.newXPath();
+      XPathExpression expr = xpath.compile("/GeocodeResponse/status");
+      String status = (String)expr.evaluate(document, XPathConstants.STRING);
+      
+      System.out.println("Test 5.1, status= "+status);
+      
+      if(status.equals("OK"))
+      {
+          System.out.println("Test 6");
+          
+         expr = xpath.compile("//geometry/location/lat");
+         String latitude = (String)expr.evaluate(document, XPathConstants.STRING);
+         expr = xpath.compile("//geometry/location/lng");
+         String longitude = (String)expr.evaluate(document, XPathConstants.STRING);
+         System.out.println("Test 7");
+         return new String[] {latitude, longitude};
+      }
+      else
+      {
+         throw new Exception("Error from the API - response status: "+status);
+      }
+    }
+    return null;
+  }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -128,18 +170,7 @@ public class OrderCnfPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jXMapViewer1 = new org.jxmapviewer.JXMapViewer();
-        lblETA = new javax.swing.JLabel();
-
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("YOUR ORDER IS CONFIRMED!");
-        jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel2.setText("We have sent you an order confirmation and receipt on your Email!");
 
         javax.swing.GroupLayout jXMapViewer1Layout = new javax.swing.GroupLayout(jXMapViewer1);
         jXMapViewer1.setLayout(jXMapViewer1Layout);
@@ -152,45 +183,26 @@ public class OrderCnfPanel extends javax.swing.JPanel {
             .addGap(0, 324, Short.MAX_VALUE)
         );
 
-        lblETA.setText("                ");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(166, 166, 166)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 545, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2)
-                            .addComponent(lblETA)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(155, 155, 155)
-                        .addComponent(jXMapViewer1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(187, Short.MAX_VALUE))
+                .addGap(56, 56, 56)
+                .addComponent(jXMapViewer1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(167, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblETA)
-                .addGap(7, 7, 7)
+                .addGap(69, 69, 69)
                 .addComponent(jXMapViewer1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(8, Short.MAX_VALUE))
+                .addContainerGap(118, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private org.jxmapviewer.JXMapViewer jXMapViewer1;
-    private javax.swing.JLabel lblETA;
     // End of variables declaration//GEN-END:variables
 }

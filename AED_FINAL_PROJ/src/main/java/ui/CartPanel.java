@@ -29,15 +29,20 @@ public class CartPanel extends javax.swing.JPanel {
     private Customer cust;
     private Company comp;
     private JSplitPane splitPane;
+    private String cityName;
+    private double distance;
 
     /**
      * Creates new form CartPanel
      */
-    public CartPanel(Customer cust, Company comp, JSplitPane splitPane) {
+    public CartPanel(double distance, String cityName, Customer cust, Company comp, JSplitPane splitPane) {
         initComponents();
         this.cust = cust;
         this.comp = comp;
         this.splitPane = splitPane;
+        this.cityName = cityName;
+        this.distance = distance;
+        
         ArrayList<Orderedprod> ordProd = cust.getCart().getCartProd();
 
         displayItemList();
@@ -112,7 +117,7 @@ public class CartPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(53, 53, 53)
+                .addContainerGap(117, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -150,7 +155,7 @@ public class CartPanel extends javax.swing.JPanel {
     private void orderBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderBtnActionPerformed
         // TODO add your handling code here:
 //        redirect to Payment Details
-        PaymentDetails paymentDetails = new PaymentDetails(cust, comp, splitPane);
+        PaymentDetails paymentDetails = new PaymentDetails(distance, cityName, cust, comp, splitPane);
         splitPane.setRightComponent(paymentDetails);
     }//GEN-LAST:event_orderBtnActionPerformed
 

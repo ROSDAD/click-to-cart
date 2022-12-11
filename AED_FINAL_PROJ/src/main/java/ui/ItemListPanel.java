@@ -5,6 +5,7 @@
 package ui;
 
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JSplitPane;
 import javax.swing.RowFilter;
@@ -21,16 +22,20 @@ public class ItemListPanel extends javax.swing.JPanel {
     private Customer cust;
     private Company comp;
     private JSplitPane splitPane;
+    private String selectedCityName;
+    private double distance;
 
     /**
      * Creates new form ItemListPanel
      */
-    public ItemListPanel(Customer cust, Company comp,JSplitPane splitPane) {
+    public ItemListPanel(Double dist, String selectedCityName, Customer cust, Company comp,JSplitPane splitPane) {
         initComponents();
         System.out.println(comp);
         this.cust = cust;
         this.comp = comp;
         this.splitPane = splitPane;
+        this.selectedCityName = selectedCityName;
+        this.distance = dist;
         filterComboBox.removeAllItems();
 //         Company comp = new Company(); // need to be changed
         ArrayList<Inventory> dirModel = comp.getInventoryManagement().getInventoryMgt();
@@ -134,7 +139,7 @@ public class ItemListPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(53, 53, 53)
+                .addContainerGap(125, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(addToCart)
@@ -149,7 +154,7 @@ public class ItemListPanel extends javax.swing.JPanel {
                                 .addGap(18, 18, 18)
                                 .addComponent(itemSeacrhBox, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(searchBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(searchBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(prodIdLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -158,34 +163,29 @@ public class ItemListPanel extends javax.swing.JPanel {
                                     .addGap(86, 86, 86)
                                     .addComponent(quantityTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 695, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18)
-                        .addComponent(cartButton, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(29, 29, 29))))
+                        .addGap(41, 41, 41)
+                        .addComponent(cartButton)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(50, 50, 50)
+                .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(filterComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(24, 24, 24))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(searchBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(cartButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(itemSeacrhBox, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(24, 24, 24)))
+                    .addComponent(cartButton, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
+                    .addComponent(itemSeacrhBox, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
+                    .addComponent(searchBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(filterComboBox))
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24)
+                .addGap(18, 18, 18)
                 .addComponent(viewDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(pNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(quantityTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(prodIdLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
+                .addGap(18, 18, 18)
                 .addComponent(addToCart, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(84, 84, 84))
         );
@@ -209,15 +209,55 @@ public class ItemListPanel extends javax.swing.JPanel {
     private void addToCartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addToCartActionPerformed
         // TODO add your handling code here:
         int quantity = Integer.parseInt(quantityTxt.getText());
-        int prodQuantity = comp.getInventoryManagement().getInventoryMgt().get(0).getInventoryProductDir().getInventoryProductDir().get(itemListTable.getSelectedRow()).getInventoryQty();
+        int prodQuantity = comp.getInventoryManagement().getInventoryMgt()
+                .get(0).getInventoryProductDir().getInventoryProductDir()
+                .get(itemListTable.getSelectedRow()).getInventoryQty();
         if (quantity <= prodQuantity) {
             DefaultTableModel model = (DefaultTableModel) itemListTable.getModel();
             int selectedRowIndex = itemListTable.getSelectedRow();
+            
+            int flag = 0;
+            if(cust.getCart()!=null){
+              ArrayList<Orderedprod> ordProdList = cust.getCart().getCartProd();  
+            for(int w = 0;w<ordProdList.size();w++){
+                if(ordProdList.get(w).getProdid().equals((model.getValueAt(selectedRowIndex, 0)).toString())){
+                    flag = 1;
+                    if((ordProdList.get(w).getprodcount()+quantity)<=prodQuantity){
+                        ordProdList.get(w).setProdcount(ordProdList.get(w).getprodcount()+quantity);
+                        double price = Double.parseDouble(String.valueOf(quantity * Double.parseDouble((model.getValueAt(selectedRowIndex, 2)).toString())));
+                        double price2 = ordProdList.get(w).getProdTotalprice();
+                        double finalPrice = price+price2;
+                        ordProdList.get(w).setProdTotalprice(finalPrice);
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(this, "Not Enough Quantity left In Inventory!");
+                        return;
+                    }
+                }
+            }
+        }
+            if(flag == 0){
             Orderedprod ordProd = cust.getCart().addNewCartProd();
             ordProd.setProdId((model.getValueAt(selectedRowIndex, 0)).toString());
+            String pName = "";
             double price = Double.parseDouble(String.valueOf(quantity * Double.parseDouble((model.getValueAt(selectedRowIndex, 2)).toString())));
+            for (int k = 0; k < comp.getInventoryManagement().getInventoryMgt().size(); k++) {
+                List<InventoryProduct> mainM = comp.getInventoryManagement().getInventoryMgt().get(k).getInventoryProductDir().getInventoryProductDir();
+                for (int j = 0; j < mainM.size(); j++) {
+                    if (ordProd.getProdid().equals(mainM.get(j).getPid())) {
+                        pName = mainM.get(j).getProductName();
+                    }
+                }
+
+            }
+
+            ordProd.setProductName(pName);
             ordProd.setProdTotalprice(price);
             ordProd.setProdcount(quantity);
+            
+        }
+            JOptionPane.showMessageDialog(this, "Product Added To Cart!");
+            
         } else {
             JOptionPane.showMessageDialog(this, "Not Enough Quantity left In Inventory!");
         }
@@ -241,9 +281,9 @@ public class ItemListPanel extends javax.swing.JPanel {
 
     private void cartButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cartButtonActionPerformed
         // TODO add your handling code here:
-        CartPanel cartPanel = new CartPanel(cust, comp,splitPane);
+        CartPanel cartPanel = new CartPanel(distance, selectedCityName, cust, comp,splitPane);
         splitPane.setRightComponent(cartPanel);
-        
+
     }//GEN-LAST:event_cartButtonActionPerformed
 
 

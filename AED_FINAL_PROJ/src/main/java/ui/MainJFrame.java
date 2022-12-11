@@ -7,19 +7,27 @@ package ui;
 
 import javax.swing.JFrame;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JSplitPane;
 import model.City;
 import model.CityDir;
 import model.Community;
 import model.Company;
 import model.CompanyDirectory;
+import model.Customer;
 import model.CustomerDirectory;
+import model.DeliveryBoy;
 import model.DeliveryBoyDirectory;
 import model.Inventory;
 import model.InventoryMgt;
 import model.InventoryProduct;
 import model.InventoryProductDir;
+import model.Orderedprod;
 import model.Ordermgt;
+import model.Orders;
+import model.Payment;
+import model.UserAuthentication;
 import model.UserAuthenticationDirectory;
 
 /**
@@ -39,6 +47,10 @@ public class MainJFrame extends javax.swing.JFrame {
     private Ordermgt orderManagement;
     private City city;
     private Company company;
+    private final UserAuthentication userAuthentication;
+    private final DeliveryBoy deliveryBoy;
+    private final Customer customer;
+    private final UserAuthentication userAuthentication1;
     
     public MainJFrame() {
         initComponents();
@@ -80,6 +92,46 @@ public class MainJFrame extends javax.swing.JFrame {
         city.setCityType("Urban");
         city.setPopulation(25000);
         city.setCompanyDirectory(companyDir);
+
+        userAuthentication = userauthenticationdirectory.addNewUserAuthentication();
+        userAuthentication.setUserName("abc");
+        userAuthentication.setPassword("abc");
+        userAuthentication.setUserType("Customer");
+
+        userAuthentication1 = userauthenticationdirectory.addNewUserAuthentication();
+        userAuthentication1.setUserName("abc1");
+        userAuthentication1.setPassword("abc1");
+        userAuthentication1.setUserType("OrderAdmin");
+
+        List<Orders> ordersList = new ArrayList<>();
+        for (int i = 0; i < 2; i++) {
+            
+            Orders orders = new Orders();
+            orders.setOrderId(String.valueOf(i));
+            orders.setOrderStatus("OrderPlaced");
+            Payment payment = new Payment();
+            payment.setPaymentType("Debit");
+            orders.setPaymentType(payment);
+            List<Orderedprod> orderedprodList = new ArrayList<>();
+            Orderedprod orderedprod = new Orderedprod();
+            orderedprod.setProdId("1");
+            orderedprod.setProdTotalprice(500.78);
+            orderedprod.setProdcount(12);
+            orderedprodList.add(orderedprod);
+            orders.setOrderedProds(orderedprodList);
+            ordersList.add(orders);
+        }
+
+        orderManagement.setOrders(ordersList);
+        
+        deliveryBoy = deliveryBoyDirectory.addNewDeliveryBoy();
+        deliveryBoy.setDeliveryBoyName("de");
+        deliveryBoy.setOrderList(ordersList);
+
+        customer = customerDirectory.addNewCustomer();
+        customer.setUserName("abc");
+        customer.setOrders(ordersList);
+
     }
 
     /**

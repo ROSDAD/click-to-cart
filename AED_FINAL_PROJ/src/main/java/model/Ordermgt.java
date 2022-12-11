@@ -5,18 +5,27 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author rosha
  */
 public class Ordermgt {
-    private ArrayList<Orders> orders;
+    private List<Orders> orders;
     private Cart cart;
     private PaymentDir paymentDir;
-    
-    public ArrayList<Orders> getOrders() {
+
+    public Ordermgt() {
+        this.orders = new ArrayList<>();
+    }
+
+    public List<Orders> getOrders() {
         return orders;
+    }
+
+    public void setOrders(List<Orders> orders) {
+        this.orders = orders;
     }
 
     public Orders addNewOrder() {

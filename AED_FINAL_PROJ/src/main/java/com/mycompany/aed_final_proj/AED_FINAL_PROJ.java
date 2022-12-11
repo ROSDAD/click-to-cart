@@ -5,6 +5,7 @@
 
 package com.mycompany.aed_final_proj;
 
+import database.Connection;
 import special.Smtp;
 import ui.*;
 

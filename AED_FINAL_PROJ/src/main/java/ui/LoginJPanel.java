@@ -8,6 +8,7 @@ import javax.swing.JSplitPane;
 import javax.swing.JOptionPane;
 import model.CityDir;
 import model.Community;
+import model.Company;
 import model.CompanyDirectory;
 import model.CustomerDirectory;
 import model.DeliveryBoyDirectory;
@@ -29,6 +30,9 @@ public class LoginJPanel extends javax.swing.JPanel {
     private UserAuthenticationDirectory userauthenticationdirectory;
     private DeliveryBoyDirectory deliveryBoyDirectory;
     private Ordermgt orderManagement;
+    private String companyName;
+    private String usertype;
+    private String cityName;
 
     /**
      * Creates new form LoginJPanel
@@ -140,13 +144,13 @@ public class LoginJPanel extends javax.swing.JPanel {
             return;
         }
 
-        String usertype = "";
-
         boolean flag = false;
         for (UserAuthentication userAuthentication : userauthenticationdirectory.getUserAuthenticationList()) {
             if (userAuthentication.getUserName().equalsIgnoreCase(usernameTextField1.getText())
                     && userAuthentication.getPassword().equalsIgnoreCase(passwordTextField2.getText())) {
                 usertype = userAuthentication.getUserType();
+                companyName = userAuthentication.getCompanyName();
+                cityName = userAuthentication.getCityName();
                 flag = true;
             }
         }
@@ -161,7 +165,7 @@ public class LoginJPanel extends javax.swing.JPanel {
             splitPane.setRightComponent(mainDeliveryBoyJPanel);
         } else if (flag && usertype.equalsIgnoreCase("CompanyAdmin")) {
             JOptionPane.showMessageDialog(this, "Login is successfully done for Company Admin");
-            MainCompanyAdminJPanel mainCompanyAdminPanel = new MainCompanyAdminJPanel(cityDirectory, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
+            MainCompanyAdminJPanel mainCompanyAdminPanel = new MainCompanyAdminJPanel(cityName, companyName, cityDirectory, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
             splitPane.setRightComponent(mainCompanyAdminPanel);
         } else if (flag && usertype.equalsIgnoreCase("OrderAdmin")) {
             JOptionPane.showMessageDialog(this, "Login is successfully done for Order Admin");

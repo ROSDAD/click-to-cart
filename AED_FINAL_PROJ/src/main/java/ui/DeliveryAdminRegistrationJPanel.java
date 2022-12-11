@@ -28,6 +28,8 @@ public class DeliveryAdminRegistrationJPanel extends javax.swing.JPanel {
     private Community community;
     private UserAuthenticationDirectory userauthenticationdirectory;
     private DeliveryBoyDirectory deliveryBoyDirectory;
+    private String cityName;
+    private String companyName;
 
     /**
      * Creates new form CompanyAdminRegistrationJPanel
@@ -36,7 +38,7 @@ public class DeliveryAdminRegistrationJPanel extends javax.swing.JPanel {
         initComponents();
     }
 
-    public DeliveryAdminRegistrationJPanel(CityDir cityDirectory, Community community, CustomerDirectory customerDirectory, CompanyDirectory companyDirectory, UserAuthenticationDirectory userauthenticationdirectory, JSplitPane splitPane, DeliveryBoyDirectory deliveryBoyDirectory) {
+    public DeliveryAdminRegistrationJPanel(String cityName, String companyName, CityDir cityDirectory, Community community, CustomerDirectory customerDirectory, CompanyDirectory companyDirectory, UserAuthenticationDirectory userauthenticationdirectory, JSplitPane splitPane, DeliveryBoyDirectory deliveryBoyDirectory) {
         initComponents();
         this.cityDirectory = cityDirectory;
         this.community = community;
@@ -45,6 +47,8 @@ public class DeliveryAdminRegistrationJPanel extends javax.swing.JPanel {
         this.companyDirectory = companyDirectory;
         this.userauthenticationdirectory = userauthenticationdirectory;
         this.deliveryBoyDirectory = deliveryBoyDirectory;
+        this.cityName = cityName;
+        this.companyName = companyName;
     }
 
     /**
@@ -210,9 +214,10 @@ public class DeliveryAdminRegistrationJPanel extends javax.swing.JPanel {
 
         for (int i = 0; i < userauthenticationdirectory.getUserAuthenticationList().size(); i++) {
             UserAuthentication userauthentication = userauthenticationdirectory.getUserAuthenticationList().get(i);
-            if (userauthentication.getUserName().equalsIgnoreCase(userNameTextField.getText())
-                    && userauthentication.getUserType().equalsIgnoreCase("DeliveryAdmin")) {
-                JOptionPane.showMessageDialog(this, "Delivery Admin username already exits, please login directly");
+            if ("DeliveryAdmin".equalsIgnoreCase(userauthentication.getUserType())
+                    && companyName.equalsIgnoreCase(userauthentication.getCompanyName())
+                    && userauthentication.getUserName().equalsIgnoreCase(userNameTextField.getText())) {
+                JOptionPane.showMessageDialog(this, "Delivery Admin username already exits in the same company, please login directly");
                 return;
             }
         }
@@ -220,6 +225,8 @@ public class DeliveryAdminRegistrationJPanel extends javax.swing.JPanel {
         UserAuthentication userAuthentication = userauthenticationdirectory.addNewUserAuthentication();
         userAuthentication.setUserName(userNameTextField.getText());
         userAuthentication.setPassword(passwordTextField.getText());
+        userAuthentication.setCityName(cityName);
+        userAuthentication.setCompanyName(companyName);
         userAuthentication.setUserType("DeliveryAdmin");
 
         JOptionPane.showMessageDialog(this, "Delivery Admin credentials is saved");
@@ -231,8 +238,11 @@ public class DeliveryAdminRegistrationJPanel extends javax.swing.JPanel {
     private void populateDeliveryAdmin() {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.setRowCount(0);
+
         for (UserAuthentication userAuthentication : userauthenticationdirectory.getUserAuthenticationList()) {
-            if ("DeliveryAdmin".equalsIgnoreCase(userAuthentication.getUserName())) {
+            if ("DeliveryAdmin".equalsIgnoreCase(userAuthentication.getUserType())
+                    && cityName.equalsIgnoreCase(userAuthentication.getCityName())
+                    && companyName.equalsIgnoreCase(userAuthentication.getCompanyName())) {
                 Object[] row = new Object[1];
                 row[0] = userAuthentication.getUserName();
                 model.addRow(row);
@@ -266,7 +276,9 @@ public class DeliveryAdminRegistrationJPanel extends javax.swing.JPanel {
 
         for (UserAuthentication userAuthentication : userauthenticationdirectory.getUserAuthenticationList()) {
             if (userAuthentication.getUserName().equalsIgnoreCase(selectUsername)
-                    && userAuthentication.getUserType().equalsIgnoreCase("DeliveryAdmin")) {
+                    && userAuthentication.getUserType().equalsIgnoreCase("DeliveryAdmin")
+                    && cityName.equalsIgnoreCase(userAuthentication.getCityName())
+                    && companyName.equalsIgnoreCase(userAuthentication.getCompanyName())) {
                 userAuthentication.setUserName(newUserName);
             }
         }
@@ -284,14 +296,15 @@ public class DeliveryAdminRegistrationJPanel extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         int rowToModel = 0;
         rowToModel = jTable1.convertRowIndexToModel(selectedRowIndex);
-        model.removeRow(rowToModel);
 
         String selectedUsername = model.getValueAt(selectedRowIndex, 0).toString();
-
+        model.removeRow(rowToModel);
         try {
             for (UserAuthentication userAuthentication : userauthenticationdirectory.getUserAuthenticationList()) {
                 if (userAuthentication.getUserName().equalsIgnoreCase(selectedUsername)
-                        && userAuthentication.getUserType().equalsIgnoreCase("DeliveryAdmin")) {
+                        && userAuthentication.getUserType().equalsIgnoreCase("DeliveryAdmin")
+                        && cityName.equalsIgnoreCase(userAuthentication.getCityName())
+                        && companyName.equalsIgnoreCase(userAuthentication.getCompanyName())) {
                     userauthenticationdirectory.deleteUserAuthentication(userAuthentication);
                     populateDeliveryAdmin();
                 }

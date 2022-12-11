@@ -28,6 +28,8 @@ public class MainCompanyAdminJPanel extends javax.swing.JPanel {
     private Community community;
     private UserAuthenticationDirectory userauthenticationdirectory;
     private DeliveryBoyDirectory deliveryBoyDirectory;
+    private String cityName;
+    private String companyName;
 
     /**
      * Creates new form MainCompanyAdminJPanel
@@ -36,7 +38,7 @@ public class MainCompanyAdminJPanel extends javax.swing.JPanel {
         initComponents();
     }
 
-    public MainCompanyAdminJPanel(CityDir cityDirectory, Community community, CustomerDirectory customerDirectory, CompanyDirectory companyDirectory, UserAuthenticationDirectory userauthenticationdirectory, JSplitPane splitPane, DeliveryBoyDirectory deliveryBoyDirectory) {
+    public MainCompanyAdminJPanel(String cityName, String companyName, CityDir cityDirectory, Community community, CustomerDirectory customerDirectory, CompanyDirectory companyDirectory, UserAuthenticationDirectory userauthenticationdirectory, JSplitPane splitPane, DeliveryBoyDirectory deliveryBoyDirectory) {
         initComponents();
         this.cityDirectory = cityDirectory;
         this.community = community;
@@ -45,6 +47,8 @@ public class MainCompanyAdminJPanel extends javax.swing.JPanel {
         this.companyDirectory = companyDirectory;
         this.userauthenticationdirectory = userauthenticationdirectory;
         this.deliveryBoyDirectory = deliveryBoyDirectory;
+        this.cityName = cityName;
+        this.companyName = companyName;
     }
 
     /**
@@ -145,19 +149,19 @@ public class MainCompanyAdminJPanel extends javax.swing.JPanel {
 
     private void orderAdminButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderAdminButtonActionPerformed
         // TODO add your handling code here:
-        OrderAdminRegistrationJPanel houseEntityPanel = new OrderAdminRegistrationJPanel(cityDirectory, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
+        OrderAdminRegistrationJPanel houseEntityPanel = new OrderAdminRegistrationJPanel(cityName, companyName, cityDirectory, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
         splitPane.setRightComponent(houseEntityPanel);
     }//GEN-LAST:event_orderAdminButtonActionPerformed
 
     private void deliveryAdminButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deliveryAdminButtonActionPerformed
         // TODO add your handling code here:
-        DeliveryAdminRegistrationJPanel deliveryAdminJPanel = new DeliveryAdminRegistrationJPanel(cityDirectory, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
+        DeliveryAdminRegistrationJPanel deliveryAdminJPanel = new DeliveryAdminRegistrationJPanel(cityName, companyName, cityDirectory, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
         splitPane.setRightComponent(deliveryAdminJPanel);
     }//GEN-LAST:event_deliveryAdminButtonActionPerformed
 
     private void inventoryAdminButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inventoryAdminButtonActionPerformed
         // TODO add your handling code here:
-        InventoryAdminRegistrationJPanel inventoryAdminJPanel = new InventoryAdminRegistrationJPanel(cityDirectory, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
+        InventoryAdminRegistrationJPanel inventoryAdminJPanel = new InventoryAdminRegistrationJPanel(cityName, companyName,cityDirectory, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
         splitPane.setRightComponent(inventoryAdminJPanel);
     }//GEN-LAST:event_inventoryAdminButtonActionPerformed
 

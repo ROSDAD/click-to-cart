@@ -113,6 +113,13 @@ public class MainJFrame extends javax.swing.JFrame {
         userAuthentication.setPassword("ab");
         userAuthentication.setUserType("SuperAdmin");
 
+        userAuthentication = userauthenticationdirectory.addNewUserAuthentication();
+        userAuthentication.setUserName("co");
+        userAuthentication.setPassword("co");
+        userAuthentication.setCityName("Boston");
+        userAuthentication.setCompanyName("Costco");
+        userAuthentication.setUserType("CompanyAdmin");
+
         List<Orders> ordersList = new ArrayList<>();
         for (int i = 0; i < 2; i++) {
 

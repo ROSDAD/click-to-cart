@@ -35,10 +35,11 @@ public class SuperCompanyAdmin extends javax.swing.JPanel {
     private int cityTableIndex;
     private final JSplitPane jSplitPane1;
     private final String role;
+
     /**
      * Creates new form SuperCompanyAdmin
      */
-    public SuperCompanyAdmin(CityDir cityDirectory, Ordermgt orderManagement, Community community, CustomerDirectory customerDirectory, CompanyDirectory companyDirectory, UserAuthenticationDirectory userauthenticationdirectory, JSplitPane splitPane, DeliveryBoyDirectory deliveryBoyDirectory,JSplitPane jSplitPane1,String role) {
+    public SuperCompanyAdmin(CityDir cityDirectory, Ordermgt orderManagement, Community community, CustomerDirectory customerDirectory, CompanyDirectory companyDirectory, UserAuthenticationDirectory userauthenticationdirectory, JSplitPane splitPane, DeliveryBoyDirectory deliveryBoyDirectory, JSplitPane jSplitPane1, String role) {
         initComponents();
         this.role = role;
         this.cityDirectory = cityDirectory;
@@ -185,7 +186,7 @@ public class SuperCompanyAdmin extends javax.swing.JPanel {
         this.cityTableIndex = selectedRowIndex;
         CompanyDirectory compDir = cityDirectory.getCityDir().get(selectedRowIndex).getCompanyDirectory();
         populateCompanyTable(compDir);
-        
+
     }//GEN-LAST:event_viewCompanyBtnActionPerformed
 
     private void loginCompanyBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginCompanyBtnActionPerformed
@@ -195,38 +196,58 @@ public class SuperCompanyAdmin extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Select a city to view companies!");
             return;
         }
-        DefaultTableModel model = (DefaultTableModel) cityTable.getModel();
-        if(role.equals("CompanyAdmin")){
-            Company compDir = cityDirectory.getCityDir().get(cityTableIndex).getCompanyDirectory().getCompanyDirectoryList().get(selectedRowIndex);
-            MainCompanyAdminJPanel compAdminPanel = new MainCompanyAdminJPanel(cityDirectory, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
-        jSplitPane1.setRightComponent(compAdminPanel);
+
+        //Selected City Table
+        int selectedRowIndexCity = cityTable.getSelectedRow();
+        if (selectedRowIndexCity < 0) {
+            JOptionPane.showMessageDialog(this, "Please select a row to select city");
+            return;
         }
-        if(role.equals("DeliveryAdmin")){
+        DefaultTableModel modelCity = (DefaultTableModel) cityTable.getModel();
+        String selectedCityName = modelCity.getValueAt(selectedRowIndexCity, 0).toString();
+
+        //Selected Company Table
+        int selectedRowIndexCompany = companyTable.getSelectedRow();
+        if (selectedRowIndexCompany < 0) {
+            JOptionPane.showMessageDialog(this, "Please select a row to select company");
+            return;
+        }
+        DefaultTableModel modelCompanyName = (DefaultTableModel) companyTable.getModel();
+        String selectedCompanyName = modelCompanyName.getValueAt(selectedRowIndexCompany, 0).toString();
+
+        DefaultTableModel model = (DefaultTableModel) cityTable.getModel();
+        if (role.equals("CompanyAdmin")) {
+            Company compDir = cityDirectory.getCityDir().get(cityTableIndex).getCompanyDirectory().getCompanyDirectoryList().get(selectedRowIndex);
+
+            MainCompanyAdminJPanel mainCompanyAdminJPanel = new MainCompanyAdminJPanel(selectedCityName, selectedCompanyName, cityDirectory, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
+            jSplitPane1.setRightComponent(mainCompanyAdminJPanel);
+        }
+        if (role.equals("DeliveryAdmin")) {
             Company compDir = cityDirectory.getCityDir().get(cityTableIndex).getCompanyDirectory().getCompanyDirectoryList().get(selectedRowIndex);
             CompanyDirectory companyDir = cityDirectory.getCityDir().get(cityTableIndex).getCompanyDirectory();
             String cityName = cityDirectory.getCityDir().get(cityTableIndex).getCityName();
             String companyName = cityDirectory.getCityDir().get(cityTableIndex).getCompanyDirectory().getCompanyDirectoryList().get(selectedRowIndex).getCompanyName();
-            DeliveryAdminMainPanel compAdminPanel = new DeliveryAdminMainPanel(cityDirectory, cityName,companyName, compDir, community, customerDirectory,companyDir,userauthenticationdirectory, splitPane, deliveryBoyDirectory);
+            DeliveryAdminMainPanel compAdminPanel = new DeliveryAdminMainPanel(cityDirectory, cityName, companyName, compDir, community, customerDirectory, companyDir, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
             jSplitPane1.setRightComponent(compAdminPanel);
         }
-        if(role.equals("InventoryAdmin")){
-            
+        if (role.equals("InventoryAdmin")) {
+
             Company compDir = cityDirectory.getCityDir().get(cityTableIndex).getCompanyDirectory().getCompanyDirectoryList().get(selectedRowIndex);
             CompanyDirectory companyDir = cityDirectory.getCityDir().get(cityTableIndex).getCompanyDirectory();
-            
+
             String cityName = cityDirectory.getCityDir().get(cityTableIndex).getCityName();
             String companyName = cityDirectory.getCityDir().get(cityTableIndex).getCompanyDirectory().getCompanyDirectoryList().get(selectedRowIndex).getCompanyName();
-            InventoryAdminPanel compInventoryPanel = new InventoryAdminPanel(cityName,companyName,cityDirectory,splitPane);
+            InventoryAdminPanel compInventoryPanel = new InventoryAdminPanel(cityName, companyName, cityDirectory, splitPane);
             jSplitPane1.setRightComponent(compInventoryPanel);
         }
-        if(role.equals("OrderAdmin")){
-            
+        if (role.equals("OrderAdmin")) {
+
             Company compDir = cityDirectory.getCityDir().get(cityTableIndex).getCompanyDirectory().getCompanyDirectoryList().get(selectedRowIndex);
             CompanyDirectory companyDir = cityDirectory.getCityDir().get(cityTableIndex).getCompanyDirectory();
 //            Ordermgt ordMgt = cityDirectory.getCityDir().get(cityTableIndex).getCompanyDirectory().getCompanyDirectoryList().get(selectedRowIndex).getOrderMgt();
             String cityName = cityDirectory.getCityDir().get(cityTableIndex).getCityName();
             String companyName = cityDirectory.getCityDir().get(cityTableIndex).getCompanyDirectory().getCompanyDirectoryList().get(selectedRowIndex).getCompanyName();
-            MainOrderAdminJPanel compInventoryPanel = new MainOrderAdminJPanel(orderManagement,cityDirectory,community,customerDirectory,companyDir,userauthenticationdirectory,splitPane,deliveryBoyDirectory);
+            MainOrderAdminJPanel compInventoryPanel = new MainOrderAdminJPanel(orderManagement, cityDirectory, community, customerDirectory, companyDir, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
             jSplitPane1.setRightComponent(compInventoryPanel);
         }
     }//GEN-LAST:event_loginCompanyBtnActionPerformed
@@ -244,47 +265,43 @@ public class SuperCompanyAdmin extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
     private void populateCitiesTable() {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        
+
         // House Table        
         DefaultTableModel model = (DefaultTableModel) cityTable.getModel();
         model.setRowCount(0);
-        int i=0;
-        if(cityDirectory.getCityDir() != null) {
-        for(City c : cityDirectory.getCityDir()) {
-            i++;
-            Object[] row = new Object[11];
-            //row[0] = house;
-            row[0] = i;
-            row[1] = c.getCityName();
-            
-            
-            model.addRow(row);
-        }
+        int i = 0;
+        if (cityDirectory.getCityDir() != null) {
+            for (City c : cityDirectory.getCityDir()) {
+                i++;
+                Object[] row = new Object[11];
+                //row[0] = house;
+                row[0] = i;
+                row[1] = c.getCityName();
+
+                model.addRow(row);
+            }
         }
     }
 
     private void populateCompanyTable(CompanyDirectory compDir) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        
+
         // House Table        
         DefaultTableModel model = (DefaultTableModel) companyTable.getModel();
         model.setRowCount(0);
-        
-        int i=0;
-        
-        for(Company c : compDir.getCompanyDirectoryList()) {
+
+        int i = 0;
+
+        for (Company c : compDir.getCompanyDirectoryList()) {
             i++;
             Object[] row = new Object[11];
             //row[0] = house;
             row[0] = i;
             row[1] = c.getCompanyName();
-            
-            
+
             model.addRow(row);
         }
-        
+
     }
-
-
 
 }

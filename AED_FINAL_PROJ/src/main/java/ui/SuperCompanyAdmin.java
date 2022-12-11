@@ -206,7 +206,7 @@ public class SuperCompanyAdmin extends javax.swing.JPanel {
             CompanyDirectory companyDir = cityDirectory.getCityDir().get(cityTableIndex).getCompanyDirectory();
             String cityName = cityDirectory.getCityDir().get(cityTableIndex).getCityName();
             String companyName = cityDirectory.getCityDir().get(cityTableIndex).getCompanyDirectory().getCompanyDirectoryList().get(selectedRowIndex).getCompanyName();
-            DeliveryAdminPanel compAdminPanel = new DeliveryAdminPanel(cityDirectory, cityName,companyName, compDir, community, customerDirectory,companyDir,userauthenticationdirectory, splitPane, deliveryBoyDirectory);
+            DeliveryAdminMainPanel compAdminPanel = new DeliveryAdminMainPanel(cityDirectory, cityName,companyName, compDir, community, customerDirectory,companyDir,userauthenticationdirectory, splitPane, deliveryBoyDirectory);
             jSplitPane1.setRightComponent(compAdminPanel);
         }
         if(role.equals("InventoryAdmin")){

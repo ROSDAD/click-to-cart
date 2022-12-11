@@ -47,13 +47,13 @@ public class DeliveryAdminAssignPanel extends javax.swing.JPanel {
         this.company = company;
         this.community = community;
         this.customerDirectory = customerDirectory;
-        companyDirectory = companyDirectory;
-        userauthenticationdirectory = userauthenticationdirectory;
-        splitPane = splitPane;
-        deliveryBoyDirectory = deliveryBoyDirectory;
-        cityDir = cityDir;
-        cityName = cityName;
-        companyName = companyName;
+        this.companyDirectory = companyDirectory;
+        this.userauthenticationdirectory = userauthenticationdirectory;
+        this.splitPane = splitPane;
+        this.deliveryBoyDirectory = deliveryBoyDirectory;
+        this.cityDir = cityDir;
+        this.cityName = cityName;
+        this.companyName = companyName;
 
         populateOrderTable();
         populateDeliveryBoyTable();

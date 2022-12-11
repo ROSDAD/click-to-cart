@@ -17,6 +17,7 @@ import model.CompanyDirectory;
 import model.CustomerDirectory;
 import model.DeliveryBoyDirectory;
 import model.UserAuthenticationDirectory;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  *
@@ -227,25 +228,44 @@ public class CompanyEntityAdminPanel extends javax.swing.JPanel {
         String companyName = model.getValueAt(selectedRowIndex, 0).toString();
         String companyType = model.getValueAt(selectedRowIndex, 1).toString();
         long companyEmployeeCount = Long.parseLong(model.getValueAt(selectedRowIndex, 2).toString());
+        String newCompanyName;
+        while (true) {
+            newCompanyName = JOptionPane.showInputDialog(null, "Enter the company name", companyName);
+            if (StringUtils.isNotEmpty(newCompanyName)) {
+                break;
+            }
+        }
+        String newCompanyType;
+        while (true) {
+            newCompanyType = JOptionPane.showInputDialog(null, "Enter the company type", companyType);
+            if (StringUtils.isNotEmpty(newCompanyType)) {
+                break;
+            }
+        }
+        String newCompanyEmployeeCount;
+        while (true) {
+            newCompanyEmployeeCount = JOptionPane.showInputDialog(null, "Enter the company employee count ", companyEmployeeCount);
+            if (StringUtils.isNotEmpty(newCompanyEmployeeCount)) {
+                break;
+            }
+        }
 
-        String newCompanyName = JOptionPane.showInputDialog(null, "Enter the company name", companyName);
-        String newCompanyType = JOptionPane.showInputDialog(null, "Enter the company type", companyType);
-        String newCompanyEmployeeCount = JOptionPane.showInputDialog(null, "Enter the company employee count ", companyEmployeeCount);
-
-        model.setValueAt(newCompanyName, selectedRowIndex, 0);
-        model.setValueAt(newCompanyType, selectedRowIndex, 1);
-        model.setValueAt(newCompanyEmployeeCount, selectedRowIndex, 2);
+        model.setValueAt(newCompanyName, selectedRowIndex,0);
+        model.setValueAt(newCompanyType, selectedRowIndex,1);
+        model.setValueAt(newCompanyEmployeeCount, selectedRowIndex,2);
 
         //Selected City Table
         int selectedRowIndexCity = jTable1.getSelectedRow();
-        if (selectedRowIndexCity < 0) {
+        if (selectedRowIndexCity
+                < 0) {
             JOptionPane.showMessageDialog(this, "Please select a row to select city");
             return;
         }
         DefaultTableModel model1 = (DefaultTableModel) jTable1.getModel();
         String selectedCityName = model1.getValueAt(selectedRowIndexCity, 0).toString();
 
-        for (City city : cityDirectory.getCityDir()) {
+        for (City city
+                : cityDirectory.getCityDir()) {
             if (city.getCityName().equalsIgnoreCase(selectedCityName)) {
                 for (Company company : city.getCompanyDirectory().getCompanyDirectoryList()) {
                     if (company.getCompanyName().equalsIgnoreCase(selectedCompanyName)) {
@@ -257,7 +277,9 @@ public class CompanyEntityAdminPanel extends javax.swing.JPanel {
                 }
             }
         }
-        JOptionPane.showMessageDialog(this, "Company Record is Updated");
+
+        JOptionPane.showMessageDialog(this,
+                "Company Record is Updated");
     }//GEN-LAST:event_updateButton2ActionPerformed
 
     private void deleteButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButton3ActionPerformed

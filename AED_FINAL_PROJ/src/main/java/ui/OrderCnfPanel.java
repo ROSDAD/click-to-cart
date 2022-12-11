@@ -4,7 +4,21 @@
  */
 package ui;
 
+import com.byteowls.jopencage.JOpenCageGeocoder;
+import com.byteowls.jopencage.model.JOpenCageForwardRequest;
+import com.byteowls.jopencage.model.JOpenCageLatLng;
+import com.byteowls.jopencage.model.JOpenCageResponse;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 import javax.swing.event.MouseInputListener;
+import org.w3c.dom.Document;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpression;
+import javax.xml.xpath.XPathFactory;
 import org.jxmapviewer.OSMTileFactoryInfo;
 import org.jxmapviewer.input.PanMouseInputListener;
 import org.jxmapviewer.input.ZoomMouseWheelListenerCenter;
@@ -33,15 +47,33 @@ public class OrderCnfPanel extends javax.swing.JPanel {
         DefaultTileFactory tileFactory = new DefaultTileFactory(info);
         jXMapViewer1.setTileFactory(tileFactory);
         
-        GeoPosition geo = new GeoPosition(42.3398741,-71.0897081);
+        //String latLongs[];
+                
+        try {        
+            
+        JOpenCageGeocoder jO = new JOpenCageGeocoder("b530cbd50cd843c485a70dff613da0aa");
+        
+        JOpenCageForwardRequest request = new JOpenCageForwardRequest("Northeastern University Boston");
+        //request.setRestrictToCountryCode("za"); // restrict results to a specific country
+        
+        JOpenCageResponse response = jO.forward(request);
+        JOpenCageLatLng firstResultLatLng = response.getFirstPosition(); // get the coordinate pair of the first result
+        System.out.println(firstResultLatLng.getLat().toString() + "," + firstResultLatLng.getLng().toString());
+        
+        GeoPosition geo = new GeoPosition(firstResultLatLng.getLat(),firstResultLatLng.getLng());
+        
         jXMapViewer1.setAddressLocation(geo);
-        jXMapViewer1.setZoom(4);
+        jXMapViewer1.setZoom(2);
         
         MouseInputListener mm = new PanMouseInputListener(jXMapViewer1);
         jXMapViewer1.addMouseListener(mm);
         jXMapViewer1.addMouseMotionListener(mm);
         jXMapViewer1.addMouseWheelListener(new ZoomMouseWheelListenerCenter(jXMapViewer1));
-    }
+        }
+        catch(Exception e) {            
+            System.out.println(e);            
+        }
+    }   
 
     /**
      * This method is called from within the constructor to initialize the form.

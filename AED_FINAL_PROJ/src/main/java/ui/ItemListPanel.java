@@ -3,32 +3,43 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package ui;
+
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.JSplitPane;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import model.*;
+
 /**
  *
  * @author rosha
  */
 public class ItemListPanel extends javax.swing.JPanel {
 
+    private Customer cust;
+    private Company comp;
+    private JSplitPane splitPane;
+
     /**
      * Creates new form ItemListPanel
      */
-    public ItemListPanel() {
+    public ItemListPanel(Customer cust, Company comp,JSplitPane splitPane) {
         initComponents();
+        System.out.println(comp);
+        this.cust = cust;
+        this.comp = comp;
+        this.splitPane = splitPane;
         filterComboBox.removeAllItems();
-        Company comp = new Company(); // need to be changed
+//         Company comp = new Company(); // need to be changed
         ArrayList<Inventory> dirModel = comp.getInventoryManagement().getInventoryMgt();
-           
-        for(int i = 0; i<dirModel.size();i++){
+
+        for (int i = 0; i < dirModel.size(); i++) {
             filterComboBox.addItem(dirModel.get(i).getInventoryCategory());
-                   
-        }  
-        
+
+        }
+
 //        displayItemList();
     }
 
@@ -51,7 +62,7 @@ public class ItemListPanel extends javax.swing.JPanel {
         searchBtn = new javax.swing.JButton();
         filterComboBox = new javax.swing.JComboBox<>();
         prodIdLbl = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        cartButton = new javax.swing.JButton();
 
         itemListTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -110,15 +121,20 @@ public class ItemListPanel extends javax.swing.JPanel {
         prodIdLbl.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         prodIdLbl.setText("Product ID");
 
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton1.setText("CART");
+        cartButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        cartButton.setText("CART");
+        cartButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cartButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(125, Short.MAX_VALUE)
+                .addGap(53, 53, 53)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(addToCart)
@@ -133,7 +149,7 @@ public class ItemListPanel extends javax.swing.JPanel {
                                 .addGap(18, 18, 18)
                                 .addComponent(itemSeacrhBox, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(searchBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(searchBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(prodIdLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -142,29 +158,34 @@ public class ItemListPanel extends javax.swing.JPanel {
                                     .addGap(86, 86, 86)
                                     .addComponent(quantityTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 695, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(41, 41, 41)
-                        .addComponent(jButton1)
-                        .addContainerGap())))
+                        .addGap(18, 18, 18)
+                        .addComponent(cartButton, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(29, 29, 29))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addGap(50, 50, 50)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
-                    .addComponent(itemSeacrhBox, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
-                    .addComponent(searchBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(filterComboBox))
-                .addGap(18, 18, 18)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(filterComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(24, 24, 24))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(searchBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cartButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(itemSeacrhBox, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(24, 24, 24)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(24, 24, 24)
                 .addComponent(viewDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(pNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(quantityTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(prodIdLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(30, 30, 30)
                 .addComponent(addToCart, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(84, 84, 84))
         );
@@ -173,7 +194,7 @@ public class ItemListPanel extends javax.swing.JPanel {
     private void viewDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewDetailsActionPerformed
         // TODO add your handling code here:
         int selectedRowIndex = itemListTable.getSelectedRow();
-        if (selectedRowIndex<0) {
+        if (selectedRowIndex < 0) {
             JOptionPane.showMessageDialog(this, "Select a row to delete.");
             return;
         }
@@ -181,26 +202,23 @@ public class ItemListPanel extends javax.swing.JPanel {
         prodIdLbl.setText((model.getValueAt(selectedRowIndex, 0)).toString());
         pNameLabel.setText((model.getValueAt(selectedRowIndex, 1)).toString());
         quantityTxt.setText("0");
-        
-        
+
+
     }//GEN-LAST:event_viewDetailsActionPerformed
 
     private void addToCartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addToCartActionPerformed
         // TODO add your handling code here:
         int quantity = Integer.parseInt(quantityTxt.getText());
-        Company comp = new Company();
         int prodQuantity = comp.getInventoryManagement().getInventoryMgt().get(0).getInventoryProductDir().getInventoryProductDir().get(itemListTable.getSelectedRow()).getInventoryQty();
-        if(quantity<=prodQuantity){
+        if (quantity <= prodQuantity) {
             DefaultTableModel model = (DefaultTableModel) itemListTable.getModel();
             int selectedRowIndex = itemListTable.getSelectedRow();
-            //Testing
-            //Customer cust = new Customer();
-            //Orderedprod ordProd = cust.getCart().addNewCartProd();
-//            ordProd.setProdId((model.getValueAt(selectedRowIndex, 0)).toString());
-//            double price = quantity*Integer.parseInt((model.getValueAt(selectedRowIndex, 2)).toString());
-//            ordProd.setProdTotalprice(price);
-//            ordProd.setProdcount(quantity);
-        }else{
+            Orderedprod ordProd = cust.getCart().addNewCartProd();
+            ordProd.setProdId((model.getValueAt(selectedRowIndex, 0)).toString());
+            double price = Double.parseDouble(String.valueOf(quantity * Double.parseDouble((model.getValueAt(selectedRowIndex, 2)).toString())));
+            ordProd.setProdTotalprice(price);
+            ordProd.setProdcount(quantity);
+        } else {
             JOptionPane.showMessageDialog(this, "Not Enough Quantity left In Inventory!");
         }
     }//GEN-LAST:event_addToCartActionPerformed
@@ -215,19 +233,26 @@ public class ItemListPanel extends javax.swing.JPanel {
 
     private void filterComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterComboBoxActionPerformed
         // TODO add your handling code here:
-        if(filterComboBox.getSelectedIndex()!=-1){
-           displayItemList();
-            
+        if (filterComboBox.getSelectedIndex() != -1) {
+            displayItemList();
+
         }
     }//GEN-LAST:event_filterComboBoxActionPerformed
+
+    private void cartButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cartButtonActionPerformed
+        // TODO add your handling code here:
+        CartPanel cartPanel = new CartPanel(cust, comp, splitPane);
+        splitPane.setRightComponent(cartPanel);
+        
+    }//GEN-LAST:event_cartButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addToCart;
+    private javax.swing.JButton cartButton;
     private javax.swing.JComboBox<String> filterComboBox;
     private javax.swing.JTable itemListTable;
     private javax.swing.JTextField itemSeacrhBox;
-    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel pNameLabel;
     private javax.swing.JLabel prodIdLbl;
@@ -238,36 +263,32 @@ public class ItemListPanel extends javax.swing.JPanel {
     private void displayItemList() {
         DefaultTableModel model = (DefaultTableModel) itemListTable.getModel();
         model.setRowCount(0);
-        Company comp = new Company(); //need to be changed
-        
+
         ArrayList<Inventory> dirModel = comp.getInventoryManagement().getInventoryMgt();
-        
-        
-        int j = 0;   
-        for(int i = 0; i<dirModel.size();i++){
-            if(dirModel.get(i).getInventoryCategory().equals(filterComboBox.getSelectedItem().toString())){
+
+        int j = 0;
+        for (int i = 0; i < dirModel.size(); i++) {
+            if (dirModel.get(i).getInventoryCategory().equals(filterComboBox.getSelectedItem().toString())) {
                 j = i;
                 break;
             }
-                   
-        }  
-        ArrayList<InventoryProduct> mainM = comp.getInventoryManagement().getInventoryMgt().get(j).getInventoryProductDir().getInventoryProductDir();
-        for (int i =0;i<mainM.size();i++){
-          if(mainM.get(i) != null){
-              
-            Object[] row = new Object[4];
-            row[0] = mainM.get(i).getPid();
 
-            row[1] = mainM.get(i).getProductName();
-            row[2] = mainM.get(i).getPrice();
-            row[3] = mainM.get(i).getInventoryQty();
-            
-            model.addRow(row);
-           
-            
-          }
         }
-        
+        ArrayList<InventoryProduct> mainM = comp.getInventoryManagement().getInventoryMgt().get(j).getInventoryProductDir().getInventoryProductDir();
+        for (int i = 0; i < mainM.size(); i++) {
+            if (mainM.get(i) != null) {
+
+                Object[] row = new Object[4];
+                row[0] = mainM.get(i).getPid();
+
+                row[1] = mainM.get(i).getProductName();
+                row[2] = mainM.get(i).getPrice();
+                row[3] = mainM.get(i).getInventoryQty();
+
+                model.addRow(row);
+
+            }
+        }
 
     }
 

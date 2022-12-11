@@ -59,40 +59,40 @@ public class MainJFrame extends javax.swing.JFrame {
         
         
 
-        community = new Community();
-        customerDirectory = new CustomerDirectory();
-        userauthenticationdirectory = new UserAuthenticationDirectory();
-        cityDirectory = new CityDir();
-        companyDir = new CompanyDirectory();
-        inventoryManagement = new InventoryMgt();
-        deliveryBoyDirectory = new DeliveryBoyDirectory();
-        orderManagement = new Ordermgt();
-
-        invProdDir = new InventoryProductDir();
-        
-        InventoryProduct invProd = invProdDir.addNewInventoryProduct();
-        invProd.setProductName("TV");
-        invProd.setPrice(500);
-        invProd.setInventoryQty(24);
-        
-        Inventory inv = inventoryManagement.addNewInventory();
-        inv.setInventoryCategory("Default");
-        inv.setInventoryType("Critical");
-        inv.setInventoryProductDir(invProdDir);
-        
-        company = companyDir.addNewCompany();
-        company.setCompanyName("Costco");
-        company.setCompanyType("Type 1");
-        company.setInventoryManagement(inventoryManagement);
-
-        //Default City
-        city = cityDirectory.addNewCity();
-
-        city.setCityName("Boston");
-        city.setCityType("Urban");
-        city.setPopulation(25000);
-        city.setCompanyDirectory(companyDir);
-
+//        community = new Community();
+//        customerDirectory = new CustomerDirectory();
+//        userauthenticationdirectory = new UserAuthenticationDirectory();
+//        cityDirectory = new CityDir();
+//        companyDir = new CompanyDirectory();
+//        inventoryManagement = new InventoryMgt();
+//        deliveryBoyDirectory = new DeliveryBoyDirectory();
+//        orderManagement = new Ordermgt();
+//
+//        invProdDir = new InventoryProductDir();
+//        
+//        InventoryProduct invProd = invProdDir.addNewInventoryProduct();
+//        invProd.setProductName("TV");
+//        invProd.setPrice(500);
+//        invProd.setInventoryQty(24);
+//        
+//        Inventory inv = inventoryManagement.addNewInventory();
+//        inv.setInventoryCategory("Default");
+//        inv.setInventoryType("Critical");
+//        inv.setInventoryProductDir(invProdDir);
+//        
+//        company = companyDir.addNewCompany();
+//        company.setCompanyName("Costco");
+//        company.setCompanyType("Type 1");
+//        company.setInventoryManagement(inventoryManagement);
+//
+//        //Default City
+//        city = cityDirectory.addNewCity();
+//
+//        city.setCityName("Boston");
+//        city.setCityType("Urban");
+//        city.setPopulation(25000);
+//        city.setCompanyDirectory(companyDir);
+//
         userAuthentication = userauthenticationdirectory.addNewUserAuthentication();
         userAuthentication.setUserName("abc");
         userAuthentication.setPassword("abc");

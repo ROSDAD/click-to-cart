@@ -4,10 +4,12 @@
  */
 package ui;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JSplitPane;
 import javax.swing.table.DefaultTableModel;
+import model.City;
 import model.CityDir;
 import model.Community;
 import model.CompanyDirectory;
@@ -15,12 +17,13 @@ import model.Customer;
 import model.CustomerDirectory;
 import model.DeliveryBoyDirectory;
 import model.Orderedprod;
+import model.Ordermgt;
 import model.Orders;
 import model.UserAuthenticationDirectory;
 
 /**
  *
- * @author 91961
+ * @author Abhishek
  */
 public class MainOrderAdminJPanel extends javax.swing.JPanel {
 
@@ -31,6 +34,7 @@ public class MainOrderAdminJPanel extends javax.swing.JPanel {
     private Community community;
     private UserAuthenticationDirectory userauthenticationdirectory;
     private DeliveryBoyDirectory deliveryBoyDirectory;
+    private Ordermgt orderManagement;
 
     /**
      * Creates new form MainOrderAdminJPanel
@@ -39,7 +43,7 @@ public class MainOrderAdminJPanel extends javax.swing.JPanel {
         initComponents();
     }
 
-    MainOrderAdminJPanel(CityDir cityDirectory, Community community, CustomerDirectory customerDirectory, CompanyDirectory companyDirectory, UserAuthenticationDirectory userauthenticationdirectory, JSplitPane splitPane, DeliveryBoyDirectory deliveryBoyDirectory) {
+    public MainOrderAdminJPanel(Ordermgt orderManagement, CityDir cityDirectory, Community community, CustomerDirectory customerDirectory, CompanyDirectory companyDirectory, UserAuthenticationDirectory userauthenticationdirectory, JSplitPane splitPane, DeliveryBoyDirectory deliveryBoyDirectory) {
         initComponents();
         this.cityDirectory = cityDirectory;
         this.community = community;
@@ -48,6 +52,21 @@ public class MainOrderAdminJPanel extends javax.swing.JPanel {
         this.companyDirectory = companyDirectory;
         this.userauthenticationdirectory = userauthenticationdirectory;
         this.deliveryBoyDirectory = deliveryBoyDirectory;
+        this.orderManagement = orderManagement;
+
+    }
+
+    /**
+     * Populate the table cities rows from the arrayList.
+     */
+    private void populateCustomers() {
+        DefaultTableModel model = (DefaultTableModel) jTable3.getModel();
+        model.setRowCount(0);
+        for (Customer customer : customerDirectory.getCustomerList()) {
+            Object[] row = new Object[1];
+            row[0] = customer.getUserName();
+            model.addRow(row);
+        }
     }
 
     /**

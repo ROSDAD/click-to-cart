@@ -25,7 +25,9 @@ import org.jxmapviewer.input.ZoomMouseWheelListenerCenter;
 import org.jxmapviewer.viewer.DefaultTileFactory;
 import org.jxmapviewer.viewer.GeoPosition;
 import org.jxmapviewer.viewer.TileFactoryInfo;
-
+import javax.swing.JSplitPane;
+import model.Company;
+import model.Customer;
 
 /**
  *
@@ -36,8 +38,22 @@ public class OrderCnfPanel extends javax.swing.JPanel {
     /**
      * Creates new form OrderCnfPanel
      */
+    
+    private Customer cust;
+    private Company comp;
+    private JSplitPane splitPane;
+    
     public OrderCnfPanel() {
         initComponents();
+        
+        init();
+    }
+    
+    public OrderCnfPanel(Customer cust, Company comp, JSplitPane splitPane) {
+        initComponents();
+        this.cust = cust;
+        this.comp = comp;
+        this.splitPane = splitPane;
         
         init();
     }

@@ -17,7 +17,7 @@ import model.UserAuthenticationDirectory;
 
 /**
  *
- * @author 91961
+ * @author Abhishek
  */
 public class LoginJPanel extends javax.swing.JPanel {
 
@@ -69,6 +69,7 @@ public class LoginJPanel extends javax.swing.JPanel {
         orderAdminRadioButton = new javax.swing.JRadioButton();
         deliveryAdminRadioButton = new javax.swing.JRadioButton();
         inventoryAdminRadioButton = new javax.swing.JRadioButton();
+        jButton1 = new javax.swing.JButton();
 
         createLabel1.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         createLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -133,6 +134,8 @@ public class LoginJPanel extends javax.swing.JPanel {
             }
         });
 
+        jButton1.setText("jButton1");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -175,7 +178,9 @@ public class LoginJPanel extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(loginButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(306, 306, 306))
+                .addGap(134, 134, 134)
+                .addComponent(jButton1)
+                .addGap(97, 97, 97))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -209,7 +214,9 @@ public class LoginJPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(inventoryAdminRadioButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
-                .addComponent(loginButton1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(loginButton1)
+                    .addComponent(jButton1))
                 .addGap(15, 15, 15))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -260,11 +267,11 @@ public class LoginJPanel extends javax.swing.JPanel {
 
         if (flag && usertype.equalsIgnoreCase("Customer")) {
             JOptionPane.showMessageDialog(this, "Login is successfully done for customer");
-            MainCustomerJPanel mainCustomerJPanel = new MainCustomerJPanel(usernameTextField1.getText(), orderManagement, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
+            MainCustomerJPanel mainCustomerJPanel = new MainCustomerJPanel(cityDirectory,usernameTextField1.getText(), orderManagement, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
             splitPane.setRightComponent(mainCustomerJPanel);
         } else if (flag && usertype.equalsIgnoreCase("DeliveryBoy")) {
             JOptionPane.showMessageDialog(this, "Login is successfully done for Delivery Boy");
-            MainDeliveryBoyJPanel mainDeliveryBoyJPanel = new MainDeliveryBoyJPanel(community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
+            MainDeliveryBoyJPanel mainDeliveryBoyJPanel = new MainDeliveryBoyJPanel(community,usernameTextField1.getText(), customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
             splitPane.setRightComponent(mainDeliveryBoyJPanel);
         } else if (flag && usertype.equalsIgnoreCase("CompanyAdmin")) {
             JOptionPane.showMessageDialog(this, "Login is successfully done for Company Admin");
@@ -272,17 +279,18 @@ public class LoginJPanel extends javax.swing.JPanel {
             splitPane.setRightComponent(mainCompanyAdminPanel);
         } else if (flag && usertype.equalsIgnoreCase("OrderAdmin")) {
             JOptionPane.showMessageDialog(this, "Login is successfully done for Order Admin");
-            MainOrderAdminJPanel mainOrderAdminJPanel = new MainOrderAdminJPanel(cityDirectory, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
-            splitPane.setRightComponent(mainOrderAdminJPanel);
-        } else if (flag && usertype.equalsIgnoreCase("DeliveryAdmin")) {
-            JOptionPane.showMessageDialog(this, "Login is successfully done for Delivery Admin");
-            MainOrderAdminJPanel mainOrderAdminJPanel = new MainOrderAdminJPanel(cityDirectory, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
-            splitPane.setRightComponent(mainOrderAdminJPanel);
-        } else if (flag && usertype.equalsIgnoreCase("InventoryAdmin")) {
-            JOptionPane.showMessageDialog(this, "Login is successfully done for Inventory Admin");
-            MainOrderAdminJPanel mainOrderAdminJPanel = new MainOrderAdminJPanel(cityDirectory, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
+            MainOrderAdminJPanel mainOrderAdminJPanel = new MainOrderAdminJPanel(orderManagement,cityDirectory, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
             splitPane.setRightComponent(mainOrderAdminJPanel);
         }
+//        } else if (flag && usertype.equalsIgnoreCase("DeliveryAdmin")) {
+//            JOptionPane.showMessageDialog(this, "Login is successfully done for Delivery Admin");
+//            MainOrderAdminJPanel mainOrderAdminJPanel = new MainOrderAdminJPanel(cityDirectory, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
+//            splitPane.setRightComponent(mainOrderAdminJPanel);
+//        } else if (flag && usertype.equalsIgnoreCase("InventoryAdmin")) {
+//            JOptionPane.showMessageDialog(this, "Login is successfully done for Inventory Admin");
+//            MainOrderAdminJPanel inventoryAdminJPanel = new MainOrderAdminJPanel(cityDirectory, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
+//            splitPane.setRightComponent(inventoryAdminJPanel);
+//        }
     }//GEN-LAST:event_loginButton1ActionPerformed
 
     private void customerRadioButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customerRadioButton5ActionPerformed
@@ -309,6 +317,7 @@ public class LoginJPanel extends javax.swing.JPanel {
     private javax.swing.JRadioButton deliveryAdminRadioButton;
     private javax.swing.JRadioButton deliveryBoyRadioButton4;
     private javax.swing.JRadioButton inventoryAdminRadioButton;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JButton loginButton1;

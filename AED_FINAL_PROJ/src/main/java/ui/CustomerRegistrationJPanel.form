@@ -86,9 +86,6 @@
   </Layout>
   <SubComponents>
     <Component class="javax.swing.JTextField" name="nameTextField">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Name"/>
-      </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nameTextFieldActionPerformed"/>
       </Events>
@@ -102,19 +99,10 @@
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="nearestLandMarkTextField">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Nearest LandMark"/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="addressTextField">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Address"/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="usernameTextField">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Username"/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
@@ -156,9 +144,6 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="passwordTextField">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Password"/>
-      </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="passwordTextFieldActionPerformed"/>
       </Events>

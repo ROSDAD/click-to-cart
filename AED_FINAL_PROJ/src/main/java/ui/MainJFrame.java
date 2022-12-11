@@ -110,7 +110,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
         List<Orders> ordersList = new ArrayList<>();
         for (int i = 0; i < 2; i++) {
-            
+
             Orders orders = new Orders();
             orders.setOrderId(String.valueOf(i));
             orders.setOrderStatus("OrderPlaced");
@@ -120,6 +120,7 @@ public class MainJFrame extends javax.swing.JFrame {
             List<Orderedprod> orderedprodList = new ArrayList<>();
             Orderedprod orderedprod = new Orderedprod();
             orderedprod.setProdId("1");
+            orderedprod.setProductName("sr");
             orderedprod.setProdTotalprice(500.78);
             orderedprod.setProdcount(12);
             orderedprodList.add(orderedprod);
@@ -128,7 +129,7 @@ public class MainJFrame extends javax.swing.JFrame {
         }
 
         orderManagement.setOrders(ordersList);
-        
+
         deliveryBoy = deliveryBoyDirectory.addNewDeliveryBoy();
         deliveryBoy.setDeliveryBoyName("de");
         deliveryBoy.setOrderList(ordersList);
@@ -136,7 +137,9 @@ public class MainJFrame extends javax.swing.JFrame {
         customer = customerDirectory.addNewCustomer();
         customer.setUserName("abc");
         customer.setOrders(ordersList);
-
+        
+//        ChatServerGUI chatServerGUI = new ChatServerGUI();
+//        chatServerGUI.setVisible(true);
     }
 
     /**
@@ -339,7 +342,8 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void supAdminTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supAdminTestActionPerformed
         // TODO add your handling code here:
-        SuperAdminPanel supAdmin = new SuperAdminPanel(cityDirectory, orderManagement,community, customerDirectory, companyDir, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
+        System.out.println(orderManagement.getOrders().size());
+        SuperAdminPanel supAdmin = new SuperAdminPanel(cityDirectory, orderManagement, community, customerDirectory, companyDir, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
         splitPane.setRightComponent(supAdmin);
     }//GEN-LAST:event_supAdminTestActionPerformed
 

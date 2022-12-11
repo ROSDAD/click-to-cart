@@ -4,6 +4,9 @@
  */
 package ui;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JSplitPane;
 import model.CityDir;
 import model.Community;
@@ -42,6 +45,14 @@ public class MainCompanyAdminJPanel extends javax.swing.JPanel {
         this.companyDirectory = companyDirectory;
         this.userauthenticationdirectory = userauthenticationdirectory;
         this.deliveryBoyDirectory = deliveryBoyDirectory;
+//        ChatServer chatserver = new ChatServer();
+//        try {
+//             System.out.println("Before server");
+//            chatserver.startServer();
+//             System.out.println("After server");
+//        } catch (IOException ex) {
+//            Logger.getLogger(MainCompanyAdminJPanel.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }
 
     /**

@@ -4,8 +4,12 @@
  */
 package ui;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
 import javax.swing.JSplitPane;
 import javax.swing.table.DefaultTableModel;
@@ -20,6 +24,7 @@ import model.Orderedprod;
 import model.Ordermgt;
 import model.Orders;
 import model.UserAuthenticationDirectory;
+import model.InventoryProduct;
 
 /**
  *
@@ -41,10 +46,16 @@ public class MainOrderAdminJPanel extends javax.swing.JPanel {
      */
     public MainOrderAdminJPanel() {
         initComponents();
+        ButtonGroup buttonGroup = new ButtonGroup();
+        buttonGroup.add(approvedRadioButton);
+        buttonGroup.add(rejectedRadioButton);
     }
 
     public MainOrderAdminJPanel(Ordermgt orderManagement, CityDir cityDirectory, Community community, CustomerDirectory customerDirectory, CompanyDirectory companyDirectory, UserAuthenticationDirectory userauthenticationdirectory, JSplitPane splitPane, DeliveryBoyDirectory deliveryBoyDirectory) {
         initComponents();
+        ButtonGroup buttonGroup = new ButtonGroup();
+        buttonGroup.add(approvedRadioButton);
+        buttonGroup.add(rejectedRadioButton);
         this.cityDirectory = cityDirectory;
         this.community = community;
         this.splitPane = splitPane;
@@ -53,7 +64,6 @@ public class MainOrderAdminJPanel extends javax.swing.JPanel {
         this.userauthenticationdirectory = userauthenticationdirectory;
         this.deliveryBoyDirectory = deliveryBoyDirectory;
         this.orderManagement = orderManagement;
-
     }
 
     /**
@@ -90,6 +100,7 @@ public class MainOrderAdminJPanel extends javax.swing.JPanel {
         viewCustomersButton = new javax.swing.JButton();
         approvedRadioButton = new javax.swing.JRadioButton();
         rejectedRadioButton = new javax.swing.JRadioButton();
+        jButton1 = new javax.swing.JButton();
 
         jTable1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -130,17 +141,17 @@ public class MainOrderAdminJPanel extends javax.swing.JPanel {
         jTable2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Product ID", "Product count", "Product Total Price"
+                "Product ID", "Product Name", "Product count", "Product Total Price"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class
+                java.lang.String.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Integer.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -180,50 +191,67 @@ public class MainOrderAdminJPanel extends javax.swing.JPanel {
 
         rejectedRadioButton.setText("Rejected");
 
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(103, 109, Short.MAX_VALUE)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(25, 25, 25)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 536, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(ordersjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(rejectedRadioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(updateOrderCancellationRequestrButton, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(orderedProductsjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(104, 104, 104)))
-                .addGap(40, 40, 40))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(275, 275, 275)
-                        .addComponent(viewCustomersButton))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(ordersjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(rejectedRadioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(updateOrderCancellationRequestrButton, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(165, 165, 165)
+                                .addComponent(orderedProductsjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(96, 96, 96)
+                                .addComponent(jButton1))
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 486, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(201, 201, 201)
-                        .addComponent(approvedRadioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(approvedRadioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(194, 194, 194)
+                .addComponent(viewCustomersButton)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(viewCustomersButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(viewCustomersButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 161, Short.MAX_VALUE)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -231,15 +259,16 @@ public class MainOrderAdminJPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(36, 36, 36)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(updateOrderCancellationRequestrButton)
                             .addComponent(ordersjButton)
                             .addComponent(orderedProductsjButton)))
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(approvedRadioButton)
-                        .addGap(12, 12, 12)
-                        .addComponent(rejectedRadioButton)))
-                .addGap(15, 15, 15))
+                        .addGap(11, 11, 11)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(rejectedRadioButton)
+                            .addComponent(updateOrderCancellationRequestrButton))))
+                .addGap(14, 14, 14))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -260,6 +289,11 @@ public class MainOrderAdminJPanel extends javax.swing.JPanel {
         }
         DefaultTableModel modelOrder = (DefaultTableModel) jTable1.getModel();
         String orderStatus = modelOrder.getValueAt(selectedRowOrderIndex, 4).toString();
+        
+        if(!orderStatus.equalsIgnoreCase("Pending_for_Approval")){
+            JOptionPane.showMessageDialog(this, "Order Admin can only cancel pending for approval order status");
+            return;
+        }
         String selectedOrderID = modelOrder.getValueAt(selectedRowOrderIndex, 0).toString();
         String approvedOrCancelled = "";
 
@@ -280,15 +314,17 @@ public class MainOrderAdminJPanel extends javax.swing.JPanel {
                 for (Orders orders : customer.getOrders()) {
                     if (orders.getOrderId().equalsIgnoreCase(selectedOrderID)) {
                         System.out.println(selectedOrderID + " " + orders.getOrderId());
-                        if (approvedOrCancelled.equalsIgnoreCase("Approved")) {
-                            orders.setOrderStatus("Cancelled");
-                            orders.setOrderAdminApproval(true);
-                            break;
-                        } else {
-                            previousOrderStatus = orders.getPreviousOrderStatus();
-                            orders.setOrderStatus(previousOrderStatus);
-                            orders.setOrderAdminApproval(false);
-                            break;
+                        if (orderStatus.equalsIgnoreCase("Pending_for_Approval")) {
+                            if (approvedOrCancelled.equalsIgnoreCase("Approved")) {
+                                orders.setOrderStatus("Cancelled");
+                                orders.setOrderAdminApproval(true);
+                                break;
+                            } else {
+                                previousOrderStatus = orders.getPreviousOrderStatus();
+                                orders.setOrderStatus(previousOrderStatus);
+                                orders.setOrderAdminApproval(false);
+                                break;
+                            }
                         }
                     }
                 }
@@ -319,7 +355,6 @@ public class MainOrderAdminJPanel extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         String orderID = model.getValueAt(selectedRowIndex, 0).toString();
 
-
         for (Orders order : orderManagement.getOrders()) {
             if (order.getOrderId().equalsIgnoreCase(orderID)) {
                 if (order.getOrderedProds().isEmpty()) {
@@ -339,10 +374,21 @@ public class MainOrderAdminJPanel extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
         model.setRowCount(0);
         for (Orderedprod orderedprod : OrderedprodList) {
-            Object[] row = new Object[3];
+//            String pName = "";
+//             for (int k = 0; k < comp.getInventoryManagement().getInventoryMgt().size(); k++) {
+//                    List<InventoryProduct> mainM = comp.getInventoryManagement().getInventoryMgt().get(k).getInventoryProductDir().getInventoryProductDir();
+//                    for (int j = 0; j < mainM.size(); j++) {
+//                        if (orderedprod.getProdid().equals(mainM.get(j).getPid())) {
+//                            pName = mainM.get(j).getProductName();
+//                        }
+//                    }
+//
+//                }
+            Object[] row = new Object[4];
             row[0] = orderedprod.getProdid();
-            row[1] = orderedprod.getprodcount();
-            row[2] = orderedprod.getProdTotalprice();
+            row[1] = orderedprod.getProductName();
+            row[2] = orderedprod.getprodcount();
+            row[3] = orderedprod.getProdTotalprice();
             model.addRow(row);
         }
     }
@@ -382,9 +428,14 @@ public class MainOrderAdminJPanel extends javax.swing.JPanel {
         populateCustomers();
     }//GEN-LAST:event_viewCustomersButtonActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JRadioButton approvedRadioButton;
+    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;

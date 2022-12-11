@@ -262,19 +262,14 @@ public class InventoryAdminRegistrationJPanel extends javax.swing.JPanel {
         int rowToModel = 0;
         rowToModel = jTable1.convertRowIndexToModel(selectedRowIndex);
         model.removeRow(rowToModel);
-
+        
         String selectedUsername = model.getValueAt(selectedRowIndex, 0).toString();
 
-        try {
-            for (UserAuthentication userAuthentication : userauthenticationdirectory.getUserAuthenticationList()) {
-                if (userAuthentication.getUserName().equalsIgnoreCase(selectedUsername)
-                        && userAuthentication.getUserType().equalsIgnoreCase("InventoryAdmin")) {
-                    userauthenticationdirectory.deleteUserAuthentication(userAuthentication);
-                    populateInventoryAdmin();
-                }
+        for (UserAuthentication userAuthentication : userauthenticationdirectory.getUserAuthenticationList()) {
+            if (userAuthentication.getUserName().equalsIgnoreCase(selectedUsername)
+                    && userAuthentication.getUserType().equalsIgnoreCase("InventoryAdmin")) {
+                userauthenticationdirectory.deleteUserAuthentication(selectedRowIndex);
             }
-        } catch (Exception exception) {
-
         }
         JOptionPane.showMessageDialog(this, "Inventory Admin is deleted");
     }//GEN-LAST:event_deleteInventoryAdminButtonActionPerformed

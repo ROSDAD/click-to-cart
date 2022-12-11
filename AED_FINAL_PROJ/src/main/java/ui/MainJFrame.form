@@ -66,8 +66,9 @@
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="btnCustomerRegister" alignment="0" max="32767" attributes="0"/>
                           <Component id="btnLogin" alignment="0" max="32767" attributes="0"/>
+                          <Component id="deliveryBoyRegistrationJButton" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="9" max="32767" attributes="0"/>
+                      <EmptySpace pref="29" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -78,7 +79,9 @@
                       <Component id="btnLogin" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
                       <Component id="btnCustomerRegister" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="449" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
+                      <Component id="deliveryBoyRegistrationJButton" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="385" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -98,6 +101,14 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCustomerRegisterActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="deliveryBoyRegistrationJButton">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Delivery Boy Register"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deliveryBoyRegistrationJButtonActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>
@@ -190,7 +201,7 @@
             </Component>
             <Component class="javax.swing.JButton" name="cityAdminTest">
               <Properties>
-                <Property name="text" type="java.lang.String" value="City Admin Test"/>
+                <Property name="text" type="java.lang.String" value="Delivery Admin Test"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cityAdminTestActionPerformed"/>

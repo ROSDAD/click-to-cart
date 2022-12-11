@@ -11,26 +11,22 @@ import java.util.ArrayList;
  * @author rosha
  */
 public class Cart {
-
+    
     private ArrayList<Orderedprod> cartProd;
     private double totalPrice;
-
-    public Cart() {
-        this.cartProd = new ArrayList<>();
-    }
-
+    
+    
 //    private CompanyDir companyDir;
 //    private CommunityDir communityDir;
+
     public Orderedprod addNewCartProd() {
         Orderedprod ord = new Orderedprod();
         cartProd.add(ord);
         return ord;
     }
-
-    public void deleteCartProd(Orderedprod objProd) {
+    public void deleteCartProd(Orderedprod objProd){
         cartProd.remove(objProd);
     }
-
     public ArrayList<Orderedprod> getCartProd() {
         return cartProd;
     }
@@ -42,5 +38,6 @@ public class Cart {
     public void setTotalPrice(double totalPrice) {
         this.totalPrice = totalPrice;
     }
+
 
 }

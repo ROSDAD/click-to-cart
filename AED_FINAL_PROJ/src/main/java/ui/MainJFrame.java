@@ -7,28 +7,19 @@ package ui;
 
 import javax.swing.JFrame;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
 import javax.swing.JSplitPane;
 import model.City;
 import model.CityDir;
 import model.Community;
 import model.Company;
 import model.CompanyDirectory;
-import model.Customer;
 import model.CustomerDirectory;
-import model.DeliveryBoy;
 import model.DeliveryBoyDirectory;
 import model.Inventory;
 import model.InventoryMgt;
 import model.InventoryProduct;
 import model.InventoryProductDir;
-import model.Orderedprod;
 import model.Ordermgt;
-import model.Orders;
-import model.Payment;
-import model.UserAuthentication;
 import model.UserAuthenticationDirectory;
 
 /**
@@ -48,10 +39,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private Ordermgt orderManagement;
     private City city;
     private Company company;
-    private UserAuthentication userAuthentication;
-    private DeliveryBoy deliveryBoy;
-    private Customer customer;
-
+    
     public MainJFrame() {
         initComponents();
 
@@ -69,13 +57,12 @@ public class MainJFrame extends javax.swing.JFrame {
         orderManagement = new Ordermgt();
 
         invProdDir = new InventoryProductDir();
-
+        
         InventoryProduct invProd = invProdDir.addNewInventoryProduct();
         invProd.setProductName("TV");
-        invProd.setPid(UUID.randomUUID().toString());
         invProd.setPrice(500);
         invProd.setInventoryQty(24);
-
+        
         Inventory inv = inventoryManagement.addNewInventory();
         inv.setInventoryCategory("Default");
         inv.setInventoryType("Critical");
@@ -93,44 +80,6 @@ public class MainJFrame extends javax.swing.JFrame {
         city.setCityType("Urban");
         city.setPopulation(25000);
         city.setCompanyDirectory(companyDir);
-
-        userAuthentication = userauthenticationdirectory.addNewUserAuthentication();
-        userAuthentication.setUserName("abc");
-        userAuthentication.setPassword("abc");
-        userAuthentication.setUserType("Customer");
-
-        userAuthentication = userauthenticationdirectory.addNewUserAuthentication();
-        userAuthentication.setUserName("abc1");
-        userAuthentication.setPassword("abc1");
-        userAuthentication.setUserType("OrderAdmin");
-
-        List<Orders> ordersList = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            Orders orders = new Orders();
-
-            orders.setOrderId(String.valueOf(i));
-            orders.setOrderStatus("OrderPlaced");
-            Payment payment = new Payment();
-            payment.setPaymentType("Debit");
-            orders.setPaymentType(payment);
-            List<Orderedprod> orderedprodList = new ArrayList<>();
-            Orderedprod orderedprod = new Orderedprod();
-            orderedprod.setProdId("1");
-            orderedprod.setProdTotalprice(500.78);
-            orderedprod.setProdcount(12);
-            orderedprodList.add(orderedprod);
-            orders.setOrderedProds(orderedprodList);
-            ordersList.add(orders);
-        }
-
-        deliveryBoy = deliveryBoyDirectory.addNewDeliveryBoy();
-        deliveryBoy.setDeliveryBoyName("de");
-        deliveryBoy.setOrderList(ordersList);
-
-        customer = customerDirectory.addNewCustomer();
-        customer.setUserName("abc");
-        customer.setOrders(ordersList);
-
     }
 
     /**
@@ -146,6 +95,7 @@ public class MainJFrame extends javax.swing.JFrame {
         controlPanel = new javax.swing.JPanel();
         btnLogin = new javax.swing.JButton();
         btnCustomerRegister = new javax.swing.JButton();
+        deliveryBoyRegistrationJButton = new javax.swing.JButton();
         workArea = new javax.swing.JPanel();
         lblTitle = new javax.swing.JLabel();
         lblDetails = new javax.swing.JLabel();
@@ -174,6 +124,13 @@ public class MainJFrame extends javax.swing.JFrame {
             }
         });
 
+        deliveryBoyRegistrationJButton.setText("Delivery Boy Register");
+        deliveryBoyRegistrationJButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deliveryBoyRegistrationJButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout controlPanelLayout = new javax.swing.GroupLayout(controlPanel);
         controlPanel.setLayout(controlPanelLayout);
         controlPanelLayout.setHorizontalGroup(
@@ -182,8 +139,9 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addGap(28, 28, 28)
                 .addGroup(controlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnCustomerRegister, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(9, Short.MAX_VALUE))
+                    .addComponent(btnLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(deliveryBoyRegistrationJButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
         controlPanelLayout.setVerticalGroup(
             controlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -192,7 +150,9 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addComponent(btnLogin)
                 .addGap(61, 61, 61)
                 .addComponent(btnCustomerRegister)
-                .addContainerGap(449, Short.MAX_VALUE))
+                .addGap(58, 58, 58)
+                .addComponent(deliveryBoyRegistrationJButton)
+                .addContainerGap(385, Short.MAX_VALUE))
         );
 
         splitPane.setLeftComponent(controlPanel);
@@ -210,7 +170,7 @@ public class MainJFrame extends javax.swing.JFrame {
         lblDetails2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lblDetails2.setText("NU ID: 002707307");
 
-        cityAdminTest.setText("City Admin Test");
+        cityAdminTest.setText("Delivery Admin Test");
         cityAdminTest.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cityAdminTestActionPerformed(evt);
@@ -277,14 +237,14 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
-        LoginJPanel loginJPanel = new LoginJPanel(cityDirectory, orderManagement, community, customerDirectory, companyDir, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
+        LoginJPanel loginJPanel = new LoginJPanel(cityDirectory, orderManagement,community, customerDirectory, companyDir, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
         splitPane.setRightComponent(loginJPanel);
 
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void btnCustomerRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerRegisterActionPerformed
         // TODO add your handling code here:
-        CustomerRegistrationJPanel customerRegistrationJPanel = new CustomerRegistrationJPanel(orderManagement, community, customerDirectory, companyDir, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
+        CustomerRegistrationJPanel customerRegistrationJPanel = new CustomerRegistrationJPanel(orderManagement,community, customerDirectory, companyDir, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
         splitPane.setRightComponent(customerRegistrationJPanel);
     }//GEN-LAST:event_btnCustomerRegisterActionPerformed
 
@@ -380,6 +340,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnLogin;
     private javax.swing.JButton cityAdminTest;
     private javax.swing.JPanel controlPanel;
+    private javax.swing.JButton deliveryBoyRegistrationJButton;
     private javax.swing.JButton invAdminTest;
     private javax.swing.JLabel lblDetails;
     private javax.swing.JLabel lblDetails2;

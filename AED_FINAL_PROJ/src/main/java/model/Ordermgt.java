@@ -14,11 +14,7 @@ public class Ordermgt {
     private ArrayList<Orders> orders;
     private Cart cart;
     private PaymentDir paymentDir;
-
-    public Ordermgt() {
-        this.orders = new ArrayList<>();
-    }
-   
+    
     public ArrayList<Orders> getOrders() {
         return orders;
     }

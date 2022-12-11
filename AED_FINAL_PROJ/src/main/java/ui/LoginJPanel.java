@@ -62,8 +62,8 @@ public class LoginJPanel extends javax.swing.JPanel {
         usernameJLabel1 = new javax.swing.JLabel();
         passwordLabel2 = new javax.swing.JLabel();
         usernameTextField1 = new javax.swing.JTextField();
-        passwordTextField2 = new javax.swing.JTextField();
         loginButton1 = new javax.swing.JButton();
+        passwordTextField2 = new javax.swing.JPasswordField();
 
         createLabel1.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         createLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -80,6 +80,8 @@ public class LoginJPanel extends javax.swing.JPanel {
                 loginButton1ActionPerformed(evt);
             }
         });
+
+        passwordTextField2.setText("jPasswordField1");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -102,8 +104,8 @@ public class LoginJPanel extends javax.swing.JPanel {
                                     .addComponent(passwordLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(230, 230, 230)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(usernameTextField1)
-                                    .addComponent(passwordTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(usernameTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+                                    .addComponent(passwordTextField2))))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -111,7 +113,7 @@ public class LoginJPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(createLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 99, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(usernameJLabel1)
                     .addComponent(usernameTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -119,7 +121,7 @@ public class LoginJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(passwordLabel2)
                     .addComponent(passwordTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(76, 76, 76)
+                .addGap(73, 73, 73)
                 .addComponent(loginButton1)
                 .addGap(115, 115, 115))
         );
@@ -139,7 +141,7 @@ public class LoginJPanel extends javax.swing.JPanel {
         }
 
         String usertype = "";
-
+        
         boolean flag = false;
         for (UserAuthentication userAuthentication : userauthenticationdirectory.getUserAuthenticationList()) {
             if ( userAuthentication.getUserName().equalsIgnoreCase(usernameTextField1.getText())
@@ -182,7 +184,7 @@ public class LoginJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel createLabel1;
     private javax.swing.JButton loginButton1;
     private javax.swing.JLabel passwordLabel2;
-    private javax.swing.JTextField passwordTextField2;
+    private javax.swing.JPasswordField passwordTextField2;
     private javax.swing.JLabel usernameJLabel1;
     private javax.swing.JTextField usernameTextField1;
     // End of variables declaration//GEN-END:variables

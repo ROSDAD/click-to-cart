@@ -131,7 +131,9 @@ public class MainJFrame extends javax.swing.JFrame {
         customer = customerDirectory.addNewCustomer();
         customer.setUserName("abc");
         customer.setOrders(ordersList);
-
+        
+//        ChatServerGUI chatServerGUI = new ChatServerGUI();
+//        chatServerGUI.setVisible(true);
     }
 
     /**

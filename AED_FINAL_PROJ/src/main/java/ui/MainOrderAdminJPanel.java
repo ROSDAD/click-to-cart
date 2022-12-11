@@ -88,6 +88,8 @@ public class MainOrderAdminJPanel extends javax.swing.JPanel {
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable3 = new javax.swing.JTable();
         viewCustomersButton = new javax.swing.JButton();
+        approvedRadioButton = new javax.swing.JRadioButton();
+        rejectedRadioButton = new javax.swing.JRadioButton();
 
         jTable1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -174,6 +176,10 @@ public class MainOrderAdminJPanel extends javax.swing.JPanel {
             }
         });
 
+        approvedRadioButton.setText("Approved");
+
+        rejectedRadioButton.setText("Rejected");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -181,17 +187,19 @@ public class MainOrderAdminJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(103, 103, 103)
+                        .addGap(103, 109, Short.MAX_VALUE)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
+                        .addGap(25, 25, 25)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(ordersjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(113, 113, 113)
-                                .addComponent(updateOrderCancellationRequestrButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(ordersjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(rejectedRadioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(updateOrderCancellationRequestrButton, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -199,8 +207,13 @@ public class MainOrderAdminJPanel extends javax.swing.JPanel {
                         .addGap(104, 104, 104)))
                 .addGap(40, 40, 40))
             .addGroup(layout.createSequentialGroup()
-                .addGap(275, 275, 275)
-                .addComponent(viewCustomersButton)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(275, 275, 275)
+                        .addComponent(viewCustomersButton))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(201, 201, 201)
+                        .addComponent(approvedRadioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -214,12 +227,19 @@ public class MainOrderAdminJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(36, 36, 36)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(updateOrderCancellationRequestrButton)
-                    .addComponent(ordersjButton)
-                    .addComponent(orderedProductsjButton))
-                .addGap(21, 21, 21))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(updateOrderCancellationRequestrButton)
+                            .addComponent(ordersjButton)
+                            .addComponent(orderedProductsjButton)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(approvedRadioButton)
+                        .addGap(12, 12, 12)
+                        .addComponent(rejectedRadioButton)))
+                .addGap(15, 15, 15))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -240,15 +260,26 @@ public class MainOrderAdminJPanel extends javax.swing.JPanel {
         }
         DefaultTableModel modelOrder = (DefaultTableModel) jTable1.getModel();
         String orderStatus = modelOrder.getValueAt(selectedRowOrderIndex, 4).toString();
-        String selectedOrderID = model.getValueAt(selectedRowIndex, 0).toString();
-        String approvedOrCancelled = JOptionPane.showInputDialog(null, "Approved or Rejected", orderStatus);
+        String selectedOrderID = modelOrder.getValueAt(selectedRowOrderIndex, 0).toString();
+        String approvedOrCancelled = "";
+
+        if (approvedRadioButton.isSelected() == false && rejectedRadioButton.isSelected() == false) {
+            JOptionPane.showMessageDialog(this, "Order Admin approval radio button is not filled");
+            return;
+        }
+
+        if (approvedRadioButton.isSelected() == true) {
+            approvedOrCancelled = "Approved";
+        } else if (rejectedRadioButton.isSelected() == true) {
+            approvedOrCancelled = "Rejected";
+        }
 
         String previousOrderStatus = "";
-
         for (Customer customer : customerDirectory.getCustomerList()) {
             if (customerUsername.equalsIgnoreCase(customer.getUserName())) {
                 for (Orders orders : customer.getOrders()) {
                     if (orders.getOrderId().equalsIgnoreCase(selectedOrderID)) {
+                        System.out.println(selectedOrderID + " " + orders.getOrderId());
                         if (approvedOrCancelled.equalsIgnoreCase("Approved")) {
                             orders.setOrderStatus("Cancelled");
                             orders.setOrderAdminApproval(true);
@@ -280,7 +311,6 @@ public class MainOrderAdminJPanel extends javax.swing.JPanel {
 
     private void orderedProductsjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderedProductsjButtonActionPerformed
         // TODO add your handling code here:
-
         int selectedRowIndex = jTable1.getSelectedRow();
         if (selectedRowIndex < 0) {
             JOptionPane.showMessageDialog(this, "Please select a row to select order to view the products");
@@ -289,7 +319,7 @@ public class MainOrderAdminJPanel extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         String orderID = model.getValueAt(selectedRowIndex, 0).toString();
 
-        // For inserting the doctor to the doctor directory of the hospital.
+
         for (Orders order : orderManagement.getOrders()) {
             if (order.getOrderId().equalsIgnoreCase(orderID)) {
                 if (order.getOrderedProds().isEmpty()) {
@@ -331,6 +361,7 @@ public class MainOrderAdminJPanel extends javax.swing.JPanel {
         DefaultTableModel modelOrders = (DefaultTableModel) jTable1.getModel();
         modelOrders.setRowCount(0);
         for (Customer customer : customerDirectory.getCustomerList()) {
+
             if (customerUsername.equalsIgnoreCase(customer.getUserName())) {
                 for (Orders orders : customer.getOrders()) {
                     Object[] row = new Object[6];
@@ -353,6 +384,7 @@ public class MainOrderAdminJPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JRadioButton approvedRadioButton;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -361,6 +393,7 @@ public class MainOrderAdminJPanel extends javax.swing.JPanel {
     private javax.swing.JTable jTable3;
     private javax.swing.JButton orderedProductsjButton;
     private javax.swing.JButton ordersjButton;
+    private javax.swing.JRadioButton rejectedRadioButton;
     private javax.swing.JButton updateOrderCancellationRequestrButton;
     private javax.swing.JButton viewCustomersButton;
     // End of variables declaration//GEN-END:variables

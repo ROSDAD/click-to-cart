@@ -135,9 +135,10 @@
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="121" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="invAdminTest" min="-2" max="-2" attributes="0"/>
-                                  <Component id="cityAdminTest" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="supAdminTest" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="invAdminTest" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="cityAdminTest" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -158,7 +159,9 @@
                       <Component id="cityAdminTest" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="invAdminTest" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="298" max="32767" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="supAdminTest" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="258" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -202,6 +205,14 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="invAdminTestActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="supAdminTest">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Super Admin Test"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="supAdminTestActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

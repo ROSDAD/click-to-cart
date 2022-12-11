@@ -68,7 +68,9 @@
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="32767" attributes="0"/>
               <Component id="loginButton1" min="-2" pref="148" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="306" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="134" max="-2" attributes="0"/>
+              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="97" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -112,7 +114,10 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="inventoryAdminRadioButton" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="49" max="32767" attributes="0"/>
-              <Component id="loginButton1" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="loginButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -227,6 +232,11 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="inventoryAdminRadioButtonActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="jButton1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="jButton1"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

@@ -195,7 +195,7 @@ public class CustomerOrderHistoryJPanel extends javax.swing.JPanel {
 
         int selectedRowIndex = jTable1.getSelectedRow();
         if (selectedRowIndex < 0) {
-            JOptionPane.showMessageDialog(this, "Please select a row to select order to view the products");
+            JOptionPane.showMessageDialog(this, "Please select a row to select order");
             return;
         }
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
@@ -241,11 +241,16 @@ public class CustomerOrderHistoryJPanel extends javax.swing.JPanel {
         }
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.setValueAt("Pending_for_Approval", selectedRowIndex, 4);
+        String selectedOrderID = model.getValueAt(selectedRowIndex, 0).toString();
 
         for (Customer customer : customerDirectory.getCustomerList()) {
             if (userName.equalsIgnoreCase(customer.getUserName())) {
                 for (Orders orders : customer.getOrders()) {
-                    orders.setOrderStatus("Pending_for_Approval");
+                    if (orders.getOrderId().equalsIgnoreCase(selectedOrderID)) {
+                        orders.setPreviousOrderStatus(orders.getOrderStatus());
+                        orders.setOrderStatus("Pending_for_Approval");
+                        break;
+                    }
                 }
             }
         }

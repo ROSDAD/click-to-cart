@@ -104,8 +104,8 @@ public class MainJFrame extends javax.swing.JFrame {
 
         List<Orders> ordersList = new ArrayList<>();
         for (int i = 0; i < 2; i++) {
+            
             Orders orders = new Orders();
-
             orders.setOrderId(String.valueOf(i));
             orders.setOrderStatus("OrderPlaced");
             Payment payment = new Payment();
@@ -121,6 +121,8 @@ public class MainJFrame extends javax.swing.JFrame {
             ordersList.add(orders);
         }
 
+        orderManagement.setOrders(ordersList);
+        
         deliveryBoy = deliveryBoyDirectory.addNewDeliveryBoy();
         deliveryBoy.setDeliveryBoyName("de");
         deliveryBoy.setOrderList(ordersList);

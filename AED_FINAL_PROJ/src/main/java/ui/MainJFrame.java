@@ -84,7 +84,7 @@ public class MainJFrame extends javax.swing.JFrame {
         company.setCompanyName("Costco");
         company.setCompanyType("Type 1");
         company.setInventoryManagement(inventoryManagement);
-        
+
         company1 = companyDir.addNewCompany();
         company1.setCompanyName("Target");
         company1.setCompanyType("Type 2");
@@ -107,6 +107,11 @@ public class MainJFrame extends javax.swing.JFrame {
         userAuthentication.setUserName("abc1");
         userAuthentication.setPassword("abc1");
         userAuthentication.setUserType("OrderAdmin");
+
+        userAuthentication = userauthenticationdirectory.addNewUserAuthentication();
+        userAuthentication.setUserName("ab");
+        userAuthentication.setPassword("ab");
+        userAuthentication.setUserType("SuperAdmin");
 
         List<Orders> ordersList = new ArrayList<>();
         for (int i = 0; i < 2; i++) {
@@ -137,7 +142,7 @@ public class MainJFrame extends javax.swing.JFrame {
         customer = customerDirectory.addNewCustomer();
         customer.setUserName("abc");
         customer.setOrders(ordersList);
-        
+
 //        ChatServerGUI chatServerGUI = new ChatServerGUI();
 //        chatServerGUI.setVisible(true);
     }
@@ -315,7 +320,7 @@ public class MainJFrame extends javax.swing.JFrame {
 //
 //        OrderCnfPanel m = new OrderCnfPanel(new Customer(), company, splitPane);
 //        splitPane.setRightComponent(m);
-        
+
 //        DeliveryAdminMainPanel c = new DeliveryAdminMainPanel(cityDirectory, "Boston", "Costco", company, community, customerDirectory, city.getCompanyDirectory(), userauthenticationdirectory, splitPane, deliveryBoyDirectory);
 //        splitPane.setRightComponent(c);
     }//GEN-LAST:event_cityAdminTestActionPerformed

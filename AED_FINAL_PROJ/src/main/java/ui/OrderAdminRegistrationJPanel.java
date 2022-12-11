@@ -4,12 +4,15 @@
  */
 package ui;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JSplitPane;
 import javax.swing.table.DefaultTableModel;
 import model.City;
 import model.CityDir;
 import model.Community;
+import model.Company;
 import model.CompanyDirectory;
 import model.CustomerDirectory;
 import model.DeliveryBoyDirectory;
@@ -46,6 +49,7 @@ public class OrderAdminRegistrationJPanel extends javax.swing.JPanel {
         this.companyDirectory = companyDirectory;
         this.userauthenticationdirectory = userauthenticationdirectory;
         this.deliveryBoyDirectory = deliveryBoyDirectory;
+        populateCities();
     }
 
     /**
@@ -68,6 +72,11 @@ public class OrderAdminRegistrationJPanel extends javax.swing.JPanel {
         viewOrderAdmin = new javax.swing.JButton();
         updateOrderAdmin = new javax.swing.JButton();
         deleteOrderAdminButton = new javax.swing.JButton();
+        ViewCompany = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        cityTable = new javax.swing.JTable();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        companyTable = new javax.swing.JTable();
 
         createLabel1.setBackground(new java.awt.Color(255, 102, 102));
         createLabel1.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
@@ -126,64 +135,123 @@ public class OrderAdminRegistrationJPanel extends javax.swing.JPanel {
             }
         });
 
+        ViewCompany.setText("View Company");
+        ViewCompany.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ViewCompanyActionPerformed(evt);
+            }
+        });
+
+        cityTable.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        cityTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null},
+                {null},
+                {null},
+                {null}
+            },
+            new String [] {
+                "City Name"
+            }
+        ));
+        jScrollPane2.setViewportView(cityTable);
+
+        companyTable.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        companyTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null},
+                {null},
+                {null},
+                {null}
+            },
+            new String [] {
+                "Company Name"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane3.setViewportView(companyTable);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(createLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1034, Short.MAX_VALUE)
+                .addComponent(createLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(85, 85, 85)
+                .addGap(42, 42, 42)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(passwordTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(55, 55, 55)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(userNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(44, 44, 44)
-                        .addComponent(saveCompanyAdminButton, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(viewOrderAdmin)
-                        .addGap(37, 37, 37)
-                        .addComponent(updateOrderAdmin)
                         .addGap(40, 40, 40)
-                        .addComponent(deleteOrderAdminButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(160, 160, 160))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(userNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(passwordTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(72, 72, 72)
+                                .addComponent(saveCompanyAdminButton, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 221, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(viewOrderAdmin)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(updateOrderAdmin)
+                                .addGap(62, 62, 62)
+                                .addComponent(deleteOrderAdminButton, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(249, 249, 249))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(ViewCompany)
+                .addGap(433, 433, 433))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addComponent(createLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(createLabel1)
-                        .addGap(28, 28, 28)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(ViewCompany)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(31, 31, 31)
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(viewOrderAdmin)
                             .addComponent(updateOrderAdmin)
-                            .addComponent(deleteOrderAdminButton)))
+                            .addComponent(deleteOrderAdminButton))
+                        .addGap(31, 31, 31))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(148, 148, 148)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(110, 110, 110)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(userNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))
-                        .addGap(77, 77, 77)
+                            .addComponent(jLabel1)
+                            .addComponent(userNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(28, 28, 28)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(passwordTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(47, 47, 47)
-                        .addComponent(saveCompanyAdminButton)))
-                .addContainerGap(112, Short.MAX_VALUE))
+                            .addComponent(passwordTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(38, 38, 38)
+                        .addComponent(saveCompanyAdminButton)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -212,9 +280,30 @@ public class OrderAdminRegistrationJPanel extends javax.swing.JPanel {
             }
         }
 
+        //Selected City from the Table
+        int selectedRowIndex = cityTable.getSelectedRow();
+        if (selectedRowIndex < 0) {
+            JOptionPane.showMessageDialog(this, "Please select a row to select city");
+            return;
+        }
+
+        DefaultTableModel model = (DefaultTableModel) cityTable.getModel();
+        String city = model.getValueAt(selectedRowIndex, 0).toString();
+
+        int selectedRowCompanyIndex = cityTable.getSelectedRow();
+        if (selectedRowCompanyIndex < 0) {
+            JOptionPane.showMessageDialog(this, "Please select a row to select city");
+            return;
+        }
+
+        DefaultTableModel modelCompany = (DefaultTableModel) cityTable.getModel();
+        String company = modelCompany.getValueAt(selectedRowCompanyIndex, 0).toString();
+
         UserAuthentication userAuthentication = userauthenticationdirectory.addNewUserAuthentication();
         userAuthentication.setUserName(userNameTextField.getText());
         userAuthentication.setPassword(passwordTextField.getText());
+        userAuthentication.setCityName(city);
+        userAuthentication.setCompanyName(company);
         userAuthentication.setUserType("OrderAdmin");
 
         JOptionPane.showMessageDialog(this, "Order Admin credentials is saved");
@@ -237,7 +326,35 @@ public class OrderAdminRegistrationJPanel extends javax.swing.JPanel {
 
     private void viewOrderAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewOrderAdminActionPerformed
         // TODO add your handling code here:
-        populateOrderAdmin();
+
+        //Selected City from the Table
+        int selectedRowIndex = cityTable.getSelectedRow();
+        if (selectedRowIndex < 0) {
+            JOptionPane.showMessageDialog(this, "Please select a row to select city");
+            return;
+        }
+
+        DefaultTableModel model = (DefaultTableModel) cityTable.getModel();
+        String city = model.getValueAt(selectedRowIndex, 0).toString();
+
+        int selectedRowCompanyIndex = cityTable.getSelectedRow();
+        if (selectedRowCompanyIndex < 0) {
+            JOptionPane.showMessageDialog(this, "Please select a row to select city");
+            return;
+        }
+
+        DefaultTableModel modelCompany = (DefaultTableModel) cityTable.getModel();
+        String company = modelCompany.getValueAt(selectedRowCompanyIndex, 0).toString();
+
+        for (UserAuthentication userAuthentication : userauthenticationdirectory.getUserAuthenticationList()) {
+            if ("OrderAdmin".equalsIgnoreCase(userAuthentication.getUserType())
+                    && city.equalsIgnoreCase(userAuthentication.getCityName())
+                    && company.equalsIgnoreCase(userAuthentication.getCompanyName())) {
+                Object[] row = new Object[1];
+                row[0] = userAuthentication.getUserName();
+                model.addRow(row);
+            }
+        }
     }//GEN-LAST:event_viewOrderAdminActionPerformed
 
     private void updateOrderAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateOrderAdminActionPerformed
@@ -292,13 +409,65 @@ public class OrderAdminRegistrationJPanel extends javax.swing.JPanel {
         JOptionPane.showMessageDialog(this, "Order Admin is deleted");
     }//GEN-LAST:event_deleteOrderAdminButtonActionPerformed
 
+    /**
+     * Populate the table cities rows from the arrayList.
+     */
+    private void populateCities() {
+        DefaultTableModel model = (DefaultTableModel) cityTable.getModel();
+        model.setRowCount(0);
+        for (City city : cityDirectory.getCityDir()) {
+            Object[] row = new Object[1];
+            row[0] = city.getCityName();
+            model.addRow(row);
+        }
+    }
+
+    private void ViewCompanyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ViewCompanyActionPerformed
+        // TODO add your handling code here:
+        int selectedRowIndex = cityTable.getSelectedRow();
+        if (selectedRowIndex < 0) {
+            JOptionPane.showMessageDialog(this, "Please select a row to select city");
+            return;
+        }
+
+        DefaultTableModel model = (DefaultTableModel) cityTable.getModel();
+        String city = model.getValueAt(selectedRowIndex, 0).toString();
+        List<City> cityList1 = cityDirectory.getCityDir();
+        for (int i = 0; i < cityList1.size(); i++) {
+            if (city.equalsIgnoreCase(cityList1.get(i).getCityName())) {
+                if (cityList1.get(i).getCompanyDirectory() == null) {
+                    List<Company> companyList = new ArrayList<>();
+                    populateCompanies(companyList);
+                } else {
+                    List<Company> companyList = cityList1.get(i).getCompanyDirectory().getCompanyDirectoryList();
+                    populateCompanies(companyList);
+                }
+            }
+        }
+    }//GEN-LAST:event_ViewCompanyActionPerformed
+
+    private void populateCompanies(List<Company> companyList) {
+        DefaultTableModel model = (DefaultTableModel) companyTable.getModel();
+        model.setRowCount(0);
+        for (Company company : companyList) {
+            Object[] row = new Object[1];
+            row[0] = company.getCompanyName();
+            model.addRow(row);
+        }
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton ViewCompany;
+    private javax.swing.JTable cityTable;
+    private javax.swing.JTable companyTable;
     private javax.swing.JLabel createLabel1;
     private javax.swing.JButton deleteOrderAdminButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField passwordTextField;
     private javax.swing.JButton saveCompanyAdminButton;

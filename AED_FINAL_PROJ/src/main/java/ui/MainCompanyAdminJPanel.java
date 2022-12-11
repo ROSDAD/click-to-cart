@@ -45,14 +45,6 @@ public class MainCompanyAdminJPanel extends javax.swing.JPanel {
         this.companyDirectory = companyDirectory;
         this.userauthenticationdirectory = userauthenticationdirectory;
         this.deliveryBoyDirectory = deliveryBoyDirectory;
-//        ChatServer chatserver = new ChatServer();
-//        try {
-//             System.out.println("Before server");
-//            chatserver.startServer();
-//             System.out.println("After server");
-//        } catch (IOException ex) {
-//            Logger.getLogger(MainCompanyAdminJPanel.class.getName()).log(Level.SEVERE, null, ex);
-//        }
     }
 
     /**

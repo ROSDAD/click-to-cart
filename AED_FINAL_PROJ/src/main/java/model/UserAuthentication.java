@@ -14,14 +14,34 @@ public class UserAuthentication {
     private String userName;
     private String password;
     private String userType;
+    private String companyName;
+    private String cityName;
 
     public UserAuthentication() {
     }
 
-    public UserAuthentication(String userName, String password, String userType) {
+    public UserAuthentication(String userName, String password, String userType, String companyName, String cityName) {
         this.userName = userName;
         this.password = password;
         this.userType = userType;
+        this.companyName = companyName;
+        this.cityName = cityName;
+    }
+    
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public String getCityName() {
+        return cityName;
+    }
+
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
     }
 
     public String getUserName() {

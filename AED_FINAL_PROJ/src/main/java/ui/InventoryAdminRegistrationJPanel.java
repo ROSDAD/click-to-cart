@@ -133,7 +133,7 @@ public class InventoryAdminRegistrationJPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(createLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1039, Short.MAX_VALUE)
+                .addComponent(createLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1075, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(110, 110, 110)
@@ -184,7 +184,7 @@ public class InventoryAdminRegistrationJPanel extends javax.swing.JPanel {
                     .addComponent(viewInventoryAdmin)
                     .addComponent(updateDeliveryAdmin)
                     .addComponent(deleteInventoryAdminButton))
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addContainerGap(222, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

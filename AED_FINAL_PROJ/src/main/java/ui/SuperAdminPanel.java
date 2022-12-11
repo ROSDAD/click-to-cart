@@ -97,10 +97,25 @@ public class SuperAdminPanel extends javax.swing.JPanel {
         });
 
         deliveryAdmin.setText("DELIVERY ADMIN");
+        deliveryAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deliveryAdminActionPerformed(evt);
+            }
+        });
 
         inventoryAdmin.setText("INVENTORY ADMIN");
+        inventoryAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inventoryAdminActionPerformed(evt);
+            }
+        });
 
         orderAdmin.setText("ORDER ADMIN");
+        orderAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                orderAdminActionPerformed(evt);
+            }
+        });
 
         logoutBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         logoutBtn.setText("LOGOUT");
@@ -170,17 +185,43 @@ public class SuperAdminPanel extends javax.swing.JPanel {
 
     private void companyAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_companyAdminActionPerformed
         // TODO add your handling code here:
-        SuperCompanyAdmin supCompAdmin = new SuperCompanyAdmin(cityDirectory, orderManagement,community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
+        String role = "CompanyAdmin";
+        SuperCompanyAdmin supCompAdmin = new SuperCompanyAdmin(cityDirectory, orderManagement,community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory,jSplitPane1,role);
         jSplitPane1.setRightComponent(supCompAdmin);
+        
     }//GEN-LAST:event_companyAdminActionPerformed
 
     private void cityAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cityAdminActionPerformed
         // TODO add your handling code here:
+        SuperCityAdmin supCityAdmin = new SuperCityAdmin(cityDirectory, orderManagement,community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory,jSplitPane1);
+        jSplitPane1.setRightComponent(supCityAdmin);
     }//GEN-LAST:event_cityAdminActionPerformed
 
     private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_logoutBtnActionPerformed
+
+    private void deliveryAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deliveryAdminActionPerformed
+        // TODO add your handling code here:
+        String role = "DeliveryAdmin";
+        SuperCompanyAdmin supDeliveryAdmin = new SuperCompanyAdmin(cityDirectory, orderManagement,community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory,jSplitPane1,role);
+        jSplitPane1.setRightComponent(supDeliveryAdmin);
+    }//GEN-LAST:event_deliveryAdminActionPerformed
+
+    private void inventoryAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inventoryAdminActionPerformed
+        // TODO add your handling code here:
+        String role = "InventoryAdmin";
+        SuperCompanyAdmin supInventoryAdmin = new SuperCompanyAdmin(cityDirectory, orderManagement,community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory,jSplitPane1,role);
+        jSplitPane1.setRightComponent(supInventoryAdmin);
+    }//GEN-LAST:event_inventoryAdminActionPerformed
+
+    private void orderAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderAdminActionPerformed
+        // TODO add your handling code here:
+        String role = "OrderAdmin";
+        SuperCompanyAdmin supOrderAdmin = new SuperCompanyAdmin(cityDirectory, orderManagement,community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory,jSplitPane1,role);
+        jSplitPane1.setRightComponent(supOrderAdmin);
+    }//GEN-LAST:event_orderAdminActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

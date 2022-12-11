@@ -9,7 +9,7 @@ import com.byteowls.jopencage.JOpenCageGeocoder;
 import com.byteowls.jopencage.model.JOpenCageForwardRequest;
 import com.byteowls.jopencage.model.JOpenCageLatLng;
 import com.byteowls.jopencage.model.JOpenCageResponse;
-import com.teamdev.jxmaps.Geocoder;
+//import com.teamdev.jxmaps.Geocoder;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;

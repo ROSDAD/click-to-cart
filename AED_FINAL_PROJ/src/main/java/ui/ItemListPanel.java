@@ -213,15 +213,43 @@ public class ItemListPanel extends javax.swing.JPanel {
     private void addToCartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addToCartActionPerformed
         // TODO add your handling code here:
         int quantity = Integer.parseInt(quantityTxt.getText());
-        int prodQuantity = comp.getInventoryManagement().getInventoryMgt().get(0).getInventoryProductDir().getInventoryProductDir().get(itemListTable.getSelectedRow()).getInventoryQty();
+        int prodQuantity = comp.getInventoryManagement().getInventoryMgt()
+                .get(0).getInventoryProductDir().getInventoryProductDir()
+                .get(itemListTable.getSelectedRow()).getInventoryQty();
         if (quantity <= prodQuantity) {
             DefaultTableModel model = (DefaultTableModel) itemListTable.getModel();
             int selectedRowIndex = itemListTable.getSelectedRow();
+            
+            int flag = 0;
+            if(cust.getCart()!=null){
+              ArrayList<Orderedprod> ordProdList = cust.getCart().getCartProd();  
+            for(int w = 0;w<ordProdList.size();w++){
+                if(ordProdList.get(w).getProdid().equals((model.getValueAt(selectedRowIndex, 0)).toString())){
+                    flag = 1;
+                    if((ordProdList.get(w).getprodcount()+quantity)<=prodQuantity){
+                        ordProdList.get(w).setProdcount(ordProdList.get(w).getprodcount()+quantity);
+                        double price = Double.parseDouble(String.valueOf(quantity * Double.parseDouble((model.getValueAt(selectedRowIndex, 2)).toString())));
+                        double price2 = ordProdList.get(w).getProdTotalprice();
+                        double finalPrice = price+price2;
+                        ordProdList.get(w).setProdTotalprice(finalPrice);
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(this, "Not Enough Quantity left In Inventory!");
+                        return;
+                    }
+                }
+            }
+        }
+            if(flag == 0){
             Orderedprod ordProd = cust.getCart().addNewCartProd();
             ordProd.setProdId((model.getValueAt(selectedRowIndex, 0)).toString());
             double price = Double.parseDouble(String.valueOf(quantity * Double.parseDouble((model.getValueAt(selectedRowIndex, 2)).toString())));
             ordProd.setProdTotalprice(price);
             ordProd.setProdcount(quantity);
+            
+        }
+            JOptionPane.showMessageDialog(this, "Product Added To Cart!");
+            
         } else {
             JOptionPane.showMessageDialog(this, "Not Enough Quantity left In Inventory!");
         }

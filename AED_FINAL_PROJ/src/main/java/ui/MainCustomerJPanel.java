@@ -60,7 +60,6 @@ public class MainCustomerJPanel extends javax.swing.JPanel {
 
         orderNowButton = new javax.swing.JButton();
         viewPreviousOrderButton = new javax.swing.JButton();
-        backButton = new javax.swing.JButton();
 
         orderNowButton.setText("order Now");
         orderNowButton.addActionListener(new java.awt.event.ActionListener() {
@@ -76,34 +75,21 @@ public class MainCustomerJPanel extends javax.swing.JPanel {
             }
         });
 
-        backButton.setText("Logout");
-        backButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                backButtonActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(213, 213, 213)
+                .addGap(210, 210, 210)
                 .addComponent(orderNowButton, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 366, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 369, Short.MAX_VALUE)
                 .addComponent(viewPreviousOrderButton, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(256, 256, 256))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(79, 79, 79)
-                .addComponent(backButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(57, 57, 57)
-                .addComponent(backButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 129, Short.MAX_VALUE)
+                .addContainerGap(208, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(orderNowButton)
                     .addComponent(viewPreviousOrderButton))
@@ -123,6 +109,7 @@ public class MainCustomerJPanel extends javax.swing.JPanel {
         splitPane.setRightComponent(customerOrderHistoryJPanel);
     }//GEN-LAST:event_viewPreviousOrderButtonActionPerformed
 
+
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
         // TODO add your handling code here:
         LoginJPanel loginJPanel = new LoginJPanel(cityDirectory, orderManagement, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
@@ -131,7 +118,6 @@ public class MainCustomerJPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton backButton;
     private javax.swing.JButton orderNowButton;
     private javax.swing.JButton viewPreviousOrderButton;
     // End of variables declaration//GEN-END:variables

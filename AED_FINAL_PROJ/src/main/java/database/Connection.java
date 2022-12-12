@@ -23,7 +23,9 @@ public class Connection {
 
         try {
             Class.forName("com.mysql.jdbc.Driver");
-//            this.con = DriverManager.getConnection("jdbc:mysql://localhost:3306/instacart", "root", "root");
+
+//            this.con = DriverManager.getConnection("jdbc:mysql://localhost:3306/click_to_cart", "root", "");
+//            this.con = DriverManager.getConnection("jdbc:mysql://localhost:3306/click_to_cart", "root", "root");
             System.out.println("Database Connected");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);

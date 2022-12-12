@@ -13,6 +13,7 @@ import model.Community;
 import model.CompanyDirectory;
 import model.CustomerDirectory;
 import model.DeliveryBoyDirectory;
+import model.Ordermgt;
 import model.UserAuthentication;
 
 /**
@@ -30,6 +31,9 @@ public class OrderAdminRegistrationJPanel extends javax.swing.JPanel {
     private DeliveryBoyDirectory deliveryBoyDirectory;
     private String cityName;
     private String companyName;
+    private Ordermgt orderManagement;
+    private JSplitPane jSplitPane1;
+    private String role;
 
     /**
      * Creates new form CompanyAdminRegistrationJPanel
@@ -38,7 +42,7 @@ public class OrderAdminRegistrationJPanel extends javax.swing.JPanel {
         initComponents();
     }
 
-    OrderAdminRegistrationJPanel(String cityName, String companyName, CityDir cityDirectory, Community community, CustomerDirectory customerDirectory, CompanyDirectory companyDirectory, UserAuthenticationDirectory userauthenticationdirectory, JSplitPane splitPane, DeliveryBoyDirectory deliveryBoyDirectory) {
+    OrderAdminRegistrationJPanel(String cityName, String companyName, CityDir cityDirectory, Community community, CustomerDirectory customerDirectory, CompanyDirectory companyDirectory, UserAuthenticationDirectory userauthenticationdirectory, JSplitPane splitPane, DeliveryBoyDirectory deliveryBoyDirectory, JSplitPane jSplitPane1, String role, Ordermgt orderManagement) {
         initComponents();
         this.cityDirectory = cityDirectory;
         this.community = community;
@@ -49,6 +53,9 @@ public class OrderAdminRegistrationJPanel extends javax.swing.JPanel {
         this.deliveryBoyDirectory = deliveryBoyDirectory;
         this.cityName = cityName;
         this.companyName = companyName;
+        this.jSplitPane1 = jSplitPane1;
+        this.role = role;
+        this.orderManagement = orderManagement;
     }
 
     /**
@@ -71,6 +78,7 @@ public class OrderAdminRegistrationJPanel extends javax.swing.JPanel {
         viewOrderAdmin = new javax.swing.JButton();
         updateOrderAdmin = new javax.swing.JButton();
         deleteOrderAdminButton = new javax.swing.JButton();
+        backButton = new javax.swing.JButton();
 
         createLabel1.setBackground(new java.awt.Color(255, 102, 102));
         createLabel1.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
@@ -129,6 +137,13 @@ public class OrderAdminRegistrationJPanel extends javax.swing.JPanel {
             }
         });
 
+        backButton.setText("Back");
+        backButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -160,14 +175,20 @@ public class OrderAdminRegistrationJPanel extends javax.swing.JPanel {
                         .addComponent(deleteOrderAdminButton, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(261, 261, 261))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(116, 116, 116)
+                .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addComponent(createLabel1)
+                .addGap(44, 44, 44)
+                .addComponent(backButton)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(createLabel1)
-                        .addGap(90, 90, 90)
+                        .addGap(24, 24, 24)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -175,7 +196,7 @@ public class OrderAdminRegistrationJPanel extends javax.swing.JPanel {
                             .addComponent(updateOrderAdmin)
                             .addComponent(deleteOrderAdminButton)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(255, 255, 255)
+                        .addGap(115, 115, 115)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
                             .addComponent(userNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -303,8 +324,20 @@ public class OrderAdminRegistrationJPanel extends javax.swing.JPanel {
         JOptionPane.showMessageDialog(this, "Order Admin is deleted");
     }//GEN-LAST:event_deleteOrderAdminButtonActionPerformed
 
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
+        // TODO add your handling code here:
+        MainCompanyAdminJPanel superMainCompanyAdminJPanel = new MainCompanyAdminJPanel(cityName, companyName, cityDirectory, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory, jSplitPane1, role, orderManagement);
+        MainCompanyAdminJPanel loginJPanelMainCompanyAdminJPanel = new MainCompanyAdminJPanel(cityName, companyName, cityDirectory, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory, jSplitPane1, role, orderManagement);
+        if (role == null) {
+            splitPane.setRightComponent(loginJPanelMainCompanyAdminJPanel);
+        } else {
+            jSplitPane1.setRightComponent(superMainCompanyAdminJPanel);
+        }
+    }//GEN-LAST:event_backButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton backButton;
     private javax.swing.JLabel createLabel1;
     private javax.swing.JButton deleteOrderAdminButton;
     private javax.swing.JLabel jLabel1;

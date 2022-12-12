@@ -131,7 +131,6 @@ public class MainJFrame extends javax.swing.JFrame {
 //        } catch (SQLException ex) {
 //            Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
 //        }
-
         userAuthentication = userauthenticationdirectory.addNewUserAuthentication();
         userAuthentication.setUserName("de");
         userAuthentication.setPassword("de");
@@ -153,27 +152,34 @@ public class MainJFrame extends javax.swing.JFrame {
         userAuthentication.setCityName("Boston");
         userAuthentication.setCompanyName("Costco");
         userAuthentication.setUserType("CompanyAdmin");
-        
+
         userAuthentication = userauthenticationdirectory.addNewUserAuthentication();
         userAuthentication.setUserName("city");
         userAuthentication.setPassword("city");
         userAuthentication.setCityName("Boston");
         userAuthentication.setCompanyName("");
         userAuthentication.setUserType("CityAdmin");
-        
+
         userAuthentication = userauthenticationdirectory.addNewUserAuthentication();
         userAuthentication.setUserName("del");
         userAuthentication.setPassword("del");
         userAuthentication.setCityName("Boston");
         userAuthentication.setCompanyName("Costco");
         userAuthentication.setUserType("DeliveryAdmin");
-        
+
         userAuthentication = userauthenticationdirectory.addNewUserAuthentication();
         userAuthentication.setUserName("inv");
         userAuthentication.setPassword("inv");
         userAuthentication.setCityName("Boston");
         userAuthentication.setCompanyName("Costco");
         userAuthentication.setUserType("InventoryAdmin");
+
+        userAuthentication = userauthenticationdirectory.addNewUserAuthentication();
+        userAuthentication.setUserName("system");
+        userAuthentication.setPassword("system");
+        userAuthentication.setCityName("");
+        userAuthentication.setCompanyName("");
+        userAuthentication.setUserType("SuperAdmin");
 
         List<Orders> ordersList = new ArrayList<>();
         for (int i = 0; i < 2; i++) {
@@ -204,10 +210,7 @@ public class MainJFrame extends javax.swing.JFrame {
         customer = customerDirectory.addNewCustomer();
         customer.setUserName("abc");
         customer.setOrders(ordersList);
-        
-        
-//        ChatServerGUI chatServerGUI = new ChatServerGUI();
-//        chatServerGUI.setVisible(true);
+
     }
 
     /**
@@ -247,6 +250,29 @@ public class MainJFrame extends javax.swing.JFrame {
             }
         });
 
+        javax.swing.GroupLayout controlPanelLayout = new javax.swing.GroupLayout(controlPanel);
+        controlPanel.setLayout(controlPanelLayout);
+        controlPanelLayout.setHorizontalGroup(
+            controlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(controlPanelLayout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addGroup(controlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnCustomerRegister, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(45, Short.MAX_VALUE))
+        );
+        controlPanelLayout.setVerticalGroup(
+            controlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(controlPanelLayout.createSequentialGroup()
+                .addGap(102, 102, 102)
+                .addComponent(btnLogin)
+                .addGap(61, 61, 61)
+                .addComponent(btnCustomerRegister)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        splitPane.setLeftComponent(controlPanel);
+
         workArea.setBackground(new java.awt.Color(255, 255, 255));
         workArea.setMinimumSize(new java.awt.Dimension(200, 200));
         workArea.setPreferredSize(new java.awt.Dimension(1200, 700));
@@ -268,7 +294,7 @@ public class MainJFrame extends javax.swing.JFrame {
             .addGroup(workAreaLayout.createSequentialGroup()
                 .addGap(155, 155, 155)
                 .addComponent(lblDetails)
-                .addContainerGap(379, Short.MAX_VALUE))
+                .addContainerGap(401, Short.MAX_VALUE))
         );
         workAreaLayout.setVerticalGroup(
             workAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -277,46 +303,22 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(lblDetails)
-                .addContainerGap(412, Short.MAX_VALUE))
+                .addContainerGap(440, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout controlPanelLayout = new javax.swing.GroupLayout(controlPanel);
-        controlPanel.setLayout(controlPanelLayout);
-        controlPanelLayout.setHorizontalGroup(
-            controlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(controlPanelLayout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addGroup(controlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnCustomerRegister, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(workArea, javax.swing.GroupLayout.PREFERRED_SIZE, 1008, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        controlPanelLayout.setVerticalGroup(
-            controlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(controlPanelLayout.createSequentialGroup()
-                .addGap(102, 102, 102)
-                .addComponent(btnLogin)
-                .addGap(61, 61, 61)
-                .addComponent(btnCustomerRegister)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, controlPanelLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(workArea, javax.swing.GroupLayout.PREFERRED_SIZE, 672, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        splitPane.setLeftComponent(controlPanel);
+        splitPane.setRightComponent(workArea);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(splitPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1213, Short.MAX_VALUE)
+            .addComponent(splitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 1235, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(splitPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 672, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(splitPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -326,45 +328,24 @@ public class MainJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         LoginJPanel loginJPanel = new LoginJPanel(cityDirectory, orderManagement, community, customerDirectory, companyDir, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
         splitPane.setRightComponent(loginJPanel);
-
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void btnCustomerRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerRegisterActionPerformed
         // TODO add your handling code here:
-        CustomerRegistrationJPanel customerRegistrationJPanel = new CustomerRegistrationJPanel(cityDirectory,orderManagement, community, customerDirectory, companyDir, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
+        CustomerRegistrationJPanel customerRegistrationJPanel = new CustomerRegistrationJPanel(cityDirectory, orderManagement, community, customerDirectory, companyDir, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
         splitPane.setRightComponent(customerRegistrationJPanel);
     }//GEN-LAST:event_btnCustomerRegisterActionPerformed
 
     private void cityAdminTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cityAdminTestActionPerformed
         // TODO add your handling code here:
-//        CityAdminPanel c = new CityAdminPanel(cityDirectory, splitPane);
-//        splitPane.setRightComponent(c);
-//
-//        OrderCnfPanel m = new OrderCnfPanel(new Customer(), company, splitPane);
-//        splitPane.setRightComponent(m);
-        
-//        DeliveryAdminMainPanel c = new DeliveryAdminMainPanel(cityDirectory, "Boston", "Costco", company, community, customerDirectory, city.getCompanyDirectory(), userauthenticationdirectory, splitPane, deliveryBoyDirectory);
-//        splitPane.setRightComponent(c);
     }//GEN-LAST:event_cityAdminTestActionPerformed
 
     private void invAdminTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_invAdminTestActionPerformed
         // TODO add your handling code here:
-
-        String cityName = new String("Boston");
-        String companyName = new String("Costco");
-
-//        InventoryAdminPanel i = new InventoryAdminPanel(cityName, companyName, cityDirectory, splitPane);
-//        splitPane.setRightComponent(i);
-
     }//GEN-LAST:event_invAdminTestActionPerformed
 
     private void deliveryBoyRegistrationJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deliveryBoyRegistrationJButtonActionPerformed
         // TODO add your handling code here:
-        String cityName = new String("Boston");
-        String companyName = new String("Costco");
-
-        DeliveryAdminMainPanel deliveryBoyRegistrationJPanel = new DeliveryAdminMainPanel(cityDirectory, cityName, companyName, community, customerDirectory, companyDir, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
-        splitPane.setRightComponent(deliveryBoyRegistrationJPanel);
     }//GEN-LAST:event_deliveryBoyRegistrationJButtonActionPerformed
 
     /**

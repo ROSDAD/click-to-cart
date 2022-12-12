@@ -223,7 +223,7 @@ public class ItemListPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         int selectedRowIndex = itemListTable.getSelectedRow();
         if (selectedRowIndex < 0) {
-            JOptionPane.showMessageDialog(this, "Select a row to delete.");
+            JOptionPane.showMessageDialog(this, "Select a product to view the quantity");
             return;
         }
         DefaultTableModel model = (DefaultTableModel) itemListTable.getModel();

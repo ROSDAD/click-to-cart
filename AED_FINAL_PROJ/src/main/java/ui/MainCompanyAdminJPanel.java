@@ -11,6 +11,7 @@ import model.Community;
 import model.CompanyDirectory;
 import model.CustomerDirectory;
 import model.DeliveryBoyDirectory;
+import model.Ordermgt;
 
 /**
  *
@@ -27,6 +28,9 @@ public class MainCompanyAdminJPanel extends javax.swing.JPanel {
     private DeliveryBoyDirectory deliveryBoyDirectory;
     private String cityName;
     private String companyName;
+    private Ordermgt orderManagement;
+    private JSplitPane jSplitPane1;
+    private String role;
 
     /**
      * Creates new form MainCompanyAdminJPanel
@@ -35,7 +39,7 @@ public class MainCompanyAdminJPanel extends javax.swing.JPanel {
         initComponents();
     }
 
-    public MainCompanyAdminJPanel(String cityName, String companyName, CityDir cityDirectory, Community community, CustomerDirectory customerDirectory, CompanyDirectory companyDirectory, UserAuthenticationDirectory userauthenticationdirectory, JSplitPane splitPane, DeliveryBoyDirectory deliveryBoyDirectory) {
+    public MainCompanyAdminJPanel(String cityName, String companyName, CityDir cityDirectory, Community community, CustomerDirectory customerDirectory, CompanyDirectory companyDirectory, UserAuthenticationDirectory userauthenticationdirectory, JSplitPane splitPane, DeliveryBoyDirectory deliveryBoyDirectory, JSplitPane jSplitPane1, String role, Ordermgt orderManagement) {
         initComponents();
         this.cityDirectory = cityDirectory;
         this.community = community;
@@ -46,6 +50,9 @@ public class MainCompanyAdminJPanel extends javax.swing.JPanel {
         this.deliveryBoyDirectory = deliveryBoyDirectory;
         this.cityName = cityName;
         this.companyName = companyName;
+        this.jSplitPane1 = jSplitPane1;
+        this.role = role;
+        this.orderManagement = orderManagement;
     }
 
     /**
@@ -61,6 +68,7 @@ public class MainCompanyAdminJPanel extends javax.swing.JPanel {
         deliveryAdminButton = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         inventoryAdminButton = new javax.swing.JButton();
+        backButton = new javax.swing.JButton();
 
         orderAdminButton.setText("Order Admin");
         orderAdminButton.addActionListener(new java.awt.event.ActionListener() {
@@ -88,53 +96,101 @@ public class MainCompanyAdminJPanel extends javax.swing.JPanel {
             }
         });
 
+        backButton.setText("Back");
+        backButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(deliveryAdminButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE)
-                    .addComponent(orderAdminButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(inventoryAdminButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(548, 548, 548))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1444, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(300, 300, 300)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(orderAdminButton, javax.swing.GroupLayout.PREFERRED_SIZE, 499, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(deliveryAdminButton, javax.swing.GroupLayout.PREFERRED_SIZE, 499, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(inventoryAdminButton, javax.swing.GroupLayout.PREFERRED_SIZE, 499, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(118, 118, 118)
+                .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(174, Short.MAX_VALUE)
+                .addGap(54, 54, 54)
+                .addComponent(backButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
                 .addComponent(jLabel2)
-                .addGap(50, 50, 50)
+                .addGap(44, 44, 44)
                 .addComponent(deliveryAdminButton)
-                .addGap(40, 40, 40)
+                .addGap(28, 28, 28)
                 .addComponent(orderAdminButton)
-                .addGap(46, 46, 46)
+                .addGap(18, 18, 18)
                 .addComponent(inventoryAdminButton)
-                .addGap(97, 97, 97))
+                .addGap(141, 141, 141))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void orderAdminButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderAdminButtonActionPerformed
         // TODO add your handling code here:
-        OrderAdminRegistrationJPanel houseEntityPanel = new OrderAdminRegistrationJPanel(cityName, companyName, cityDirectory, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
-        splitPane.setRightComponent(houseEntityPanel);
+        OrderAdminRegistrationJPanel orderAdminRegistratioJPanelSuperAdmin = new OrderAdminRegistrationJPanel(cityName, companyName, cityDirectory, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory, jSplitPane1, role, orderManagement);
+        OrderAdminRegistrationJPanel orderAdminRegistratioJPanel = new OrderAdminRegistrationJPanel(cityName, companyName, cityDirectory, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory, jSplitPane1, role, orderManagement);
+        if (role == null) {
+            splitPane.setRightComponent(orderAdminRegistratioJPanel);
+        } else {
+            jSplitPane1.setRightComponent(orderAdminRegistratioJPanelSuperAdmin);
+        }
     }//GEN-LAST:event_orderAdminButtonActionPerformed
 
     private void deliveryAdminButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deliveryAdminButtonActionPerformed
         // TODO add your handling code here:
-        DeliveryAdminRegistrationJPanel deliveryAdminJPanel = new DeliveryAdminRegistrationJPanel(cityName, companyName, cityDirectory, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
-        splitPane.setRightComponent(deliveryAdminJPanel);
+        DeliveryAdminRegistrationJPanel deliveryAdminJPanelSuperAdmin = new DeliveryAdminRegistrationJPanel(cityName, companyName, cityDirectory, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory, jSplitPane1, role, orderManagement);
+        DeliveryAdminRegistrationJPanel deliveryAdminJPanelNormal = new DeliveryAdminRegistrationJPanel(cityName, companyName, cityDirectory, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory, jSplitPane1, role, orderManagement);
+        if (role == null) {
+            splitPane.setRightComponent(deliveryAdminJPanelNormal);
+        } else {
+            System.out.println(cityName + " " + companyName);
+            jSplitPane1.setRightComponent(deliveryAdminJPanelSuperAdmin);
+        }
+
     }//GEN-LAST:event_deliveryAdminButtonActionPerformed
 
     private void inventoryAdminButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inventoryAdminButtonActionPerformed
         // TODO add your handling code here:
-        InventoryAdminRegistrationJPanel inventoryAdminJPanel = new InventoryAdminRegistrationJPanel(cityName, companyName,cityDirectory, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
-        splitPane.setRightComponent(inventoryAdminJPanel);
+        InventoryAdminRegistrationJPanel inventoryAdminJPanelSuperAdmin = new InventoryAdminRegistrationJPanel(cityName, companyName, cityDirectory, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory, jSplitPane1, role, orderManagement);
+        InventoryAdminRegistrationJPanel inventoryAdminJPanelNormal = new InventoryAdminRegistrationJPanel(cityName, companyName, cityDirectory, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory, jSplitPane1, role, orderManagement);
+        if (role == null) {
+            splitPane.setRightComponent(inventoryAdminJPanelNormal);
+        } else {
+            jSplitPane1.setRightComponent(inventoryAdminJPanelSuperAdmin);
+        }
     }//GEN-LAST:event_inventoryAdminButtonActionPerformed
+
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
+        // TODO add your handling code here:
+        SuperCompanyAdmin superCompanyAdmin = new SuperCompanyAdmin(cityDirectory, orderManagement, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory, jSplitPane1, role);
+        LoginJPanel loginJPanel = new LoginJPanel(cityDirectory, orderManagement, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
+        if (role == null) {
+            splitPane.setRightComponent(loginJPanel);
+        } else {
+            jSplitPane1.setRightComponent(superCompanyAdmin);
+        }
+    }//GEN-LAST:event_backButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton backButton;
     private javax.swing.JButton deliveryAdminButton;
     private javax.swing.JButton inventoryAdminButton;
     private javax.swing.JLabel jLabel2;

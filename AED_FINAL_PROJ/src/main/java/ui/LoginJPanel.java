@@ -52,7 +52,6 @@ public class LoginJPanel extends javax.swing.JPanel {
         this.orderManagement = orderManagement;
     }
 
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -153,25 +152,24 @@ public class LoginJPanel extends javax.swing.JPanel {
         }
 
         if (flag && usertype.equalsIgnoreCase("Customer")) {
-//            JOptionPane.showMessageDialog(this, "Login is successfully done for customer");
+            JOptionPane.showMessageDialog(this, "Login is successfully done for customer");
             MainCustomerJPanel mainCustomerJPanel = new MainCustomerJPanel(cityDirectory, usernameTextField1.getText(), orderManagement, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
             splitPane.setRightComponent(mainCustomerJPanel);
-            
             splitPane.setLeftComponent(new LogoutPane(cityDirectory, orderManagement, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory));
         } else if (flag && usertype.equalsIgnoreCase("DeliveryBoy")) {
-//            JOptionPane.showMessageDialog(this, "Login is successfully done for Delivery Boy");
+            JOptionPane.showMessageDialog(this, "Login is successfully done for Delivery Boy");
             MainDeliveryBoyJPanel mainDeliveryBoyJPanel = new MainDeliveryBoyJPanel(community, usernameTextField1.getText(), customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
             splitPane.setRightComponent(mainDeliveryBoyJPanel);
         } else if (flag && usertype.equalsIgnoreCase("CompanyAdmin")) {
-//            JOptionPane.showMessageDialog(this, "Login is successfully done for Company Admin");
-            MainCompanyAdminJPanel mainCompanyAdminPanel = new MainCompanyAdminJPanel(cityName, companyName, cityDirectory, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
+            JOptionPane.showMessageDialog(this, "Login is successfully done for Company Admin");
+            MainCompanyAdminJPanel mainCompanyAdminPanel = new MainCompanyAdminJPanel(cityName, companyName, cityDirectory, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory, null, null, orderManagement);
             splitPane.setRightComponent(mainCompanyAdminPanel);
         } else if (flag && usertype.equalsIgnoreCase("OrderAdmin")) {
-//            JOptionPane.showMessageDialog(this, "Login is successfully done for Order Admin");
-            MainOrderAdminJPanel mainOrderAdminJPanel = new MainOrderAdminJPanel(orderManagement, cityDirectory, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
+            JOptionPane.showMessageDialog(this, "Login is successfully done for Order Admin");
+            MainOrderAdminJPanel mainOrderAdminJPanel = new MainOrderAdminJPanel(orderManagement, cityDirectory, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory, null, null);
             splitPane.setRightComponent(mainOrderAdminJPanel);
         } else if (flag && usertype.equalsIgnoreCase("SuperAdmin")) {
-//            JOptionPane.showMessageDialog(this, "Login is successfully done for Super Admin");
+            JOptionPane.showMessageDialog(this, "Login is successfully done for Super Admin");
             SuperAdminPanel supAdmin = new SuperAdminPanel(cityDirectory, orderManagement, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
             splitPane.setRightComponent(supAdmin);
         } else if (flag && usertype.equalsIgnoreCase("CityAdmin")) {
@@ -180,11 +178,11 @@ public class LoginJPanel extends javax.swing.JPanel {
             splitPane.setRightComponent(supAdmin);
         } else if (flag && usertype.equalsIgnoreCase("DeliveryAdmin")) {
             JOptionPane.showMessageDialog(this, "Login is successfully done for Delivery Admin");
-            DeliveryAdminMainPanel delAdmin = new DeliveryAdminMainPanel(cityDirectory, cityName, companyName, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
+            DeliveryAdminMainPanel delAdmin = new DeliveryAdminMainPanel(cityDirectory, cityName, companyName, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory, null, null, orderManagement);
             splitPane.setRightComponent(delAdmin);
         } else if (flag && usertype.equalsIgnoreCase("InventoryAdmin")) {
             JOptionPane.showMessageDialog(this, "Login is successfully done for Inventory Admin");
-            InventoryAdminPanel invAdmin = new InventoryAdminPanel(cityName, companyName, cityDirectory, splitPane, userauthenticationdirectory);
+            InventoryAdminPanel invAdmin = new InventoryAdminPanel(cityName, companyName, cityDirectory, splitPane, userauthenticationdirectory, null, null, orderManagement, community, customerDirectory, companyDirectory, deliveryBoyDirectory);
             splitPane.setRightComponent(invAdmin);
         }
     }//GEN-LAST:event_loginButton1ActionPerformed

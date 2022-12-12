@@ -60,6 +60,7 @@ public class MainCustomerJPanel extends javax.swing.JPanel {
 
         orderNowButton = new javax.swing.JButton();
         viewPreviousOrderButton = new javax.swing.JButton();
+        createLabel1 = new javax.swing.JLabel();
 
         orderNowButton.setText("order Now");
         orderNowButton.addActionListener(new java.awt.event.ActionListener() {
@@ -75,25 +76,32 @@ public class MainCustomerJPanel extends javax.swing.JPanel {
             }
         });
 
+        createLabel1.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        createLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        createLabel1.setText("Customer Main Panel");
+        createLabel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 5));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(createLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1138, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(210, 210, 210)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(orderNowButton, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 369, Short.MAX_VALUE)
-                .addComponent(viewPreviousOrderButton, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(256, 256, 256))
+                .addGap(242, 242, 242)
+                .addComponent(viewPreviousOrderButton, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(208, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(createLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 149, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(orderNowButton)
-                    .addComponent(viewPreviousOrderButton))
-                .addGap(227, 227, 227))
+                    .addComponent(orderNowButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(viewPreviousOrderButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(200, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -118,6 +126,7 @@ public class MainCustomerJPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel createLabel1;
     private javax.swing.JButton orderNowButton;
     private javax.swing.JButton viewPreviousOrderButton;
     // End of variables declaration//GEN-END:variables

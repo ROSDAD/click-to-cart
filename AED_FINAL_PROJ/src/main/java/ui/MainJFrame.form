@@ -124,22 +124,10 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="lblDetails" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblTitle" alignment="0" min="-2" pref="338" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="121" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="supAdminTest" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="invAdminTest" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="cityAdminTest" max="32767" attributes="0"/>
-                              </Group>
-                          </Group>
+                          <Component id="lblDetails" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblTitle" alignment="0" min="-2" pref="338" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="518" max="32767" attributes="0"/>
                   </Group>
@@ -152,13 +140,7 @@
                       <Component id="lblTitle" min="-2" pref="54" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="lblDetails" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="154" max="-2" attributes="0"/>
-                      <Component id="cityAdminTest" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="invAdminTest" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="supAdminTest" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="279" max="32767" attributes="0"/>
+                      <EmptySpace pref="535" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -179,30 +161,6 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Hrishikesh S. Pawar, Abhishek Nair and Roshan Dadlani"/>
               </Properties>
-            </Component>
-            <Component class="javax.swing.JButton" name="cityAdminTest">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="City Admin Test"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cityAdminTestActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JButton" name="invAdminTest">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Inv Admin Test"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="invAdminTestActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JButton" name="supAdminTest">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Super Admin Test"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="supAdminTestActionPerformed"/>
-              </Events>
             </Component>
           </SubComponents>
         </Container>

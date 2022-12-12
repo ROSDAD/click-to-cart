@@ -211,9 +211,6 @@ public class MainJFrame extends javax.swing.JFrame {
         workArea = new javax.swing.JPanel();
         lblTitle = new javax.swing.JLabel();
         lblDetails = new javax.swing.JLabel();
-        cityAdminTest = new javax.swing.JButton();
-        invAdminTest = new javax.swing.JButton();
-        supAdminTest = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1290, 750));
@@ -269,44 +266,15 @@ public class MainJFrame extends javax.swing.JFrame {
         lblDetails.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lblDetails.setText("Hrishikesh S. Pawar, Abhishek Nair and Roshan Dadlani");
 
-        cityAdminTest.setText("City Admin Test");
-        cityAdminTest.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cityAdminTestActionPerformed(evt);
-            }
-        });
-
-        invAdminTest.setText("Inv Admin Test");
-        invAdminTest.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                invAdminTestActionPerformed(evt);
-            }
-        });
-
-        supAdminTest.setText("Super Admin Test");
-        supAdminTest.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                supAdminTestActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout workAreaLayout = new javax.swing.GroupLayout(workArea);
         workArea.setLayout(workAreaLayout);
         workAreaLayout.setHorizontalGroup(
             workAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(workAreaLayout.createSequentialGroup()
+                .addGap(42, 42, 42)
                 .addGroup(workAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(workAreaLayout.createSequentialGroup()
-                        .addGap(42, 42, 42)
-                        .addGroup(workAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblDetails)
-                            .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(workAreaLayout.createSequentialGroup()
-                        .addGap(121, 121, 121)
-                        .addGroup(workAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(supAdminTest, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(invAdminTest, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(cityAdminTest, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addComponent(lblDetails)
+                    .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(518, Short.MAX_VALUE))
         );
         workAreaLayout.setVerticalGroup(
@@ -316,13 +284,7 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblDetails)
-                .addGap(154, 154, 154)
-                .addComponent(cityAdminTest)
-                .addGap(18, 18, 18)
-                .addComponent(invAdminTest)
-                .addGap(18, 18, 18)
-                .addComponent(supAdminTest)
-                .addContainerGap(279, Short.MAX_VALUE))
+                .addContainerGap(535, Short.MAX_VALUE))
         );
 
         splitPane.setRightComponent(workArea);
@@ -354,29 +316,6 @@ public class MainJFrame extends javax.swing.JFrame {
         splitPane.setRightComponent(customerRegistrationJPanel);
     }//GEN-LAST:event_btnCustomerRegisterActionPerformed
 
-    private void cityAdminTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cityAdminTestActionPerformed
-        // TODO add your handling code here:
-//        CityAdminPanel c = new CityAdminPanel(cityDirectory, splitPane);
-//        splitPane.setRightComponent(c);
-//
-//        OrderCnfPanel m = new OrderCnfPanel(new Customer(), company, splitPane);
-//        splitPane.setRightComponent(m);
-
-//        DeliveryAdminMainPanel c = new DeliveryAdminMainPanel(cityDirectory, "Boston", "Costco", company, community, customerDirectory, city.getCompanyDirectory(), userauthenticationdirectory, splitPane, deliveryBoyDirectory);
-//        splitPane.setRightComponent(c);
-    }//GEN-LAST:event_cityAdminTestActionPerformed
-
-    private void invAdminTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_invAdminTestActionPerformed
-        // TODO add your handling code here:
-
-        String cityName = new String("Boston");
-        String companyName = new String("Costco");
-
-        InventoryAdminPanel i = new InventoryAdminPanel(cityName, companyName, cityDirectory, splitPane);
-        splitPane.setRightComponent(i);
-
-    }//GEN-LAST:event_invAdminTestActionPerformed
-
     private void deliveryBoyRegistrationJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deliveryBoyRegistrationJButtonActionPerformed
         // TODO add your handling code here:
         String cityName = new String("Boston");
@@ -385,13 +324,6 @@ public class MainJFrame extends javax.swing.JFrame {
         DeliveryAdminMainPanel deliveryBoyRegistrationJPanel = new DeliveryAdminMainPanel(cityDirectory, cityName, companyName, company, community, customerDirectory, companyDir, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
         splitPane.setRightComponent(deliveryBoyRegistrationJPanel);
     }//GEN-LAST:event_deliveryBoyRegistrationJButtonActionPerformed
-
-    private void supAdminTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supAdminTestActionPerformed
-        // TODO add your handling code here:
-        System.out.println(orderManagement.getOrders().size());
-        SuperAdminPanel supAdmin = new SuperAdminPanel(cityDirectory, orderManagement, community, customerDirectory, companyDir, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
-        splitPane.setRightComponent(supAdmin);
-    }//GEN-LAST:event_supAdminTestActionPerformed
 
     /**
      * @param args the command line arguments
@@ -449,13 +381,10 @@ public class MainJFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCustomerRegister;
     private javax.swing.JButton btnLogin;
-    private javax.swing.JButton cityAdminTest;
     private javax.swing.JPanel controlPanel;
-    private javax.swing.JButton invAdminTest;
     private javax.swing.JLabel lblDetails;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JSplitPane splitPane;
-    private javax.swing.JButton supAdminTest;
     private javax.swing.JPanel workArea;
     // End of variables declaration//GEN-END:variables
 }

@@ -25,14 +25,17 @@ import model.InventoryProductDir;
 import model.Ordermgt;
 import model.UserAuthentication;
 import database.Connection;
+import java.awt.Image;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import model.Orderedprod;
 import model.Orders;
 import model.Payment;
+
 //import java.sql.SQLException;
 //import java.util.logging.Level;
 //import java.util.logging.Logger;
@@ -61,7 +64,13 @@ public class MainJFrame extends javax.swing.JFrame {
 
     public MainJFrame() {
         initComponents();
-
+//        System.out.println();
+        String imgDir = System.getProperty("user.dir")+"/src/main/java/IMAGES/";
+        roadLabel.setIcon(new ImageIcon(new ImageIcon(imgDir+"road.png").getImage().getScaledInstance(1300, 300, Image.SCALE_DEFAULT)));
+        welcomeLabel.setIcon(new ImageIcon(new ImageIcon(imgDir+"welcome.png").getImage().getScaledInstance(1000, 300, Image.SCALE_DEFAULT)));
+        scootLabel.setIcon(new ImageIcon(new ImageIcon(imgDir+"scooter.png").getImage().getScaledInstance(60, 50, Image.SCALE_DEFAULT)));
+        genieLabel.setIcon(new ImageIcon(new ImageIcon(imgDir+"ecommerce.png").getImage().getScaledInstance(60, 60, Image.SCALE_DEFAULT)));
+//        scootLabel.setIcon(new ImageIcon(imgDir+"scooter.png"));
         setExtendedState(JFrame.MAXIMIZED_BOTH);
 //        Connection obj = new Connection();
 //        java.sql.Connection con = obj.getConnection();
@@ -226,6 +235,10 @@ public class MainJFrame extends javax.swing.JFrame {
         workArea = new javax.swing.JPanel();
         lblTitle = new javax.swing.JLabel();
         lblDetails = new javax.swing.JLabel();
+        roadLabel = new javax.swing.JLabel();
+        welcomeLabel = new javax.swing.JLabel();
+        genieLabel = new javax.swing.JLabel();
+        scootLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -247,66 +260,86 @@ public class MainJFrame extends javax.swing.JFrame {
             }
         });
 
-        workArea.setBackground(new java.awt.Color(255, 255, 255));
-        workArea.setMinimumSize(new java.awt.Dimension(200, 200));
-        workArea.setPreferredSize(new java.awt.Dimension(1200, 700));
-
-        lblTitle.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
-        lblTitle.setText("Click 2 Cart");
-
-        lblDetails.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        lblDetails.setText("By Hrishikesh S. Pawar, Abhishek Nair and Roshan Dadlani");
-
-        javax.swing.GroupLayout workAreaLayout = new javax.swing.GroupLayout(workArea);
-        workArea.setLayout(workAreaLayout);
-        workAreaLayout.setHorizontalGroup(
-            workAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, workAreaLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(workAreaLayout.createSequentialGroup()
-                .addGap(155, 155, 155)
-                .addComponent(lblDetails)
-                .addContainerGap(379, Short.MAX_VALUE))
-        );
-        workAreaLayout.setVerticalGroup(
-            workAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(workAreaLayout.createSequentialGroup()
-                .addGap(166, 166, 166)
-                .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(lblDetails)
-                .addContainerGap(412, Short.MAX_VALUE))
-        );
-
         javax.swing.GroupLayout controlPanelLayout = new javax.swing.GroupLayout(controlPanel);
         controlPanel.setLayout(controlPanelLayout);
         controlPanelLayout.setHorizontalGroup(
             controlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(controlPanelLayout.createSequentialGroup()
-                .addGap(28, 28, 28)
+                .addContainerGap(20, Short.MAX_VALUE)
                 .addGroup(controlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnCustomerRegister, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(workArea, javax.swing.GroupLayout.PREFERRED_SIZE, 1008, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                    .addComponent(btnCustomerRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         controlPanelLayout.setVerticalGroup(
             controlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(controlPanelLayout.createSequentialGroup()
-                .addGap(102, 102, 102)
-                .addComponent(btnLogin)
-                .addGap(61, 61, 61)
-                .addComponent(btnCustomerRegister)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, controlPanelLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(workArea, javax.swing.GroupLayout.PREFERRED_SIZE, 672, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(254, Short.MAX_VALUE)
+                .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(97, 97, 97)
+                .addComponent(btnCustomerRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(255, Short.MAX_VALUE))
         );
 
         splitPane.setLeftComponent(controlPanel);
+
+        workArea.setBackground(new java.awt.Color(255, 255, 255));
+        workArea.setMinimumSize(new java.awt.Dimension(200, 200));
+        workArea.setPreferredSize(new java.awt.Dimension(1200, 700));
+
+        lblTitle.setFont(new java.awt.Font("Tahoma", 3, 36)); // NOI18N
+        lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTitle.setText("CLICK 2 CART");
+
+        lblDetails.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblDetails.setText("By Hrishikesh Pawar, Abhishek Nair and Roshan Dadlani");
+
+        welcomeLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+        genieLabel.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+
+        scootLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+        javax.swing.GroupLayout workAreaLayout = new javax.swing.GroupLayout(workArea);
+        workArea.setLayout(workAreaLayout);
+        workAreaLayout.setHorizontalGroup(
+            workAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(workAreaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(workAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(roadLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(welcomeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, workAreaLayout.createSequentialGroup()
+                .addContainerGap(289, Short.MAX_VALUE)
+                .addGroup(workAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblDetails)
+                    .addGroup(workAreaLayout.createSequentialGroup()
+                        .addComponent(genieLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(scootLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(267, Short.MAX_VALUE))
+        );
+        workAreaLayout.setVerticalGroup(
+            workAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(workAreaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(welcomeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(45, 45, 45)
+                .addGroup(workAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(genieLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(scootLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(37, 37, 37)
+                .addComponent(lblDetails)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 150, Short.MAX_VALUE)
+                .addComponent(roadLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        splitPane.setRightComponent(workArea);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -424,9 +457,13 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnCustomerRegister;
     private javax.swing.JButton btnLogin;
     private javax.swing.JPanel controlPanel;
+    private javax.swing.JLabel genieLabel;
     private javax.swing.JLabel lblDetails;
     private javax.swing.JLabel lblTitle;
+    private javax.swing.JLabel roadLabel;
+    private javax.swing.JLabel scootLabel;
     private javax.swing.JSplitPane splitPane;
+    private javax.swing.JLabel welcomeLabel;
     private javax.swing.JPanel workArea;
     // End of variables declaration//GEN-END:variables
 }

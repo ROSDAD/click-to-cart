@@ -16,6 +16,7 @@ import model.CompanyDirectory;
 import model.Inventory;
 import model.InventoryMgt;
 import javax.swing.JOptionPane;
+import model.UserAuthenticationDirectory;
 
 /**
  *
@@ -35,14 +36,16 @@ public class InventoryAdminPanel extends javax.swing.JPanel {
     private InventoryMgt invMgt;
     private String inventoryCategory;
     private String inventoryType; //critical, general
+    private UserAuthenticationDirectory userauthenticationdirectory;
     
-    public InventoryAdminPanel(String cityName, String companyName, CityDir cityDir, JSplitPane splitPane) {
+    public InventoryAdminPanel(String cityName, String companyName, CityDir cityDir, JSplitPane splitPane, UserAuthenticationDirectory userauthenticationdirectory) {
         initComponents();
         
         this.cityName = cityName;
         this.companyName = companyName;
         this.cityDir = cityDir;
         this.splitPane = splitPane;
+        this.userauthenticationdirectory = userauthenticationdirectory;
         
         populateInventoriesTable();
     }
@@ -456,7 +459,7 @@ public class InventoryAdminPanel extends javax.swing.JPanel {
                                     
                                     if(i.getinventoryCategory().equalsIgnoreCase(selectedInv)) {
         
-                                        ModifyInvProductsPanel m = new ModifyInvProductsPanel(cityName, companyName, cityDir, splitPane, i.getInventoryProductDir());
+                                        ModifyInvProductsPanel m = new ModifyInvProductsPanel(cityName, companyName, cityDir, splitPane, i.getInventoryProductDir(), userauthenticationdirectory);
                                         splitPane.setRightComponent(m);   
                                         //break;
                                     }

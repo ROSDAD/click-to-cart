@@ -92,17 +92,17 @@ public class MainJFrame extends javax.swing.JFrame {
 
         company = companyDir.addNewCompany();
         company.setCompanyName("Costco");
-        company.setCompanyType("Type 1");
+        company.setCompanyType("Public");
         company.setInventoryManagement(inventoryManagement);
 
         company1 = companyDir.addNewCompany();
-        company1.setCompanyName("Target1");
-        company1.setCompanyType("Type 1");
+        company1.setCompanyName("Target");
+        company1.setCompanyType("Private");
         company1.setInventoryManagement(inventoryManagement);
 
         company1 = companyDir.addNewCompany();
-        company1.setCompanyName("Target2");
-        company1.setCompanyType("Type 2");
+        company1.setCompanyName("Target");
+        company1.setCompanyType("Private");
         company1.setInventoryManagement(inventoryManagement);
 
         //Default City
@@ -154,12 +154,61 @@ public class MainJFrame extends javax.swing.JFrame {
         userAuthentication.setCityName("Boston");
         userAuthentication.setCompanyName("Costco");
         userAuthentication.setUserType("CompanyAdmin");
-
+        
         userAuthentication = userauthenticationdirectory.addNewUserAuthentication();
-        userAuthentication.setUserName("cu");
-        userAuthentication.setPassword("cu");
-        userAuthentication.setUserType("Customer");
+        userAuthentication.setUserName("city");
+        userAuthentication.setPassword("city");
+        userAuthentication.setCityName("Boston");
+        userAuthentication.setCompanyName("");
+        userAuthentication.setUserType("CityAdmin");
+        
+        userAuthentication = userauthenticationdirectory.addNewUserAuthentication();
+        userAuthentication.setUserName("del");
+        userAuthentication.setPassword("del");
+        userAuthentication.setCityName("Boston");
+        userAuthentication.setCompanyName("Costco");
+        userAuthentication.setUserType("DeliveryAdmin");
+        
+        userAuthentication = userauthenticationdirectory.addNewUserAuthentication();
+        userAuthentication.setUserName("inv");
+        userAuthentication.setPassword("inv");
+        userAuthentication.setCityName("Boston");
+        userAuthentication.setCompanyName("Costco");
+        userAuthentication.setUserType("InventoryAdmin");
 
+        List<Orders> ordersList = new ArrayList<>();
+        for (int i = 0; i < 2; i++) {
+
+            Orders orders = new Orders();
+            orders.setOrderId(String.valueOf(i));
+            orders.setOrderStatus("OrderPlaced");
+            Payment payment = new Payment();
+            payment.setPaymentType("Debit");
+            orders.setPaymentType(payment);
+            List<Orderedprod> orderedprodList = new ArrayList<>();
+            Orderedprod orderedprod = new Orderedprod();
+            orderedprod.setProdId("1");
+            orderedprod.setProductName("sr");
+            orderedprod.setProdTotalprice(500.78);
+            orderedprod.setProdcount(12);
+            orderedprodList.add(orderedprod);
+            orders.setOrderedProds(orderedprodList);
+            ordersList.add(orders);
+        }
+
+        orderManagement.setOrders(ordersList);
+
+        deliveryBoy = deliveryBoyDirectory.addNewDeliveryBoy();
+        deliveryBoy.setDeliveryBoyName("de");
+        deliveryBoy.setOrderList(ordersList);
+
+        customer = customerDirectory.addNewCustomer();
+        customer.setUserName("abc");
+        customer.setOrders(ordersList);
+        
+        
+//        ChatServerGUI chatServerGUI = new ChatServerGUI();
+//        chatServerGUI.setVisible(true);
     }
 
     /**
@@ -283,12 +332,35 @@ public class MainJFrame extends javax.swing.JFrame {
         splitPane.setRightComponent(customerRegistrationJPanel);
     }//GEN-LAST:event_btnCustomerRegisterActionPerformed
 
+    private void cityAdminTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cityAdminTestActionPerformed
+        // TODO add your handling code here:
+//        CityAdminPanel c = new CityAdminPanel(cityDirectory, splitPane);
+//        splitPane.setRightComponent(c);
+//
+//        OrderCnfPanel m = new OrderCnfPanel(new Customer(), company, splitPane);
+//        splitPane.setRightComponent(m);
+        
+//        DeliveryAdminMainPanel c = new DeliveryAdminMainPanel(cityDirectory, "Boston", "Costco", company, community, customerDirectory, city.getCompanyDirectory(), userauthenticationdirectory, splitPane, deliveryBoyDirectory);
+//        splitPane.setRightComponent(c);
+    }//GEN-LAST:event_cityAdminTestActionPerformed
+
+    private void invAdminTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_invAdminTestActionPerformed
+        // TODO add your handling code here:
+
+        String cityName = new String("Boston");
+        String companyName = new String("Costco");
+
+//        InventoryAdminPanel i = new InventoryAdminPanel(cityName, companyName, cityDirectory, splitPane);
+//        splitPane.setRightComponent(i);
+
+    }//GEN-LAST:event_invAdminTestActionPerformed
+
     private void deliveryBoyRegistrationJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deliveryBoyRegistrationJButtonActionPerformed
         // TODO add your handling code here:
         String cityName = new String("Boston");
         String companyName = new String("Costco");
 
-        DeliveryAdminMainPanel deliveryBoyRegistrationJPanel = new DeliveryAdminMainPanel(cityDirectory, cityName, companyName, company, community, customerDirectory, companyDir, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
+        DeliveryAdminMainPanel deliveryBoyRegistrationJPanel = new DeliveryAdminMainPanel(cityDirectory, cityName, companyName, community, customerDirectory, companyDir, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
         splitPane.setRightComponent(deliveryBoyRegistrationJPanel);
     }//GEN-LAST:event_deliveryBoyRegistrationJButtonActionPerformed
 

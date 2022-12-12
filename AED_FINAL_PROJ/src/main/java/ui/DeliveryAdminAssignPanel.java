@@ -39,6 +39,7 @@ public class DeliveryAdminAssignPanel extends javax.swing.JPanel {
     private CityDir cityDir;
     private String cityName;
     private String companyName;
+    private DeliveryAdminMainPanel delAdmin;
 
     public DeliveryAdminAssignPanel(CityDir cityDir, String cityName, String companyName, Company company, Community community, CustomerDirectory customerDirectory, CompanyDirectory companyDirectory, UserAuthenticationDirectory userauthenticationdirectory, JSplitPane splitPane, DeliveryBoyDirectory deliveryBoyDirectory) {
 
@@ -54,7 +55,8 @@ public class DeliveryAdminAssignPanel extends javax.swing.JPanel {
         this.cityDir = cityDir;
         this.cityName = cityName;
         this.companyName = companyName;
-
+        this.delAdmin = delAdmin;
+        
         populateOrderTable();
         populateDeliveryBoyTable();
     }
@@ -93,7 +95,6 @@ public class DeliveryAdminAssignPanel extends javax.swing.JPanel {
                     ordDir = comp.getOrderMgt().getOrders();
                     break;
                 }
-
                 break;
             }
         }
@@ -135,6 +136,7 @@ public class DeliveryAdminAssignPanel extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         tblDeliveryBoys = new javax.swing.JTable();
         btnAssign = new javax.swing.JButton();
+        btnBack = new javax.swing.JButton();
 
         tblOrders.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -193,6 +195,13 @@ public class DeliveryAdminAssignPanel extends javax.swing.JPanel {
             }
         });
 
+        btnBack.setText("Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -207,11 +216,17 @@ public class DeliveryAdminAssignPanel extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnAssign, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(245, 245, 245))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(btnBack)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(71, 71, 71)
+                .addGap(37, 37, 37)
+                .addComponent(btnBack)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -262,9 +277,17 @@ public class DeliveryAdminAssignPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnAssignActionPerformed
 
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // TODO add your handling code here:
+        
+        DeliveryAdminMainPanel d = new DeliveryAdminMainPanel(cityDir, cityName, companyName, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
+        splitPane.setRightComponent(d);
+    }//GEN-LAST:event_btnBackActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAssign;
+    private javax.swing.JButton btnBack;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tblDeliveryBoys;

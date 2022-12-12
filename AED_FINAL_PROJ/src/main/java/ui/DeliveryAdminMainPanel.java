@@ -15,6 +15,7 @@ import model.CompanyDirectory;
 import model.CustomerDirectory;
 import model.DeliveryBoy;
 import model.DeliveryBoyDirectory;
+import model.Ordermgt;
 import model.UserAuthentication;
 
 /**
@@ -26,7 +27,6 @@ public class DeliveryAdminMainPanel extends javax.swing.JPanel {
     /**
      * Creates new form DeliveryAdminMainPanel
      */
-    
     private JSplitPane splitPane;
     private CustomerDirectory customerDirectory;
     private CompanyDirectory companyDirectory;
@@ -39,19 +39,22 @@ public class DeliveryAdminMainPanel extends javax.swing.JPanel {
     private String cityName;
     private String companyName;
     private DeliveryAdminMainPanel delAdmin;
-    
+    private Ordermgt orderManagement;
+    private JSplitPane jSplitPane1;
+    private String role;
+
     public DeliveryAdminMainPanel() {
         initComponents();
     }
-    
-    public DeliveryAdminMainPanel(CityDir cityDir, String cityName, String companyName, Community community, CustomerDirectory customerDirectory, CompanyDirectory companyDirectory, UserAuthenticationDirectory userauthenticationdirectory, JSplitPane splitPane, DeliveryBoyDirectory deliveryBoyDirectory) {
+
+    public DeliveryAdminMainPanel(CityDir cityDir, String cityName, String companyName, Community community, CustomerDirectory customerDirectory, CompanyDirectory companyDirectory, UserAuthenticationDirectory userauthenticationdirectory, JSplitPane splitPane, DeliveryBoyDirectory deliveryBoyDirectory, JSplitPane jSplitPane1, String role, Ordermgt orderManagement) {
         initComponents();
-        
+
         ButtonGroup buttonGroup = new ButtonGroup();
-        
+
         buttonGroup.add(radioHighSchool);
         buttonGroup.add(radioUniversity);
-        
+
         this.community = community;
         this.splitPane = splitPane;
         this.customerDirectory = customerDirectory;
@@ -60,9 +63,12 @@ public class DeliveryAdminMainPanel extends javax.swing.JPanel {
         this.deliveryBoyDirectory = deliveryBoyDirectory;
         this.company = company;
         this.cityDir = cityDir;
+        this.jSplitPane1 = jSplitPane1;
+        this.role = role;
+        this.orderManagement = orderManagement;
     }
-    
-     private void setDefault() {
+
+    private void setDefault() {
         txtName.setText("");
         txtEmergency.setText("");
         txtExperience.setText("");
@@ -97,6 +103,7 @@ public class DeliveryAdminMainPanel extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         btnAssign = new javax.swing.JButton();
         radioHighSchool = new javax.swing.JRadioButton();
+        backButton = new javax.swing.JButton();
 
         jLabel4.setText("Years of Experience:");
 
@@ -159,6 +166,13 @@ public class DeliveryAdminMainPanel extends javax.swing.JPanel {
 
         radioHighSchool.setText("High School");
 
+        backButton.setText("Back");
+        backButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -198,14 +212,21 @@ public class DeliveryAdminMainPanel extends javax.swing.JPanel {
                         .addComponent(btnModifyD)))
                 .addGap(159, 159, 159))
             .addGroup(layout.createSequentialGroup()
-                .addGap(255, 255, 255)
-                .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(255, 255, 255)
+                        .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(47, 47, 47)
+                        .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(77, 77, 77)
+                .addGap(24, 24, 24)
+                .addComponent(backButton)
+                .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -258,7 +279,7 @@ public class DeliveryAdminMainPanel extends javax.swing.JPanel {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
-        
+
         if (txtName.getText().length() == 0) {
             JOptionPane.showMessageDialog(this, "Mandatory name field is empty");
             return;
@@ -279,7 +300,6 @@ public class DeliveryAdminMainPanel extends javax.swing.JPanel {
             return;
         }
 
-
         for (int i = 0; i < userauthenticationdirectory.getUserAuthenticationList().size(); i++) {
             UserAuthentication userauthentication = userauthenticationdirectory.getUserAuthenticationList().get(i);
 
@@ -289,16 +309,13 @@ public class DeliveryAdminMainPanel extends javax.swing.JPanel {
                 return;
             }
         }
-        
-        //Radio buttons
 
-        if(radioHighSchool.isSelected() == true) {
+        //Radio buttons
+        if (radioHighSchool.isSelected() == true) {
             qualif = "High School";
-        }
-        else if(radioUniversity.isSelected() == true){
+        } else if (radioUniversity.isSelected() == true) {
             qualif = "University";
-        }
-        else {
+        } else {
             JOptionPane.showMessageDialog(this, "Please select a city type.");
         }
 
@@ -318,24 +335,47 @@ public class DeliveryAdminMainPanel extends javax.swing.JPanel {
 
         setDefault();
         JOptionPane.showMessageDialog(this, "Delivery Boy has been created");
-        
+
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnModifyDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModifyDActionPerformed
         // TODO add your handling code here:
 
-        DeliveryAdminModifyPanel m = new DeliveryAdminModifyPanel(community,deliveryBoyDirectory, cityDir,cityName, companyName, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane);
-        splitPane.setRightComponent(m);
+        DeliveryAdminModifyPanel m1 = new DeliveryAdminModifyPanel(community, deliveryBoyDirectory, cityDir, cityName, companyName, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, jSplitPane1, role, orderManagement);
+        if (role == null) {
+            splitPane.setRightComponent(m1);
+        } else {
+            jSplitPane1.setRightComponent(m1);
+        }
     }//GEN-LAST:event_btnModifyDActionPerformed
 
     private void btnAssignActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssignActionPerformed
         // TODO add your handling code here:
-        DeliveryAdminAssignPanel m = new DeliveryAdminAssignPanel(cityDir,  cityName,  companyName,  company,  community,  customerDirectory,  companyDirectory,  userauthenticationdirectory,  splitPane, deliveryBoyDirectory);
-        splitPane.setRightComponent(m);
+        DeliveryAdminAssignPanel m1 = new DeliveryAdminAssignPanel(cityDir, cityName, companyName, company, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory, jSplitPane1, role, orderManagement);
+        if (role == null) {
+            splitPane.setRightComponent(m1);
+        } else {
+            jSplitPane1.setRightComponent(m1);
+        }
+
+        jSplitPane1.setRightComponent(m1);
+
     }//GEN-LAST:event_btnAssignActionPerformed
+
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
+        // TODO add your handling code here:
+        SuperCompanyAdmin superCompanyAdmin = new SuperCompanyAdmin(cityDir, orderManagement, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory, jSplitPane1, role);
+        LoginJPanel loginJPanel = new LoginJPanel(cityDir, orderManagement, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
+        if (role == null) {
+            splitPane.setRightComponent(loginJPanel);
+        } else {
+            jSplitPane1.setRightComponent(superCompanyAdmin);
+        }
+    }//GEN-LAST:event_backButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton backButton;
     private javax.swing.JButton btnAssign;
     private javax.swing.JButton btnModifyD;
     private javax.swing.JButton btnSave;

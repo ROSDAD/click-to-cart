@@ -61,11 +61,8 @@
               <Component id="loginLabel" min="-2" pref="183" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="86" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <Component id="welcomeLabel" min="-2" pref="284" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="1" attributes="0">
+                  <Component id="welcomeLabel" alignment="0" min="-2" pref="284" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="usernameJLabel1" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
                           <Component id="usernameTextField1" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
@@ -80,9 +77,9 @@
                       </Group>
                       <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
                       <Component id="loginButton1" min="-2" pref="34" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
+              <EmptySpace max="32767" attributes="0"/>
               <Component id="roadLabel" min="-2" pref="155" max="-2" attributes="0"/>
               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
           </Group>

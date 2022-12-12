@@ -79,6 +79,7 @@ public class PaymentDetails extends javax.swing.JPanel {
         ButtonGroup buttonGroup = new ButtonGroup();
         buttonGroup.add(debitRadioBtn);
         buttonGroup.add(creditRadioBtn);
+        displayCardList();
     }
 
     /**

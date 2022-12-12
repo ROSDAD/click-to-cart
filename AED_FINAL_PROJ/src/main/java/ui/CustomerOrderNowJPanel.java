@@ -34,6 +34,8 @@ import org.jxmapviewer.input.ZoomMouseWheelListenerCenter;
 import org.jxmapviewer.viewer.DefaultTileFactory;
 import org.jxmapviewer.viewer.GeoPosition;
 import org.jxmapviewer.viewer.TileFactoryInfo;
+import ui.ItemListPanel;
+import ui.MainCustomerJPanel;
 
 /**
  *

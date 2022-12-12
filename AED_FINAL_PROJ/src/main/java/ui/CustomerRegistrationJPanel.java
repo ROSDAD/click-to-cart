@@ -304,11 +304,11 @@ public class CustomerRegistrationJPanel extends javax.swing.JPanel {
         try {
             pst = obj.getConnection().prepareStatement(query);
             pst.setString(1, usernameTextField.getText());
-            pst.setString(2, newHashedPassword);
+            pst.setString(2, passwordTextField.getText());
             pst.setString(3, "Customer");
             pst.setString(4, "");
             pst.setString(5, "");
-//                    if(cpass.equals(password)){
+            //        if(cpass.equals(password)){
             pst.executeUpdate();
             System.out.println("Inserted user.");
             con.close();

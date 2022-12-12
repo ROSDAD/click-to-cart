@@ -396,7 +396,7 @@ public class PaymentDetails extends javax.swing.JPanel {
                 ArrayList<InventoryProduct> mainM = comp.getInventoryManagement().getInventoryMgt().get(k).getInventoryProductDir().getInventoryProductDir();
                 for (int j = 0; j < mainM.size(); j++) {
                     System.out.println("3: "+ordProd.get(i).getProdid()+", "+mainM.get(j).getPid());
-                    if (ordProd.get(i).getProdid().equals(mainM.get(j).getPid())) {
+                    if (Integer.parseInt(ordProd.get(i).getProdid()) == (mainM.get(j).getPid())) {
                         System.out.println("4");
                         if (ordProd.get(i).getprodcount() <= mainM.get(j).getInventoryQty()) {
                             System.out.println("5");
@@ -421,7 +421,7 @@ public class PaymentDetails extends javax.swing.JPanel {
                             
                             System.out.println("DB Test 1");
                             
-                            String query = "INSERT INTO `order`(`orderID`, `customerID`, `finalPrice`, address, orderStatus, ) VALUES (?,?,?,?,?)";
+                            String query = "INSERT INTO `order`(`orderID`, `customerID`, `finalPrice`, address, orderStatus) VALUES (?,?,?,?,?)";
                             PreparedStatement pst = null;
                             try {
                                 pst = obj.getConnection().prepareStatement(query);
@@ -515,8 +515,12 @@ public class PaymentDetails extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Please input a number field for card number");
                 return;
             }
+            
             long cardNumberval = Long.parseLong(cardNumberVal);
-
+            if(cardNumberval<=4){
+               JOptionPane.showMessageDialog(this, "Please input a valid Card Number"); 
+               return;
+            }
             int Month = Integer.parseInt(month);
             int Year = Integer.parseInt(year);
             int Cvv = Integer.parseInt(cvv);

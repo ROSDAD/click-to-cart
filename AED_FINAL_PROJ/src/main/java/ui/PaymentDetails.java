@@ -399,7 +399,7 @@ public class PaymentDetails extends javax.swing.JPanel {
         String Subject = "Order Confirmation!";
         String data = "<B>Thank you for Choosing InstaCart!</B> \nYour total bill is $" + finalPrice;
         try {
-            Smtp smtp = new Smtp(cust.getUserName(), Subject, data);
+            Smtp smtp = new Smtp(cust.getEmailAddress(), Subject, data);
             OrderCnfPanel orderCnfPanel = new OrderCnfPanel(distance, cityName, cust, comp, splitPane, cityDirectory, userName, orderManagement, community, customerDirectory, companyDirectory, userauthenticationdirectory, deliveryBoyDirectory);
             splitPane.setRightComponent(orderCnfPanel);
         } catch (Exception exception) {

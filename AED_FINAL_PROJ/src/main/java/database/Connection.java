@@ -4,11 +4,31 @@
  */
 package database;
 
+import java.sql.DriverManager;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author rosha
  */
 public class Connection {
-    
+
+    private static java.sql.Connection con;
+
+    public Connection() {
+
+    }
+
+    public java.sql.Connection getConnection() {
+
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+//            this.con = DriverManager.getConnection("jdbc:mysql://localhost:3306/instacart", "root", "root");
+            System.out.println("Database Connected");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        return con;
+    }
 
 }

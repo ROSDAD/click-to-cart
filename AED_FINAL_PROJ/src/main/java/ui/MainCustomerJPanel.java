@@ -36,7 +36,7 @@ public class MainCustomerJPanel extends javax.swing.JPanel {
         initComponents();
     }
 
-    public MainCustomerJPanel(CityDir cityDirectory,String userName, Ordermgt orderManagement, Community community, CustomerDirectory customerDirectory, CompanyDirectory companyDirectory, UserAuthenticationDirectory userauthenticationdirectory, JSplitPane splitPane, DeliveryBoyDirectory deliveryBoyDirectory) {
+    public MainCustomerJPanel(CityDir cityDirectory, String userName, Ordermgt orderManagement, Community community, CustomerDirectory customerDirectory, CompanyDirectory companyDirectory, UserAuthenticationDirectory userauthenticationdirectory, JSplitPane splitPane, DeliveryBoyDirectory deliveryBoyDirectory) {
         initComponents();
         this.cityDirectory = cityDirectory;
         this.userName = userName;
@@ -113,19 +113,19 @@ public class MainCustomerJPanel extends javax.swing.JPanel {
 
     private void orderNowButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderNowButtonActionPerformed
         // TODO add your handling code here:
-        CustomerOrderNowJPanel customerOrderNowJPanel = new CustomerOrderNowJPanel(cityDirectory,userName, orderManagement, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
+        CustomerOrderNowJPanel customerOrderNowJPanel = new CustomerOrderNowJPanel(cityDirectory, userName, orderManagement, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
         splitPane.setRightComponent(customerOrderNowJPanel);
     }//GEN-LAST:event_orderNowButtonActionPerformed
 
     private void viewPreviousOrderButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewPreviousOrderButtonActionPerformed
         // TODO add your handling code here:
-        CustomerOrderHistoryJPanel customerOrderHistoryJPanel = new CustomerOrderHistoryJPanel(cityDirectory,userName, orderManagement, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
+        CustomerOrderHistoryJPanel customerOrderHistoryJPanel = new CustomerOrderHistoryJPanel(cityDirectory, userName, orderManagement, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
         splitPane.setRightComponent(customerOrderHistoryJPanel);
     }//GEN-LAST:event_viewPreviousOrderButtonActionPerformed
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
         // TODO add your handling code here:
-        LoginJPanel loginJPanel = new LoginJPanel( cityDirectory, userName,  orderManagement,  community,  customerDirectory,  companyDirectory,  userauthenticationdirectory,  splitPane,  deliveryBoyDirectory);
+        LoginJPanel loginJPanel = new LoginJPanel(cityDirectory, orderManagement, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
         splitPane.setRightComponent(loginJPanel);
     }//GEN-LAST:event_backButtonActionPerformed
 

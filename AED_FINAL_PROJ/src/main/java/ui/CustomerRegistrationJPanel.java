@@ -4,10 +4,13 @@
  */
 package ui;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import model.UserAuthenticationDirectory;
 import javax.swing.JOptionPane;
 import javax.swing.JSplitPane;
 import model.Cart;
+import model.CityDir;
 import model.Community;
 import model.CompanyDirectory;
 import model.Customer;
@@ -26,6 +29,7 @@ import special.Smtp;
 public class CustomerRegistrationJPanel extends javax.swing.JPanel {
 
     private JSplitPane splitPane;
+    private CityDir cityDirectory;
     private CustomerDirectory customerDirectory;
     private CompanyDirectory companyDirectory;
     private Community community;
@@ -37,8 +41,9 @@ public class CustomerRegistrationJPanel extends javax.swing.JPanel {
     /**
      * Creates new form MainCustomerJPanel
      */
-    public CustomerRegistrationJPanel(Ordermgt orderManagement, Community community, CustomerDirectory customerDirectory, CompanyDirectory companyDirectory, UserAuthenticationDirectory userauthenticationdirectory, JSplitPane splitPane, DeliveryBoyDirectory deliveryBoyDirectory) {
+    public CustomerRegistrationJPanel(CityDir cityDirectory, Ordermgt orderManagement, Community community, CustomerDirectory customerDirectory, CompanyDirectory companyDirectory, UserAuthenticationDirectory userauthenticationdirectory, JSplitPane splitPane, DeliveryBoyDirectory deliveryBoyDirectory) {
         initComponents();
+        this.cityDirectory = cityDirectory;
         this.community = community;
         this.splitPane = splitPane;
         this.customerDirectory = customerDirectory;
@@ -69,6 +74,8 @@ public class CustomerRegistrationJPanel extends javax.swing.JPanel {
         createLabel1 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         passwordTextField = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        emailAddressTextField = new javax.swing.JTextField();
 
         nameTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -93,7 +100,7 @@ public class CustomerRegistrationJPanel extends javax.swing.JPanel {
 
         createLabel1.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         createLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        createLabel1.setText("Create Customer");
+        createLabel1.setText("Customer Registration");
         createLabel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 5));
 
         jLabel5.setText("Password");
@@ -104,6 +111,8 @@ public class CustomerRegistrationJPanel extends javax.swing.JPanel {
             }
         });
 
+        jLabel6.setText("Email Address");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -112,58 +121,65 @@ public class CustomerRegistrationJPanel extends javax.swing.JPanel {
                 .addComponent(createLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1064, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
+                .addGap(479, 479, 479)
+                .addComponent(save)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(200, 200, 200)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(passwordTextField)
-                            .addComponent(usernameTextField, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(addressTextField)
-                            .addComponent(nearestLandMarkTextField)
-                            .addComponent(nameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(204, 204, 204)
-                        .addComponent(save)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE))
+                .addGap(200, 200, 200)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(passwordTextField)
+                    .addComponent(usernameTextField, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(addressTextField)
+                    .addComponent(nearestLandMarkTextField)
+                    .addComponent(nameTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
+                    .addComponent(emailAddressTextField))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(createLabel1)
-                .addGap(124, 124, 124)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(nameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(nearestLandMarkTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(addressTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(usernameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(passwordTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(82, 82, 82))
+                        .addComponent(emailAddressTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(3, 3, 3))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
+                        .addGap(145, 145, 145)
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel3)
                         .addGap(18, 18, 18)
+                        .addComponent(jLabel6)))
+                .addGap(9, 9, 9)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel5)
-                        .addGap(51, 51, 51)
-                        .addComponent(save)))
-                .addContainerGap(197, Short.MAX_VALUE))
+                        .addComponent(jLabel5))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(usernameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(passwordTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
+                .addComponent(save)
+                .addGap(156, 156, 156))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -190,6 +206,22 @@ public class CustomerRegistrationJPanel extends javax.swing.JPanel {
             return;
         }
 
+        String emailAddress = emailAddressTextField.getText();
+
+        if (emailAddress.length() == 0) {
+            JOptionPane.showMessageDialog(this, "Mandatory Email Address field is empty");
+            return;
+        }
+
+        String regex = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
+
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(emailAddress);
+        if (!matcher.matches()) {
+            JOptionPane.showMessageDialog(this, "Please enter a valid email address");
+            return;
+        }
+
         for (int i = 0; i < userauthenticationdirectory.getUserAuthenticationList().size(); i++) {
             UserAuthentication userauthentication = userauthenticationdirectory.getUserAuthenticationList().get(i);
             if (userauthentication.getUserName().equalsIgnoreCase(usernameTextField.getText())
@@ -198,17 +230,14 @@ public class CustomerRegistrationJPanel extends javax.swing.JPanel {
                 return;
             }
         }
-        
-        
 
         Customer customer = customerDirectory.addNewCustomer();
         customer.setUserName(usernameTextField.getText());
         customer.setCustomerClosestLandmark(nearestLandMarkTextField.getText());
         customer.setCustomerAddress(addressTextField.getText());
         customer.setCustomerName(nameTextField.getText());
+        customer.setEmailAddress(emailAddress);
 
-        
-        
         Cart cart = new Cart();
         customer.setCart(cart);
         community.setCustomerDirectory(customerDirectory);
@@ -229,8 +258,10 @@ public class CustomerRegistrationJPanel extends javax.swing.JPanel {
                 + "Thanks You\n"
                 + "Instartcart customer support team";
         try {
-            Smtp smtp = new Smtp(customer.getUserName(), Subject, data);
-            JOptionPane.showMessageDialog(this, customer.getUserName() + ", your Registration is completed");
+            Smtp smtp = new Smtp(customer.getEmailAddress(), Subject, data);
+            JOptionPane.showMessageDialog(this, customer.getCustomerName() + ", your Registration is completed");
+            LoginJPanel loginJPanel = new LoginJPanel(cityDirectory, orderManagement, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
+            splitPane.setRightComponent(loginJPanel);
             setDefault();
         } catch (Exception exception) {
             JOptionPane.showMessageDialog(null, "Please enter a valid email address");
@@ -258,11 +289,13 @@ public class CustomerRegistrationJPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField addressTextField;
     private javax.swing.JLabel createLabel1;
+    private javax.swing.JTextField emailAddressTextField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JTextField nameTextField;
     private javax.swing.JTextField nearestLandMarkTextField;
     private javax.swing.JTextField passwordTextField;

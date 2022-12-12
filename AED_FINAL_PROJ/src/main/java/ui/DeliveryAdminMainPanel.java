@@ -38,14 +38,13 @@ public class DeliveryAdminMainPanel extends javax.swing.JPanel {
     private CityDir cityDir;
     private String cityName;
     private String companyName;
+    private DeliveryAdminMainPanel delAdmin;
     
     public DeliveryAdminMainPanel() {
         initComponents();
     }
     
-    
-    
-    public DeliveryAdminMainPanel(CityDir cityDir, String cityName, String companyName, Company company, Community community, CustomerDirectory customerDirectory, CompanyDirectory companyDirectory, UserAuthenticationDirectory userauthenticationdirectory, JSplitPane splitPane, DeliveryBoyDirectory deliveryBoyDirectory) {
+    public DeliveryAdminMainPanel(CityDir cityDir, String cityName, String companyName, Community community, CustomerDirectory customerDirectory, CompanyDirectory companyDirectory, UserAuthenticationDirectory userauthenticationdirectory, JSplitPane splitPane, DeliveryBoyDirectory deliveryBoyDirectory) {
         initComponents();
         
         ButtonGroup buttonGroup = new ButtonGroup();
@@ -325,7 +324,7 @@ public class DeliveryAdminMainPanel extends javax.swing.JPanel {
     private void btnModifyDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModifyDActionPerformed
         // TODO add your handling code here:
 
-        DeliveryAdminModifyPanel m = new DeliveryAdminModifyPanel(community,deliveryBoyDirectory);
+        DeliveryAdminModifyPanel m = new DeliveryAdminModifyPanel(community,deliveryBoyDirectory, cityDir,cityName, companyName, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane);
         splitPane.setRightComponent(m);
     }//GEN-LAST:event_btnModifyDActionPerformed
 

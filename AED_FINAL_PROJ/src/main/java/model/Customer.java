@@ -17,9 +17,18 @@ public class Customer {
     private String customerClosestLandmark;
     private String customerAddress;
     private String userName;
+    private String emailAddress;
     private Cart cart;
     private PaymentDir paymentDirectory;
     private List<Orders> orders;
+
+    public String getEmailAddress() {
+        return emailAddress;
+    }
+
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
+    }
 
     public PaymentDir getPaymentDirectory() {
         return paymentDirectory;

@@ -52,17 +52,6 @@ public class LoginJPanel extends javax.swing.JPanel {
         this.orderManagement = orderManagement;
     }
 
-    public LoginJPanel(CityDir cityDirectory, String userName, Ordermgt orderManagement, Community community, CustomerDirectory customerDirectory, CompanyDirectory companyDirectory, UserAuthenticationDirectory userauthenticationdirectory, JSplitPane splitPane, DeliveryBoyDirectory deliveryBoyDirectory) {
-        initComponents();
-        this.cityDirectory = cityDirectory;
-        this.community = community;
-        this.customerDirectory = customerDirectory;
-        this.companyDirectory = companyDirectory;
-        this.userauthenticationdirectory = userauthenticationdirectory;
-        this.splitPane = splitPane;
-        this.deliveryBoyDirectory = deliveryBoyDirectory;
-        this.orderManagement = orderManagement;
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -183,12 +172,19 @@ public class LoginJPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Login is successfully done for Super Admin");
             SuperAdminPanel supAdmin = new SuperAdminPanel(cityDirectory, orderManagement, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
             splitPane.setRightComponent(supAdmin);
+        } else if (flag && usertype.equalsIgnoreCase("CityAdmin")) {
+            JOptionPane.showMessageDialog(this, "Login is successfully done for City Admin");
+            CityAdminPanel supAdmin = new CityAdminPanel(cityName, cityDirectory, userauthenticationdirectory, splitPane);
+            splitPane.setRightComponent(supAdmin);
+        } else if (flag && usertype.equalsIgnoreCase("DeliveryAdmin")) {
+            JOptionPane.showMessageDialog(this, "Login is successfully done for Delivery Admin");
+            DeliveryAdminMainPanel delAdmin = new DeliveryAdminMainPanel(cityDirectory, cityName, companyName, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
+            splitPane.setRightComponent(delAdmin);
+        } else if (flag && usertype.equalsIgnoreCase("InventoryAdmin")) {
+            JOptionPane.showMessageDialog(this, "Login is successfully done for Inventory Admin");
+            InventoryAdminPanel invAdmin = new InventoryAdminPanel(cityName, companyName, cityDirectory, splitPane, userauthenticationdirectory);
+            splitPane.setRightComponent(invAdmin);
         }
-//else if (flag && usertype.equalsIgnoreCase("InventoryAdmin")) {
-//            JOptionPane.showMessageDialog(this, "Login is successfully done for Inventory Admin");
-//            MainOrderAdminJPanel inventoryAdminJPanel = new MainOrderAdminJPanel(cityDirectory, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
-//            splitPane.setRightComponent(inventoryAdminJPanel);
-//        }
     }//GEN-LAST:event_loginButton1ActionPerformed
 
 

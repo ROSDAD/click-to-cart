@@ -4,7 +4,12 @@
  */
 package ui;
 
+import database.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
 import javax.swing.JSplitPane;
@@ -35,6 +40,8 @@ public class CityPanel extends javax.swing.JPanel {
         
         g1.add(radioUrban);
         g1.add(radioRural);
+        
+        
         
         populateCitiesTable();
     }
@@ -133,8 +140,7 @@ public class CityPanel extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel3)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel5))
+                                    .addComponent(jLabel4))
                                 .addGap(31, 31, 31)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtPopulation, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -147,7 +153,8 @@ public class CityPanel extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnCreateCity, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(updateCity, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(updateCity, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel5)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(448, 448, 448)
                         .addComponent(btnDeleteCity, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -233,6 +240,26 @@ public class CityPanel extends javax.swing.JPanel {
         JOptionPane.showMessageDialog(this, "City created!");
 
         populateCitiesTable();
+        
+        Connection obj = new Connection();
+        java.sql.Connection con = obj.getConnection();
+        
+        String query = "INSERT INTO `city`(`cityName`, `population`, `cityType`) VALUES (?,?,?)";
+        PreparedStatement pst = null;
+        try {
+            pst = obj.getConnection().prepareStatement(query);
+            pst.setString(1, cityName);
+            pst.setInt(2, population);
+            pst.setString(3, cityType);
+            //        if(cpass.equals(password)){
+            pst.executeUpdate();
+            System.out.println("Inserted city.");
+            con.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
 
     }//GEN-LAST:event_btnCreateCityActionPerformed
 
@@ -282,6 +309,30 @@ public class CityPanel extends javax.swing.JPanel {
                 c.setCityName(cityName);
                 c.setCityType(cityType);
                 c.setPopulation(population);
+                
+                Connection obj = new Connection();
+                java.sql.Connection con = obj.getConnection();
+
+                //String query = "INSERT INTO `city`(`cityName`, `population`, `cityType`) VALUES (?,?,?)";
+                String query = "UPDATE `city` "
+                        +      "SET cityName = ? ,"
+                        +      "population = ? ,"
+                        +      " cityType = ? "                        
+                        + "WHERE cityName = ?;";
+                PreparedStatement pst = null;
+                try {
+                    pst = obj.getConnection().prepareStatement(query);
+                    pst.setString(1, cityName);
+                    pst.setInt(2, population);
+                    pst.setString(3, cityType);
+                    pst.setString(4, selectedCity);
+                    //        if(cpass.equals(password)){
+                    pst.executeUpdate();
+                    System.out.println("Updated city.");
+                    con.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
 
@@ -291,7 +342,7 @@ public class CityPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_updateCityActionPerformed
 
     private void btnDeleteCityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteCityActionPerformed
-        // TODO add your handling code here:
+            // TODO add your handling code here:
         int selectedRowIndexCity = tblCities.getSelectedRow();
 
         if (selectedRowIndexCity < 0 ) {
@@ -310,6 +361,26 @@ public class CityPanel extends javax.swing.JPanel {
             if(c.getCityName().equalsIgnoreCase(cityName)) {
 
                 cityDir.deleteCity(c);
+                
+                Connection obj = new Connection();
+                java.sql.Connection con = obj.getConnection();
+
+                //String query = "INSERT INTO `city`(`cityName`, `population`, `cityType`) VALUES (?,?,?)";
+                String query = "DELETE FROM `city` WHERE cityName = ?;";
+                PreparedStatement pst = null;
+                try {
+                    pst = obj.getConnection().prepareStatement(query);
+                    pst.setString(1, cityName);
+//                    pst.setInt(2, population);
+//                    pst.setString(3, cityType);
+                    //        if(cpass.equals(password)){
+                    pst.executeUpdate();
+                    System.out.println("Deleted city.");
+                    con.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
                 populateCitiesTable();
                 JOptionPane.showMessageDialog(this, "City Deleted!");
                 break;

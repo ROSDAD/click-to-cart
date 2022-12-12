@@ -32,6 +32,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import model.Cart;
 import model.Orderedprod;
 import model.Orders;
 import model.Payment;
@@ -63,6 +64,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private UserAuthentication userAuthentication;
     private DeliveryBoy deliveryBoy;
     private Customer customer;
+    private Cart cart;
 
     public MainJFrame() {
         initComponents();
@@ -74,9 +76,8 @@ public class MainJFrame extends javax.swing.JFrame {
         genieLabel.setIcon(new ImageIcon(new ImageIcon(imgDir+"ecommerce.png").getImage().getScaledInstance(60, 60, Image.SCALE_DEFAULT)));
 //        scootLabel.setIcon(new ImageIcon(imgDir+"scooter.png"));
         setExtendedState(JFrame.MAXIMIZED_BOTH);
-//        Connection obj = new Connection();
-//        java.sql.Connection con = obj.getConnection();
-//        System.out.println();
+        Connection obj = new Connection();
+        java.sql.Connection con = obj.getConnection();
 
         community = new Community();
         customerDirectory = new CustomerDirectory();
@@ -86,12 +87,13 @@ public class MainJFrame extends javax.swing.JFrame {
         inventoryManagement = new InventoryMgt();
         deliveryBoyDirectory = new DeliveryBoyDirectory();
         orderManagement = new Ordermgt();
-
         invProdDir = new InventoryProductDir();
+        cart = new Cart();
+        
 
         InventoryProduct invProd = invProdDir.addNewInventoryProduct();
         invProd.setProductName("TV");
-        invProd.setPid(UUID.randomUUID().toString());
+        //invProd.setPid(UUID.randomUUID().toString());
         invProd.setPrice(500);
         invProd.setInventoryQty(24);
 
@@ -129,19 +131,24 @@ public class MainJFrame extends javax.swing.JFrame {
         userAuthentication.setUserType("Customer");
 
 //        String query;
-//        query = "INSERT INTO `logintable`(`username`, `password`, `usertype`) VALUES (?,?,?)";
-//        PreparedStatement pst = null;
-//        try {
-//            pst = obj.getConnection().prepareStatement(query);
-//            pst.setString(1, "abc");
-//            pst.setString(2, "abc");
-//            pst.setString(3, "Customer");
-//            //        if(cpass.equals(password)){
-//            pst.executeUpdate();
-//            System.out.println("INserted");
-//        } catch (SQLException ex) {
+//        
+//        query = "SELECT cityName, population, cityType FROM city";
+//        try {        
+//        Statement stmt = con.createStatement();
+//        ResultSet rs;                        
+//        
+//        rs = stmt.executeQuery(query);
+//            while ( rs.next() ) {
+//                String cityName = rs.getString("cityName");
+//                int population = rs.getInt("population");
+//                String cityType = rs.getString("cityType");
+//            }        
+//        }
+//        
+//        catch (SQLException ex) {
 //            Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
 //        }
+
         userAuthentication = userauthenticationdirectory.addNewUserAuthentication();
         userAuthentication.setUserName("de");
         userAuthentication.setPassword("de");
@@ -218,9 +225,11 @@ public class MainJFrame extends javax.swing.JFrame {
         deliveryBoy.setDeliveryBoyName("de");
         deliveryBoy.setOrderList(ordersList);
 
+        
         customer = customerDirectory.addNewCustomer();
         customer.setUserName("abc");
         customer.setOrders(ordersList);
+        customer.setCart(cart);
 
     }
 

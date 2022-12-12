@@ -29,6 +29,11 @@ import model.Orders;
 import model.Payment;
 import model.UserAuthenticationDirectory;
 import special.Smtp;
+import database.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -379,6 +384,7 @@ public class PaymentDetails extends javax.swing.JPanel {
         Ordermgt ordmgt = new Ordermgt();
         Orders ord = ordmgt.addNewOrder();
         ord.setCustomerId(cust.getUserName());
+        String orderID = UUID.randomUUID().toString();
         ord.setOrderId(UUID.randomUUID().toString());
         double finalPrice = 0;
         for (int i = 0; i < ordProd.size(); i++) {
@@ -399,6 +405,31 @@ public class PaymentDetails extends javax.swing.JPanel {
                             ord.setAddress(address);
                             ord.setOrderStatus("OrderPlaced");
                             ord.setPaymentType(payDir.get(selectedRowIndex));
+                            
+                            
+                            Connection obj = new Connection();
+                            java.sql.Connection con = obj.getConnection();
+
+                            String query = "INSERT INTO `order`(`orderID`, `customerID`, `finalPrice`, address, orderStatus, ) VALUES (?,?,?,?,?)";
+                            PreparedStatement pst = null;
+                            try {
+                                pst = obj.getConnection().prepareStatement(query);
+                                pst.setString(1, orderID);
+                                pst.setString(2, cust.getUserName());
+                                pst.setDouble(3, finalPrice);
+                                pst.setString(4, address);
+                                pst.setString(5, "OrderPlaced");
+
+                                pst.executeUpdate();
+                                System.out.println("Inserted order.");
+                                con.close();
+                            } catch (SQLException ex) {
+                                Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                            
+                            
+                            
+                            
                             mainM.get(j).setInventoryQty(mainM.get(j).getInventoryQty() - ordProd.get(i).getprodcount());
                             cust.setCart(new Cart());
                         } else {

@@ -17,6 +17,12 @@ import model.DeliveryBoy;
 import model.DeliveryBoyDirectory;
 import model.Ordermgt;
 import model.UserAuthentication;
+import database.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 /**
  *
@@ -325,7 +331,27 @@ public class DeliveryAdminMainPanel extends javax.swing.JPanel {
         deliveryBoy.setQualificaton(qualif);
         deliveryBoy.setYearOfDeliveryExperience(Integer.parseInt(txtExperience.getText()));
         deliveryBoy.setAvailability(true); // Setting availability to true by default
-
+        
+        Connection obj = new Connection();
+        java.sql.Connection con = obj.getConnection();
+        
+        String query = "INSERT INTO `delivery_boy`(`deliveryBoyName`, `emergencyContactNumber`, `qualification`, yearOfDeliveryExperience, availability) VALUES (?,?,?,?,?)";
+        PreparedStatement pst = null;
+        try {
+            pst = obj.getConnection().prepareStatement(query);
+            pst.setString(1, txtName.getText());
+            pst.setInt(2, Integer.parseInt(txtEmergency.getText()));
+            pst.setString(3, qualif);
+            pst.setInt(4, Integer.parseInt(txtExperience.getText()));
+            pst.setInt(5, 1);
+            //        if(cpass.equals(password)){
+            pst.executeUpdate();
+            System.out.println("Inserted delivery boy.");
+            con.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         community.setDeliveryBoyDirectory(deliveryBoyDirectory);
 
         UserAuthentication userauthentication = userauthenticationdirectory.addNewUserAuthentication();

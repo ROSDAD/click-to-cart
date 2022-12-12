@@ -5,6 +5,11 @@
 package ui;
 
 import java.awt.Image;
+import database.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.ImageIcon;
@@ -23,6 +28,8 @@ import model.Payment;
 import model.PaymentDir;
 import model.UserAuthentication;
 import special.Smtp;
+
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -258,6 +265,26 @@ public class CustomerRegistrationJPanel extends javax.swing.JPanel {
         customer.setCustomerAddress(addressTextField.getText());
         customer.setCustomerName(nameTextField.getText());
         customer.setEmailAddress(emailAddress);
+        
+        Connection obj = new Connection();
+        java.sql.Connection con = obj.getConnection();
+        
+        String query = "INSERT INTO `customer`(`userName`, `customerClosestLandmark`, `customerAddress`, `customerName`,emailAddress) VALUES (?,?,?,?,?)";
+        PreparedStatement pst = null;
+        try {
+            pst = obj.getConnection().prepareStatement(query);
+            pst.setString(1, usernameTextField.getText());
+            pst.setString(2, nearestLandMarkTextField.getText());
+            pst.setString(3, addressTextField.getText());
+            pst.setString(4, nameTextField.getText());
+            pst.setString(5, emailAddress);
+            //        if(cpass.equals(password)){
+            pst.executeUpdate();
+            System.out.println("Inserted customer.");
+            con.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         Cart cart = new Cart();
         customer.setCart(cart);
@@ -270,6 +297,8 @@ public class CustomerRegistrationJPanel extends javax.swing.JPanel {
         userauthentication.setUserName(usernameTextField.getText());
         userauthentication.setPassword(passwordTextField.getText());
         userauthentication.setUserType("Customer");
+        
+        
 
         String Subject = "Thank You " + customer.getCustomerName() + " for creating an account with Instacart clone!";
         String data = "Hi " + customer.getCustomerName() + ",\n"

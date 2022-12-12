@@ -62,7 +62,6 @@ public class SuperAdminPanel extends javax.swing.JPanel {
         deliveryAdmin = new javax.swing.JButton();
         inventoryAdmin = new javax.swing.JButton();
         orderAdmin = new javax.swing.JButton();
-        logoutBtn = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -119,14 +118,6 @@ public class SuperAdminPanel extends javax.swing.JPanel {
             }
         });
 
-        logoutBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        logoutBtn.setText("LOGOUT");
-        logoutBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                logoutBtnActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -139,18 +130,13 @@ public class SuperAdminPanel extends javax.swing.JPanel {
                     .addComponent(cityBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(cityAdmin, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
                     .addComponent(companyAdmin, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(deliveryAdmin, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(deliveryAdmin, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(86, 86, 86)
                 .addComponent(cityBtn)
                 .addGap(27, 27, 27)
                 .addComponent(companyAdmin)
@@ -199,11 +185,6 @@ public class SuperAdminPanel extends javax.swing.JPanel {
         jSplitPane1.setRightComponent(supCityAdmin);
     }//GEN-LAST:event_cityAdminActionPerformed
 
-    private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_logoutBtnActionPerformed
-
     private void deliveryAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deliveryAdminActionPerformed
         // TODO add your handling code here:
         String role = "DeliveryAdmin";
@@ -236,7 +217,6 @@ public class SuperAdminPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSplitPane jSplitPane1;
-    private javax.swing.JButton logoutBtn;
     private javax.swing.JButton orderAdmin;
     // End of variables declaration//GEN-END:variables
 }

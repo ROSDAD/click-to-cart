@@ -18,6 +18,12 @@ import model.DeliveryBoy;
 import model.DeliveryBoyDirectory;
 import model.Ordermgt;
 import model.UserAuthenticationDirectory;
+import database.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 /**
  *
@@ -312,12 +318,41 @@ public class DeliveryAdminModifyPanel extends javax.swing.JPanel {
         for (DeliveryBoy d : delBoyDir) {
 
             if (d.getDeliveryBoyName().equalsIgnoreCase(selectedDeliveryBoy)) {
-
+                
+                String oldName = d.getDeliveryBoyName();
+                
                 d.setAvailability(true);
                 d.setDeliveryBoyName(deliveryBoyName);
                 d.setEmergencyContactNumber(emergencyContactNumber);
                 d.setQualificaton(qualificaton);
                 d.setYearOfDeliveryExperience(yearOfDeliveryExperience);
+                
+                Connection obj = new Connection();
+                java.sql.Connection con = obj.getConnection();
+
+                //String query = "INSERT INTO `city`(`cityName`, `population`, `cityType`) VALUES (?,?,?)";
+                String query = "UPDATE `delivery_boy` "
+                        +      "SET emergencyContactNumber = ? ,"
+                        +      "deliveryBoyName = ? ,"
+                        +      "qualification = ? ,"
+                        +      " yearOfDeliveryExperience = ? "                        
+                        + "WHERE deliveryBoyName = ?;";
+                PreparedStatement pst = null;
+                try {
+                    pst = obj.getConnection().prepareStatement(query);
+                    pst.setInt(1, (int) emergencyContactNumber);
+                    pst.setString(2, deliveryBoyName);
+                    pst.setString(3, qualificaton);
+                    pst.setInt(4, yearOfDeliveryExperience);
+                    pst.setString(5, oldName);
+                    //        if(cpass.equals(password)){
+                    pst.executeUpdate();
+                    System.out.println("Updated delivery boy.");
+                    con.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
             }
         }
 
@@ -353,6 +388,25 @@ public class DeliveryAdminModifyPanel extends javax.swing.JPanel {
             if (d.getDeliveryBoyName().equalsIgnoreCase(deliveryBoy)) {
 
                 deliveryBoyDirectory.deleteDeliveryBoy(d);
+                
+                Connection obj = new Connection();
+                java.sql.Connection con = obj.getConnection();
+
+                String query = "DELETE FROM `delivery_boy` WHERE deliveryBoyName = ?;";
+                PreparedStatement pst = null;
+                try {
+                    pst = obj.getConnection().prepareStatement(query);
+                    pst.setString(1, deliveryBoy);
+//                    pst.setInt(2, population);
+//                    pst.setString(3, cityType);
+                    //        if(cpass.equals(password)){
+                    pst.executeUpdate();
+                    System.out.println("Deleted delivery boy..");
+                    con.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
 
                 populateDeliveryBoyTable();
                 JOptionPane.showMessageDialog(this, "Delivery Boy Deleted!");

@@ -20,6 +20,7 @@ import model.CustomerDirectory;
 import model.DeliveryBoyDirectory;
 import model.Ordermgt;
 import model.UserAuthentication;
+import utility.PasswordEncryption;
 
 /**
  *
@@ -241,22 +242,24 @@ public class OrderAdminRegistrationJPanel extends javax.swing.JPanel {
             }
         }
 
+        String newHashedPassword = PasswordEncryption.encryptThisString(passwordTextField.getText());
+
         UserAuthentication userAuthentication = userauthenticationdirectory.addNewUserAuthentication();
         userAuthentication.setUserName(userNameTextField.getText());
-        userAuthentication.setPassword(passwordTextField.getText());
+        userAuthentication.setPassword(newHashedPassword);
         userAuthentication.setCityName(cityName);
         userAuthentication.setCompanyName(companyName);
         userAuthentication.setUserType("OrderAdmin");
-        
+
         Connection obj = new Connection();
         java.sql.Connection con = obj.getConnection();
-        
+
         String query = "INSERT INTO `user_auth`(`userName`, `password`, `userType`, companyName, cityName) VALUES (?,?,?,?,?)";
         PreparedStatement pst = null;
         try {
             pst = obj.getConnection().prepareStatement(query);
             pst.setString(1, userNameTextField.getText());
-            pst.setString(2, passwordTextField.getText());
+            pst.setString(2, newHashedPassword);
             pst.setString(3, "OrderAdmin");
             pst.setString(4, companyName);
             pst.setString(5, cityName);
@@ -267,7 +270,7 @@ public class OrderAdminRegistrationJPanel extends javax.swing.JPanel {
         } catch (SQLException ex) {
             Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         JOptionPane.showMessageDialog(this, "Order Admin credentials is saved");
     }//GEN-LAST:event_saveCompanyAdminButtonActionPerformed
 

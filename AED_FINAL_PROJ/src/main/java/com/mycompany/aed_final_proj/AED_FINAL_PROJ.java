@@ -5,8 +5,8 @@
 
 package com.mycompany.aed_final_proj;
 
+import ui.MainJFrame;
 import special.Smtp;
-import ui.*;
 
 /**
  *

@@ -510,8 +510,6 @@ public class InventoryAdminPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton backButton;
-    private javax.swing.JButton backButton1;
     private javax.swing.JButton backButton2;
     private javax.swing.JButton btnCreateInventory;
     private javax.swing.JButton btnDeleteInventory;

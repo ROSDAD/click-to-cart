@@ -4,8 +4,10 @@
  */
 package ui;
 
+import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JSplitPane;
 import javax.swing.RowFilter;
@@ -46,6 +48,12 @@ public class ItemListPanel extends javax.swing.JPanel {
      */
     public ItemListPanel(Double dist, String selectedCityName, Customer cust, Company comp, CityDir cityDirectory, String userName, Ordermgt orderManagement, Community community, CustomerDirectory customerDirectory, CompanyDirectory companyDirectory, UserAuthenticationDirectory userauthenticationdirectory, JSplitPane splitPane, DeliveryBoyDirectory deliveryBoyDirectory) {
         initComponents();
+        String imgDir = System.getProperty("user.dir")+"/src/main/java/IMAGES/";
+        customerRegistrationLabel.setIcon(new ImageIcon(new ImageIcon(imgDir+"itemlistwelcome.png").getImage().getScaledInstance(700, 300, Image.SCALE_DEFAULT)));
+//        welcomeLabel.setIcon(new ImageIcon(new ImageIcon(imgDir+"signupwelcome.gif").getImage().getScaledInstance(200, 200, Image.SCALE_DEFAULT)));
+        roadLabel.setIcon(new ImageIcon(new ImageIcon(imgDir+"road.png").getImage().getScaledInstance(1300, 300, Image.SCALE_DEFAULT)));
+        cartButton.setIcon(new ImageIcon(new ImageIcon(imgDir+"cart.png").getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT)));
+        
         this.cust = cust;
         this.comp = comp;
         this.selectedCityName = selectedCityName;
@@ -89,6 +97,10 @@ public class ItemListPanel extends javax.swing.JPanel {
         prodIdLbl = new javax.swing.JLabel();
         cartButton = new javax.swing.JButton();
         backButton = new javax.swing.JButton();
+        customerRegistrationLabel = new javax.swing.JLabel();
+        roadLabel = new javax.swing.JLabel();
+
+        setBackground(new java.awt.Color(255, 255, 255));
 
         itemListTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -111,6 +123,9 @@ public class ItemListPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(itemListTable);
 
+        viewDetails.setBackground(new java.awt.Color(71, 43, 29));
+        viewDetails.setFont(new java.awt.Font("Algerian", 1, 14)); // NOI18N
+        viewDetails.setForeground(new java.awt.Color(255, 255, 255));
         viewDetails.setText("View");
         viewDetails.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -122,7 +137,9 @@ public class ItemListPanel extends javax.swing.JPanel {
         pNameLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         pNameLabel.setText("Product Name");
 
-        addToCart.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        addToCart.setBackground(new java.awt.Color(71, 43, 29));
+        addToCart.setFont(new java.awt.Font("Algerian", 1, 14)); // NOI18N
+        addToCart.setForeground(new java.awt.Color(255, 255, 255));
         addToCart.setText("ADD TO CART");
         addToCart.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -130,6 +147,9 @@ public class ItemListPanel extends javax.swing.JPanel {
             }
         });
 
+        searchBtn.setBackground(new java.awt.Color(71, 43, 29));
+        searchBtn.setFont(new java.awt.Font("Algerian", 1, 14)); // NOI18N
+        searchBtn.setForeground(new java.awt.Color(255, 255, 255));
         searchBtn.setText("Search");
         searchBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -147,14 +167,18 @@ public class ItemListPanel extends javax.swing.JPanel {
         prodIdLbl.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         prodIdLbl.setText("Product ID");
 
-        cartButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        cartButton.setText("CART");
+        cartButton.setBackground(new java.awt.Color(71, 43, 29));
+        cartButton.setFont(new java.awt.Font("Algerian", 1, 14)); // NOI18N
+        cartButton.setForeground(new java.awt.Color(255, 255, 255));
         cartButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cartButtonActionPerformed(evt);
             }
         });
 
+        backButton.setBackground(new java.awt.Color(71, 43, 29));
+        backButton.setFont(new java.awt.Font("Algerian", 1, 14)); // NOI18N
+        backButton.setForeground(new java.awt.Color(255, 255, 255));
         backButton.setText("Back ");
         backButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -162,53 +186,61 @@ public class ItemListPanel extends javax.swing.JPanel {
             }
         });
 
+        customerRegistrationLabel.setBackground(new java.awt.Color(255, 255, 255));
+        customerRegistrationLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(433, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(32, Short.MAX_VALUE)
+                .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(addToCart)
-                        .addGap(396, 396, 396))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(viewDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(407, 407, 407))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(backButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(filterComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(itemSeacrhBox, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(searchBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(288, 288, 288))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(layout.createSequentialGroup()
-                            .addComponent(prodIdLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(pNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(86, 86, 86)
-                            .addComponent(quantityTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 695, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(41, 41, 41)
+                            .addComponent(filterComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(itemSeacrhBox, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(searchBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(prodIdLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(pNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(86, 86, 86)
+                                .addComponent(quantityTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 695, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(customerRegistrationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 695, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(cartButton)
-                .addContainerGap())
+                .addContainerGap(65, Short.MAX_VALUE))
+            .addComponent(roadLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(addToCart)
+                .addGap(419, 419, 419))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(filterComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(backButton))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(searchBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(cartButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(customerRegistrationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addComponent(cartButton, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(filterComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(searchBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(itemSeacrhBox, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(24, 24, 24)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -221,7 +253,9 @@ public class ItemListPanel extends javax.swing.JPanel {
                     .addComponent(prodIdLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(addToCart, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(84, 84, 84))
+                .addGap(18, 21, Short.MAX_VALUE)
+                .addComponent(roadLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -344,6 +378,7 @@ public class ItemListPanel extends javax.swing.JPanel {
     private javax.swing.JButton addToCart;
     private javax.swing.JButton backButton;
     private javax.swing.JButton cartButton;
+    private javax.swing.JLabel customerRegistrationLabel;
     private javax.swing.JComboBox<String> filterComboBox;
     private javax.swing.JTable itemListTable;
     private javax.swing.JTextField itemSeacrhBox;
@@ -351,6 +386,7 @@ public class ItemListPanel extends javax.swing.JPanel {
     private javax.swing.JLabel pNameLabel;
     private javax.swing.JLabel prodIdLbl;
     private javax.swing.JTextField quantityTxt;
+    private javax.swing.JLabel roadLabel;
     private javax.swing.JButton searchBtn;
     private javax.swing.JButton viewDetails;
     // End of variables declaration//GEN-END:variables

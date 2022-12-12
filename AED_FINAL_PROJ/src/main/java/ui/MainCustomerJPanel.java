@@ -4,6 +4,8 @@
  */
 package ui;
 
+import java.awt.Image;
+import javax.swing.ImageIcon;
 import model.UserAuthenticationDirectory;
 import javax.swing.JSplitPane;
 import model.CityDir;
@@ -38,6 +40,12 @@ public class MainCustomerJPanel extends javax.swing.JPanel {
 
     public MainCustomerJPanel(CityDir cityDirectory, String userName, Ordermgt orderManagement, Community community, CustomerDirectory customerDirectory, CompanyDirectory companyDirectory, UserAuthenticationDirectory userauthenticationdirectory, JSplitPane splitPane, DeliveryBoyDirectory deliveryBoyDirectory) {
         initComponents();
+        String imgDir = System.getProperty("user.dir")+"/src/main/java/IMAGES/";
+        loginLabel.setIcon(new ImageIcon(new ImageIcon(imgDir+"loginwelcome.png").getImage().getScaledInstance(800, 300, Image.SCALE_DEFAULT)));
+        orderNowLabel.setIcon(new ImageIcon(new ImageIcon(imgDir+"ordernow.png").getImage().getScaledInstance(70, 90, Image.SCALE_DEFAULT)));
+        orderHistoryLabel.setIcon(new ImageIcon(new ImageIcon(imgDir+"orderhistory.png").getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT)));
+        
+        roadLabel.setIcon(new ImageIcon(new ImageIcon(imgDir+"road.png").getImage().getScaledInstance(1300, 300, Image.SCALE_DEFAULT)));
         this.cityDirectory = cityDirectory;
         this.userName = userName;
         this.community = community;
@@ -60,48 +68,79 @@ public class MainCustomerJPanel extends javax.swing.JPanel {
 
         orderNowButton = new javax.swing.JButton();
         viewPreviousOrderButton = new javax.swing.JButton();
-        createLabel1 = new javax.swing.JLabel();
+        roadLabel = new javax.swing.JLabel();
+        loginLabel = new javax.swing.JLabel();
+        orderNowLabel = new javax.swing.JLabel();
+        orderHistoryLabel = new javax.swing.JLabel();
 
-        orderNowButton.setText("order Now");
+        setBackground(new java.awt.Color(255, 255, 255));
+
+        orderNowButton.setBackground(new java.awt.Color(71, 43, 29));
+        orderNowButton.setFont(new java.awt.Font("Algerian", 1, 18)); // NOI18N
+        orderNowButton.setForeground(new java.awt.Color(255, 255, 255));
+        orderNowButton.setText("ORDER NOW");
         orderNowButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 orderNowButtonActionPerformed(evt);
             }
         });
 
-        viewPreviousOrderButton.setText("view previous order");
+        viewPreviousOrderButton.setBackground(new java.awt.Color(71, 43, 29));
+        viewPreviousOrderButton.setFont(new java.awt.Font("Algerian", 1, 18)); // NOI18N
+        viewPreviousOrderButton.setForeground(new java.awt.Color(255, 255, 255));
+        viewPreviousOrderButton.setText("ORDER HISTORY");
         viewPreviousOrderButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 viewPreviousOrderButtonActionPerformed(evt);
             }
         });
 
-        createLabel1.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
-        createLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        createLabel1.setText("Customer Main Panel");
-        createLabel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 5));
+        loginLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+        orderNowLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        orderNowLabel.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+
+        orderHistoryLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        orderHistoryLabel.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(createLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1138, Short.MAX_VALUE)
+            .addComponent(loginLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(orderNowButton, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(242, 242, 242)
-                .addComponent(viewPreviousOrderButton, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(259, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(orderNowButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(orderNowLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(288, 288, 288)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(viewPreviousOrderButton)
+                        .addGap(263, 263, 263))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(orderHistoryLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addComponent(roadLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(createLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 149, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(orderNowButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(viewPreviousOrderButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(200, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(loginLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(orderNowLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(orderHistoryLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
+                        .addGap(0, 0, 0)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(viewPreviousOrderButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(orderNowButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(roadLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -126,8 +165,11 @@ public class MainCustomerJPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel createLabel1;
+    private javax.swing.JLabel loginLabel;
+    private javax.swing.JLabel orderHistoryLabel;
     private javax.swing.JButton orderNowButton;
+    private javax.swing.JLabel orderNowLabel;
+    private javax.swing.JLabel roadLabel;
     private javax.swing.JButton viewPreviousOrderButton;
     // End of variables declaration//GEN-END:variables
 }

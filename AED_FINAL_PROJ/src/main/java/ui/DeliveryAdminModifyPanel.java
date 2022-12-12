@@ -7,11 +7,16 @@ package ui;
 import java.util.ArrayList;
 import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
+import javax.swing.JSplitPane;
 import javax.swing.table.DefaultTableModel;
 import model.City;
+import model.CityDir;
 import model.Community;
+import model.CompanyDirectory;
+import model.CustomerDirectory;
 import model.DeliveryBoy;
 import model.DeliveryBoyDirectory;
+import model.UserAuthenticationDirectory;
 
 /**
  *
@@ -29,12 +34,28 @@ public class DeliveryAdminModifyPanel extends javax.swing.JPanel {
     private int yearOfDeliveryExperience;
     private Community community;
     private DeliveryBoyDirectory deliveryBoyDirectory;
+    private DeliveryAdminMainPanel delAdmin;
+    private CityDir cityDir;
+    private String cityName; 
+    private String companyName; 
+    private CustomerDirectory customerDirectory; 
+    private CompanyDirectory companyDirectory; 
+    private UserAuthenticationDirectory userauthenticationdirectory;
+    private JSplitPane splitPane;
     
-    public DeliveryAdminModifyPanel(Community community,DeliveryBoyDirectory deliveryBoyDirectory) {
+    public DeliveryAdminModifyPanel(Community community,DeliveryBoyDirectory deliveryBoyDirectory, CityDir cityDir, String cityName, String companyName, CustomerDirectory customerDirectory, CompanyDirectory companyDirectory, UserAuthenticationDirectory userauthenticationdirectory, JSplitPane splitPane) {
         initComponents();
         
         this.community = community;
         this.deliveryBoyDirectory = deliveryBoyDirectory;
+        this.delAdmin = delAdmin;
+        this.cityDir = cityDir; 
+        this.cityName = cityName; 
+        this.companyName = companyName; 
+        this.customerDirectory = customerDirectory; 
+        this.companyDirectory = companyDirectory; 
+        this.userauthenticationdirectory = userauthenticationdirectory; 
+        this.splitPane = splitPane;
         
         ButtonGroup buttonGroup = new ButtonGroup();
         
@@ -87,6 +108,7 @@ public class DeliveryAdminModifyPanel extends javax.swing.JPanel {
         radioUniversity = new javax.swing.JRadioButton();
         jLabel6 = new javax.swing.JLabel();
         txtEmergencyContact = new javax.swing.JTextField();
+        btnBack = new javax.swing.JButton();
 
         jLabel4.setText("Years of Experience:");
 
@@ -151,43 +173,58 @@ public class DeliveryAdminModifyPanel extends javax.swing.JPanel {
             }
         });
 
+        btnBack.setText("Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(114, 114, 114)
+                .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnDeleteDeliveryBoy, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 482, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel3)
-                                .addComponent(jLabel4)
-                                .addComponent(jLabel5))
-                            .addGap(62, 62, 62)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtExperience, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(radioHighSchool)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(radioUniversity))))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(174, 174, 174)
-                            .addComponent(updateDeliveryBoy, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel6)
-                            .addGap(62, 62, 62)
-                            .addComponent(txtEmergencyContact, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(144, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnBack)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 482, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel5))
+                                .addGap(62, 62, 62)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtExperience, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(radioHighSchool)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(radioUniversity))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(174, 174, 174)
+                                .addComponent(updateDeliveryBoy, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addGap(62, 62, 62)
+                                .addComponent(txtEmergencyContact, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(147, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(42, 42, 42)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(42, 42, 42)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(btnBack)))
                 .addGap(18, 18, 18)
                 .addComponent(btnDeleteDeliveryBoy)
                 .addGap(31, 31, 31)
@@ -326,8 +363,15 @@ public class DeliveryAdminModifyPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtEmergencyContactActionPerformed
 
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // TODO add your handling code here:
+        DeliveryAdminMainPanel d = new DeliveryAdminMainPanel(cityDir, cityName, companyName, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
+        splitPane.setRightComponent(d);
+    }//GEN-LAST:event_btnBackActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBack;
     private javax.swing.JButton btnDeleteDeliveryBoy;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

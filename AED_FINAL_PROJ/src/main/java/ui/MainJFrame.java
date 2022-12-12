@@ -159,40 +159,7 @@ public class MainJFrame extends javax.swing.JFrame {
         userAuthentication.setUserName("cu");
         userAuthentication.setPassword("cu");
         userAuthentication.setUserType("Customer");
-//
-//        List<Orders> ordersList = new ArrayList<>();
-//        for (int i = 0; i < 2; i++) {
-//
-//            Orders orders = new Orders();
-//            orders.setOrderId(String.valueOf(i));
-//            orders.setOrderStatus("OrderPlaced");
-//            Payment payment = new Payment();
-//            payment.setPaymentType("Debit");
-//            orders.setPaymentType(payment);
-//            List<Orderedprod> orderedprodList = new ArrayList<>();
-//            Orderedprod orderedprod = new Orderedprod();
-//            orderedprod.setProdId("1");
-//            orderedprod.setProductName("sr");
-//            orderedprod.setProdTotalprice(500.78);
-//            orderedprod.setProdcount(12);
-//            orderedprodList.add(orderedprod);
-//            orders.setOrderedProds(orderedprodList);
-//            ordersList.add(orders);
-//        }
-//
-//        orderManagement.setOrders(ordersList);
-//
-//        deliveryBoy = deliveryBoyDirectory.addNewDeliveryBoy();
-//        deliveryBoy.setDeliveryBoyName("de");
-//        deliveryBoy.setOrderList(ordersList);
-//
-//        customer = customerDirectory.addNewCustomer();
-//        customer.setUserName("abc");
-//        customer.setOrders(ordersList);
-//
-//        customer = customerDirectory.addNewCustomer();
-//        customer.setUserName("cu");
-//        customer.setOrders(null);
+
     }
 
     /**

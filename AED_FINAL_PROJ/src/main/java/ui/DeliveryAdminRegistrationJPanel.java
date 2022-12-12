@@ -13,6 +13,7 @@ import model.Community;
 import model.CompanyDirectory;
 import model.CustomerDirectory;
 import model.DeliveryBoyDirectory;
+import model.Ordermgt;
 import model.UserAuthentication;
 
 /**
@@ -30,6 +31,9 @@ public class DeliveryAdminRegistrationJPanel extends javax.swing.JPanel {
     private DeliveryBoyDirectory deliveryBoyDirectory;
     private String cityName;
     private String companyName;
+    private Ordermgt orderManagement;
+    private JSplitPane jSplitPane1;
+    private String role;
 
     /**
      * Creates new form CompanyAdminRegistrationJPanel
@@ -38,7 +42,7 @@ public class DeliveryAdminRegistrationJPanel extends javax.swing.JPanel {
         initComponents();
     }
 
-    public DeliveryAdminRegistrationJPanel(String cityName, String companyName, CityDir cityDirectory, Community community, CustomerDirectory customerDirectory, CompanyDirectory companyDirectory, UserAuthenticationDirectory userauthenticationdirectory, JSplitPane splitPane, DeliveryBoyDirectory deliveryBoyDirectory) {
+    public DeliveryAdminRegistrationJPanel(String cityName, String companyName, CityDir cityDirectory, Community community, CustomerDirectory customerDirectory, CompanyDirectory companyDirectory, UserAuthenticationDirectory userauthenticationdirectory, JSplitPane splitPane, DeliveryBoyDirectory deliveryBoyDirectory, JSplitPane jSplitPane1, String role, Ordermgt orderManagement) {
         initComponents();
         this.cityDirectory = cityDirectory;
         this.community = community;
@@ -49,6 +53,9 @@ public class DeliveryAdminRegistrationJPanel extends javax.swing.JPanel {
         this.deliveryBoyDirectory = deliveryBoyDirectory;
         this.cityName = cityName;
         this.companyName = companyName;
+        this.jSplitPane1 = jSplitPane1;
+        this.role = role;
+        this.orderManagement = orderManagement;
     }
 
     /**
@@ -75,6 +82,7 @@ public class DeliveryAdminRegistrationJPanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         passwordTextField = new javax.swing.JTextField();
         userNameTextField = new javax.swing.JTextField();
+        backButton = new javax.swing.JButton();
 
         createLabel1.setBackground(new java.awt.Color(255, 102, 102));
         createLabel1.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
@@ -139,6 +147,13 @@ public class DeliveryAdminRegistrationJPanel extends javax.swing.JPanel {
             }
         });
 
+        backButton.setText("Back");
+        backButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -148,19 +163,24 @@ public class DeliveryAdminRegistrationJPanel extends javax.swing.JPanel {
                 .addComponent(createLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1039, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(126, 126, 126)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(passwordTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(126, 126, 126)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(passwordTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(userNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(68, 68, 68)
+                                .addComponent(saveDeliveryAdminButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(userNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(68, 68, 68)
-                        .addComponent(saveDeliveryAdminButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(56, 56, 56)
+                        .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
@@ -182,6 +202,8 @@ public class DeliveryAdminRegistrationJPanel extends javax.swing.JPanel {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(31, 31, 31))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(backButton)
+                        .addGap(33, 33, 33)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(userNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -202,6 +224,8 @@ public class DeliveryAdminRegistrationJPanel extends javax.swing.JPanel {
 
     private void saveDeliveryAdminButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveDeliveryAdminButton1ActionPerformed
         // TODO add your handling code here:
+        
+        System.out.println(cityName+" "+companyName);
         if (userNameTextField.getText().length() == 0) {
             JOptionPane.showMessageDialog(this, "Mandatory User name field is empty");
             return;
@@ -240,6 +264,8 @@ public class DeliveryAdminRegistrationJPanel extends javax.swing.JPanel {
         model.setRowCount(0);
 
         for (UserAuthentication userAuthentication : userauthenticationdirectory.getUserAuthenticationList()) {
+            
+            System.out.println(userAuthentication.getUserType()+" "+"DeliveryAdmin"+" "+userAuthentication.getCityName()+" "+cityName+" "+userAuthentication.getCompanyName()+" "+companyName+" "+userAuthentication.getUserName());
             if ("DeliveryAdmin".equalsIgnoreCase(userAuthentication.getUserType())
                     && cityName.equalsIgnoreCase(userAuthentication.getCityName())
                     && companyName.equalsIgnoreCase(userAuthentication.getCompanyName())) {
@@ -315,8 +341,20 @@ public class DeliveryAdminRegistrationJPanel extends javax.swing.JPanel {
         JOptionPane.showMessageDialog(this, "Delivery Admin is deleted");
     }//GEN-LAST:event_deleteDeliveryAdminButtonActionPerformed
 
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
+        // TODO add your handling code here:
+        MainCompanyAdminJPanel superMainCompanyAdminJPanel = new MainCompanyAdminJPanel(cityName, companyName, cityDirectory, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory, jSplitPane1, role, orderManagement);
+        MainCompanyAdminJPanel loginJPanelMainCompanyAdminJPanel = new MainCompanyAdminJPanel(cityName, companyName, cityDirectory, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory, jSplitPane1, role, orderManagement);
+        if (role == null) {
+            splitPane.setRightComponent(loginJPanelMainCompanyAdminJPanel);
+        } else {
+            jSplitPane1.setRightComponent(superMainCompanyAdminJPanel);
+        }
+    }//GEN-LAST:event_backButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton backButton;
     private javax.swing.JLabel createLabel1;
     private javax.swing.JButton deleteDeliveryAdminButton;
     private javax.swing.JButton deleteOrderAdminButton;

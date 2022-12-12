@@ -4,10 +4,14 @@
  */
 package ui;
 
+import database.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import model.UserAuthenticationDirectory;
-import org.apache.commons.lang3.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
 import javax.swing.JSplitPane;
@@ -325,6 +329,30 @@ public class CityAdminPanel extends javax.swing.JPanel {
                         company.setCompanyName(newCompanyName);
                         company.setCompanyType(newCompanyType);
                         company.setCompanyType(newCompanyEmployeeCount);
+                        
+                        Connection obj = new Connection();
+                        java.sql.Connection con = obj.getConnection();
+                        
+                        String query = "UPDATE `company` "
+                                +      "SET companyName = ? ,"
+                                +      "companyType = ? ,"
+                                +      "companyEmployeeCount = ? ,"
+                                + "WHERE companyName = ?;";
+                        PreparedStatement pst = null;
+                        try {
+                            pst = obj.getConnection().prepareStatement(query);
+                            pst.setString(1, newCompanyName);
+                            pst.setString(2, newCompanyType);
+                            pst.setString(3, newCompanyEmployeeCount);
+                            pst.setString(4, companyName);
+                            //        if(cpass.equals(password)){
+                            pst.executeUpdate();
+                            System.out.println("Updated company.");
+                            con.close();
+                        } catch (SQLException ex) {
+                            Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        
                         break;
                     }
                 }
@@ -344,6 +372,8 @@ public class CityAdminPanel extends javax.swing.JPanel {
         }       
 
         DefaultTableModel model = (DefaultTableModel) jTable5.getModel();
+        String selectedCompanyName = (String) model.getValueAt(selectedRowIndex, 0);
+        
         int rowToModel = 0;
         rowToModel = jTable5.convertRowIndexToModel(selectedRowIndex);
         model.removeRow(rowToModel);
@@ -352,6 +382,28 @@ public class CityAdminPanel extends javax.swing.JPanel {
             if (city.getCityName().equalsIgnoreCase(selectedCityName)) {
                 city.getCompanyDirectory().deleteCompany(selectedRowIndex);
                 populateCompanies(city.getCompanyDirectory().getCompanyDirectoryList());
+                
+                Connection obj = new Connection();
+                java.sql.Connection con = obj.getConnection();
+
+                String query = "DELETE FROM `company` WHERE companyName = ?;";
+                                PreparedStatement pst = null;
+                                try {
+                                    pst = obj.getConnection().prepareStatement(query);
+                                    pst.setString(1, selectedCompanyName);
+                                    
+                                    System.out.println("selectedCompanyName: "+selectedCompanyName);
+                //                    pst.setInt(2, population);
+                //                    pst.setString(3, cityType);
+                                    //        if(cpass.equals(password)){
+                                    pst.executeUpdate();
+                                    System.out.println("Deleted company.");
+                                    con.close();
+                                } catch (SQLException ex) {
+                                    Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+
+
                 break;
             }
         }
@@ -360,6 +412,9 @@ public class CityAdminPanel extends javax.swing.JPanel {
 
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
         // TODO add your handling code here:
+        
+        Connection obj = new Connection();
+        java.sql.Connection con = obj.getConnection();
         
         companyName = txtName.getText();
         empCount = Integer.parseInt(txtCount.getText());
@@ -394,11 +449,30 @@ public class CityAdminPanel extends javax.swing.JPanel {
                 
                 c.setCompanyName(companyName);
                 c.setCompanyType(companyType);
-                c.setCompanyEmployeeCount(empCount);
+                c.setCompanyEmployeeCount(empCount);                
                 
                 JOptionPane.showMessageDialog(this, "New company is created.");
                 
                 populateCompanies(city.getCompanyDirectory().getCompanyDirectoryList());
+                
+                
+
+                String query = "INSERT INTO `company`(`companyName`, `companyType`, `companyEmployeeCount`, cityName) VALUES (?,?,?,?)";
+                PreparedStatement pst = null;
+                try {
+                    pst = obj.getConnection().prepareStatement(query);
+                    pst.setString(1, companyName);
+                    pst.setString(2, companyType);
+                    pst.setInt(3, empCount);
+                    pst.setString(4, selectedCityName);
+                    //        if(cpass.equals(password)){
+                    pst.executeUpdate();
+                    System.out.println("Inserted company.");
+                    con.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
                 break;
             }
         }

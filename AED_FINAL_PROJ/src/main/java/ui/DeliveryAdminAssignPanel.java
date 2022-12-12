@@ -18,6 +18,7 @@ import model.CompanyDirectory;
 import model.CustomerDirectory;
 import model.DeliveryBoy;
 import model.DeliveryBoyDirectory;
+import model.Ordermgt;
 import model.Orders;
 
 /**
@@ -40,8 +41,11 @@ public class DeliveryAdminAssignPanel extends javax.swing.JPanel {
     private String cityName;
     private String companyName;
     private DeliveryAdminMainPanel delAdmin;
+    private JSplitPane jSplitPane1;
+    private String role;
+    private Ordermgt orderManagement;
 
-    public DeliveryAdminAssignPanel(CityDir cityDir, String cityName, String companyName, Company company, Community community, CustomerDirectory customerDirectory, CompanyDirectory companyDirectory, UserAuthenticationDirectory userauthenticationdirectory, JSplitPane splitPane, DeliveryBoyDirectory deliveryBoyDirectory) {
+    public DeliveryAdminAssignPanel(CityDir cityDir, String cityName, String companyName, Company company, Community community, CustomerDirectory customerDirectory, CompanyDirectory companyDirectory, UserAuthenticationDirectory userauthenticationdirectory, JSplitPane splitPane, DeliveryBoyDirectory deliveryBoyDirectory, JSplitPane jSplitPane1, String role, Ordermgt orderManagement) {
 
         initComponents();
 
@@ -56,7 +60,10 @@ public class DeliveryAdminAssignPanel extends javax.swing.JPanel {
         this.cityName = cityName;
         this.companyName = companyName;
         this.delAdmin = delAdmin;
-        
+        this.jSplitPane1 = jSplitPane1;
+        this.role = role;
+        this.orderManagement = orderManagement;
+
         populateOrderTable();
         populateDeliveryBoyTable();
     }
@@ -279,9 +286,14 @@ public class DeliveryAdminAssignPanel extends javax.swing.JPanel {
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
-        
-        DeliveryAdminMainPanel d = new DeliveryAdminMainPanel(cityDir, cityName, companyName, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
-        splitPane.setRightComponent(d);
+
+        DeliveryAdminMainPanel d = new DeliveryAdminMainPanel(cityDir, cityName, companyName, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory, jSplitPane1, role, orderManagement);
+
+        if (role == null) {
+            splitPane.setRightComponent(d);
+        } else {
+            jSplitPane1.setRightComponent(d);
+        }
     }//GEN-LAST:event_btnBackActionPerformed
 
 

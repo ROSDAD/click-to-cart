@@ -5,21 +5,13 @@
 package ui;
 
 import model.UserAuthenticationDirectory;
-import java.util.ArrayList;
-import java.util.List;
-import javax.swing.JOptionPane;
 import javax.swing.JSplitPane;
-import javax.swing.table.DefaultTableModel;
-import model.City;
 import model.CityDir;
 import model.Community;
 import model.CompanyDirectory;
-import model.Customer;
 import model.CustomerDirectory;
 import model.DeliveryBoyDirectory;
-import model.Orderedprod;
 import model.Ordermgt;
-import model.Orders;
 
 /**
  *
@@ -44,7 +36,7 @@ public class MainCustomerJPanel extends javax.swing.JPanel {
         initComponents();
     }
 
-    public MainCustomerJPanel(CityDir cityDirectory,String userName, Ordermgt orderManagement, Community community, CustomerDirectory customerDirectory, CompanyDirectory companyDirectory, UserAuthenticationDirectory userauthenticationdirectory, JSplitPane splitPane, DeliveryBoyDirectory deliveryBoyDirectory) {
+    public MainCustomerJPanel(CityDir cityDirectory, String userName, Ordermgt orderManagement, Community community, CustomerDirectory customerDirectory, CompanyDirectory companyDirectory, UserAuthenticationDirectory userauthenticationdirectory, JSplitPane splitPane, DeliveryBoyDirectory deliveryBoyDirectory) {
         initComponents();
         this.cityDirectory = cityDirectory;
         this.userName = userName;
@@ -68,7 +60,7 @@ public class MainCustomerJPanel extends javax.swing.JPanel {
 
         orderNowButton = new javax.swing.JButton();
         viewPreviousOrderButton = new javax.swing.JButton();
-        backButton = new javax.swing.JButton();
+        createLabel1 = new javax.swing.JLabel();
 
         orderNowButton.setText("order Now");
         orderNowButton.addActionListener(new java.awt.event.ActionListener() {
@@ -84,62 +76,57 @@ public class MainCustomerJPanel extends javax.swing.JPanel {
             }
         });
 
-        backButton.setText("Logout");
-        backButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                backButtonActionPerformed(evt);
-            }
-        });
+        createLabel1.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        createLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        createLabel1.setText("Customer Main Panel");
+        createLabel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 5));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(createLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1138, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(213, 213, 213)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(orderNowButton, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 366, Short.MAX_VALUE)
-                .addComponent(viewPreviousOrderButton, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(256, 256, 256))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(79, 79, 79)
-                .addComponent(backButton)
+                .addGap(242, 242, 242)
+                .addComponent(viewPreviousOrderButton, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(57, 57, 57)
-                .addComponent(backButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 129, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(createLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 149, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(orderNowButton)
-                    .addComponent(viewPreviousOrderButton))
-                .addGap(227, 227, 227))
+                    .addComponent(orderNowButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(viewPreviousOrderButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(200, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void orderNowButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderNowButtonActionPerformed
         // TODO add your handling code here:
-        CustomerOrderNowJPanel customerOrderNowJPanel = new CustomerOrderNowJPanel(cityDirectory,userName, orderManagement, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
+        CustomerOrderNowJPanel customerOrderNowJPanel = new CustomerOrderNowJPanel(cityDirectory, userName, orderManagement, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
         splitPane.setRightComponent(customerOrderNowJPanel);
     }//GEN-LAST:event_orderNowButtonActionPerformed
 
     private void viewPreviousOrderButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewPreviousOrderButtonActionPerformed
         // TODO add your handling code here:
-        CustomerOrderHistoryJPanel customerOrderHistoryJPanel = new CustomerOrderHistoryJPanel(cityDirectory,userName, orderManagement, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
+        CustomerOrderHistoryJPanel customerOrderHistoryJPanel = new CustomerOrderHistoryJPanel(cityDirectory, userName, orderManagement, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
         splitPane.setRightComponent(customerOrderHistoryJPanel);
     }//GEN-LAST:event_viewPreviousOrderButtonActionPerformed
 
+
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
         // TODO add your handling code here:
-        LoginJPanel loginJPanel = new LoginJPanel( cityDirectory, userName,  orderManagement,  community,  customerDirectory,  companyDirectory,  userauthenticationdirectory,  splitPane,  deliveryBoyDirectory);
+        LoginJPanel loginJPanel = new LoginJPanel(cityDirectory, orderManagement, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
         splitPane.setRightComponent(loginJPanel);
     }//GEN-LAST:event_backButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton backButton;
+    private javax.swing.JLabel createLabel1;
     private javax.swing.JButton orderNowButton;
     private javax.swing.JButton viewPreviousOrderButton;
     // End of variables declaration//GEN-END:variables

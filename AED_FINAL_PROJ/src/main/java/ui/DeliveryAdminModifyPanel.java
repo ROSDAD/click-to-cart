@@ -16,7 +16,14 @@ import model.CompanyDirectory;
 import model.CustomerDirectory;
 import model.DeliveryBoy;
 import model.DeliveryBoyDirectory;
+import model.Ordermgt;
 import model.UserAuthenticationDirectory;
+import database.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 /**
  *
@@ -27,7 +34,6 @@ public class DeliveryAdminModifyPanel extends javax.swing.JPanel {
     /**
      * Creates new form DeliveryAdminPanel
      */
-    
     private String deliveryBoyName;
     private long emergencyContactNumber;
     private String qualificaton;
@@ -36,53 +42,59 @@ public class DeliveryAdminModifyPanel extends javax.swing.JPanel {
     private DeliveryBoyDirectory deliveryBoyDirectory;
     private DeliveryAdminMainPanel delAdmin;
     private CityDir cityDir;
-    private String cityName; 
-    private String companyName; 
-    private CustomerDirectory customerDirectory; 
-    private CompanyDirectory companyDirectory; 
+    private String cityName;
+    private String companyName;
+    private CustomerDirectory customerDirectory;
+    private CompanyDirectory companyDirectory;
     private UserAuthenticationDirectory userauthenticationdirectory;
     private JSplitPane splitPane;
-    
-    public DeliveryAdminModifyPanel(Community community,DeliveryBoyDirectory deliveryBoyDirectory, CityDir cityDir, String cityName, String companyName, CustomerDirectory customerDirectory, CompanyDirectory companyDirectory, UserAuthenticationDirectory userauthenticationdirectory, JSplitPane splitPane) {
+    private JSplitPane jSplitPane1;
+    private String role;
+    private Ordermgt orderManagement;
+
+    public DeliveryAdminModifyPanel(Community community, DeliveryBoyDirectory deliveryBoyDirectory, CityDir cityDir, String cityName, String companyName, CustomerDirectory customerDirectory, CompanyDirectory companyDirectory, UserAuthenticationDirectory userauthenticationdirectory, JSplitPane splitPane, JSplitPane jSplitPane1, String role, Ordermgt orderManagement) {
         initComponents();
-        
+
         this.community = community;
         this.deliveryBoyDirectory = deliveryBoyDirectory;
         this.delAdmin = delAdmin;
-        this.cityDir = cityDir; 
-        this.cityName = cityName; 
-        this.companyName = companyName; 
-        this.customerDirectory = customerDirectory; 
-        this.companyDirectory = companyDirectory; 
-        this.userauthenticationdirectory = userauthenticationdirectory; 
+        this.cityDir = cityDir;
+        this.cityName = cityName;
+        this.companyName = companyName;
+        this.customerDirectory = customerDirectory;
+        this.companyDirectory = companyDirectory;
+        this.userauthenticationdirectory = userauthenticationdirectory;
         this.splitPane = splitPane;
-        
+        this.jSplitPane1 = jSplitPane1;
+        this.role = role;
+        this.orderManagement = orderManagement;
+
         ButtonGroup buttonGroup = new ButtonGroup();
-        
+
         buttonGroup.add(radioHighSchool);
         buttonGroup.add(radioUniversity);
-        
+
         populateDeliveryBoyTable();
     }
-    
+
     private void populateDeliveryBoyTable() {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-              
+
         DefaultTableModel model = (DefaultTableModel) tblDeliveryBoys.getModel();
         model.setRowCount(0);
-        
-        if(deliveryBoyDirectory.getDeliveryBoyList() != null) {
-        for(DeliveryBoy d : deliveryBoyDirectory.getDeliveryBoyList()) {
-            
-            Object[] row = new Object[11];
-            //row[0] = house;
-            row[0] = d.getDeliveryBoyName();
-            row[1] = d.getQualificaton();
-            row[2] = d.getYearOfDeliveryExperience();
-            row[3] = d.getEmergencyContactNumber();
-            
-            model.addRow(row);
-        }
+
+        if (deliveryBoyDirectory.getDeliveryBoyList() != null) {
+            for (DeliveryBoy d : deliveryBoyDirectory.getDeliveryBoyList()) {
+
+                Object[] row = new Object[11];
+                //row[0] = house;
+                row[0] = d.getDeliveryBoyName();
+                row[1] = d.getQualificaton();
+                row[2] = d.getYearOfDeliveryExperience();
+                row[3] = d.getEmergencyContactNumber();
+
+                model.addRow(row);
+            }
         }
     }
 
@@ -256,7 +268,7 @@ public class DeliveryAdminModifyPanel extends javax.swing.JPanel {
 
     private void updateDeliveryBoyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateDeliveryBoyActionPerformed
         // TODO add your handling code here:
-        
+
         if (txtName.getText().length() == 0) {
             JOptionPane.showMessageDialog(this, "Mandatory name field is empty");
             return;
@@ -272,30 +284,27 @@ public class DeliveryAdminModifyPanel extends javax.swing.JPanel {
             return;
         }
 
-
         if (txtExperience.getText().length() == 0) {
             JOptionPane.showMessageDialog(this, "Mandatory emergency contact name field is empty");
             return;
         }
-        
+
         deliveryBoyName = txtName.getText();
         yearOfDeliveryExperience = Integer.parseInt(txtEmergencyContact.getText());
         emergencyContactNumber = Long.parseLong(txtExperience.getText());
-        
+
         //Radio buttons
-        if(radioHighSchool.isSelected() == true) {
+        if (radioHighSchool.isSelected() == true) {
             qualificaton = "High School";
-        }
-        else if(radioUniversity.isSelected() == true){
+        } else if (radioUniversity.isSelected() == true) {
             qualificaton = "University";
-        }
-        else {
+        } else {
             JOptionPane.showMessageDialog(this, "Please select a qualificaton.");
         }
 
         int selectedRowIndex = tblDeliveryBoys.getSelectedRow();
 
-        if (selectedRowIndex < 0 ) {
+        if (selectedRowIndex < 0) {
 
             JOptionPane.showMessageDialog(this, "Please select a delivery boy to update.");
             return;
@@ -306,25 +315,54 @@ public class DeliveryAdminModifyPanel extends javax.swing.JPanel {
 
         ArrayList<DeliveryBoy> delBoyDir = (ArrayList) deliveryBoyDirectory.getDeliveryBoyList();
 
-        for(DeliveryBoy d: delBoyDir) {
+        for (DeliveryBoy d : delBoyDir) {
 
-            if(d.getDeliveryBoyName().equalsIgnoreCase(selectedDeliveryBoy)) {
-
+            if (d.getDeliveryBoyName().equalsIgnoreCase(selectedDeliveryBoy)) {
+                
+                String oldName = d.getDeliveryBoyName();
+                
                 d.setAvailability(true);
                 d.setDeliveryBoyName(deliveryBoyName);
                 d.setEmergencyContactNumber(emergencyContactNumber);
                 d.setQualificaton(qualificaton);
                 d.setYearOfDeliveryExperience(yearOfDeliveryExperience);
+                
+                Connection obj = new Connection();
+                java.sql.Connection con = obj.getConnection();
+
+                //String query = "INSERT INTO `city`(`cityName`, `population`, `cityType`) VALUES (?,?,?)";
+                String query = "UPDATE `delivery_boy` "
+                        +      "SET emergencyContactNumber = ? ,"
+                        +      "deliveryBoyName = ? ,"
+                        +      "qualification = ? ,"
+                        +      " yearOfDeliveryExperience = ? "                        
+                        + "WHERE deliveryBoyName = ?;";
+                PreparedStatement pst = null;
+                try {
+                    pst = obj.getConnection().prepareStatement(query);
+                    pst.setInt(1, (int) emergencyContactNumber);
+                    pst.setString(2, deliveryBoyName);
+                    pst.setString(3, qualificaton);
+                    pst.setInt(4, yearOfDeliveryExperience);
+                    pst.setString(5, oldName);
+                    //        if(cpass.equals(password)){
+                    pst.executeUpdate();
+                    System.out.println("Updated delivery boy.");
+                    con.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
             }
         }
 
         JOptionPane.showMessageDialog(this, "Delivery Boy updated!");
-        
+
         txtName.setText("");
         txtEmergencyContact.setText("");
         txtExperience.setText("");
         radioHighSchool.setEnabled(false);
-        radioUniversity.setEnabled(false);       
+        radioUniversity.setEnabled(false);
 
         populateDeliveryBoyTable();
     }//GEN-LAST:event_updateDeliveryBoyActionPerformed
@@ -333,7 +371,7 @@ public class DeliveryAdminModifyPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         int selectedRowIndex = tblDeliveryBoys.getSelectedRow();
 
-        if (selectedRowIndex < 0 ) {
+        if (selectedRowIndex < 0) {
 
             JOptionPane.showMessageDialog(this, "Please select a delivery boy.");
             return;
@@ -345,11 +383,30 @@ public class DeliveryAdminModifyPanel extends javax.swing.JPanel {
 
         ArrayList<DeliveryBoy> delBoyDir = (ArrayList) deliveryBoyDirectory.getDeliveryBoyList();
 
-        for(DeliveryBoy d: delBoyDir) {
+        for (DeliveryBoy d : delBoyDir) {
 
-            if(d.getDeliveryBoyName().equalsIgnoreCase(deliveryBoy)) {
+            if (d.getDeliveryBoyName().equalsIgnoreCase(deliveryBoy)) {
 
                 deliveryBoyDirectory.deleteDeliveryBoy(d);
+                
+                Connection obj = new Connection();
+                java.sql.Connection con = obj.getConnection();
+
+                String query = "DELETE FROM `delivery_boy` WHERE deliveryBoyName = ?;";
+                PreparedStatement pst = null;
+                try {
+                    pst = obj.getConnection().prepareStatement(query);
+                    pst.setString(1, deliveryBoy);
+//                    pst.setInt(2, population);
+//                    pst.setString(3, cityType);
+                    //        if(cpass.equals(password)){
+                    pst.executeUpdate();
+                    System.out.println("Deleted delivery boy..");
+                    con.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
 
                 populateDeliveryBoyTable();
                 JOptionPane.showMessageDialog(this, "Delivery Boy Deleted!");
@@ -365,8 +422,12 @@ public class DeliveryAdminModifyPanel extends javax.swing.JPanel {
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
-        DeliveryAdminMainPanel d = new DeliveryAdminMainPanel(cityDir, cityName, companyName, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
-        splitPane.setRightComponent(d);
+        DeliveryAdminMainPanel d = new DeliveryAdminMainPanel(cityDir, cityName, companyName, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory, jSplitPane1, role, orderManagement);
+        if (role == null) {
+            splitPane.setRightComponent(d);
+        } else {
+            jSplitPane1.setRightComponent(d);
+        }
     }//GEN-LAST:event_btnBackActionPerformed
 
 

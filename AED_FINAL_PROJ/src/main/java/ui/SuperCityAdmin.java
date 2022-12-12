@@ -11,7 +11,6 @@ import javax.swing.table.DefaultTableModel;
 import model.City;
 import model.CityDir;
 import model.Community;
-import model.Company;
 import model.CompanyDirectory;
 import model.CustomerDirectory;
 import model.DeliveryBoyDirectory;
@@ -125,8 +124,10 @@ public class SuperCityAdmin extends javax.swing.JPanel {
         }
         DefaultTableModel model = (DefaultTableModel) cityTable.getModel();
         City cityDir = cityDirectory.getCityDir().get(selectedRowIndex);
-//        CityAdminPanel cityAdminPanel = new CityAdminPanel(cityDir, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
-//        jSplitPane1.setRightComponent(compAdminPanel);
+        String selectedCityName = (String) model.getValueAt(selectedRowIndex, 1);
+        
+        CityAdminPanel cityAdmin = new CityAdminPanel(selectedCityName, cityDirectory, userauthenticationdirectory, splitPane);
+            splitPane.setRightComponent(cityAdmin);
     }//GEN-LAST:event_loginBtnActionPerformed
 
 

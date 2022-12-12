@@ -19,6 +19,7 @@ import model.CustomerDirectory;
 import model.DeliveryBoyDirectory;
 import model.Ordermgt;
 import org.apache.commons.collections4.CollectionUtils;
+//import org.apache.commons.collections4.CollectionUtils;
 
 /**
  *
@@ -161,19 +162,19 @@ public class SuperCompanyAdmin extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addContainerGap(75, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(viewCompanyBtn)
                     .addComponent(loginCompanyBtn))
-                .addGap(99, 99, 99))
+                .addGap(44, 44, 44))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -207,7 +208,7 @@ public class SuperCompanyAdmin extends javax.swing.JPanel {
             return;
         }
         DefaultTableModel modelCity = (DefaultTableModel) cityTable.getModel();
-        String selectedCityName = modelCity.getValueAt(selectedRowIndexCity, 0).toString();
+        String selectedCityName = modelCity.getValueAt(selectedRowIndexCity, 1).toString();
 
         //Selected Company Table
         int selectedRowIndexCompany = companyTable.getSelectedRow();
@@ -216,13 +217,13 @@ public class SuperCompanyAdmin extends javax.swing.JPanel {
             return;
         }
         DefaultTableModel modelCompanyName = (DefaultTableModel) companyTable.getModel();
-        String selectedCompanyName = modelCompanyName.getValueAt(selectedRowIndexCompany, 0).toString();
+        String selectedCompanyName = modelCompanyName.getValueAt(selectedRowIndexCompany, 1).toString();
 
         DefaultTableModel model = (DefaultTableModel) cityTable.getModel();
         if (role.equals("CompanyAdmin")) {
             Company compDir = cityDirectory.getCityDir().get(cityTableIndex).getCompanyDirectory().getCompanyDirectoryList().get(selectedRowIndex);
 
-            MainCompanyAdminJPanel mainCompanyAdminJPanel = new MainCompanyAdminJPanel(selectedCityName, selectedCompanyName, cityDirectory, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
+            MainCompanyAdminJPanel mainCompanyAdminJPanel = new MainCompanyAdminJPanel(selectedCityName, selectedCompanyName, cityDirectory, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory, jSplitPane1, role, orderManagement);
             jSplitPane1.setRightComponent(mainCompanyAdminJPanel);
         }
         if (role.equals("DeliveryAdmin")) {
@@ -230,7 +231,7 @@ public class SuperCompanyAdmin extends javax.swing.JPanel {
             CompanyDirectory companyDir = cityDirectory.getCityDir().get(cityTableIndex).getCompanyDirectory();
             String cityName = cityDirectory.getCityDir().get(cityTableIndex).getCityName();
             String companyName = cityDirectory.getCityDir().get(cityTableIndex).getCompanyDirectory().getCompanyDirectoryList().get(selectedRowIndex).getCompanyName();
-            DeliveryAdminMainPanel compAdminPanel = new DeliveryAdminMainPanel(cityDirectory, cityName, companyName, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
+            DeliveryAdminMainPanel compAdminPanel = new DeliveryAdminMainPanel(cityDirectory, cityName, companyName, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory, jSplitPane1, role, orderManagement);
             jSplitPane1.setRightComponent(compAdminPanel);
         }
         if (role.equals("InventoryAdmin")) {
@@ -240,7 +241,8 @@ public class SuperCompanyAdmin extends javax.swing.JPanel {
 
             String cityName = cityDirectory.getCityDir().get(cityTableIndex).getCityName();
             String companyName = cityDirectory.getCityDir().get(cityTableIndex).getCompanyDirectory().getCompanyDirectoryList().get(selectedRowIndex).getCompanyName();
-            InventoryAdminPanel compInventoryPanel = new InventoryAdminPanel(cityName, companyName, cityDirectory, splitPane,userauthenticationdirectory);
+
+            InventoryAdminPanel compInventoryPanel = new InventoryAdminPanel(cityName, companyName, cityDirectory, splitPane, userauthenticationdirectory, jSplitPane1, role, orderManagement, community, customerDirectory, companyDirectory,deliveryBoyDirectory);
             jSplitPane1.setRightComponent(compInventoryPanel);
         }
         if (role.equals("OrderAdmin")) {
@@ -250,7 +252,7 @@ public class SuperCompanyAdmin extends javax.swing.JPanel {
 //            Ordermgt ordMgt = cityDirectory.getCityDir().get(cityTableIndex).getCompanyDirectory().getCompanyDirectoryList().get(selectedRowIndex).getOrderMgt();
             String cityName = cityDirectory.getCityDir().get(cityTableIndex).getCityName();
             String companyName = cityDirectory.getCityDir().get(cityTableIndex).getCompanyDirectory().getCompanyDirectoryList().get(selectedRowIndex).getCompanyName();
-            MainOrderAdminJPanel compInventoryPanel = new MainOrderAdminJPanel(orderManagement, cityDirectory, community, customerDirectory, companyDir, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
+            MainOrderAdminJPanel compInventoryPanel = new MainOrderAdminJPanel(orderManagement, cityDirectory, community, customerDirectory, companyDir, userauthenticationdirectory, splitPane, deliveryBoyDirectory,jSplitPane1, role);
             jSplitPane1.setRightComponent(compInventoryPanel);
         }
     }//GEN-LAST:event_loginCompanyBtnActionPerformed

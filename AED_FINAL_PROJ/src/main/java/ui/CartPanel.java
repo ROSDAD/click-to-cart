@@ -21,9 +21,6 @@ import model.Inventory;
 import model.InventoryProduct;
 import model.Orderedprod;
 import model.Ordermgt;
-import model.Orders;
-import model.Payment;
-import model.PaymentDir;
 import model.UserAuthenticationDirectory;
 
 /**

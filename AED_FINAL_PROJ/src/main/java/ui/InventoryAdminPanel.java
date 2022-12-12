@@ -16,6 +16,10 @@ import model.CompanyDirectory;
 import model.Inventory;
 import model.InventoryMgt;
 import javax.swing.JOptionPane;
+import model.Community;
+import model.CustomerDirectory;
+import model.DeliveryBoyDirectory;
+import model.Ordermgt;
 import model.UserAuthenticationDirectory;
 
 /**
@@ -27,7 +31,6 @@ public class InventoryAdminPanel extends javax.swing.JPanel {
     /**
      * Creates new form InventoryAdmin
      */
-    
     private String cityName;
     private String companyName;
     private CityDir cityDir;
@@ -37,72 +40,84 @@ public class InventoryAdminPanel extends javax.swing.JPanel {
     private String inventoryCategory;
     private String inventoryType; //critical, general
     private UserAuthenticationDirectory userauthenticationdirectory;
-    
-    public InventoryAdminPanel(String cityName, String companyName, CityDir cityDir, JSplitPane splitPane, UserAuthenticationDirectory userauthenticationdirectory) {
+    private JSplitPane jSplitPane1;
+    private String role;
+    private Ordermgt orderManagement;
+    private Community community;
+    private CustomerDirectory customerDirectory;
+    private DeliveryBoyDirectory deliveryBoyDirectory;
+
+    public InventoryAdminPanel(String cityName, String companyName, CityDir cityDir, JSplitPane splitPane, UserAuthenticationDirectory userauthenticationdirectory, JSplitPane jSplitPane1, String role, Ordermgt orderManagement, Community community, CustomerDirectory customerDirectory, CompanyDirectory companyDir, DeliveryBoyDirectory deliveryBoyDirectory) {
         initComponents();
-        
+
         this.cityName = cityName;
         this.companyName = companyName;
         this.cityDir = cityDir;
         this.splitPane = splitPane;
         this.userauthenticationdirectory = userauthenticationdirectory;
-        
+        this.jSplitPane1 = jSplitPane1;
+        this.role = role;
+        this.orderManagement = orderManagement;
+        this.community = community;
+        this.customerDirectory = customerDirectory;
+        this.companyDir = companyDir;
+        this.deliveryBoyDirectory = deliveryBoyDirectory;
         populateInventoriesTable();
     }
-    
+
     private void populateInventoriesTable() {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        
+
         // House Table        
         DefaultTableModel model = (DefaultTableModel) tblInventories.getModel();
         model.setRowCount(0);
-        
+
         ArrayList<City> cDir = cityDir.getCityDir();
 
-        for(City c: cDir) {
-            if(c.getCityName().equalsIgnoreCase(cityName)) {
-                
+        for (City c : cDir) {
+            if (c.getCityName().equalsIgnoreCase(cityName)) {
+
                 companyDir = c.getCompanyDirectory();
-                
+
                 List<Company> compDir = companyDir.getCompanyDirectoryList();
-                
-                    for(Company comp:compDir) {
-                        
-                        if(comp.getCompanyName().equalsIgnoreCase(companyName)) {
-                            
-                            if(comp.getInventoryManagement() != null) {
-                                
-                                model = (DefaultTableModel) tblInventories.getModel();
-                                model.setRowCount(0);
-                                
-                                invMgt = comp.getInventoryManagement();
-                                
-                                ArrayList<Inventory> invDir = invMgt.getInventoryMgt();
-                                        
-                                for(Inventory i : invDir) {
 
-                                    Object[] row = new Object[11];
-                                    //row[0] = house;
-                                    row[0] = i.getInventoryCategory();
-                                    row[1] = i.getInventoryType();
+                for (Company comp : compDir) {
 
-                                    model.addRow(row);
+                    if (comp.getCompanyName().equalsIgnoreCase(companyName)) {
+                        System.out.println("Inside company");
 
-                                }       
+                        if (comp.getInventoryManagement() != null) {
+                            System.out.println("Inside company 1");
+                            model = (DefaultTableModel) tblInventories.getModel();
+                            model.setRowCount(0);
+
+                            invMgt = comp.getInventoryManagement();
+
+                            ArrayList<Inventory> invDir = invMgt.getInventoryMgt();
+
+                            for (Inventory i : invDir) {
+
+                                Object[] row = new Object[11];
+                                //row[0] = house;
+                                row[0] = i.getInventoryCategory();
+                                row[1] = i.getInventoryType();
+
+                                model.addRow(row);
 
                             }
-                            else {
-                                    Inventory i = new Inventory();
-                                    
-                                    Object[] row = new Object[11];
-                                    //row[0] = house;
-                                    row[0] = i.getInventoryCategory();
-                                    row[1] = i.getInventoryType();
 
-                                    model.addRow(row);
-                            }                            
+                        } else {
+                            Inventory i = new Inventory();
+
+                            Object[] row = new Object[11];
+                            //row[0] = house;
+                            row[0] = i.getInventoryCategory();
+                            row[1] = i.getInventoryType();
+
+                            model.addRow(row);
                         }
                     }
+                }
             }
         }
     }
@@ -127,6 +142,7 @@ public class InventoryAdminPanel extends javax.swing.JPanel {
         radioGeneral = new javax.swing.JRadioButton();
         radioCritical = new javax.swing.JRadioButton();
         btnModifyProducts = new javax.swing.JButton();
+        backButton2 = new javax.swing.JButton();
 
         tblInventories.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -193,6 +209,13 @@ public class InventoryAdminPanel extends javax.swing.JPanel {
             }
         });
 
+        backButton2.setText("Back");
+        backButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -222,13 +245,18 @@ public class InventoryAdminPanel extends javax.swing.JPanel {
                                     .addComponent(updateInventory, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(414, 414, 414)
-                        .addComponent(btnModifyProducts)))
+                        .addComponent(btnModifyProducts))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addComponent(backButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(319, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(83, 83, 83)
+                .addGap(26, 26, 26)
+                .addComponent(backButton2)
+                .addGap(35, 35, 35)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnDeleteInventory)
@@ -254,31 +282,28 @@ public class InventoryAdminPanel extends javax.swing.JPanel {
     private void btnCreateInventoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateInventoryActionPerformed
         // TODO add your handling code here:
 
-        inventoryCategory = txtCategory.getText();      
+        inventoryCategory = txtCategory.getText();
 
-        if(!inventoryCategory.matches("[a-zA-Z]+")) {
+        if (!inventoryCategory.matches("[a-zA-Z]+")) {
             JOptionPane.showMessageDialog(this, "Category should have only alphabets.");
             return;
         }
 
-        if(inventoryCategory.length() == 0) {
+        if (inventoryCategory.length() == 0) {
             JOptionPane.showMessageDialog(this, "All fields are mandatory.");
             return;
         }
 
         //Radio buttons
-
-        if(radioGeneral.isSelected() == true) {
+        if (radioGeneral.isSelected() == true) {
             inventoryType = "General";
-        }
-        else if(radioCritical.isSelected() == true){
+        } else if (radioCritical.isSelected() == true) {
             inventoryType = "Critical";
-        }
-        else {
+        } else {
             JOptionPane.showMessageDialog(this, "Please select an inventory type.");
         }
 
-        Inventory i  = invMgt.addNewInventory();
+        Inventory i = invMgt.addNewInventory();
 
         i.setInventoryCategory(inventoryCategory);
         i.setInventoryType(inventoryType);
@@ -294,71 +319,68 @@ public class InventoryAdminPanel extends javax.swing.JPanel {
 
         inventoryCategory = txtCategory.getText();
 
-        if(!cityName.matches("[a-zA-Z]+")) {
+        if (!cityName.matches("[a-zA-Z]+")) {
             JOptionPane.showMessageDialog(this, "Name should have only alphabets.");
             return;
         }
 
-        if(cityName.length() == 0) {
+        if (cityName.length() == 0) {
             JOptionPane.showMessageDialog(this, "All fields are mandatory.");
             return;
         }
 
         //Radio buttons
-
-        if(radioGeneral.isSelected() == true) {
+        if (radioGeneral.isSelected() == true) {
             inventoryType = "General";
-        }
-        else if(radioCritical.isSelected() == true){
+        } else if (radioCritical.isSelected() == true) {
             inventoryType = "Critical";
-        }
-        else {
+        } else {
             JOptionPane.showMessageDialog(this, "Please select an inventory type.");
         }
 
         int selectedRowIndex = tblInventories.getSelectedRow();
 
-        if (selectedRowIndex < 0 ) {
+        if (selectedRowIndex < 0) {
 
             JOptionPane.showMessageDialog(this, "Please select a inventory to update.");
             return;
-        }        
+        }
 
         ArrayList<City> cDir = cityDir.getCityDir();
 
-        for(City c: cDir) {
-            if(c.getCityName().equalsIgnoreCase(cityName)) {
-                
+        for (City c : cDir) {
+            if (c.getCityName().equalsIgnoreCase(cityName)) {
+
                 companyDir = c.getCompanyDirectory();
-                
+
                 List<Company> compDir = companyDir.getCompanyDirectoryList();
-                
-                    for(Company comp:compDir) {
-                        
-                        if(comp.getCompanyName().equalsIgnoreCase(companyName)) {
-                            
-                            if(comp.getInventoryManagement() != null) {
-                                                                
-                                invMgt = comp.getInventoryManagement();
-                                
-                                DefaultTableModel model = (DefaultTableModel) tblInventories.getModel();
-                                String selectedInv = (String) model.getValueAt(selectedRowIndex, 0);
-                                
-                                ArrayList<Inventory> invDir = invMgt.getInventoryMgt();
-                                        
-                                for(Inventory i : invDir) {
-                                    
-                                    if(i.getinventoryCategory().equalsIgnoreCase(selectedInv)) {
-                                        
-                                        i.setInventoryCategory(inventoryCategory);
-                                        i.setInventoryType(inventoryType);
-                                    }
-                                }       
-                            }                            
+
+                for (Company comp : compDir) {
+
+                    if (comp.getCompanyName().equalsIgnoreCase(companyName)) {
+
+                        if (comp.getInventoryManagement() != null) {
+
+                            invMgt = comp.getInventoryManagement();
+
+                            DefaultTableModel model = (DefaultTableModel) tblInventories.getModel();
+                            String selectedInv = (String) model.getValueAt(selectedRowIndex, 0);
+
+                            ArrayList<Inventory> invDir = invMgt.getInventoryMgt();
+
+                            for (Inventory i : invDir) {
+
+                                if (i.getinventoryCategory().equalsIgnoreCase(selectedInv)) {
+
+                                    i.setInventoryCategory(inventoryCategory);
+                                    i.setInventoryType(inventoryType);
+                                }
+                            }
                         }
                     }
                 }
             }
+        }
 
         JOptionPane.showMessageDialog(this, "Inventory updated!");
 
@@ -369,7 +391,7 @@ public class InventoryAdminPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         int selectedRowIndex = tblInventories.getSelectedRow();
 
-        if (selectedRowIndex < 0 ) {
+        if (selectedRowIndex < 0) {
 
             JOptionPane.showMessageDialog(this, "Please select an inventory.");
             return;
@@ -380,42 +402,42 @@ public class InventoryAdminPanel extends javax.swing.JPanel {
         String inventoryName = (String) model.getValueAt(selectedRowIndex, 0);
 
         ArrayList<City> cDir = cityDir.getCityDir();
-        
-        for(City c: cDir) {
-            if(c.getCityName().equalsIgnoreCase(cityName)) {
-                
+
+        for (City c : cDir) {
+            if (c.getCityName().equalsIgnoreCase(cityName)) {
+
                 companyDir = c.getCompanyDirectory();
-                
+
                 List<Company> compDir = companyDir.getCompanyDirectoryList();
-                
-                    for(Company comp:compDir) {
-                        
-                        if(comp.getCompanyName().equalsIgnoreCase(companyName)) {
-                            
-                            if(comp.getInventoryManagement() != null) {
-                                                                
-                                invMgt = comp.getInventoryManagement();
-                                
-                                model = (DefaultTableModel) tblInventories.getModel();
-                                String selectedInv = (String) model.getValueAt(selectedRowIndex, 0);
-                                
-                                ArrayList<Inventory> invDir = invMgt.getInventoryMgt();
-                                        
-                                for(Inventory i : invDir) {
-                                    
-                                    if(i.getinventoryCategory().equalsIgnoreCase(selectedInv)) {
-                                        
-                                        invMgt.deleteInventory(i);
-                                        populateInventoriesTable();
-                                        JOptionPane.showMessageDialog(this, "Inventory Deleted!");
-                                        break;
-                                    }
-                                }       
-                            }                            
+
+                for (Company comp : compDir) {
+
+                    if (comp.getCompanyName().equalsIgnoreCase(companyName)) {
+
+                        if (comp.getInventoryManagement() != null) {
+
+                            invMgt = comp.getInventoryManagement();
+
+                            model = (DefaultTableModel) tblInventories.getModel();
+                            String selectedInv = (String) model.getValueAt(selectedRowIndex, 0);
+
+                            ArrayList<Inventory> invDir = invMgt.getInventoryMgt();
+
+                            for (Inventory i : invDir) {
+
+                                if (i.getinventoryCategory().equalsIgnoreCase(selectedInv)) {
+
+                                    invMgt.deleteInventory(i);
+                                    populateInventoriesTable();
+                                    JOptionPane.showMessageDialog(this, "Inventory Deleted!");
+                                    break;
+                                }
+                            }
                         }
                     }
                 }
             }
+        }
     }//GEN-LAST:event_btnDeleteInventoryActionPerformed
 
     private void radioGeneralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioGeneralActionPerformed
@@ -424,55 +446,73 @@ public class InventoryAdminPanel extends javax.swing.JPanel {
 
     private void btnModifyProductsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModifyProductsActionPerformed
         // TODO add your handling code here:
-        
+
         int selectedRowIndex = tblInventories.getSelectedRow();
 
-        if (selectedRowIndex < 0 ) {
+        if (selectedRowIndex < 0) {
 
             JOptionPane.showMessageDialog(this, "Please select an inventory.");
             return;
         }
-        
+
         ArrayList<City> cDir = cityDir.getCityDir();
-        
-        for(City c: cDir) {
-            if(c.getCityName().equalsIgnoreCase(cityName)) {
-                
+
+        for (City c : cDir) {
+            if (c.getCityName().equalsIgnoreCase(cityName)) {
+
                 companyDir = c.getCompanyDirectory();
-                
+
                 List<Company> compDir = companyDir.getCompanyDirectoryList();
-                
-                    for(Company comp:compDir) {
-                        
-                        if(comp.getCompanyName().equalsIgnoreCase(companyName)) {
-                            
-                            if(comp.getInventoryManagement() != null) {
-                                                                
-                                invMgt = comp.getInventoryManagement();
-                                
-                                DefaultTableModel model = (DefaultTableModel) tblInventories.getModel();
-                                String selectedInv = (String) model.getValueAt(selectedRowIndex, 0);
-                                
-                                ArrayList<Inventory> invDir = invMgt.getInventoryMgt();
-                                        
-                                for(Inventory i : invDir) {
-                                    
-                                    if(i.getinventoryCategory().equalsIgnoreCase(selectedInv)) {
-        
-                                        ModifyInvProductsPanel m = new ModifyInvProductsPanel(cityName, companyName, cityDir, splitPane, i.getInventoryProductDir(), userauthenticationdirectory);
-                                        splitPane.setRightComponent(m);   
-                                        //break;
+
+                for (Company comp : compDir) {
+
+                    if (comp.getCompanyName().equalsIgnoreCase(companyName)) {
+
+                        if (comp.getInventoryManagement() != null) {
+
+                            invMgt = comp.getInventoryManagement();
+
+                            DefaultTableModel model = (DefaultTableModel) tblInventories.getModel();
+                            String selectedInv = (String) model.getValueAt(selectedRowIndex, 0);
+
+                            ArrayList<Inventory> invDir = invMgt.getInventoryMgt();
+
+                            for (Inventory i : invDir) {
+
+                                if (i.getinventoryCategory().equalsIgnoreCase(selectedInv)) {
+
+                                    ModifyInvProductsPanel m = new ModifyInvProductsPanel(cityName, companyName, cityDir, splitPane, i.getInventoryProductDir(), userauthenticationdirectory, jSplitPane1, role, orderManagement, community, customerDirectory, companyDir, deliveryBoyDirectory);
+                                    if (role == null) {
+                                        splitPane.setRightComponent(m);
+                                    } else {
+                                        jSplitPane1.setRightComponent(m);
                                     }
-                                }       
-                            }                            
+                                    //break;
+                                }
+                            }
                         }
                     }
                 }
+            }
         }
     }//GEN-LAST:event_btnModifyProductsActionPerformed
 
+    private void backButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButton2ActionPerformed
+        // TODO add your handling code here:
+        SuperCompanyAdmin superCompanyAdmin = new SuperCompanyAdmin(cityDir, orderManagement, community, customerDirectory, companyDir, userauthenticationdirectory, splitPane, deliveryBoyDirectory, jSplitPane1, role);
+        LoginJPanel loginJPanel = new LoginJPanel(cityDir, orderManagement, community, customerDirectory, companyDir, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
+        if (role == null) {
+            splitPane.setRightComponent(loginJPanel);
+        } else {
+            jSplitPane1.setRightComponent(superCompanyAdmin);
+        }
+    }//GEN-LAST:event_backButton2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton backButton;
+    private javax.swing.JButton backButton1;
+    private javax.swing.JButton backButton2;
     private javax.swing.JButton btnCreateInventory;
     private javax.swing.JButton btnDeleteInventory;
     private javax.swing.JButton btnModifyProducts;

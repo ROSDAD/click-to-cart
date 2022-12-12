@@ -8,10 +8,14 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JSplitPane;
 import javax.swing.table.DefaultTableModel;
-import model.City;
 import model.CityDir;
+import model.Community;
+import model.CompanyDirectory;
+import model.CustomerDirectory;
+import model.DeliveryBoyDirectory;
 import model.InventoryProduct;
 import model.InventoryProductDir;
+import model.Ordermgt;
 import model.UserAuthenticationDirectory;
 
 /**
@@ -23,51 +27,64 @@ public class ModifyInvProductsPanel extends javax.swing.JPanel {
     /**
      * Creates new form ModifyInvProductsPanel
      */
-    
     private String cityName;
     private String companyName;
-    private CityDir cityDir; 
-    private JSplitPane splitPane; 
+    private CityDir cityDir;
+    private JSplitPane splitPane;
     private InventoryProductDir invProdDir;
     private InventoryProduct invProd;
     private String productName;
     private float price;
     private int inventoryQty;
     private UserAuthenticationDirectory userauthenticationdirectory;
-            
+    private JSplitPane jSplitPane1;
+    private String role;
+    private Ordermgt orderManagement;
+    private Community community;
+    private CustomerDirectory customerDirectory;
+    private CompanyDirectory companyDirectory;
+    private DeliveryBoyDirectory deliveryBoyDirectory;
+
     public ModifyInvProductsPanel() {
         initComponents();
     }
 
-    ModifyInvProductsPanel(String cityName, String companyName, CityDir cityDir, JSplitPane splitPane, InventoryProductDir invProdDir, UserAuthenticationDirectory userauthenticationdirectory) {
-        
+    public ModifyInvProductsPanel(String cityName, String companyName, CityDir cityDir, JSplitPane splitPane, InventoryProductDir invProdDir, UserAuthenticationDirectory userauthenticationdirectory, JSplitPane jSplitPane1, String role, Ordermgt orderManagement, Community community, CustomerDirectory customerDirectory, CompanyDirectory companyDirectory, DeliveryBoyDirectory deliveryBoyDirectory) {
+
         initComponents();
-        
+
         this.invProdDir = invProdDir;
-        this.splitPane = splitPane; 
+        this.splitPane = splitPane;
         this.cityDir = cityDir;
-        
+        this.jSplitPane1 = jSplitPane1;
+        this.role = role;
+        this.orderManagement = orderManagement;
+        this.community = community;
+        this.customerDirectory = customerDirectory;
+        this.companyDirectory = companyDirectory;
+        this.deliveryBoyDirectory = deliveryBoyDirectory;
+
         populateProductTable();
     }
-    
+
     private void populateProductTable() {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        
+
         // House Table        
         DefaultTableModel model = (DefaultTableModel) tblProducts.getModel();
         model.setRowCount(0);
-        
-        if(invProdDir.getInventoryProductDir() != null) {
-        for(InventoryProduct invProd : invProdDir.getInventoryProductDir()) {
-            
-            Object[] row = new Object[11];
-            //row[0] = house;
-            row[0] = invProd.getProductName();
-            row[1] = invProd.getPrice();
-            row[2] = invProd.getInventoryQty();
-            
-            model.addRow(row);
-        }
+
+        if (invProdDir.getInventoryProductDir() != null) {
+            for (InventoryProduct invProd : invProdDir.getInventoryProductDir()) {
+
+                Object[] row = new Object[11];
+                //row[0] = house;
+                row[0] = invProd.getProductName();
+                row[1] = invProd.getPrice();
+                row[2] = invProd.getInventoryQty();
+
+                model.addRow(row);
+            }
         }
     }
 
@@ -230,17 +247,17 @@ public class ModifyInvProductsPanel extends javax.swing.JPanel {
         price = Integer.parseInt(txtPrice.getText());
         inventoryQty = Integer.parseInt(txtQuantity.getText());
 
-        if(!productName.matches("[a-zA-Z]+")) {
+        if (!productName.matches("[a-zA-Z]+")) {
             JOptionPane.showMessageDialog(this, "Product Name should have only alphabets.");
             return;
         }
 
-        if(productName.length() == 0) {
+        if (productName.length() == 0) {
             JOptionPane.showMessageDialog(this, "All fields are mandatory.");
             return;
         }
 
-        InventoryProduct i  = invProdDir.addNewInventoryProduct();
+        InventoryProduct i = invProdDir.addNewInventoryProduct();
 
         i.setInventoryQty(inventoryQty);
         i.setPrice(price);
@@ -258,32 +275,32 @@ public class ModifyInvProductsPanel extends javax.swing.JPanel {
         price = Integer.parseInt(txtPrice.getText());
         inventoryQty = Integer.parseInt(txtQuantity.getText());
 
-        if(!productName.matches("[a-zA-Z]+")) {
+        if (!productName.matches("[a-zA-Z]+")) {
             JOptionPane.showMessageDialog(this, "Name should have only alphabets.");
             return;
         }
 
-        if(productName.length() == 0) {
+        if (productName.length() == 0) {
             JOptionPane.showMessageDialog(this, "All fields are mandatory.");
             return;
         }
 
         int selectedRowIndex = tblProducts.getSelectedRow();
 
-        if (selectedRowIndex < 0 ) {
+        if (selectedRowIndex < 0) {
 
             JOptionPane.showMessageDialog(this, "Please select a product to update.");
             return;
         }
-        
+
         DefaultTableModel model = (DefaultTableModel) tblProducts.getModel();
         String selectedProduct = (String) model.getValueAt(selectedRowIndex, 0);
 
         ArrayList<InventoryProduct> invProd = invProdDir.getInventoryProductDir();
 
-        for(InventoryProduct prod: invProd) {
-            
-            if(prod.getProductName().equalsIgnoreCase(selectedProduct)) {
+        for (InventoryProduct prod : invProd) {
+
+            if (prod.getProductName().equalsIgnoreCase(selectedProduct)) {
 
                 prod.setProductName(productName);
                 prod.setPrice(price);
@@ -300,7 +317,7 @@ public class ModifyInvProductsPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         int selectedRowIndex = tblProducts.getSelectedRow();
 
-        if (selectedRowIndex < 0 ) {
+        if (selectedRowIndex < 0) {
 
             JOptionPane.showMessageDialog(this, "Please select a product.");
             return;
@@ -311,20 +328,19 @@ public class ModifyInvProductsPanel extends javax.swing.JPanel {
         String productName = (String) model.getValueAt(selectedRowIndex, 0);
 
         ArrayList<InventoryProduct> invDir = invProdDir.getInventoryProductDir();
-        
-        
-        for(InventoryProduct i: invDir) {
-            
-            if(i.getProductName().equalsIgnoreCase(productName)) {
-                
+
+        for (InventoryProduct i : invDir) {
+
+            if (i.getProductName().equalsIgnoreCase(productName)) {
+
                 invProdDir.deleteInventoryProduct(i);
-                
+
                 populateProductTable();
-                JOptionPane.showMessageDialog(this, "Product Deleted!");            
+                JOptionPane.showMessageDialog(this, "Product Deleted!");
                 break;
             }
         }
-        
+
     }//GEN-LAST:event_btnDeleteProductActionPerformed
 
     private void txtQuantityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtQuantityActionPerformed
@@ -333,8 +349,12 @@ public class ModifyInvProductsPanel extends javax.swing.JPanel {
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
-        InventoryAdminPanel invAdmin = new InventoryAdminPanel(cityName, companyName, cityDir, splitPane, userauthenticationdirectory);
-        splitPane.setRightComponent(invAdmin);
+        InventoryAdminPanel invAdmin = new InventoryAdminPanel(cityName, companyName, cityDir, splitPane, userauthenticationdirectory, jSplitPane1, role, orderManagement, community, customerDirectory, companyDirectory, deliveryBoyDirectory);
+        if (role == null) {
+            splitPane.setRightComponent(invAdmin);
+        } else {
+            jSplitPane1.setRightComponent(invAdmin);
+        }
     }//GEN-LAST:event_btnBackActionPerformed
 
 

@@ -24,9 +24,7 @@ import model.CompanyDirectory;
 import model.Customer;
 import model.CustomerDirectory;
 import model.DeliveryBoyDirectory;
-import model.Orderedprod;
 import model.Ordermgt;
-import model.Orders;
 import model.UserAuthentication;
 import org.jxmapviewer.OSMTileFactoryInfo;
 import org.jxmapviewer.input.PanMouseInputListener;
@@ -34,6 +32,8 @@ import org.jxmapviewer.input.ZoomMouseWheelListenerCenter;
 import org.jxmapviewer.viewer.DefaultTileFactory;
 import org.jxmapviewer.viewer.GeoPosition;
 import org.jxmapviewer.viewer.TileFactoryInfo;
+import ui.ItemListPanel;
+import ui.MainCustomerJPanel;
 
 /**
  *

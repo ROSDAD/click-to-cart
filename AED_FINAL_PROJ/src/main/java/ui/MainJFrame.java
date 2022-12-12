@@ -93,7 +93,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
         InventoryProduct invProd = invProdDir.addNewInventoryProduct();
         invProd.setProductName("TV");
-        //invProd.setPid(UUID.randomUUID().toString());
+        invProd.setPid(1);
         invProd.setPrice(500);
         invProd.setInventoryQty(24);
 
@@ -130,8 +130,8 @@ public class MainJFrame extends javax.swing.JFrame {
         userAuthentication.setPassword("abc");
         userAuthentication.setUserType("Customer");
 
-//        String query;
-//        
+        String query;
+        
 //        query = "SELECT cityName, population, cityType FROM city";
 //        try {        
 //        Statement stmt = con.createStatement();
@@ -142,7 +142,7 @@ public class MainJFrame extends javax.swing.JFrame {
 //                String cityName = rs.getString("cityName");
 //                int population = rs.getInt("population");
 //                String cityType = rs.getString("cityType");
-//            }        
+//            }
 //        }
 //        
 //        catch (SQLException ex) {

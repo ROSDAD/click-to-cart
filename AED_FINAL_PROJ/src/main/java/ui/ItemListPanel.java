@@ -266,6 +266,7 @@ public class ItemListPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Select a product to view the quantity");
             return;
         }
+        
         DefaultTableModel model = (DefaultTableModel) itemListTable.getModel();
         prodIdLbl.setText((model.getValueAt(selectedRowIndex, 0)).toString());
         pNameLabel.setText((model.getValueAt(selectedRowIndex, 1)).toString());
@@ -274,6 +275,8 @@ public class ItemListPanel extends javax.swing.JPanel {
 
     private void addToCartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addToCartActionPerformed
         // TODO add your handling code here:
+        
+        String prodId;
         int quantity = Integer.parseInt(quantityTxt.getText());
         int prodQuantity = comp.getInventoryManagement().getInventoryMgt()
                 .get(0).getInventoryProductDir().getInventoryProductDir()
@@ -303,6 +306,7 @@ public class ItemListPanel extends javax.swing.JPanel {
             }
             if (flag == 0) {
                 Orderedprod ordProd = cust.getCart().addNewCartProd();
+                prodId = model.getValueAt(selectedRowIndex, 0).toString();
                 ordProd.setProdId((model.getValueAt(selectedRowIndex, 0)).toString());
                 String pName = "";
                 double price = Double.parseDouble(String.valueOf(quantity * Double.parseDouble((model.getValueAt(selectedRowIndex, 2)).toString())));
@@ -322,13 +326,14 @@ public class ItemListPanel extends javax.swing.JPanel {
                 Connection obj = new Connection();
                 java.sql.Connection con = obj.getConnection();
 
-                String query = "INSERT INTO `ordered_prod`(`productName`, `prodTotalPrice`, `prodCount`) VALUES (?,?,?)";
+                String query = "INSERT INTO `ordered_prod`(prodID, `productName`, `prodTotalPrice`, `prodCount`) VALUES (?,?,?,?)";
                 PreparedStatement pst = null;
                 try {
                     pst = obj.getConnection().prepareStatement(query);
-                    pst.setString(1, pName);
-                    pst.setDouble(2, price);
-                    pst.setInt(3, quantity);
+                    pst.setString(1, prodId);
+                    pst.setString(2, pName);
+                    pst.setDouble(3, price);
+                    pst.setInt(4, quantity);
 
                     pst.executeUpdate();
                     System.out.println("Inserted product.");

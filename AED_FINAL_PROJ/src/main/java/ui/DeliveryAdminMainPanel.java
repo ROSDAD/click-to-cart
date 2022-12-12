@@ -359,6 +359,23 @@ public class DeliveryAdminMainPanel extends javax.swing.JPanel {
         userauthentication.setPassword(txtPassword.getText());
         userauthentication.setUserType("DeliveryBoy");
 
+        query = "INSERT INTO `user_auth`(`userName`, `password`, `userType`, companyName, cityName) VALUES (?,?,?,?,?)";
+        pst = null;
+        try {
+            pst = obj.getConnection().prepareStatement(query);
+            pst.setString(1, txtUsername.getText());
+            pst.setString(2, txtPassword.getText());
+            pst.setString(3, "InventoryAdmin");
+            //pst.setString(4, companyName);
+            //pst.setString(5, cityName);
+            //        if(cpass.equals(password)){
+            pst.executeUpdate();
+            System.out.println("Inserted user.");
+            con.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         setDefault();
         JOptionPane.showMessageDialog(this, "Delivery Boy has been created");
 

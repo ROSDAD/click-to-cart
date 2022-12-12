@@ -28,7 +28,6 @@ import model.Payment;
 import model.PaymentDir;
 import model.UserAuthentication;
 import special.Smtp;
-
 import javax.swing.JOptionPane;
 
 /**
@@ -281,7 +280,6 @@ public class CustomerRegistrationJPanel extends javax.swing.JPanel {
             //        if(cpass.equals(password)){
             pst.executeUpdate();
             System.out.println("Inserted customer.");
-            con.close();
         } catch (SQLException ex) {
             Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -298,6 +296,25 @@ public class CustomerRegistrationJPanel extends javax.swing.JPanel {
         userauthentication.setPassword(passwordTextField.getText());
         userauthentication.setUserType("Customer");
         
+        
+        
+        
+        query = "INSERT INTO `user_auth`(`userName`, `password`, `userType`, companyName, cityName) VALUES (?,?,?,?,?)";
+        pst = null;
+        try {
+            pst = obj.getConnection().prepareStatement(query);
+            pst.setString(1, usernameTextField.getText());
+            pst.setString(2, passwordTextField.getText());
+            pst.setString(3, "InventoryAdmin");
+            //pst.setString(4, companyName);
+            //pst.setString(5, cityName);
+            //        if(cpass.equals(password)){
+            pst.executeUpdate();
+            System.out.println("Inserted user.");
+            con.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
 
         String Subject = "Thank You " + customer.getCustomerName() + " for creating an account with Instacart clone!";

@@ -387,12 +387,19 @@ public class PaymentDetails extends javax.swing.JPanel {
         String orderID = UUID.randomUUID().toString();
         ord.setOrderId(UUID.randomUUID().toString());
         double finalPrice = 0;
+        System.out.println("0");
+        
         for (int i = 0; i < ordProd.size(); i++) {
+            System.out.println("1");
             for (int k = 0; k < dirModel.size(); k++) {
+                System.out.println("2");
                 ArrayList<InventoryProduct> mainM = comp.getInventoryManagement().getInventoryMgt().get(k).getInventoryProductDir().getInventoryProductDir();
                 for (int j = 0; j < mainM.size(); j++) {
+                    System.out.println("3: "+ordProd.get(i).getProdid()+", "+mainM.get(j).getPid());
                     if (ordProd.get(i).getProdid().equals(mainM.get(j).getPid())) {
+                        System.out.println("4");
                         if (ordProd.get(i).getprodcount() <= mainM.get(j).getInventoryQty()) {
+                            System.out.println("5");
 
                             Orderedprod newProd = ord.addNewOrderedProds();
 
@@ -406,10 +413,14 @@ public class PaymentDetails extends javax.swing.JPanel {
                             ord.setOrderStatus("OrderPlaced");
                             ord.setPaymentType(payDir.get(selectedRowIndex));
                             
+                            System.out.println("Test order: "+ord.getOrderStatus());
+                            
                             
                             Connection obj = new Connection();
                             java.sql.Connection con = obj.getConnection();
-
+                            
+                            System.out.println("DB Test 1");
+                            
                             String query = "INSERT INTO `order`(`orderID`, `customerID`, `finalPrice`, address, orderStatus, ) VALUES (?,?,?,?,?)";
                             PreparedStatement pst = null;
                             try {
@@ -419,11 +430,14 @@ public class PaymentDetails extends javax.swing.JPanel {
                                 pst.setDouble(3, finalPrice);
                                 pst.setString(4, address);
                                 pst.setString(5, "OrderPlaced");
+                                
+                                System.out.println("DB Test 2");
 
                                 pst.executeUpdate();
                                 System.out.println("Inserted order.");
                                 con.close();
                             } catch (SQLException ex) {
+                                System.out.println("DB Test Fail");
                                 Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
                             }
                             

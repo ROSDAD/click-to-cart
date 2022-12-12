@@ -5,7 +5,6 @@
 package ui;
 
 import model.UserAuthenticationDirectory;
-import org.apache.commons.lang3.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ButtonGroup;

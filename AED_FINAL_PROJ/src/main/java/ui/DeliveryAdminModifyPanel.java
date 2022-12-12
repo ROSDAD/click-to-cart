@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import model.City;
 import model.Community;
 import model.DeliveryBoy;
 import model.DeliveryBoyDirectory;

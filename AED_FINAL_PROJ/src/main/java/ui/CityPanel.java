@@ -11,8 +11,6 @@ import javax.swing.JSplitPane;
 import javax.swing.table.DefaultTableModel;
 import model.City;
 import model.CityDir;
-import model.Inventory;
-import model.InventoryProduct;
 
 /**
  *

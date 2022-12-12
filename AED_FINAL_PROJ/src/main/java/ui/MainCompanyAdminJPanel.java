@@ -5,9 +5,6 @@
 package ui;
 
 import model.UserAuthenticationDirectory;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JSplitPane;
 import model.CityDir;
 import model.Community;

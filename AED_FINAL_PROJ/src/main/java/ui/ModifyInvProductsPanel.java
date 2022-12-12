@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JSplitPane;
 import javax.swing.table.DefaultTableModel;
-import model.City;
 import model.CityDir;
 import model.InventoryProduct;
 import model.InventoryProductDir;

@@ -5,15 +5,11 @@
 package ui;
 
 import model.UserAuthenticationDirectory;
-import java.util.ArrayList;
-import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JSplitPane;
 import javax.swing.table.DefaultTableModel;
-import model.City;
 import model.CityDir;
 import model.Community;
-import model.Company;
 import model.CompanyDirectory;
 import model.CustomerDirectory;
 import model.DeliveryBoyDirectory;

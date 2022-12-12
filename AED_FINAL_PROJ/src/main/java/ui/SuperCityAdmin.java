@@ -11,7 +11,6 @@ import javax.swing.table.DefaultTableModel;
 import model.City;
 import model.CityDir;
 import model.Community;
-import model.Company;
 import model.CompanyDirectory;
 import model.CustomerDirectory;
 import model.DeliveryBoyDirectory;

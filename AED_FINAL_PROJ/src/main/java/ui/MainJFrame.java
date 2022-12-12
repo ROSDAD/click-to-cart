@@ -8,10 +8,7 @@ package ui;
 import model.UserAuthenticationDirectory;
 import javax.swing.JFrame;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
-import javax.swing.JSplitPane;
 import model.City;
 import model.CityDir;
 import model.Community;
@@ -25,10 +22,7 @@ import model.Inventory;
 import model.InventoryMgt;
 import model.InventoryProduct;
 import model.InventoryProductDir;
-import model.Orderedprod;
 import model.Ordermgt;
-import model.Orders;
-import model.Payment;
 import model.UserAuthentication;
 
 /**
@@ -191,7 +185,6 @@ public class MainJFrame extends javax.swing.JFrame {
         supAdminTest = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1290, 750));
 
         controlPanel.setBackground(new java.awt.Color(255, 255, 255));
         controlPanel.setMinimumSize(new java.awt.Dimension(200, 200));

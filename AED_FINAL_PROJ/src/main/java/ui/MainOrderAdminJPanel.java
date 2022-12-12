@@ -5,16 +5,12 @@
 package ui;
 
 import model.UserAuthenticationDirectory;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
 import javax.swing.JSplitPane;
 import javax.swing.table.DefaultTableModel;
-import model.City;
 import model.CityDir;
 import model.Community;
 import model.CompanyDirectory;
@@ -24,7 +20,6 @@ import model.DeliveryBoyDirectory;
 import model.Orderedprod;
 import model.Ordermgt;
 import model.Orders;
-import model.InventoryProduct;
 
 /**
  *
@@ -289,8 +284,8 @@ public class MainOrderAdminJPanel extends javax.swing.JPanel {
         }
         DefaultTableModel modelOrder = (DefaultTableModel) jTable1.getModel();
         String orderStatus = modelOrder.getValueAt(selectedRowOrderIndex, 4).toString();
-        
-        if(!orderStatus.equalsIgnoreCase("Pending_for_Approval")){
+
+        if (!orderStatus.equalsIgnoreCase("Pending_for_Approval")) {
             JOptionPane.showMessageDialog(this, "Order Admin can only cancel pending for approval order status");
             return;
         }
@@ -347,21 +342,33 @@ public class MainOrderAdminJPanel extends javax.swing.JPanel {
 
     private void orderedProductsjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderedProductsjButtonActionPerformed
         // TODO add your handling code here:
-        int selectedRowIndex = jTable1.getSelectedRow();
+        int selectedRowIndex = jTable3.getSelectedRow();
+        if (selectedRowIndex < 0) {
+            JOptionPane.showMessageDialog(this, "Please select a customer row to update");
+            return;
+        }
+        DefaultTableModel model = (DefaultTableModel) jTable3.getModel();
+        String customerUsername = model.getValueAt(selectedRowIndex, 0).toString();
+
+        int selectedRowOrderIndex = jTable1.getSelectedRow();
         if (selectedRowIndex < 0) {
             JOptionPane.showMessageDialog(this, "Please select a row to select order to view the products");
             return;
         }
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        String orderID = model.getValueAt(selectedRowIndex, 0).toString();
+        DefaultTableModel modelOrder = (DefaultTableModel) jTable1.getModel();
+        String orderID = modelOrder.getValueAt(selectedRowOrderIndex, 0).toString();
 
-        for (Orders order : orderManagement.getOrders()) {
-            if (order.getOrderId().equalsIgnoreCase(orderID)) {
-                if (order.getOrderedProds().isEmpty()) {
-                    List<Orderedprod> orderList = new ArrayList<>();
-                    populateOrderedProducts(orderList);
-                } else {
-                    populateOrderedProducts(order.getOrderedProds());
+        for (Customer customer : customerDirectory.getCustomerList()) {
+            if (customerUsername.equalsIgnoreCase(customer.getUserName())) {
+                for (Orders order : customer.getOrders()) {
+                    if (order.getOrderId().equalsIgnoreCase(orderID)) {
+                        if (order.getOrderedProds() == null) {
+                            List<Orderedprod> orderList = new ArrayList<>();
+                            populateOrderedProducts(orderList);
+                        } else {
+                            populateOrderedProducts(order.getOrderedProds());
+                        }
+                    }
                 }
             }
         }
@@ -374,16 +381,6 @@ public class MainOrderAdminJPanel extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
         model.setRowCount(0);
         for (Orderedprod orderedprod : OrderedprodList) {
-//            String pName = "";
-//             for (int k = 0; k < comp.getInventoryManagement().getInventoryMgt().size(); k++) {
-//                    List<InventoryProduct> mainM = comp.getInventoryManagement().getInventoryMgt().get(k).getInventoryProductDir().getInventoryProductDir();
-//                    for (int j = 0; j < mainM.size(); j++) {
-//                        if (orderedprod.getProdid().equals(mainM.get(j).getPid())) {
-//                            pName = mainM.get(j).getProductName();
-//                        }
-//                    }
-//
-//                }
             Object[] row = new Object[4];
             row[0] = orderedprod.getProdid();
             row[1] = orderedprod.getProductName();

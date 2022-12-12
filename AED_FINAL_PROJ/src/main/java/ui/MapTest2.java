@@ -4,7 +4,6 @@
  */
 package ui;
 
-import java.net.*;
 import com.byteowls.jopencage.JOpenCageGeocoder;
 import com.byteowls.jopencage.model.JOpenCageForwardRequest;
 import com.byteowls.jopencage.model.JOpenCageLatLng;
@@ -13,7 +12,6 @@ import com.byteowls.jopencage.model.JOpenCageResponse;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.Map;
 import javax.swing.event.MouseInputListener;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;

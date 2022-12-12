@@ -4,6 +4,7 @@
  */
 package ui;
 
+import java.util.Arrays;
 import model.UserAuthenticationDirectory;
 import javax.swing.JOptionPane;
 import javax.swing.JSplitPane;
@@ -17,6 +18,7 @@ import model.Customer;
 import model.CustomerDirectory;
 import model.DeliveryBoyDirectory;
 import model.Ordermgt;
+import model.Orders;
 import model.Payment;
 import model.PaymentDir;
 import model.UserAuthentication;
@@ -200,6 +202,8 @@ public class CustomerRegistrationJPanel extends javax.swing.JPanel {
                 return;
             }
         }
+        
+        
 
         Customer customer = customerDirectory.addNewCustomer();
         customer.setUserName(usernameTextField.getText());
@@ -207,6 +211,8 @@ public class CustomerRegistrationJPanel extends javax.swing.JPanel {
         customer.setCustomerAddress(addressTextField.getText());
         customer.setCustomerName(nameTextField.getText());
 
+        
+        
         Cart cart = new Cart();
         customer.setCart(cart);
         community.setCustomerDirectory(customerDirectory);

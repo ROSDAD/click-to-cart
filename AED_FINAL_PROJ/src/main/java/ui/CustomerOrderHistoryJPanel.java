@@ -218,14 +218,20 @@ public class CustomerOrderHistoryJPanel extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         String orderID = model.getValueAt(selectedRowIndex, 0).toString();
 
+        System.out.println(orderManagement.getOrders().size());
         // For inserting the doctor to the doctor directory of the hospital.
-        for (Orders order : orderManagement.getOrders()) {
-            if (order.getOrderId().equalsIgnoreCase(orderID)) {
-                if (order.getOrderedProds() == null) {
-                    List<Orderedprod> orderList = new ArrayList<>();
-                    populateOrderedProducts(orderList);
-                } else {
-                    populateOrderedProducts(order.getOrderedProds());
+
+        for (Customer customer : customerDirectory.getCustomerList()) {
+            if (userName.equalsIgnoreCase(customer.getUserName())) {
+                for (Orders order : customer.getOrders()) {
+                    if (order.getOrderId().equalsIgnoreCase(orderID)) {
+                        if (order.getOrderedProds() == null) {
+                            List<Orderedprod> orderList = new ArrayList<>();
+                            populateOrderedProducts(orderList);
+                        } else {
+                            populateOrderedProducts(order.getOrderedProds());
+                        }
+                    }
                 }
             }
         }

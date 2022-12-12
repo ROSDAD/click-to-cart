@@ -6,12 +6,19 @@ package ui;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
 import javax.swing.JSplitPane;
 import javax.swing.table.DefaultTableModel;
+import model.Cart;
+import model.CityDir;
+import model.Community;
 import model.Company;
+import model.CompanyDirectory;
 import model.Customer;
+import model.CustomerDirectory;
+import model.DeliveryBoyDirectory;
 import model.Inventory;
 import model.InventoryProduct;
 import model.Orderedprod;
@@ -19,6 +26,7 @@ import model.Ordermgt;
 import model.Orders;
 import model.Payment;
 import model.PaymentDir;
+import model.UserAuthenticationDirectory;
 import special.Smtp;
 
 /**
@@ -26,26 +34,44 @@ import special.Smtp;
  * @author rosha
  */
 public class PaymentDetails extends javax.swing.JPanel {
-    
+
     private Customer cust;
     private Company comp;
     private JSplitPane splitPane;
     private String cityName;
     private double distance;
 
+    private CustomerDirectory customerDirectory;
+    private CompanyDirectory companyDirectory;
+    private Community community;
+    private UserAuthenticationDirectory userauthenticationdirectory;
+    private DeliveryBoyDirectory deliveryBoyDirectory;
+    private Ordermgt orderManagement;
+    private String userName;
+    private double dist;
+    private CityDir cityDirectory;
+
     /**
      * Creates new form PaymentDetails
      */
-    public PaymentDetails(double distance, String cityName, Customer cust, Company comp, JSplitPane splitPane) {
+    public PaymentDetails(double distance, String cityName, Customer cust, Company comp, JSplitPane splitPane, CityDir cityDirectory, String userName, Ordermgt orderManagement, Community community, CustomerDirectory customerDirectory, CompanyDirectory companyDirectory, UserAuthenticationDirectory userauthenticationdirectory, DeliveryBoyDirectory deliveryBoyDirectory) {
         initComponents();
         this.cust = cust;
         this.comp = comp;
         this.splitPane = splitPane;
         this.cityName = cityName;
         this.distance = distance;
+        this.cityDirectory = cityDirectory;
+        this.userName = userName;
+        this.community = community;
+        this.customerDirectory = customerDirectory;
+        this.companyDirectory = companyDirectory;
+        this.userauthenticationdirectory = userauthenticationdirectory;
+        this.deliveryBoyDirectory = deliveryBoyDirectory;
+        this.orderManagement = orderManagement;
 
         ArrayList<Orderedprod> ordProd = cust.getCart().getCartProd();
-        
+
         double finalPrice = 0;
         for (int i = 0; i < ordProd.size(); i++) {
             finalPrice = finalPrice + ordProd.get(i).getProdTotalprice();
@@ -85,6 +111,9 @@ public class PaymentDetails extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+        backButton = new javax.swing.JButton();
+        addressField = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
 
         debitRadioBtn.setText("Debit");
         debitRadioBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -172,69 +201,96 @@ public class PaymentDetails extends javax.swing.JPanel {
 
         jLabel8.setText("Card Holder's Name");
 
+        backButton.setText("Back ");
+        backButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backButtonActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setText("Address");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(305, 305, 305)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(finalPriceLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(90, 90, 90)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(deleteCard, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(274, 274, 274)
-                        .addComponent(proceedBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 491, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(addNewCard, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(cardName)
-                        .addComponent(cardNumber)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(debitRadioBtn)
-                            .addGap(18, 18, 18)
-                            .addComponent(creditRadioBtn)))
-                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cardMonth, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(29, 29, 29)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(addressField, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(174, 174, 174)
+                                .addComponent(finalPriceLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(90, 90, 90))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(deleteCard, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(274, 274, 274)
+                                .addComponent(proceedBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 491, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 202, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cardYear, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cardCvv, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(32, 32, 32))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(addNewCard, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cardName)
+                                .addComponent(cardNumber)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(debitRadioBtn)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(creditRadioBtn)))
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cardMonth, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cardYear, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cardCvv, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(32, 32, 32))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(417, 417, 417))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(9, 9, 9)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(backButton))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
+                        .addGap(28, 28, 28)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(debitRadioBtn)
                             .addComponent(creditRadioBtn)))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(finalPriceLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(finalPriceLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel3)
+                                .addComponent(addressField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
@@ -262,7 +318,7 @@ public class PaymentDetails extends javax.swing.JPanel {
                         .addComponent(deleteCard, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
                         .addComponent(proceedBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(addNewCard, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(64, Short.MAX_VALUE))
+                .addContainerGap(140, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -282,19 +338,27 @@ public class PaymentDetails extends javax.swing.JPanel {
         // TODO add your handling code here:
 
         ArrayList<Inventory> dirModel = comp.getInventoryManagement().getInventoryMgt();
-        
+
         int selectedRowIndex = paymentTable.getSelectedRow();
         if (selectedRowIndex < 0) {
             JOptionPane.showMessageDialog(this, "Select a Card to Proceed!");
             return;
         }
-        
+
+        String address = addressField.getText();
+
+        if (address.equals("")) {
+            JOptionPane.showMessageDialog(this, "Fill your Valid Address!");
+            return;
+        }
+
         ArrayList<Payment> payDir = cust.getPaymentDirectory().getPaymentDir();
-        
+
         ArrayList<Orderedprod> ordProd = cust.getCart().getCartProd();
         Ordermgt ordmgt = new Ordermgt();
         Orders ord = ordmgt.addNewOrder();
         ord.setCustomerId(cust.getUserName());
+        ord.setOrderId(UUID.randomUUID().toString());
         double finalPrice = 0;
         for (int i = 0; i < ordProd.size(); i++) {
             for (int k = 0; k < dirModel.size(); k++) {
@@ -302,17 +366,20 @@ public class PaymentDetails extends javax.swing.JPanel {
                 for (int j = 0; j < mainM.size(); j++) {
                     if (ordProd.get(i).getProdid().equals(mainM.get(j).getPid())) {
                         if (ordProd.get(i).getprodcount() <= mainM.get(j).getInventoryQty()) {
-                            
+
                             Orderedprod newProd = ord.addNewOrderedProds();
-                            
+
                             newProd.setProdId(ordProd.get(i).getProdid());
                             newProd.setProductName(ordProd.get(i).getProductName());
                             newProd.setProdcount(ordProd.get(i).getprodcount());
                             newProd.setProdTotalprice(ordProd.get(i).getProdTotalprice());
                             finalPrice = finalPrice + ordProd.get(i).getProdTotalprice();
                             ord.setFinalPrice(finalPrice);
+                            ord.setAddress(address);
+                            ord.setOrderStatus("OrderPlaced");
                             ord.setPaymentType(payDir.get(selectedRowIndex));
                             mainM.get(j).setInventoryQty(mainM.get(j).getInventoryQty() - ordProd.get(i).getprodcount());
+                            cust.setCart(new Cart());
                         } else {
                             JOptionPane.showMessageDialog(this, "Not Enough Quantity left In Inventory!");
                             return;
@@ -321,25 +388,23 @@ public class PaymentDetails extends javax.swing.JPanel {
                 }
             }
         }
-        
         if (cust.getOrders() == null) {
             List<Orders> ordList = new ArrayList<>();
             ordList.add(ord);
-            cust.setOrders(ordList);
+            cust.setOrders(ordList);    
         } else {
             List<Orders> ordList = cust.getOrders();
             ordList.add(ord);
             cust.setOrders(ordList);
         }
         String Subject = "Order Confirmation!";
-        String data = "Thank you for Choosing InstaCart! Your total bill is $" + finalPrice;
+        String data = "<B>Thank you for Choosing InstaCart!</B> \nYour total bill is $" + finalPrice;
         try {
             Smtp smtp = new Smtp(cust.getUserName(), Subject, data);
-            OrderCnfPanel orderCnfPanel = new OrderCnfPanel(distance, cityName, cust, comp, splitPane);
+            OrderCnfPanel orderCnfPanel = new OrderCnfPanel(distance, cityName, cust, comp, splitPane, cityDirectory, userName, orderManagement, community, customerDirectory, companyDirectory, userauthenticationdirectory, deliveryBoyDirectory);
             splitPane.setRightComponent(orderCnfPanel);
-            } 
-            catch (Exception exception) {
-                JOptionPane.showMessageDialog(null, exception);
+        } catch (Exception exception) {
+            JOptionPane.showMessageDialog(null, exception);
         }
 
 //redirect OrderCnf Panel
@@ -352,7 +417,7 @@ public class PaymentDetails extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Select a Card to Delete!");
             return;
         }
-        
+
         Payment payment = cust.getPaymentDirectory().getPaymentDir().get(selectedRowIndex);
         cust.getPaymentDirectory().deletePayment(payment);
         displayCardList();
@@ -378,11 +443,18 @@ public class PaymentDetails extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Please Fill all Fields");
             return;
         } else {
+            try {
+                Long.parseLong(cardNumberVal);
+            } catch (Exception exception) {
+                JOptionPane.showMessageDialog(this, "Please input a number field for card number");
+                return;
+            }
             long cardNumberval = Long.parseLong(cardNumberVal);
+
             int Month = Integer.parseInt(month);
             int Year = Integer.parseInt(year);
             int Cvv = Integer.parseInt(cvv);
-            
+
             Payment payment = cust.getPaymentDirectory().addNewPayment();
             payment.setPaymentType(radioVal);
             payment.setCardHolderName(cardHolderName);
@@ -395,9 +467,17 @@ public class PaymentDetails extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_addNewCardActionPerformed
 
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
+        // TODO add your handling code here:
+        CartPanel cartPanel = new CartPanel(distance, cityName, cust, comp, splitPane, cityDirectory, userName, orderManagement, community, customerDirectory, companyDirectory, userauthenticationdirectory, deliveryBoyDirectory);
+        splitPane.setRightComponent(cartPanel);
+    }//GEN-LAST:event_backButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addNewCard;
+    private javax.swing.JTextField addressField;
+    private javax.swing.JButton backButton;
     private javax.swing.JTextField cardCvv;
     private javax.swing.JTextField cardMonth;
     private javax.swing.JTextField cardName;
@@ -409,6 +489,7 @@ public class PaymentDetails extends javax.swing.JPanel {
     private javax.swing.JLabel finalPriceLabel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -421,25 +502,25 @@ public class PaymentDetails extends javax.swing.JPanel {
 private void displayCardList() {
         DefaultTableModel model = (DefaultTableModel) paymentTable.getModel();
         model.setRowCount(0);
-        
+
         ArrayList<Payment> paymentDir = cust.getPaymentDirectory().getPaymentDir();
         double finalPrice = 0;
         String pName = "";
         for (int i = 0; i < paymentDir.size(); i++) {
             if (paymentDir.get(i) != null) {
-                
+
                 Object[] row = new Object[4];
                 row[0] = i;
-                
+
                 row[1] = paymentDir.get(i).getPaymentType();
                 row[2] = paymentDir.get(i).getCardHolderName();
                 row[3] = "xxxxxxxxxxx" + String.valueOf(paymentDir.get(i).getCardNumber())
                         .substring(String.valueOf(paymentDir.get(i).getCardNumber()).length() - 4);
-                
+
                 model.addRow(row);
-                
+
             }
         }
-        
+
     }
 }

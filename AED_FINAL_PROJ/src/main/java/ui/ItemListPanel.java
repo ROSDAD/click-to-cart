@@ -230,8 +230,6 @@ public class ItemListPanel extends javax.swing.JPanel {
         prodIdLbl.setText((model.getValueAt(selectedRowIndex, 0)).toString());
         pNameLabel.setText((model.getValueAt(selectedRowIndex, 1)).toString());
         quantityTxt.setText("0");
-
-
     }//GEN-LAST:event_viewDetailsActionPerformed
 
     private void addToCartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addToCartActionPerformed
@@ -308,7 +306,7 @@ public class ItemListPanel extends javax.swing.JPanel {
 
     private void cartButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cartButtonActionPerformed
         // TODO add your handling code here:
-        CartPanel cartPanel = new CartPanel(distance, selectedCityName, cust, comp, splitPane);
+        CartPanel cartPanel = new CartPanel(distance, selectedCityName, cust, comp, splitPane, cityDirectory, userName, orderManagement, community, customerDirectory, companyDirectory, userauthenticationdirectory, deliveryBoyDirectory);
         splitPane.setRightComponent(cartPanel);
 
     }//GEN-LAST:event_cartButtonActionPerformed

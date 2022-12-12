@@ -305,9 +305,9 @@ public class CustomerRegistrationJPanel extends javax.swing.JPanel {
             pst = obj.getConnection().prepareStatement(query);
             pst.setString(1, usernameTextField.getText());
             pst.setString(2, passwordTextField.getText());
-            pst.setString(3, "InventoryAdmin");
-            //pst.setString(4, companyName);
-            //pst.setString(5, cityName);
+            pst.setString(3, "Customer");
+            pst.setString(4, "");
+            pst.setString(5, "");
             //        if(cpass.equals(password)){
             pst.executeUpdate();
             System.out.println("Inserted user.");

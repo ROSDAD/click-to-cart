@@ -501,8 +501,12 @@ public class PaymentDetails extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Please input a number field for card number");
                 return;
             }
+            
             long cardNumberval = Long.parseLong(cardNumberVal);
-
+            if(cardNumberval<=4){
+               JOptionPane.showMessageDialog(this, "Please input a valid Card Number"); 
+               return;
+            }
             int Month = Integer.parseInt(month);
             int Year = Integer.parseInt(year);
             int Cvv = Integer.parseInt(cvv);

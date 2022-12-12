@@ -194,7 +194,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
         userAuthentication = userauthenticationdirectory.addNewUserAuthentication();
         userAuthentication.setUserName("system");
-        userAuthentication.setPassword("system");
+        userAuthentication.setPassword("317f1e761f2faa8da781a4762b9dcc2c5cad209a");
         userAuthentication.setCityName("");
         userAuthentication.setCompanyName("");
         userAuthentication.setUserType("SuperAdmin");

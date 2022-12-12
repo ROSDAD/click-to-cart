@@ -16,6 +16,7 @@ import model.CustomerDirectory;
 import model.DeliveryBoyDirectory;
 import model.Ordermgt;
 import model.UserAuthentication;
+import utility.PasswordEncryption;
 
 /**
  *
@@ -162,11 +163,13 @@ public class LoginJPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Password text field is empty");
             return;
         }
+        
+        String newPassword = PasswordEncryption.encryptThisString(passwordTextField2.getText());
 
         boolean flag = false;
         for (UserAuthentication userAuthentication : userauthenticationdirectory.getUserAuthenticationList()) {
             if (userAuthentication.getUserName().equalsIgnoreCase(usernameTextField1.getText())
-                    && userAuthentication.getPassword().equalsIgnoreCase(passwordTextField2.getText())) {
+                    && userAuthentication.getPassword().equalsIgnoreCase(newPassword)) {
                 usertype = userAuthentication.getUserType();
                 companyName = userAuthentication.getCompanyName();
                 cityName = userAuthentication.getCityName();

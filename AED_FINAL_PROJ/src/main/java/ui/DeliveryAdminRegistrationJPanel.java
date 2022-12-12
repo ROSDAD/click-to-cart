@@ -4,6 +4,11 @@
  */
 package ui;
 
+import database.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.UserAuthenticationDirectory;
 import javax.swing.JOptionPane;
 import javax.swing.JSplitPane;
@@ -15,6 +20,7 @@ import model.CustomerDirectory;
 import model.DeliveryBoyDirectory;
 import model.Ordermgt;
 import model.UserAuthentication;
+import utility.PasswordEncryption;
 
 /**
  *
@@ -224,8 +230,8 @@ public class DeliveryAdminRegistrationJPanel extends javax.swing.JPanel {
 
     private void saveDeliveryAdminButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveDeliveryAdminButton1ActionPerformed
         // TODO add your handling code here:
-        
-        System.out.println(cityName+" "+companyName);
+
+        System.out.println(cityName + " " + companyName);
         if (userNameTextField.getText().length() == 0) {
             JOptionPane.showMessageDialog(this, "Mandatory User name field is empty");
             return;
@@ -246,12 +252,34 @@ public class DeliveryAdminRegistrationJPanel extends javax.swing.JPanel {
             }
         }
 
+        String newHashedPassword = PasswordEncryption.encryptThisString(passwordTextField.getText());
+
         UserAuthentication userAuthentication = userauthenticationdirectory.addNewUserAuthentication();
         userAuthentication.setUserName(userNameTextField.getText());
-        userAuthentication.setPassword(passwordTextField.getText());
+        userAuthentication.setPassword(newHashedPassword);
         userAuthentication.setCityName(cityName);
         userAuthentication.setCompanyName(companyName);
         userAuthentication.setUserType("DeliveryAdmin");
+
+        Connection obj = new Connection();
+        java.sql.Connection con = obj.getConnection();
+
+        String query = "INSERT INTO `user_auth`(`userName`, `password`, `userType`, companyName, cityName) VALUES (?,?,?,?,?)";
+        PreparedStatement pst = null;
+        try {
+            pst = obj.getConnection().prepareStatement(query);
+            pst.setString(1, userNameTextField.getText());
+            pst.setString(2, newHashedPassword);
+            pst.setString(3, "DeliveryAdmin");
+            pst.setString(4, companyName);
+            pst.setString(5, cityName);
+            //        if(cpass.equals(password)){
+            pst.executeUpdate();
+            System.out.println("Inserted user.");
+            con.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         JOptionPane.showMessageDialog(this, "Delivery Admin credentials is saved");
     }//GEN-LAST:event_saveDeliveryAdminButton1ActionPerformed
@@ -264,8 +292,8 @@ public class DeliveryAdminRegistrationJPanel extends javax.swing.JPanel {
         model.setRowCount(0);
 
         for (UserAuthentication userAuthentication : userauthenticationdirectory.getUserAuthenticationList()) {
-            
-            System.out.println(userAuthentication.getUserType()+" "+"DeliveryAdmin"+" "+userAuthentication.getCityName()+" "+cityName+" "+userAuthentication.getCompanyName()+" "+companyName+" "+userAuthentication.getUserName());
+
+            System.out.println(userAuthentication.getUserType() + " " + "DeliveryAdmin" + " " + userAuthentication.getCityName() + " " + cityName + " " + userAuthentication.getCompanyName() + " " + companyName + " " + userAuthentication.getUserName());
             if ("DeliveryAdmin".equalsIgnoreCase(userAuthentication.getUserType())
                     && cityName.equalsIgnoreCase(userAuthentication.getCityName())
                     && companyName.equalsIgnoreCase(userAuthentication.getCompanyName())) {

@@ -16,6 +16,7 @@ import model.DeliveryBoyDirectory;
 import model.Ordermgt;
 import model.UserAuthentication;
 import model.UserAuthenticationDirectory;
+import utility.PasswordEncryption;
 
 /**
  *
@@ -151,7 +152,7 @@ public class CreateCityAdmin extends javax.swing.JPanel {
         }
         String username = cityAdminUserName.getText();
         String password = cityAdminPwd.getText();
-        
+        password = PasswordEncryption.encryptThisString(password);
         UserAuthentication obj = userauthenticationdirectory.addNewUserAuthentication();
         obj.setUserName(username);
         obj.setPassword(password);

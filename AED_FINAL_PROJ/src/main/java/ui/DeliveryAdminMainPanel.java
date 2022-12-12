@@ -22,7 +22,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+import utility.PasswordEncryption;
 
 /**
  *
@@ -331,10 +331,10 @@ public class DeliveryAdminMainPanel extends javax.swing.JPanel {
         deliveryBoy.setQualificaton(qualif);
         deliveryBoy.setYearOfDeliveryExperience(Integer.parseInt(txtExperience.getText()));
         deliveryBoy.setAvailability(true); // Setting availability to true by default
-        
+
         Connection obj = new Connection();
         java.sql.Connection con = obj.getConnection();
-        
+
         String query = "INSERT INTO `delivery_boy`(`deliveryBoyName`, `emergencyContactNumber`, `qualification`, yearOfDeliveryExperience, availability) VALUES (?,?,?,?,?)";
         PreparedStatement pst = null;
         try {
@@ -351,13 +351,30 @@ public class DeliveryAdminMainPanel extends javax.swing.JPanel {
         } catch (SQLException ex) {
             Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         community.setDeliveryBoyDirectory(deliveryBoyDirectory);
+
+        String newHashedPassword = PasswordEncryption.encryptThisString(txtPassword.getText());
 
         UserAuthentication userauthentication = userauthenticationdirectory.addNewUserAuthentication();
         userauthentication.setUserName(txtUsername.getText());
-        userauthentication.setPassword(txtPassword.getText());
+        userauthentication.setPassword(newHashedPassword);
         userauthentication.setUserType("DeliveryBoy");
+
+        query = "INSERT INTO `user_auth`(`userName`, `password`, `userType`, companyName, cityName) VALUES (?,?,?,?,?)";
+        pst = null;
+        try {
+            pst = obj.getConnection().prepareStatement(query);
+            pst.setString(1, txtUsername.getText());
+            pst.setString(2, newHashedPassword);
+            pst.setString(3, "DeliveryBoy");
+
+            pst.executeUpdate();
+            System.out.println("Inserted delivery admin.");
+            con.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         setDefault();
         JOptionPane.showMessageDialog(this, "Delivery Boy has been created");

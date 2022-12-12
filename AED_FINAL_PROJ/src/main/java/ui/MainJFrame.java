@@ -30,6 +30,13 @@ import model.Ordermgt;
 import model.Orders;
 import model.Payment;
 import model.UserAuthentication;
+import database.Connection;
+import java.sql.PreparedStatement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+//import java.sql.SQLException;
+//import java.util.logging.Level;
+//import java.util.logging.Logger;
 
 /**
  *
@@ -57,6 +64,9 @@ public class MainJFrame extends javax.swing.JFrame {
         initComponents();
 
         setExtendedState(JFrame.MAXIMIZED_BOTH);
+        Connection obj = new Connection();
+        java.sql.Connection con = obj.getConnection();
+        System.out.println();
 
         community = new Community();
         customerDirectory = new CustomerDirectory();
@@ -107,6 +117,21 @@ public class MainJFrame extends javax.swing.JFrame {
         userAuthentication.setUserName("abc");
         userAuthentication.setPassword("abc");
         userAuthentication.setUserType("Customer");
+
+        String query;
+        query = "INSERT INTO `logintable`(`username`, `password`, `usertype`) VALUES (?,?,?)";
+        PreparedStatement pst = null;
+        try {
+            pst = obj.getConnection().prepareStatement(query);
+            pst.setString(1, "abc");
+            pst.setString(2, "abc");
+            pst.setString(3, "Customer");
+            //        if(cpass.equals(password)){
+            pst.executeUpdate();
+            System.out.println("INserted");
+        } catch (SQLException ex) {
+            Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         userAuthentication = userauthenticationdirectory.addNewUserAuthentication();
         userAuthentication.setUserName("de");
@@ -373,21 +398,21 @@ public class MainJFrame extends javax.swing.JFrame {
      */
     public static void main(String args[]) {
 
-        try {
-
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/aed_project", "root", "root");
-            //here sonoo is database name, root is username and password  
-            Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("select * from Inventory_Product");
-            while (rs.next()) {
-                System.out.println(rs.getInt(1) + "  " + rs.getString(2) + "  " + rs.getString(3));
-            }
-            con.close();
-        } catch (Exception e) {
-            System.out.println(e);
-        }
+//        try {
+//
+//            Class.forName("com.mysql.jdbc.Driver");
+//            Connection con = DriverManager.getConnection(
+//                    "jdbc:mysql://localhost:3306/aed_project", "root", "root");
+//            //here sonoo is database name, root is username and password  
+//            Statement stmt = con.createStatement();
+//            ResultSet rs = stmt.executeQuery("select * from Inventory_Product");
+//            while (rs.next()) {
+//                System.out.println(rs.getInt(1) + "  " + rs.getString(2) + "  " + rs.getString(3));
+//            }
+//            con.close();
+//        } catch (Exception e) {
+//            System.out.println(e);
+//        }
 
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

@@ -23,6 +23,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import utility.PasswordEncryption;
 
 /**
  *
@@ -33,7 +34,6 @@ public class CompanyAdminCRUDPanel extends javax.swing.JPanel {
     /**
      * Creates new form CompanyAdminCRUDPanel
      */
-    
     private CityDir cityDirectory;
     private JSplitPane splitPane;
     private CustomerDirectory customerDirectory;
@@ -43,20 +43,20 @@ public class CompanyAdminCRUDPanel extends javax.swing.JPanel {
     private DeliveryBoyDirectory deliveryBoyDirectory;
     private String cityName;
     private String companyName;
-    
+
     public CompanyAdminCRUDPanel(String cityName, String companyName, CityDir cityDirectory, CompanyDirectory companyDirectory, UserAuthenticationDirectory userauthenticationdirectory, JSplitPane splitPane) {
         initComponents();
-        
+
         this.cityDirectory = cityDirectory;
         this.splitPane = splitPane;
         this.companyDirectory = companyDirectory;
         this.userauthenticationdirectory = userauthenticationdirectory;
         this.cityName = cityName;
         this.companyName = companyName;
-        
+
         populateCompanyTable();
     }
-    
+
     private void populateCompanyAdmin() {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.setRowCount(0);
@@ -66,14 +66,14 @@ public class CompanyAdminCRUDPanel extends javax.swing.JPanel {
                     && cityName.equalsIgnoreCase(userAuthentication.getCityName())) {
                 Object[] row = new Object[2];
                 row[0] = userAuthentication.getUserName();
-                System.out.println("Username: "+userAuthentication.getUserName());
+                System.out.println("Username: " + userAuthentication.getUserName());
                 row[1] = userAuthentication.getCompanyName();
                 model.addRow(row);
             }
         }
     }
-    
-    private void populateCompanyTable() {                                            
+
+    private void populateCompanyTable() {
         // TODO add your handling code here:
 
         for (City city : cityDirectory.getCityDir()) {
@@ -87,7 +87,7 @@ public class CompanyAdminCRUDPanel extends javax.swing.JPanel {
                 break;
             }
         }
-    }                                           
+    }
 
     /**
      * Populate the table rows from the arrayList.
@@ -263,10 +263,10 @@ public class CompanyAdminCRUDPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Mandatory Password field is empty");
             return;
         }
-        
+
         int selectedRowIndex = tblCompanies.getSelectedRow();
 
-        if (selectedRowIndex < 0 ) {
+        if (selectedRowIndex < 0) {
 
             JOptionPane.showMessageDialog(this, "Please select a company.");
             return;
@@ -279,30 +279,32 @@ public class CompanyAdminCRUDPanel extends javax.swing.JPanel {
         for (int i = 0; i < userauthenticationdirectory.getUserAuthenticationList().size(); i++) {
             UserAuthentication userauthentication = userauthenticationdirectory.getUserAuthenticationList().get(i);
             if ("CompanyAdmin".equalsIgnoreCase(userauthentication.getUserType())
-                && cityName.equalsIgnoreCase(userauthentication.getCityName())
-                && selectedCompanyName.equalsIgnoreCase(userauthentication.getCompanyName())
-                && userauthentication.getUserName().equalsIgnoreCase(userNameTextField.getText())) {
+                    && cityName.equalsIgnoreCase(userauthentication.getCityName())
+                    && selectedCompanyName.equalsIgnoreCase(userauthentication.getCompanyName())
+                    && userauthentication.getUserName().equalsIgnoreCase(userNameTextField.getText())) {
                 JOptionPane.showMessageDialog(this, "Company Admin username already exits in the same company, please login directly");
                 return;
             }
         }
 
+        String newHashedPassword = PasswordEncryption.encryptThisString(passwordTextField.getText());
+
         UserAuthentication userAuthentication = userauthenticationdirectory.addNewUserAuthentication();
         userAuthentication.setUserName(userNameTextField.getText());
-        userAuthentication.setPassword(passwordTextField.getText());
+        userAuthentication.setPassword(newHashedPassword);
         userAuthentication.setCityName(cityName);
         userAuthentication.setCompanyName(selectedCompanyName);
         userAuthentication.setUserType("CompanyAdmin");
-        
+
         Connection obj = new Connection();
         java.sql.Connection con = obj.getConnection();
-        
+
         String query = "INSERT INTO `user_auth`(`userName`, `password`, `userType`, companyName, cityName) VALUES (?,?,?,?,?)";
         PreparedStatement pst = null;
         try {
             pst = obj.getConnection().prepareStatement(query);
             pst.setString(1, userNameTextField.getText());
-            pst.setString(2, passwordTextField.getText());
+            pst.setString(2, newHashedPassword);
             pst.setString(3, "CompanyAdmin");
             pst.setString(4, selectedCompanyName);
             pst.setString(5, cityName);
@@ -338,9 +340,9 @@ public class CompanyAdminCRUDPanel extends javax.swing.JPanel {
         try {
             for (UserAuthentication userAuthentication : userauthenticationdirectory.getUserAuthenticationList()) {
                 if (userAuthentication.getUserName().equalsIgnoreCase(selectedUsername)
-                    && userAuthentication.getUserType().equalsIgnoreCase("CompanyAdmin")
-                    && cityName.equalsIgnoreCase(userAuthentication.getCityName())
-                    && companyName.equalsIgnoreCase(userAuthentication.getCompanyName())) {
+                        && userAuthentication.getUserType().equalsIgnoreCase("CompanyAdmin")
+                        && cityName.equalsIgnoreCase(userAuthentication.getCityName())
+                        && companyName.equalsIgnoreCase(userAuthentication.getCompanyName())) {
                     userauthenticationdirectory.deleteUserAuthentication(userAuthentication);
                     populateCompanyAdmin();
                 }
@@ -368,9 +370,9 @@ public class CompanyAdminCRUDPanel extends javax.swing.JPanel {
 
         for (UserAuthentication userAuthentication : userauthenticationdirectory.getUserAuthenticationList()) {
             if (userAuthentication.getUserName().equalsIgnoreCase(selectUsername)
-                && userAuthentication.getUserType().equalsIgnoreCase("CompanyAdmin")
-                && cityName.equalsIgnoreCase(userAuthentication.getCityName())
-                && companyName.equalsIgnoreCase(userAuthentication.getCompanyName())) {
+                    && userAuthentication.getUserType().equalsIgnoreCase("CompanyAdmin")
+                    && cityName.equalsIgnoreCase(userAuthentication.getCityName())
+                    && companyName.equalsIgnoreCase(userAuthentication.getCompanyName())) {
                 userAuthentication.setUserName(newUserName);
             }
         }

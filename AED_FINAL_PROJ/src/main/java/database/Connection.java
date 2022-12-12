@@ -24,18 +24,7 @@ public class Connection {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             this.con = DriverManager.getConnection("jdbc:mysql://localhost:3306/click_to_cart", "root", "root");
-//        String query;
-//        query="INSERT INTO `logintable`(`username`, `password`, `usertype`) VALUES (?,?,?)";
-//        PreparedStatement pst = con.prepareStatement(query);
-//        pst.setString(1,"abc");
-//        pst.setString(2,"abc");
-//        pst.setString(3,"Customer");
-////        if(cpass.equals(password)){
-//        pst.executeUpdate();
-//        System.out.println("INserted");
             System.out.println("Database Connected");
-            
-            
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }

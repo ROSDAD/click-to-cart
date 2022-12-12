@@ -29,6 +29,7 @@ import model.PaymentDir;
 import model.UserAuthentication;
 import special.Smtp;
 import javax.swing.JOptionPane;
+import utility.PasswordEncryption;
 
 /**
  *
@@ -51,10 +52,10 @@ public class CustomerRegistrationJPanel extends javax.swing.JPanel {
      */
     public CustomerRegistrationJPanel(CityDir cityDirectory, Ordermgt orderManagement, Community community, CustomerDirectory customerDirectory, CompanyDirectory companyDirectory, UserAuthenticationDirectory userauthenticationdirectory, JSplitPane splitPane, DeliveryBoyDirectory deliveryBoyDirectory) {
         initComponents();
-        String imgDir = System.getProperty("user.dir")+"/src/main/java/IMAGES/";
-        customerRegistrationLabel.setIcon(new ImageIcon(new ImageIcon(imgDir+"customerregistration.png").getImage().getScaledInstance(1000, 300, Image.SCALE_DEFAULT)));
-        welcomeLabel.setIcon(new ImageIcon(new ImageIcon(imgDir+"signupwelcome.gif").getImage().getScaledInstance(200, 200, Image.SCALE_DEFAULT)));
-        roadLabel.setIcon(new ImageIcon(new ImageIcon(imgDir+"road.png").getImage().getScaledInstance(1300, 300, Image.SCALE_DEFAULT)));
+        String imgDir = System.getProperty("user.dir") + "/src/main/java/IMAGES/";
+        customerRegistrationLabel.setIcon(new ImageIcon(new ImageIcon(imgDir + "customerregistration.png").getImage().getScaledInstance(1000, 300, Image.SCALE_DEFAULT)));
+        welcomeLabel.setIcon(new ImageIcon(new ImageIcon(imgDir + "signupwelcome.gif").getImage().getScaledInstance(200, 200, Image.SCALE_DEFAULT)));
+        roadLabel.setIcon(new ImageIcon(new ImageIcon(imgDir + "road.png").getImage().getScaledInstance(1300, 300, Image.SCALE_DEFAULT)));
         this.cityDirectory = cityDirectory;
         this.community = community;
         this.splitPane = splitPane;
@@ -264,10 +265,10 @@ public class CustomerRegistrationJPanel extends javax.swing.JPanel {
         customer.setCustomerAddress(addressTextField.getText());
         customer.setCustomerName(nameTextField.getText());
         customer.setEmailAddress(emailAddress);
-        
+
         Connection obj = new Connection();
         java.sql.Connection con = obj.getConnection();
-        
+
         String query = "INSERT INTO `customer`(`userName`, `customerClosestLandmark`, `customerAddress`, `customerName`,emailAddress) VALUES (?,?,?,?,?)";
         PreparedStatement pst = null;
         try {
@@ -291,14 +292,13 @@ public class CustomerRegistrationJPanel extends javax.swing.JPanel {
         PaymentDir paymentDirectory = new PaymentDir();
         customer.setPaymentDirectory(paymentDirectory);
 
+        String newHashedPassword = PasswordEncryption.encryptThisString(passwordTextField.getText());
+
         UserAuthentication userauthentication = userauthenticationdirectory.addNewUserAuthentication();
         userauthentication.setUserName(usernameTextField.getText());
-        userauthentication.setPassword(passwordTextField.getText());
+        userauthentication.setPassword(newHashedPassword);
         userauthentication.setUserType("Customer");
-        
-        
-        
-        
+
         query = "INSERT INTO `user_auth`(`userName`, `password`, `userType`, companyName, cityName) VALUES (?,?,?,?,?)";
         pst = null;
         try {
@@ -315,7 +315,6 @@ public class CustomerRegistrationJPanel extends javax.swing.JPanel {
         } catch (SQLException ex) {
             Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
 
         String Subject = "Thank You " + customer.getCustomerName() + " for creating an account with Instacart clone!";
         String data = "Hi " + customer.getCustomerName() + ",\n"

@@ -66,7 +66,6 @@ public class MainJFrame extends javax.swing.JFrame {
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         Connection obj = new Connection();
         java.sql.Connection con = obj.getConnection();
-        System.out.println();
 
         community = new Community();
         customerDirectory = new CustomerDirectory();
@@ -81,7 +80,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
         InventoryProduct invProd = invProdDir.addNewInventoryProduct();
         invProd.setProductName("TV");
-        invProd.setPid(UUID.randomUUID().toString());
+        //invProd.setPid(UUID.randomUUID().toString());
         invProd.setPrice(500);
         invProd.setInventoryQty(24);
 
@@ -119,16 +118,16 @@ public class MainJFrame extends javax.swing.JFrame {
         userAuthentication.setUserType("Customer");
 
         String query;
-        query = "INSERT INTO `logintable`(`username`, `password`, `usertype`) VALUES (?,?,?)";
+        query = "INSERT INTO `city`(`cityName`, `population`, `cityType`) VALUES (?,?,?)";
         PreparedStatement pst = null;
         try {
             pst = obj.getConnection().prepareStatement(query);
-            pst.setString(1, "abc");
-            pst.setString(2, "abc");
-            pst.setString(3, "Customer");
+            pst.setString(1, "Boston");
+            pst.setString(2, "100000");
+            pst.setString(3, "Urban");
             //        if(cpass.equals(password)){
             pst.executeUpdate();
-            System.out.println("INserted");
+            System.out.println("Inserted");
         } catch (SQLException ex) {
             Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -4,6 +4,8 @@
  */
 package ui;
 
+import java.util.Arrays;
+import model.UserAuthenticationDirectory;
 import javax.swing.JOptionPane;
 import javax.swing.JSplitPane;
 import javax.swing.table.DefaultTableModel;
@@ -16,10 +18,10 @@ import model.Customer;
 import model.CustomerDirectory;
 import model.DeliveryBoyDirectory;
 import model.Ordermgt;
+import model.Orders;
 import model.Payment;
 import model.PaymentDir;
 import model.UserAuthentication;
-import model.UserAuthenticationDirectory;
 import special.Smtp;
 
 /**
@@ -200,6 +202,8 @@ public class CustomerRegistrationJPanel extends javax.swing.JPanel {
                 return;
             }
         }
+        
+        
 
         Customer customer = customerDirectory.addNewCustomer();
         customer.setUserName(usernameTextField.getText());
@@ -207,6 +211,8 @@ public class CustomerRegistrationJPanel extends javax.swing.JPanel {
         customer.setCustomerAddress(addressTextField.getText());
         customer.setCustomerName(nameTextField.getText());
 
+        
+        
         Cart cart = new Cart();
         customer.setCart(cart);
         community.setCustomerDirectory(customerDirectory);
@@ -219,16 +225,16 @@ public class CustomerRegistrationJPanel extends javax.swing.JPanel {
         userauthentication.setPassword(passwordTextField.getText());
         userauthentication.setUserType("Customer");
 
-        String Subject = "Thank You+" + customer.getCustomerName() + "for creating an account with Instacart clone!";
+        String Subject = "Thank You " + customer.getCustomerName() + " for creating an account with Instacart clone!";
         String data = "Hi " + customer.getCustomerName() + ",\n"
                 + "\n"
-                + "Thank you for joining with Instacart! We hope to not disappoint you in and provide our quality service!\n"
+                + "Thank you for joining with Instacart! We hope to never disappoint you in your journey with us and provide our quality services!\n"
                 + "\n"
-                + "Thanks,\n"
-                + "Instartcart tech team";
+                + "Thanks You\n"
+                + "Instartcart customer support team";
         try {
             Smtp smtp = new Smtp(customer.getUserName(), Subject, data);
-            JOptionPane.showMessageDialog(this, "Customer has been created");
+            JOptionPane.showMessageDialog(this, customer.getUserName() + ", your Registration is completed");
             setDefault();
         } catch (Exception exception) {
             JOptionPane.showMessageDialog(null, "Please enter a valid email address");

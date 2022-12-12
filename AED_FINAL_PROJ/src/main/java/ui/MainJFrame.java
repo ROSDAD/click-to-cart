@@ -5,6 +5,7 @@
  */
 package ui;
 
+import model.UserAuthenticationDirectory;
 import javax.swing.JFrame;
 import java.sql.*;
 import java.util.ArrayList;
@@ -29,7 +30,13 @@ import model.Ordermgt;
 import model.Orders;
 import model.Payment;
 import model.UserAuthentication;
-import model.UserAuthenticationDirectory;
+import database.Connection;
+import java.sql.PreparedStatement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+//import java.sql.SQLException;
+//import java.util.logging.Level;
+//import java.util.logging.Logger;
 
 /**
  *
@@ -57,6 +64,9 @@ public class MainJFrame extends javax.swing.JFrame {
         initComponents();
 
         setExtendedState(JFrame.MAXIMIZED_BOTH);
+        Connection obj = new Connection();
+        java.sql.Connection con = obj.getConnection();
+        System.out.println();
 
         community = new Community();
         customerDirectory = new CustomerDirectory();
@@ -84,7 +94,7 @@ public class MainJFrame extends javax.swing.JFrame {
         company.setCompanyName("Costco");
         company.setCompanyType("Public");
         company.setInventoryManagement(inventoryManagement);
-        
+
         company1 = companyDir.addNewCompany();
         company1.setCompanyName("Target");
         company1.setCompanyType("Private");
@@ -107,6 +117,26 @@ public class MainJFrame extends javax.swing.JFrame {
         userAuthentication.setUserName("abc");
         userAuthentication.setPassword("abc");
         userAuthentication.setUserType("Customer");
+
+        String query;
+        query = "INSERT INTO `logintable`(`username`, `password`, `usertype`) VALUES (?,?,?)";
+        PreparedStatement pst = null;
+        try {
+            pst = obj.getConnection().prepareStatement(query);
+            pst.setString(1, "abc");
+            pst.setString(2, "abc");
+            pst.setString(3, "Customer");
+            //        if(cpass.equals(password)){
+            pst.executeUpdate();
+            System.out.println("INserted");
+        } catch (SQLException ex) {
+            Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        userAuthentication = userauthenticationdirectory.addNewUserAuthentication();
+        userAuthentication.setUserName("de");
+        userAuthentication.setPassword("de");
+        userAuthentication.setUserType("DeliveryBoy");
 
         userAuthentication = userauthenticationdirectory.addNewUserAuthentication();
         userAuthentication.setUserName("abc1");
@@ -197,10 +227,6 @@ public class MainJFrame extends javax.swing.JFrame {
         workArea = new javax.swing.JPanel();
         lblTitle = new javax.swing.JLabel();
         lblDetails = new javax.swing.JLabel();
-        lblDetails2 = new javax.swing.JLabel();
-        cityAdminTest = new javax.swing.JButton();
-        invAdminTest = new javax.swing.JButton();
-        supAdminTest = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1290, 750));
@@ -254,51 +280,18 @@ public class MainJFrame extends javax.swing.JFrame {
         lblTitle.setText("AED Final Project");
 
         lblDetails.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        lblDetails.setText("Hrishikesh S. Pawar");
-
-        lblDetails2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        lblDetails2.setText("NU ID: 002707307");
-
-        cityAdminTest.setText("City Admin Test");
-        cityAdminTest.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cityAdminTestActionPerformed(evt);
-            }
-        });
-
-        invAdminTest.setText("Inv Admin Test");
-        invAdminTest.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                invAdminTestActionPerformed(evt);
-            }
-        });
-
-        supAdminTest.setText("Super Admin Test");
-        supAdminTest.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                supAdminTestActionPerformed(evt);
-            }
-        });
+        lblDetails.setText("Hrishikesh S. Pawar, Abhishek Nair and Roshan Dadlani");
 
         javax.swing.GroupLayout workAreaLayout = new javax.swing.GroupLayout(workArea);
         workArea.setLayout(workAreaLayout);
         workAreaLayout.setHorizontalGroup(
             workAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(workAreaLayout.createSequentialGroup()
+                .addGap(42, 42, 42)
                 .addGroup(workAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(workAreaLayout.createSequentialGroup()
-                        .addGap(42, 42, 42)
-                        .addGroup(workAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblDetails)
-                            .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblDetails2)))
-                    .addGroup(workAreaLayout.createSequentialGroup()
-                        .addGap(121, 121, 121)
-                        .addGroup(workAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(supAdminTest, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(invAdminTest, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(cityAdminTest, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(628, Short.MAX_VALUE))
+                    .addComponent(lblDetails)
+                    .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(518, Short.MAX_VALUE))
         );
         workAreaLayout.setVerticalGroup(
             workAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -307,15 +300,7 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblDetails)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblDetails2)
-                .addGap(147, 147, 147)
-                .addComponent(cityAdminTest)
-                .addGap(18, 18, 18)
-                .addComponent(invAdminTest)
-                .addGap(18, 18, 18)
-                .addComponent(supAdminTest)
-                .addContainerGap(258, Short.MAX_VALUE))
+                .addContainerGap(535, Short.MAX_VALUE))
         );
 
         splitPane.setRightComponent(workArea);
@@ -379,33 +364,26 @@ public class MainJFrame extends javax.swing.JFrame {
         splitPane.setRightComponent(deliveryBoyRegistrationJPanel);
     }//GEN-LAST:event_deliveryBoyRegistrationJButtonActionPerformed
 
-    private void supAdminTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supAdminTestActionPerformed
-        // TODO add your handling code here:
-        System.out.println(orderManagement.getOrders().size());
-        SuperAdminPanel supAdmin = new SuperAdminPanel(cityDirectory, orderManagement, community, customerDirectory, companyDir, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
-        splitPane.setRightComponent(supAdmin);
-    }//GEN-LAST:event_supAdminTestActionPerformed
-
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
 
-        try {
-
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/aed_project", "root", "root");
-            //here sonoo is database name, root is username and password  
-            Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("select * from Inventory_Product");
-            while (rs.next()) {
-                System.out.println(rs.getInt(1) + "  " + rs.getString(2) + "  " + rs.getString(3));
-            }
-            con.close();
-        } catch (Exception e) {
-            System.out.println(e);
-        }
+//        try {
+//
+//            Class.forName("com.mysql.jdbc.Driver");
+//            Connection con = DriverManager.getConnection(
+//                    "jdbc:mysql://localhost:3306/aed_project", "root", "root");
+//            //here sonoo is database name, root is username and password  
+//            Statement stmt = con.createStatement();
+//            ResultSet rs = stmt.executeQuery("select * from Inventory_Product");
+//            while (rs.next()) {
+//                System.out.println(rs.getInt(1) + "  " + rs.getString(2) + "  " + rs.getString(3));
+//            }
+//            con.close();
+//        } catch (Exception e) {
+//            System.out.println(e);
+//        }
 
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -442,14 +420,10 @@ public class MainJFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCustomerRegister;
     private javax.swing.JButton btnLogin;
-    private javax.swing.JButton cityAdminTest;
     private javax.swing.JPanel controlPanel;
-    private javax.swing.JButton invAdminTest;
     private javax.swing.JLabel lblDetails;
-    private javax.swing.JLabel lblDetails2;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JSplitPane splitPane;
-    private javax.swing.JButton supAdminTest;
     private javax.swing.JPanel workArea;
     // End of variables declaration//GEN-END:variables
 }

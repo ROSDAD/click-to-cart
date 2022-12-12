@@ -4,6 +4,7 @@
  */
 package ui;
 
+import model.UserAuthenticationDirectory;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -19,7 +20,6 @@ import model.DeliveryBoyDirectory;
 import model.Orderedprod;
 import model.Ordermgt;
 import model.Orders;
-import model.UserAuthenticationDirectory;
 
 /**
  *
@@ -73,6 +73,7 @@ public class CustomerOrderHistoryJPanel extends javax.swing.JPanel {
         jTable2 = new javax.swing.JTable();
         orderedProductsjButton = new javax.swing.JButton();
         cancelSelectedOrderButton = new javax.swing.JButton();
+        backButton = new javax.swing.JButton();
 
         jTable1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -139,6 +140,13 @@ public class CustomerOrderHistoryJPanel extends javax.swing.JPanel {
             }
         });
 
+        backButton.setText("Back ");
+        backButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -148,7 +156,7 @@ public class CustomerOrderHistoryJPanel extends javax.swing.JPanel {
                 .addComponent(ordersjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(123, 123, 123)
                 .addComponent(cancelSelectedOrderButton, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 267, Short.MAX_VALUE)
                 .addComponent(orderedProductsjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(157, 157, 157))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -157,20 +165,29 @@ public class CustomerOrderHistoryJPanel extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(63, 63, 63))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(63, 63, 63)
+                .addComponent(backButton)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(82, 82, 82)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(36, 36, 36)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(82, 82, 82)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(41, 41, 41)
+                        .addComponent(backButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(92, 92, 92)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancelSelectedOrderButton)
                     .addComponent(ordersjButton)
                     .addComponent(orderedProductsjButton))
-                .addContainerGap(88, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -201,14 +218,20 @@ public class CustomerOrderHistoryJPanel extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         String orderID = model.getValueAt(selectedRowIndex, 0).toString();
 
+        System.out.println(orderManagement.getOrders().size());
         // For inserting the doctor to the doctor directory of the hospital.
-        for (Orders order : orderManagement.getOrders()) {
-            if (order.getOrderId().equalsIgnoreCase(orderID)) {
-                if (order.getOrderedProds() == null) {
-                    List<Orderedprod> orderList = new ArrayList<>();
-                    populateOrderedProducts(orderList);
-                } else {
-                    populateOrderedProducts(order.getOrderedProds());
+
+        for (Customer customer : customerDirectory.getCustomerList()) {
+            if (userName.equalsIgnoreCase(customer.getUserName())) {
+                for (Orders order : customer.getOrders()) {
+                    if (order.getOrderId().equalsIgnoreCase(orderID)) {
+                        if (order.getOrderedProds() == null) {
+                            List<Orderedprod> orderList = new ArrayList<>();
+                            populateOrderedProducts(orderList);
+                        } else {
+                            populateOrderedProducts(order.getOrderedProds());
+                        }
+                    }
                 }
             }
         }
@@ -258,6 +281,12 @@ public class CustomerOrderHistoryJPanel extends javax.swing.JPanel {
         JOptionPane.showMessageDialog(this, "Order status is Updated");
     }//GEN-LAST:event_cancelSelectedOrderButtonActionPerformed
 
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
+        // TODO add your handling code here:
+        MainCustomerJPanel mainCustomerJPanel = new MainCustomerJPanel(cityDirectory, userName, orderManagement, community, customerDirectory, companyDirectory, userauthenticationdirectory, splitPane, deliveryBoyDirectory);
+        splitPane.setRightComponent(mainCustomerJPanel);
+    }//GEN-LAST:event_backButtonActionPerformed
+
     /**
      * Populate the table rows from the arrayList.
      */
@@ -275,6 +304,7 @@ public class CustomerOrderHistoryJPanel extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton backButton;
     private javax.swing.JButton cancelSelectedOrderButton;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

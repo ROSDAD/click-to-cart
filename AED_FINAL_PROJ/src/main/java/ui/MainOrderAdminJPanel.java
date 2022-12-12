@@ -4,6 +4,7 @@
  */
 package ui;
 
+import model.UserAuthenticationDirectory;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +24,6 @@ import model.DeliveryBoyDirectory;
 import model.Orderedprod;
 import model.Ordermgt;
 import model.Orders;
-import model.UserAuthenticationDirectory;
 import model.InventoryProduct;
 
 /**

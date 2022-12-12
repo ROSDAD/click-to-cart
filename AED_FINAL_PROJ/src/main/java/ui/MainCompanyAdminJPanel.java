@@ -4,6 +4,7 @@
  */
 package ui;
 
+import model.UserAuthenticationDirectory;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -13,7 +14,6 @@ import model.Community;
 import model.CompanyDirectory;
 import model.CustomerDirectory;
 import model.DeliveryBoyDirectory;
-import model.UserAuthenticationDirectory;
 
 /**
  *
@@ -96,7 +96,6 @@ public class MainCompanyAdminJPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(92, 92, 92)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(deliveryAdminButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE)
@@ -113,9 +112,9 @@ public class MainCompanyAdminJPanel extends javax.swing.JPanel {
                 .addComponent(deliveryAdminButton)
                 .addGap(40, 40, 40)
                 .addComponent(orderAdminButton)
-                .addGap(34, 34, 34)
+                .addGap(46, 46, 46)
                 .addComponent(inventoryAdminButton)
-                .addGap(87, 87, 87))
+                .addGap(97, 97, 97))
         );
     }// </editor-fold>//GEN-END:initComponents
 

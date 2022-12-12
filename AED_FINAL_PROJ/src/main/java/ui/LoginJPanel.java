@@ -4,6 +4,7 @@
  */
 package ui;
 
+import model.UserAuthenticationDirectory;
 import javax.swing.JSplitPane;
 import javax.swing.JOptionPane;
 import model.CityDir;
@@ -14,7 +15,6 @@ import model.CustomerDirectory;
 import model.DeliveryBoyDirectory;
 import model.Ordermgt;
 import model.UserAuthentication;
-import model.UserAuthenticationDirectory;
 
 /**
  *
@@ -42,6 +42,18 @@ public class LoginJPanel extends javax.swing.JPanel {
     }
 
     public LoginJPanel(CityDir cityDirectory, Ordermgt orderManagement, Community community, CustomerDirectory customerDirectory, CompanyDirectory companyDirectory, UserAuthenticationDirectory userauthenticationdirectory, JSplitPane splitPane, DeliveryBoyDirectory deliveryBoyDirectory) {
+        initComponents();
+        this.cityDirectory = cityDirectory;
+        this.community = community;
+        this.customerDirectory = customerDirectory;
+        this.companyDirectory = companyDirectory;
+        this.userauthenticationdirectory = userauthenticationdirectory;
+        this.splitPane = splitPane;
+        this.deliveryBoyDirectory = deliveryBoyDirectory;
+        this.orderManagement = orderManagement;
+    }
+
+    public LoginJPanel(CityDir cityDirectory, String userName, Ordermgt orderManagement, Community community, CustomerDirectory customerDirectory, CompanyDirectory companyDirectory, UserAuthenticationDirectory userauthenticationdirectory, JSplitPane splitPane, DeliveryBoyDirectory deliveryBoyDirectory) {
         initComponents();
         this.cityDirectory = cityDirectory;
         this.community = community;

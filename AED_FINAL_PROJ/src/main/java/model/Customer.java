@@ -20,6 +20,7 @@ public class Customer {
     private Cart cart;
     private PaymentDir paymentDirectory;
     private List<Orders> orders;
+    
 
     public PaymentDir getPaymentDirectory() {
         return paymentDirectory;
